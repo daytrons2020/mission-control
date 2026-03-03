@@ -160,30 +160,37 @@ class MarketScheduler:
     def cost_report(self):
         """Generate hourly cost report."""
         try:
-            result = subprocess.run(
-                ["python3", "/Users/daytrons/.agents/skills/openclaw-cost-tracker/scripts/cost_tracker.py",
-                 "--days", "1", "--format", "json"],
-                capture_output=True, text=True, timeout=15
-            )
-            data = json.loads(result.stdout)
-            
-            grand = data.get('grandTotal', {})
-            
-            msg = "💰 **Hourly Cost Report**\n\n"
-            msg += f"**Today:** ${grand.get('totalCost', 0):.2f} | "
-            msg += f"{grand.get('totalTokens', 0):,} tokens | "
-            msg += f"{grand.get('totalRequests', 0)} requests\n"
-            
-            if data.get('models'):
-                msg += "\n**By Model:**\n"
-                for m in data['models'][:3]:
-                    msg += f"• {m['model']}: {m['totalTokens']:,} tokens\n"
+            # Try to get cost data from gateway logs if available
+            log_file = "/Users/daytrons/.openclaw/logs/gateway.log"
+            if os.path.exists(log_file):
+                # Count recent API calls from log
+                result = subprocess.run(
+                    ["tail", "-1000", log_file],
+                    capture_output=True, text=True, timeout=5
+                )
+                log_lines = result.stdout
+                # Count kimi/moonshot API calls
+                api_calls = log_lines.count("moonshot") + log_lines.count("kimi")
+                
+                msg = "💰 **Hourly Cost Report**\n\n"
+                msg += f"**Status:** Cost tracker not configured\n"
+                msg += f"**Recent API Activity:** ~{api_calls} calls in last 1000 log entries\n"
+                msg += f"**Note:** Install cost tracker skill for detailed reports\n"
+            else:
+                msg = "💰 **Hourly Cost Report**\n\n"
+                msg += "**Status:** Cost tracker not configured\n"
+                msg += "Run `clawhub install openclaw-cost-tracker` to enable\n"
             
             channel = CONFIG["channels"]["token_tracker"]
             print(msg)
             print(f"\n<!-- POST_TO:{channel} -->")
         except Exception as e:
             print(f"[ERROR] Cost report failed: {e}")
+            # Fallback message
+            msg = "💰 **Hourly Cost Report**\n\n"
+            msg += "⏸️ Cost tracking temporarily unavailable\n"
+            msg += f"_{datetime.now().strftime('%H:%M')}_"
+            print(msg)
     
     def trends_update(self):
         """Generate market trends update."""
