@@ -9,7 +9,7 @@ import requests
 from typing import Dict, Any, Optional
 
 # Discord API Configuration
-APPLICATION_ID = "1474883613182005369"  # Kimi sl(AI)er bot ID
+APPLICATION_ID = "1474838927792668885"  # daytrons' bot ID
 GUILD_ID = "1474838650050314352"  # daytrons' Trading Hub
 BASE_URL = f"https://discord.com/api/v10"
 

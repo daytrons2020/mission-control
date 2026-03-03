@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "mission-control",
   "builds": [
     {
       "src": "dashboard.html",
@@ -11,14 +10,6 @@
     {
       "src": "/",
       "dest": "/dashboard.html"
-    },
-    {
-      "src": "/api/status",
-      "dest": "/api/status.js"
-    },
-    {
-      "src": "/api/projects",
-      "dest": "/api/projects.js"
     }
   ],
   "headers": [
@@ -31,9 +22,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "DISCORD_BOT_TOKEN": "@discord-bot-token",
-    "DISCORD_GUILD_ID": "1474838650050314352"
-  }
+  ]
 }
