@@ -2,67 +2,67 @@
   "prices": {
     "AAPL": {
       "ticker": "AAPL",
-      "price": 264.72,
-      "change": 0.54,
-      "change_pct": 0.2,
-      "prev_close": 264.18
+      "price": 262.83,
+      "change": -1.89,
+      "change_pct": -0.71,
+      "prev_close": 264.72
     },
     "MSFT": {
       "ticker": "MSFT",
-      "price": 398.55,
-      "change": 5.81,
-      "change_pct": 1.48,
-      "prev_close": 392.74
+      "price": 396.89,
+      "change": -1.66,
+      "change_pct": -0.42,
+      "prev_close": 398.55
     },
     "GOOGL": {
       "ticker": "GOOGL",
-      "price": 306.52,
-      "change": -5.24,
-      "change_pct": -1.68,
-      "prev_close": 311.76
+      "price": 299.5,
+      "change": -7.02,
+      "change_pct": -2.29,
+      "prev_close": 306.52
     },
     "AMZN": {
       "ticker": "AMZN",
-      "price": 208.39,
-      "change": -1.61,
-      "change_pct": -0.77,
-      "prev_close": 210.0
+      "price": 204.41,
+      "change": -3.98,
+      "change_pct": -1.91,
+      "prev_close": 208.39
     },
     "NVDA": {
       "ticker": "NVDA",
-      "price": 182.48,
-      "change": 5.29,
-      "change_pct": 2.99,
-      "prev_close": 177.19
+      "price": 178.77,
+      "change": -3.71,
+      "change_pct": -2.03,
+      "prev_close": 182.48
     },
     "META": {
       "ticker": "META",
-      "price": 653.56,
-      "change": 5.38,
-      "change_pct": 0.83,
-      "prev_close": 648.18
+      "price": 646.12,
+      "change": -7.43,
+      "change_pct": -1.14,
+      "prev_close": 653.56
     },
     "TSLA": {
       "ticker": "TSLA",
-      "price": 403.32,
-      "change": 0.81,
-      "change_pct": 0.2,
-      "prev_close": 402.51
+      "price": 388.67,
+      "change": -14.65,
+      "change_pct": -3.63,
+      "prev_close": 403.32
     },
     "SPY": {
       "ticker": "SPY",
-      "price": 686.38,
-      "change": 0.39,
-      "change_pct": 0.06,
-      "prev_close": 685.99
+      "price": 673.21,
+      "change": -13.17,
+      "change_pct": -1.92,
+      "prev_close": 686.38
     },
     "QQQ": {
       "ticker": "QQQ",
-      "price": 608.09,
-      "change": 0.8,
-      "change_pct": 0.13,
-      "prev_close": 607.29
+      "price": 595.6,
+      "change": -12.49,
+      "change_pct": -2.05,
+      "prev_close": 608.09
     }
   },
-  "timestamp": "2026-03-03T00:04:54.069366"
+  "timestamp": "2026-03-03T08:04:52.517906"
 }
