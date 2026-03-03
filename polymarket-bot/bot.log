@@ -1,0 +1,7 @@
+
+> polymarket-bot@1.0.0 start
+> node src/bot.js
+
+[dotenv@17.3.1] injecting env (14) from .env -- tip: 🛡️ auth for agents: https://vestauth.com
+Bot initialized successfully
+Bot is running...

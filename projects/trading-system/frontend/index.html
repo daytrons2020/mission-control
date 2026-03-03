@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINARY Command Center | GEX Trading System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --bg-tertiary: #21262D;
+            --border: #30363D;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B949E;
+            --accent-cyan: #58A6FF;
+            --accent-green: #238636;
+            --accent-red: #DA3633;
+            --accent-yellow: #F0883E;
+            --accent-purple: #8957E5;
+            --gex-positive: #F9C513;
+            --gex-negative: #8957E5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .logo-icon { font-size: 24px; }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .market-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .market-status.open {
+            background: rgba(35, 134, 54, 0.2);
+            color: var(--accent-green);
+        }
+
+        .market-status.closed {
+            background: rgba(218, 54, 51, 0.2);
+            color: var(--accent-red);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .market-status.open .status-dot { background: var(--accent-green); }
+        .market-status.closed .status-dot { background: var(--accent-red); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timestamp { font-family: 'SF Mono', monospace; }
+
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 24px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        .tab:hover { color: var(--text-primary); background: var(--bg-secondary); }
+        .tab.active { color: var(--accent-cyan); border-bottom-color: var(--accent-cyan); background: var(--bg-secondary); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .main-content { padding: 24px; max-width: 1600px; margin: 0 auto; }
+
+        .alert-banner {
+            background: linear-gradient(90deg, rgba(35, 134, 54, 0.1), rgba(88, 166, 255, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-icon { font-size: 20px; }
+
+        .alert-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .alert-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .ticker-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .ticker-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .ticker-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .ticker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .ticker-symbol {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .agreement-badge {
+            background: var(--accent-green);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .ticker-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .data-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .data-row:last-child { border-bottom: none; }
+
+        .data-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .data-value {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .data-value.positive { color: var(--accent-green); }
+        .data-value.negative { color: var(--accent-red); }
+        .data-value.yellow { color: var(--gex-positive); }
+        .data-value.purple { color: var(--gex-negative); }
+
+        .pattern-badge {
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: var(--accent-yellow);
+            color: var(--bg-primary);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pattern-badge.bearish { background: var(--accent-red); color: white; }
+        .pattern-badge.bullish { background: var(--accent-green); color: white; }
+
+        .bias-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .bias-meter {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .bias-bar {
+            height: 12px;
+            background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-yellow) 50%, var(--accent-green) 100%);
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .bias-marker {
+            position: absolute;
+            top: -4px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid var(--bg-primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: left 0.5s ease;
+        }
+
+        .bias-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .bias-consensus {
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+        }
+
+        .levels-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .levels-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .levels-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .levels-table td {
+            padding: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--bg-tertiary);
+            font-family: 'SF Mono', monospace;
+        }
+
+        .levels-table tr:last-child td { border-bottom: none; }
+
+        .level-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .level-dot.ceiling { background: var(--accent-red); }
+        .level-dot.minor { background: var(--accent-cyan); }
+        .level-dot.king { background: var(--accent-yellow); }
+        .level-dot.floor { background: var(--accent-green); }
+
+        .agreement-check {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .play-section {
+            background: linear-gradient(135deg, rgba(35, 134, 54, 0.05), rgba(88, 166, 255, 0.05));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .play-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .play-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .play-probability {
+            background: rgba(35, 134, 54, 0.2);
+            color: var(--accent-green);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .play-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .play-strikes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .strike-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .strike-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .strike-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'SF Mono', monospace;
+        }
+
+        .verdict-section {
+            background: linear-gradient(135deg, var(--bg-secondary), #1C2128);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .verdict-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .verdict-icon { font-size: 24px; }
+
+        .verdict-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .verdict-title.bullish { color: var(--accent-green); }
+        .verdict-title.bearish { color: var(--accent-red); }
+
+        .confidence-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .confidence-track {
+            flex: 1;
+            height: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), #3FB950);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .confidence-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .verdict-description {
+            font-size: 14px;
+            color: #C9D1D9;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        .key-levels-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .key-level-item {
+            text-align: center;
+        }
+
+        .key-level-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .key-level-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'SF Mono', monospace;
+        }
+
+        .execution-plan {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 14px;
+            color: #C9D1D9;
+            line-height: 1.6;
+        }
+
+        .execution-plan strong {
+            color: var(--accent-yellow);
+        }
+
+        .patterns-section {
+            margin-top: 24px;
+        }
+
+        .patterns-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .pattern-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s;
+        }
+
+        .pattern-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .pattern-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .pattern-card-icon { font-size: 20px; }
+
+        .pattern-card-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .pattern-card-type {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pattern-card-type.bearish { background: var(--accent-red); color: white; }
+        .pattern-card-type.bullish { background: var(--accent-green); color: white; }
+        .pattern-card-type.neutral { background: var(--accent-yellow); color: var(--bg-primary); }
+
+        .pattern-visual {
+            height: 50px;
+            margin: 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .gex-bar {
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .gex-bar.positive {
+            background: linear-gradient(90deg, var(--gex-positive), var(--accent-yellow));
+        }
+
+        .gex-bar.negative {
+            background: linear-gradient(90deg, var(--gex-negative), #6E40C9);
+        }
+
+        .pattern-action {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .pattern-action.bearish { color: var(--accent-red); }
+        .pattern-action.bullish { color: var(--accent-green); }
+
+        .pattern-setup {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .cheatsheet-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .cheatsheet-section {
+            margin-bottom: 24px;
+        }
+
+        .cheatsheet-section h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .commandments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .commandment-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .commandment-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .commandment-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .technicals-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .technicals-badge.above { background: rgba(35, 134, 54, 0.2); color: var(--accent-green); }
+        .technicals-badge.below { background: rgba(218, 54, 51, 0.2); color: var(--accent-red); }
+
+        @media (max-width: 1200px) {
+            .ticker-grid { grid-template-columns: repeat(2, 1fr); }
+            .patterns-grid { grid-template-columns: repeat(2, 1fr); }
+            .commandments-grid { grid-template-columns: 1fr; }
+            .play-strikes { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .ticker-grid { grid-template-columns: 1fr; }
+            .patterns-grid { grid-template-columns: 1fr; }
+            .key-levels-row { flex-wrap: wrap; }
+            .header { flex-direction: column; gap: 10px; }
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span>BINARY COMMAND CENTER</span>
+        </div>
+        <div class="status-bar">
+            <div class="market-status" id="marketStatus">
+                <span class="status-dot"></span>
+                <span id="marketText">CONNECTING...</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary);">
+                <span>VIX:</span>
+                <span id="vixValue" style="font-weight: 700; font-family: monospace;">--</span>
+            </div>
+            <div class="timestamp" id="timestamp">--:--:-- ET</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="tab active" data-tab="dashboard">
+            <span>📊</span>
+            <span>Dashboard</span>
+        </div>
+        <div class="tab" data-tab="cheatsheet">
+            <span>📚</span>
+            <span>Heatseeker Cheatsheet</span>
+        </div>
+    </nav>
+
+    <!-- Dashboard Tab -->
+    <main class="main-content tab-content active" id="dashboard-tab">
+        <!-- Alert Banner -->
+        <div class="alert-banner" id="alertBanner">
+            <span class="alert-icon">🛡️</span>
+            <div>
+                <div class="alert-title" id="alertTitle">TRINITY ANALYSIS</div>
+                <div class="alert-description" id="alertDesc">Real-time technical analysis for SPX, SPY, QQQ</div>
+            </div>
+        </div>
+
+        <!-- Ticker Cards with Technicals -->
+        <div class="ticker-grid" id="tickerGrid">
+            <div class="ticker-card">
+                <div class="ticker-header">
+                    <span class="ticker-symbol">SPX</span>
+                    <span class="agreement-badge">LIVE</span>
+                </div>
+                <div class="ticker-price" id="spxPrice">6,909.51</div>
+                <div class="data-rows">
+                    <div class="data-row">
+                        <span class="data-label">VWAP</span>
+                        <span class="data-value" id="spxVWAP">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 9</span>
+                        <span class="data-value" id="spxEMA9">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 21</span>
+                        <span class="data-value" id="spxEMA21">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Prev High</span>
+                        <span class="data-value" id="spxPrevHigh">--</span>
+                    </div>
+                </div>
+                <div class="pattern-badge" id="spxPattern">ANALYZING...</div>
+            </div>
+            
+            <div class="ticker-card">
+                <div class="ticker-header">
+                    <span class="ticker-symbol">SPY</span>
+                    <span class="agreement-badge">LIVE</span>
+                </div>
+                <div class="ticker-price" id="spyPrice">$689.43</div>
+                <div class="data-rows">
+                    <div class="data-row">
+                        <span class="data-label">VWAP</span>
+                        <span class="data-value" id="spyVWAP">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 9</span>
+                        <span class="data-value" id="spyEMA9">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 21</span>
+                        <span class="data-value" id="spyEMA21">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Prev High</span>
+                        <span class="data-value" id="spyPrevHigh">--</span>
+                    </div>
+                </div>
+                <div class="pattern-badge" id="spyPattern">ANALYZING...</div>
+            </div>
+            
+            <div class="ticker-card">
+                <div class="ticker-header">
+                    <span class="ticker-symbol">QQQ</span>
+                    <span class="agreement-badge">LIVE</span>
+                </div>
+                <div class="ticker-price" id="qqqPrice">$608.81</div>
+                <div class="data-rows">
+                    <div class="data-row">
+                        <span class="data-label">VWAP</span>
+                        <span class="data-value" id="qqqVWAP">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 9</span>
+                        <span class="data-value" id="qqqEMA9">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">EMA 21</span>
+                        <span class="data-value" id="qqqEMA21">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Prev High</span>
+                        <span class="data-value" id="qqqPrevHigh">--</span>
+                    </div>
+                </div>
+                <div class="pattern-badge" id="qqqPattern">ANALYZING...</div>
+            </div>
+        </div>
+
+        <!-- Bias Meter -->
+        <div class="bias-section">
+            <div class="section-title">Trinity Consensus Bias</div>
+            <div class="bias-meter">
+                <div class="bias-bar">
+                    <div class="bias-marker" id="biasMarker" style="left: 50%"></div>
+                </div>
+                <div class="bias-labels">
+                    <span>Strong Bear</span>
+                    <span>Bearish</span>
+                    <span>Neutral</span>
+                    <span>Bullish</span>
+                    <span>Strong Bull</span>
+                </div>
+            </div>
+            <div class="bias-consensus" id="biasConsensus">NEUTRAL — mixed signals</div>
+        </div>
+
+        <!-- Key Levels -->
+        <div class="levels-section">
+            <div class="section-title">Key Levels — All Tickers</div>
+            <table class="levels-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>SPX</th>
+                        <th>SPY</th>
+                        <th>QQQ</th>
+                        <th>Signal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="level-indicator"><span class="level-dot ceiling"></span>Prev High</div></td>
+                        <td id="tableSpxHigh">--</td>
+                        <td id="tableSpyHigh">--</td>
+                        <td id="tableQqqHigh">--</td>
+                        <td class="agreement-check">--</td>
+                    </tr>
+                    <tr>
+                        <td><div class="level-indicator"><span class="level-dot king"></span>Current</div></td>
+                        <td>6,909.51</td>
+                        <td>$689.43</td>
+                        <td>$608.81</td>
+                        <td class="agreement-check">LIVE</td>
+                    </tr>
+                    <tr>
+                        <td><div class="level-indicator"><span class="level-dot floor"></span>Prev Low</div></td>
+                        <td id="tableSpxLow">--</td>
+                        <td id="tableSpyLow">--</td>
+                        <td id="tableQqqLow">--</td>
+                        <td class="agreement-check">--</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recommended Play -->
+        <div class="play-section">
+            <div class="play-header">
+                <div class="play-title">LIVE MARKET ANALYSIS</div>
+                <div class="play-probability">ACTIVE</div>
+            </div>
+            <div class="play-description">Real-time technical analysis with VWAP, EMA, and trend detection.</div>
+            <div class="play-strikes">
+                <div class="strike-card">
+                    <div class="strike-label">SPX</div>
+                    <div class="strike-value" id="playSpx">6,909.51</div>
+                </div>
+                <div class="strike-card">
+                    <div class="strike-label">SPY</div>
+                    <div class="strike-value" id="playSpy">$689.43</div>
+                </div>
+                <div class="strike-card">
+                    <div class="strike-label">QQQ</div>
+                    <div class="strike-value" id="playQqq">$608.81</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Verdict -->
+        <div class="verdict-section">
+            <div class="verdict-header">
+                <span class="verdict-icon">🤖</span>
+                <div class="verdict-title">Technical Analysis</div>
+            </div>
+            <div class="confidence-bar">
+                <div class="confidence-track">
+                    <div class="confidence-fill" style="width: 50%"></div>
+                </div>
+                <div class="confidence-text">50%</div>
+            </div>
+            <div class="verdict-description">
+                Analyzing SPX, SPY, and QQQ using VWAP, EMA crossovers, and support/resistance levels. Data from Yahoo Finance.
+            </div>
+            <div class="key-levels-row">
+                <div class="key-level-item"><div class="key-level-label">VIX</div><div class="key-level-value" id="verdictVix">--</div></div>
+                <div class="key-level-item"><div class="key-level-label">Trend</div><div class="key-level-value">--</div></div>
+                <div class="key-level-item"><div class="key-level-label">Momentum</div><div class="key-level-value">--</div></div>
+                <div class="key-level-item"><div class="key-level-label">Volatility</div><div class="key-level-value">--</div></div>
+            </div>
+            <div class="execution-plan">
+                Waiting for technical confirmation. Monitor price action relative to VWAP and EMA levels.
+            </div>
+        </div>
+
+        <!-- Pattern Cards -->
+        <div class="patterns-section">
+            <div class="section-title">Pattern Recognition</div>
+            <div class="patterns-grid">
+                <div class="pattern-card">
+                    <div class="pattern-card-header">
+                        <span class="pattern-card-icon">📈</span>
+                        <span class="pattern-card-name">TREND UP</span>
+                        <span class="pattern-card-type bullish">bullish</span>
+                    </div>
+                    <div class="pattern-action bullish">▲ LONG</div>
+                    <div class="pattern-setup">Price above VWAP, EMA9 > EMA21. Bullish momentum.</div>
+                </div>
+                <div class="pattern-card">
+                    <div class="pattern-card-header">
+                        <span class="pattern-card-icon">📉</span>
+                        <span class="pattern-card-name">TREND DOWN</span>
+                        <span class="pattern-card-type bearish">bearish</span>
+                    </div>
+                    <div class="pattern-action bearish">▼ SHORT</div>
+                    <div class="pattern-setup">Price below VWAP, EMA9 < EMA21. Bearish momentum.</div>
+                </div>
+                <div class="pattern-card">
+                    <div class="pattern-card-header">
+                        <span class="pattern-card-icon">🔄</span>
+                        <span class="pattern-card-name">MEAN REVERT</span>
+                        <span class="pattern-card-type neutral">neutral</span>
+                    </div>
+                    <div class="pattern-action">↕ FADE</div>
+                    <div class="pattern-setup">Price extended from VWAP. Expect reversion to mean.</div>
+                </div>
+                <div class="pattern-card">
+                    <div class="pattern-card-header">
+                        <span class="pattern-card-icon">⚡</span>
+                        <span class="pattern-card-name">BREAKOUT</span>
+                        <span class="pattern-card-type bullish">bullish</span>
+                    </div>
+                    <div class="pattern-action bullish">🚀 CHASE</div>
+                    <div class="pattern-setup">Breaking above previous day high with volume.</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cheatsheet Tab -->
+    <main class="main-content tab-content" id="cheatsheet-tab">
+        
+        <!-- Universal Execution Rules -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+            <div style="color: var(--accent-cyan); font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">
+                📋 Universal Execution Rules
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">Size is Stop</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Position size = stop loss. No separate stop needed.</div>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">Trinity 2-of-3</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">SPX + SPY + QQQ must agree (2 of 3 minimum).</div>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">3rd Test Rule</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Nodes held 1st/2nd touch. 85% chance of breaking on 3rd.</div>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">No Sloppy Seconds</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">If a node already paid out, don't re-trade it.</div>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">SPX ±5 pts</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Allow ±5 point overshoot on SPX nodes.</div>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <div style="font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">SPY/QQQ ±$0.50</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Allow ±$0.50 overshoot on ETF nodes.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern Cards -->
+        <div style="margin-bottom: 24px;">
+            <div style="color: var(--accent-cyan); font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">
+                🎯 Pattern Recognition Cards
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                
+                <!-- RUG PULL -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">💀</span>
+                        <span style="font-size: 14px; font-weight: 700;">RUG PULL</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-red); color: white;">bearish</span>
+                    </div>
+                    <div style="background: rgba(218, 54, 51, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-red);">▼ FLUSH</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Positive GEX ceiling directly above a negative (purple) node. Price near or above the ceiling.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Short when price taps the yellow ceiling and fails to hold. Puts at the ceiling strike.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Cover at next major support node or king strike below.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~70% when VIX rising + negative GEX regime</div>
+                    </div>
+                </div>
+
+                <!-- SLINGSHOT -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">🚀</span>
+                        <span style="font-size: 14px; font-weight: 700;">SLINGSHOT</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-green); color: white;">bullish</span>
+                    </div>
+                    <div style="background: rgba(35, 134, 54, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-green);">▲ LAUNCH</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Negative GEX ceiling above positive GEX floor — the inverse of a Rug Pull. Price holds the yellow floor while VIX declines.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Long at the yellow floor node. Look for "Clear Skies" (zero upside resistance) = slingshot velocity.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Target King strike. Clear Skies = let runners ride. Scale out at next Gatekeeper.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~70% with VIX falling + Clear Skies + no junk nodes</div>
+                    </div>
+                </div>
+
+                <!-- GATEKEEPER -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">🛡️</span>
+                        <span style="font-size: 14px; font-weight: 700;">GATEKEEPER</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-yellow); color: var(--bg-primary);">neutral</span>
+                    </div>
+                    <div style="background: rgba(240, 136, 62, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-yellow);">🚫 REJECT</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Large positive GEX node between spot and the king strike. Price approaching it.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Fade at the gatekeeper level. Sell calls or buy puts on 1st/2nd touch.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Take profit on bounce back toward origin. Flip bias on 3rd test.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~65% on 1st test, ~45% on 2nd, flip on 3rd</div>
+                    </div>
+                </div>
+
+                <!-- WHIPSAW -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">⚡</span>
+                        <span style="font-size: 14px; font-weight: 700;">WHIPSAW</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-yellow); color: var(--bg-primary);">neutral</span>
+                    </div>
+                    <div style="background: rgba(240, 136, 62, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-yellow);">↕ PING-PONG</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">+GEX ceiling and -GEX floor within 1.5% of each other. Equal-ish magnitude.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Limit orders at both nodes. Long at floor, short at ceiling.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Opposite node. Stop if either node breaks on 3rd+ test.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~60% per bounce. 3:1 R/R possible (SPX case study)</div>
+                    </div>
+                </div>
+
+                <!-- FLOOR BOUNCE -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">🎯</span>
+                        <span style="font-size: 14px; font-weight: 700;">FLOOR BOUNCE</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-green); color: white;">bullish</span>
+                    </div>
+                    <div style="background: rgba(35, 134, 54, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-green);">⬆ BOUNCE</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">SPY/QQQ hit a major -GEX floor node with zero volume/nodes beneath it.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Long at the floor node. Use "Reset Entry" if initial tap missed.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Trim 30% on first pop, 50% more after pullback holds. Trail final 20%.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~70% with "Empty Basement" + structural confluence</div>
+                    </div>
+                </div>
+
+                <!-- BEACH BALL -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">🏀</span>
+                        <span style="font-size: 14px; font-weight: 700;">BEACH BALL</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-green); color: white;">bullish</span>
+                    </div>
+                    <div style="background: rgba(35, 134, 54, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-green);">⬆ SPRING UP</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Strong negative GEX regime. Spot pushed well below king strike into a -GEX pit.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Lowball bid at or near the deepest -GEX node. Use the ±5 pt rule for SPX.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Target the king strike as the "magnet" for the reversal. Scale out in thirds.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~80%+ highest reward potential (3,000%+ on the Feb 5 case study)</div>
+                    </div>
+                </div>
+
+                <!-- RAINBOW ROAD -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">🌈</span>
+                        <span style="font-size: 14px; font-weight: 700;">RAINBOW ROAD</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-yellow); color: var(--bg-primary);">neutral</span>
+                    </div>
+                    <div style="background: rgba(240, 136, 62, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-yellow);">⚠️ AVOID</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">VEX magnitude exceeds GEX by 1.5x. Typically triggered by VIX spike or news event.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Trade in the direction of the dominant VEX node. These are distant magnets.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">At the VEX target node. Watch for node coming back to you on spikes.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~60% — High-velocity moves. VEX overrides GEX during air pockets.</div>
+                    </div>
+                </div>
+
+                <!-- TREND -->
+                <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">📈</span>
+                        <span style="font-size: 14px; font-weight: 700;">TREND</span>
+                        <span style="font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: var(--accent-cyan); color: white;">directional</span>
+                    </div>
+                    <div style="background: rgba(88, 166, 255, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: var(--accent-cyan);">→ DRIFT</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Setup</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">King strike >1% away from current spot price. Clear directional bias.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Entry</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Trade in the direction of the king strike. Calls if king is above, puts if below.</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">Exit</div>
+                        <div style="font-size: 12px; color: var(--text-primary); line-height: 1.4;">Scale out as price approaches king. Watch for gatekeeper forming along the way.</div>
+                    </div>
+                    <div style="padding-top: 8px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 11px; color: var(--accent-cyan);">Win Rate: ~70% on days with clear macro alignment (no "Window of Weakness")</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Pattern Lifecycle -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+            <div style="color: var(--accent-cyan); font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">
+                🔄 Pattern Lifecycle: How They Connect
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <div style="background: var(--bg-primary); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <span style="color: var(--accent-cyan);">📈</span> TREND drift
+                </div>
+                <span style="color: var(--text-secondary);">→</span>
+                <div style="background: var(--bg-primary); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <span style="color: var(--accent-yellow);">🛡️</span> GATEKEEPER rejection
+                </div>
+                <span style="color: var(--text-secondary);">→</span>
+                <div style="background: var(--bg-primary); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <span style="color: var(--accent-purple);">⚡</span> WHIPSAW range
+                </div>
+                <span style="color: var(--text-secondary);">→</span>
+                <div style="background: var(--bg-primary); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <span style="color: var(--accent-red);">💀</span> RUG PULL breakdown
+                </div>
+                <span style="color: var(--text-secondary);">→</span>
+                <div style="background: var(--bg-primary); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <span style="color: var(--accent-green);">🏀</span> BEACH BALL reversal
+                </div>
+            </div>
+            <div style="margin-top: 16px; padding: 16px; background: var(--bg-primary); border-radius: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                A big move often follows this sequence. The Rug Pull breaks the floor, the Beach Ball catches the bottom. The Reverse Rug/Slingshot is the bullish mirror — purple above yellow launches price when VIX falls. Rainbow Road can override any pattern when VEX takes control.
+            </div>
+        </div>
+
+        <!-- 10 Commandments -->
+        <div class="cheatsheet-content">
+            <div class="cheatsheet-section">
+                <h3>📋 The Ten Commandments of Heatseeker Trading</h3>
+                <div class="commandments-grid">
+                    <div class="commandment-card"><div class="commandment-number">1</div><div class="commandment-text">Protect existing capital at all costs</div></div>
+                    <div class="commandment-card"><div class="commandment-number">2</div><div class="commandment-text">Only trade reversals at floors or ceilings</div></div>
+                    <div class="commandment-card"><div class="commandment-number">3</div><div class="commandment-text">Only trade 3:1+ asymmetric R/R setups</div></div>
+                    <div class="commandment-card"><div class="commandment-number">4</div><div class="commandment-text">Always consider where price was delivered from</div></div>
+                    <div class="commandment-card"><div class="commandment-number">5</div><div class="commandment-text">Always be aware of the broader market</div></div>
+                    <div class="commandment-card"><div class="commandment-number">6</div><div class="commandment-text">Put technical analysis before Heatseeker</div></div>
+                    <div class="commandment-card"><div class="commandment-number">7</div><div class="commandment-text">Seek confluence between Heatseeker and Price Action</div></div>
+                    <div class="commandment-card"><div class="commandment-number">8</div><div class="commandment-text">Thou shalt not oversize</div></div>
+                    <div class="commandment-card"><div class="commandment-number">9</div><div class="commandment-text">Go long on red candles, short on green</div></div>
+                    <div class="commandment-card"><div class="commandment-number">10</div><div class="commandment-text">Thou shalt not let a green trade go red</div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // BINARY Trading Dashboard - Enhanced with Free Technicals
+        
+        // Format price helper
+        function formatPrice(price, symbol) {
+            if (!price) return '--';
+            if (symbol === 'SPX') return price.toLocaleString('en-US', {minimumFractionDigits: 2});
+            return '$' + price.toFixed(2);
+        }
+        
+        // Calculate EMA
+        function calculateEMA(prices, period) {
+            const k = 2 / (period + 1);
+            let ema = prices[0];
+            for (let i = 1; i < prices.length; i++) {
+                ema = prices[i] * k + ema * (1 - k);
+            }
+            return ema;
+        }
+        
+        // Calculate VWAP
+        function calculateVWAP(prices, volumes) {
+            let cumulativeTPV = 0;
+            let cumulativeVolume = 0;
+            for (let i = 0; i < prices.length; i++) {
+                cumulativeTPV += prices[i] * volumes[i];
+                cumulativeVolume += volumes[i];
+            }
+            return cumulativeVolume > 0 ? cumulativeTPV / cumulativeVolume : prices[prices.length - 1];
+        }
+        
+        // Fetch VIX
+        async function fetchVIX() {
+            try {
+                const response = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/^VIX?interval=1d&range=1d');
+                const data = await response.json();
+                const vix = data.chart.result[0].meta.regularMarketPrice || 20;
+                
+                document.getElementById('vixValue').textContent = vix.toFixed(2);
+                document.getElementById('verdictVix').textContent = vix.toFixed(2);
+                
+                // Color code VIX
+                const vixEl = document.getElementById('vixValue');
+                if (vix < 15) vixEl.style.color = 'var(--accent-green)';
+                else if (vix < 25) vixEl.style.color = 'var(--accent-yellow)';
+                else vixEl.style.color = 'var(--accent-red)';
+                
+                return vix;
+            } catch (e) {
+                console.log('VIX fetch failed');
+                return 20;
+            }
+        }
+        
+        // Fetch technicals for a symbol
+        async function fetchTechnicals(symbol, displaySymbol) {
+            try {
+                const yahooSymbol = symbol === 'SPX' ? '^GSPC' : symbol;
+                const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?interval=5m&range=5d`);
+                const data = await response.json();
+                const result = data.chart.result[0];
+                const quotes = result.indicators.quote[0];
+                const prices = quotes.close.filter(p => p !== null);
+                const volumes = quotes.volume.filter(v => v !== null);
+                const highs = quotes.high.filter(h => h !== null);
+                const lows = quotes.low.filter(l => l !== null);
+                
+                // Calculate indicators
+                const ema9 = calculateEMA(prices.slice(-20), 9);
+                const ema21 = calculateEMA(prices.slice(-25), 21);
+                const vwap = calculateVWAP(prices.slice(-39), volumes.slice(-39));
+                const prevHigh = Math.max(...highs.slice(-78, -39));
+                const prevLow = Math.min(...lows.slice(-78, -39));
+                const currentPrice = prices[prices.length - 1];
+                
+                // Update DOM
+                const sym = displaySymbol.toLowerCase();
+                document.getElementById(`${sym}VWAP`).textContent = formatPrice(vwap, displaySymbol);
+                document.getElementById(`${sym}EMA9`).textContent = formatPrice(ema9, displaySymbol);
+                document.getElementById(`${sym}EMA21`).textContent = formatPrice(ema21, displaySymbol);
+                document.getElementById(`${sym}PrevHigh`).textContent = formatPrice(prevHigh, displaySymbol);
+                
+                // Update table
+                document.getElementById(`table${displaySymbol}High`).textContent = formatPrice(prevHigh, displaySymbol);
+                document.getElementById(`table${displaySymbol}Low`).textContent = formatPrice(prevLow, displaySymbol);
+                
+                // Pattern detection
+                const patternEl = document.getElementById(`${sym}Pattern`);
+                if (ema9 > ema21 && currentPrice > vwap) {
+                    patternEl.textContent = 'TREND UP ▲';
+                    patternEl.className = 'pattern-badge bullish';
+                } else if (ema9 < ema21 && currentPrice < vwap) {
+                    patternEl.textContent = 'TREND DOWN ▼';
+                    patternEl.className = 'pattern-badge bearish';
+                } else {
+                    patternEl.textContent = 'CHOPPY ↔';
+                    patternEl.className = 'pattern-badge';
+                }
+                
+                return { currentPrice, ema9, ema21, vwap, prevHigh, prevLow };
+            } catch (e) {
+                console.log(`Technical fetch failed for ${symbol}:`, e);
+                return null;
+            }
+        }
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + '-tab').classList.add('active');
+            });
+        });
+
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            const etTime = now.toLocaleTimeString('en-US', { 
+                timeZone: 'America/New_York',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            document.getElementById('timestamp').textContent = etTime + ' ET';
+        }
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
+
+        // Initial data load
+        fetch('/api/prices')
+            .then(r => r.json())
+            .then(data => {
+                const statusEl = document.getElementById('marketStatus');
+                const textEl = document.getElementById('marketText');
+                if (data.market_open) {
+                    statusEl.className = 'market-status open';
+                    textEl.textContent = 'MARKET OPEN';
+                } else {
+                    statusEl.className = 'market-status closed';
+                    textEl.textContent = 'MARKET CLOSED';
+                }
+                if (data.prices) {
+                    if (data.prices.SPX) {
+                        document.getElementById('spxPrice').textContent = data.prices.SPX.toLocaleString('en-US', {minimumFractionDigits: 2});
+                        document.getElementById('playSpx').textContent = data.prices.SPX.toLocaleString('en-US', {minimumFractionDigits: 2});
+                    }
+                    if (data.prices.SPY) {
+                        document.getElementById('spyPrice').textContent = '$' + data.prices.SPY.toFixed(2);
+                        document.getElementById('playSpy').textContent = '$' + data.prices.SPY.toFixed(2);
+                    }
+                    if (data.prices.QQQ) {
+                        document.getElementById('qqqPrice').textContent = '$' + data.prices.QQQ.toFixed(2);
+                        document.getElementById('playQqq').textContent = '$' + data.prices.QQQ.toFixed(2);
+                    }
+                }
+            })
+            .catch(e => console.log('API fetch failed'));
+        
+        // Load technicals
+        setTimeout(() => {
+            fetchVIX();
+            fetchTechnicals('SPX', 'SPX');
+            fetchTechnicals('SPY', 'SPY');
+            fetchTechnicals('QQQ', 'QQQ');
+        }, 1000);
+        
+        // Refresh every minute
+        setInterval(() => {
+            fetchVIX();
+            fetchTechnicals('SPX', 'SPX');
+            fetchTechnicals('SPY', 'SPY');
+            fetchTechnicals('QQQ', 'QQQ');
+        }, 60000);
+    </script>
+</body>
+</html>

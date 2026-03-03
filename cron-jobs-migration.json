@@ -1,0 +1,238 @@
+{
+  "jobs": [
+    {
+      "name": "BINARY Trading Monitor - Trinity Setup Alerts",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 300000
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Monitor SPY, SPX, and QQQ for trading setups ONLY during market hours (9:30 AM - 4:00 PM ET, weekdays).\n\nCheck market status first via /api/prices. If market_closed = true, skip analysis and wait.\n\nIf market is OPEN, check:\n1. Price levels: SPY ($685, $687.50, $688, $690), SPX (key levels), QQQ (key levels)\n2. Trinity confluence: All 3 tickers aligned for A+ setup\n3. Heatseeker patterns: Check for Rug Pull, Slingshot, Gatekeeper, Whipsaw, Floor Bounce, Beach Ball, Trend patterns\n4. Technicals: VWAP position, EMA crossovers, volume spikes\n5. VIX regime: Fear gauge for market context\n\nAlert conditions:\n- A+ SETUP: Trinity aligned (2-of-3) + Heatseeker pattern + Technical confirmation\n- LONG ALERT: Break above resistance with volume + bullish pattern\n- SHORT ALERT: Rejection at resistance + bearish pattern\n- RANGE ALERT: Price bouncing between support/resistance\n\nSend Discord alert to #trading-system with:\n- Setup type (Long/Short/Range)\n- Entry price\n- Stop loss\n- Target prices\n- R/R ratio\n- Trinity alignment status\n- Heatseeker pattern detected\n- Confidence level (A+, A, B, C)\n\nCurrent prices: Check /api/prices for live data.\n\nIMPORTANT: Use message tool to send alerts to Discord channel #trading-system. Format alerts cleanly with emojis and clear structure.",
+        "model": "kimi-coding/k2p5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#trading-system"
+      }
+    },
+    {
+      "name": "Hourly Cost Report",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 * * * *"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run: python3 ~/.openclaw/workspace/scripts/scheduler_runner.py --task cost\n\nParse the output and post the cost report to Discord #token-tracker using the message tool (action=send, channel=discord, target=#token-tracker).",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#token-tracker"
+      }
+    },
+    {
+      "name": "Complete Systems Check",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 28800000
+      },
+      "payload": {
+        "kind": "systemEvent",
+        "text": "Quick systems check: Run `df -h / | tail -1` and `free -h | grep Mem`. If disk usage >80% or memory critically low, alert #admin. Otherwise, post: '\u2705 Systems healthy \u2014 Disk: X% used, Memory: X available' to #admin."
+      }
+    },
+    {
+      "name": "Market Trends Update",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */4 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run: python3 ~/.openclaw/workspace/scripts/scheduler_runner.py --task trends\n\nParse the output and post the trends update to Discord #twitter-trends using the message tool (action=send, channel=discord, target=#twitter-trends).",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#twitter-trends"
+      }
+    },
+    {
+      "name": "Daily Maintenance Check",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 5 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run comprehensive daily maintenance check and report to Discord #admin channel.\n\n**CHECKS TO PERFORM:**\n\n1. **Discord Connection Health**\n   - Verify bot can read/write to all configured channels\n   - Check for any delivery failures in last 24h\n\n2. **Cron Jobs Status**\n   - List all enabled jobs\n   - Check consecutiveErrors count for each\n   - Flag any jobs with >2 consecutive errors\n   - Verify last run times are recent (within expected window)\n\n3. **API Keys & Services**\n   - Verify Kimi API connectivity\n   - Check if any API calls failed recently\n\n4. **System Resources**\n   - Disk usage (warn if >70%, alert if >85%)\n   - Memory usage (warn if <1GB free)\n   - Uptime\n\n5. **Channel Delivery Test**\n   - Verify #morning-brief, #trading-system, #market-watch are reachable\n\n**REPORT FORMAT:**\nPost to #admin with:\n- \u2705/\u26a0\ufe0f/\ud83d\udd34 status for each check\n- Specific issues found\n- Action items if anything needs fixing\n- \"All systems operational\" if everything passes\n\nUse message tool: action=send, channel=discord, target=#admin",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#admin"
+      }
+    },
+    {
+      "name": "Morning Brief",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate a morning brief and POST IT DIRECTLY to Discord channel #morning-brief using the message tool. Do NOT return the content as text \u2014 use action=send, channel=discord, target=#morning-brief.\n\nContent to include (concise, 1-2 sentences each):\n1. \ud83c\udf24\ufe0f Weather for Los Angeles, CA\n2. \ud83d\udcc8 Stock futures (SPY, QQQ, pre-market moves)\n3. \ud83e\udd16 One AI headline\n4. \ud83c\udf0d One world news headline\n\nFormat cleanly with emojis and sections. Keep it brief and skimmable.",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#morning-brief"
+      }
+    },
+    {
+      "name": "Market Watch - 3% Alerts",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/10 6-13 * * 1-5",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run: python3 ~/.openclaw/workspace/scripts/scheduler_runner.py --task alerts --threshold 3\n\nThe script outputs stock alerts with \ud83d\udfe2 or \ud83d\udd34 at the start of lines. Parse the output and post any alert lines to Discord #market-watch using the message tool (action=send, channel=discord, target=#market-watch). If output says 'No alerts' or is empty, do nothing.",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#market-watch"
+      }
+    },
+    {
+      "name": "Smart Alerts - 5% Threshold",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/15 6-13 * * 1-5",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run: python3 ~/.openclaw/workspace/scripts/scheduler_runner.py --task alerts --threshold 5\n\nThe script outputs stock alerts with \ud83d\udfe2 or \ud83d\udd34 at the start of lines. Parse the output and post any alert lines to Discord #smart-alerts using the message tool (action=send, channel=discord, target=#smart-alerts). If output says 'No alerts' or is empty, do nothing.",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "discord",
+        "to": "#smart-alerts"
+      }
+    },
+    {
+      "name": "Mission Control Daily Sync",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "5 7 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate Mission Control Daily Sync for #meetings channel. Include: 1) SYSTEMS STATUS - Check all cron jobs, APIs, disk/memory, report any failures, 2) ACTIVE TASKS REVIEW - List all current tasks from MEMORY.md and project channels, note progress %, 3) BOTTLENECKS - Identify tasks stuck or taking too long, suggest splitting or spawning help, 4) GOAL PROGRESS - Check progress toward daytrons' goals (trading, content, automation), 5) NEW IDEAS - Propose 1-2 new tasks/ideas based on current priorities, 6) RESOURCE ALLOCATION - Recommend where to focus today, 7) ACTION ITEMS - Clear next steps with owners. Format as structured meeting notes with sections and decisions. Be specific about what needs attention.",
+        "model": "kimi-coding/k2p5",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "#meetings"
+      }
+    },
+    {
+      "name": "RT Tools Review Reminder",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "@daytrons Reminder: Review and test the RT Tools we built yesterday.\n\n**Ready for testing:**\n\u2022 RT Scheduling PWA \u2014 28-day availability entry\n\u2022 RT Scanner PWA \u2014 QR inventory scanning  \n\u2022 RT QR Generator \u2014 Create QR codes for inventory\n\n**Locations:**\n`~/workspace/projects/rt-scheduling/dist/`\n`~/workspace/projects/rt-scanner/dist/`\n`~/workspace/projects/rt-qr-generator/dist/`\n\nWant to deploy to Netlify for live testing?"
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "#admin"
+      }
+    },
+    {
+      "name": "Daily Digest - Auto Summary",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 20 * * *",
+        "tz": "America/New_York"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate a daily digest summarizing all activity from the past 24 hours across all channels. Include: 1) Key conversations and decisions, 2) Tasks completed, 3) Projects progressed, 4) Alerts triggered, 5) Token usage. Format as a clean, skimmable summary.",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "#daily-digest"
+      }
+    },
+    {
+      "name": "Daily A+ Stock Setup",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 20 * * 1-5",
+        "tz": "America/New_York"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate ONE high-conviction stock trade setup for tomorrow with:\n\n1. **Stock ticker** (Mag 7, large cap, or high-volume mid-cap)\n2. **Direction** (long/short)\n3. **Entry zone** (specific price range)\n4. **Stop loss** (hard level)\n5. **Target(s)** (at least 2)\n6. **Setup thesis** (2-3 sentences max)\n7. **Confidence rating** (A or A+ only)\n\nCriteria for A/A+ rating:\n- Clear technical level (support/resistance/breakout)\n- Volume confirmation or catalyst\n- Favorable risk/reward (minimum 3:1)\n- Liquid options chain (if applicable)\n\nMention @daytrons and ask them to send Heatseeker screenshots for GEX/VEX confluence analysis.\n\nKeep it tight. No fluff. One trade only.",
+        "model": "kimi-coding/k2p5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "daytrons",
+        "channel": "1474959867738460234"
+      }
+    },
+    {
+      "name": "Weekly Report - Sundays",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 0",
+        "tz": "America/New_York"
+      },
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate a weekly report for daytrons covering: 1) What was completed this week (check MEMORY.md, recent conversations, all project channels), 2) Token usage summary, 3) Active projects status, 4) Upcoming tasks for next week, 5) Suggested priorities. Format as a clean Discord message with sections and emojis.",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "#admin"
+      }
+    }
+  ]
+}

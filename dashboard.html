@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | Nano</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #27272a;
+            margin-bottom: 30px;
+        }
+        h1 { font-size: 28px; color: #22c55e; }
+        .status { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .card h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a1a1aa;
+            margin-bottom: 16px;
+        }
+        .project {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #27272a;
+        }
+        .project:last-child { border-bottom: none; }
+        .project-name { font-weight: 500; }
+        .progress-bar {
+            width: 100px;
+            height: 6px;
+            background: #27272a;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #22c55e;
+            border-radius: 3px;
+        }
+        .progress-fill.medium { background: #eab308; }
+        .progress-fill.low { background: #ef4444; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .stat {
+            text-align: center;
+            padding: 16px;
+            background: #0f0f13;
+            border-radius: 8px;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #71717a;
+            margin-top: 4px;
+        }
+        .action-list {
+            list-style: none;
+        }
+        .action-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #27272a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .action-list li:last-child { border-bottom: none; }
+        .check { color: #22c55e; }
+        .pending { color: #eab308; }
+        .timestamp {
+            text-align: right;
+            color: #71717a;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .quick-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 8px 16px;
+            background: #27272a;
+            border: none;
+            border-radius: 6px;
+            color: #e4e4e7;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #3f3f46; }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #27272a;
+            text-align: center;
+            color: #71717a;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>🔬 Mission Control</h1>
+                <p style="color: #71717a; font-size: 14px;">Nano | Local Agent Dashboard</p>
+            </div>
+            <div class="status">
+                <div class="dot"></div>
+                <span>Operational</span>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Projects -->
+            <div class="card" style="grid-column: span 2;">
+                <h2>🚀 Active Projects</h2>
+                <div class="project">
+                    <span class="project-name">Respiratory Education</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">45%</span>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 45%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">RT Scheduling</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">35%</span>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">Trading System</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">25%</span>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">Respiratory Tools</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">25%</span>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">Reselling Business</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">15%</span>
+                        <div class="progress-bar"><div class="progress-fill medium" style="width: 15%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">YouTube Empire</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">10%</span>
+                        <div class="progress-bar"><div class="progress-fill low" style="width: 10%"></div></div>
+                    </div>
+                </div>
+                <div class="project">
+                    <span class="project-name">Kids App</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="color: #a1a1aa; font-size: 13px;">10%</span>
+                        <div class="progress-bar"><div class="progress-fill low" style="width: 10%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="card">
+                <h2>📊 System Stats</h2>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">11</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Channels</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">372</div>
+                        <div class="stat-label">Files</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Items -->
+            <div class="card">
+                <h2>🎯 Action Items</h2>
+                <ul class="action-list">
+                    <li><span class="pending">⏳</span> Fix cron job paths (Linux → Mac)</li>
+                    <li><span class="pending">⏳</span> Test scheduler_runner.py locally</li>
+                    <li><span class="pending">⏳</span> Commit workspace changes</li>
+                    <li><span class="pending">⏳</span> Import cron jobs when ready</li>
+                    <li><span class="check">✅</span> Migration from cloud complete</li>
+                    <li><span class="check">✅</span> Discord integration active</li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="card">
+                <h2>🔗 Quick Links</h2>
+                <div class="quick-links">
+                    <a href="file:///Users/daytrons/.openclaw/workspace/MEMORY.md" class="btn">Memory</a>
+                    <a href="file:///Users/daytrons/.openclaw/workspace/projects/" class="btn">Projects</a>
+                    <a href="file:///Users/daytrons/.openclaw/workspace/scripts/" class="btn">Scripts</a>
+                    <a href="http://127.0.0.1:18789/" class="btn">Gateway</a>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="card">
+                <h2>🔧 System Status</h2>
+                <ul class="action-list">
+                    <li><span class="check">✅</span> Discord Connected</li>
+                    <li><span class="check">✅</span> Gateway Running</li>
+                    <li><span class="check">✅</span> Workspace Ready</li>
+                    <li><span class="pending">⏳</span> Git Uncommitted</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            Last updated: 2026-03-01 21:43 PST | Agent: Nano
+        </div>
+
+        <div class="footer">
+            <p>Local Mission Control | Open in browser: <code>open ~/.openclaw/workspace/dashboard.html</code></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINARY GEX Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0D1117; 
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header { 
+            background: #161B22; 
+            padding: 20px; 
+            border-bottom: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 24px; color: #58A6FF; }
+        .ticker-input { 
+            background: #21262D; 
+            border: 1px solid #30363D; 
+            color: #fff; 
+            padding: 10px 15px; 
+            border-radius: 6px;
+            font-size: 16px;
+            width: 120px;
+        }
+        .btn { 
+            background: #238636; 
+            color: #fff; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .btn:hover { background: #2EA043; }
+        .container { padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 30px;
+        }
+        .stat-card { 
+            background: #161B22; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border: 1px solid #30363D;
+        }
+        .stat-label { color: #8B949E; font-size: 12px; text-transform: uppercase; }
+        .stat-value { font-size: 28px; font-weight: 700; margin-top: 5px; }
+        .positive { color: #238636; }
+        .negative { color: #DA3633; }
+        .neutral { color: #58A6FF; }
+        .chart-container { 
+            background: #161B22; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border: 1px solid #30363D;
+            margin-bottom: 20px;
+            height: 400px;
+            position: relative;
+        }
+        .chart-title { font-size: 16px; color: #8B949E; margin-bottom: 15px; }
+        .status { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #161B22;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            font-size: 12px;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #238636;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #30363D;
+        }
+        .data-table th {
+            color: #8B949E;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .data-table tr:hover { background: #21262D; }
+        .live-panel {
+            background: #161B22;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #30363D;
+            margin-bottom: 20px;
+        }
+        .live-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .live-title {
+            font-size: 16px;
+            color: #8B949E;
+        }
+        .live-badge {
+            background: #238636;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .live-badge.offline {
+            background: #DA3633;
+        }
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .live-stat {
+            background: #21262D;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .live-stat-label {
+            font-size: 11px;
+            color: #8B949E;
+            text-transform: uppercase;
+        }
+        .live-stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        .pattern-tag {
+            display: inline-block;
+            background: #58A6FF;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .pattern-tag.bullish { background: #238636; color: #fff; }
+        .pattern-tag.bearish { background: #DA3633; color: #fff; }
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 24px;
+            background: #161B22;
+            border-bottom: 1px solid #30363D;
+        }
+        .tab {
+            padding: 12px 20px;
+            color: #8B949E;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .tab:hover { color: #fff; }
+        .tab.active { color: #58A6FF; border-bottom-color: #58A6FF; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ BINARY GEX Dashboard</h1>
+        <div>
+            <input type="text" id="tickerInput" class="ticker-input" value="SPY" placeholder="Ticker">
+            <button class="btn" onclick="loadData()">Load</button>
+            <button class="btn" onclick="refreshData()">Refresh</button>
+        </div>
+    </div>
+
+    <nav class="nav-tabs">
+        <a href="/" class="tab">📊 Main Dashboard</a>
+        <a href="/gex-dashboard" class="tab active">📈 GEX Analysis</a>
+    </nav>
+
+    <div class="container">
+        <!-- LIVE EXTENSION DATA PANEL -->
+        <div class="live-panel" id="livePanel">
+            <div class="live-header">
+                <div class="live-title">🔴 Live Extension Data</div>
+                <div class="live-badge offline" id="liveBadge">OFFLINE</div>
+            </div>
+            <div class="live-grid" id="liveGrid">
+                <div class="live-stat">
+                    <div class="live-stat-label">Ticker</div>
+                    <div class="live-stat-value" id="liveTicker">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">Price</div>
+                    <div class="live-stat-value" id="livePrice">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">Bias Score</div>
+                    <div class="live-stat-value" id="liveBias">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">Magnet Pull</div>
+                    <div class="live-stat-value" id="liveMagnet">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">King Node (+)</div>
+                    <div class="live-stat-value" id="liveKingPos">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">King Node (-)</div>
+                    <div class="live-stat-value" id="liveKingNeg">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">Velocity</div>
+                    <div class="live-stat-value" id="liveVelocity">--</div>
+                </div>
+                <div class="live-stat">
+                    <div class="live-stat-label">Last Update</div>
+                    <div class="live-stat-value" id="liveLastUpdate">--</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div class="live-stat-label">Detected Patterns</div>
+                <div id="livePatterns" style="margin-top: 8px;"></div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div class="live-stat-label">Trade Plan</div>
+                <div id="liveTradePlan" style="margin-top: 8px; font-size: 14px;"></div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Current Price</div>
+                <div class="stat-value neutral" id="currentPrice">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Zero Gamma</div>
+                <div class="stat-value neutral" id="zeroGamma">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Max Pain</div>
+                <div class="stat-value neutral" id="maxPain">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Net GEX</div>
+                <div class="stat-value" id="netGex">--</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">Gamma Exposure by Strike</div>
+            <canvas id="gexChart"></canvas>
+        </div>
+
+        <div class="chart-container" style="height: auto;">
+            <div class="chart-title">Strike Data</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Strike</th>
+                        <th>GEX</th>
+                        <th>Call GEX</th>
+                        <th>Put GEX</th>
+                        <th>Gamma</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        <span id="statusText">Connected</span>
+    </div>
+
+    <script>
+        let gexChart = null;
+
+        async function loadData() {
+            const ticker = document.getElementById('tickerInput').value || 'SPY';
+            
+            try {
+                const response = await fetch(`/api/gex?ticker=${ticker}`);
+                const data = await response.json();
+                
+                updateDashboard(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('statusText').textContent = 'Error loading data';
+            }
+        }
+
+        function updateDashboard(data) {
+            // Update stats
+            document.getElementById('currentPrice').textContent = '$' + data.currentPrice;
+            document.getElementById('zeroGamma').textContent = data.zeroGamma.toFixed(2);
+            document.getElementById('maxPain').textContent = data.maxPain.toFixed(2);
+            
+            const netGex = data.data.reduce((sum, d) => sum + d.gex, 0);
+            const netGexEl = document.getElementById('netGex');
+            netGexEl.textContent = (netGex / 1000000).toFixed(2) + 'M';
+            netGexEl.className = 'stat-value ' + (netGex > 0 ? 'positive' : 'negative');
+
+            // Update chart
+            updateChart(data.data, parseFloat(data.currentPrice));
+
+            // Update table
+            updateTable(data.data);
+
+            document.getElementById('statusText').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+        }
+
+        function updateChart(strikes, currentPrice) {
+            const ctx = document.getElementById('gexChart').getContext('2d');
+            
+            if (gexChart) {
+                gexChart.destroy();
+            }
+
+            gexChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: strikes.map(d => d.strike),
+                    datasets: [{
+                        label: 'GEX',
+                        data: strikes.map(d => d.gex / 1000000),
+                        backgroundColor: strikes.map(d => d.gex > 0 ? 'rgba(35, 134, 54, 0.7)' : 'rgba(218, 54, 51, 0.7)'),
+                        borderColor: strikes.map(d => d.gex > 0 ? '#238636' : '#DA3633'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#8B949E', maxTicksLimit: 20 },
+                            grid: { color: '#30363D' }
+                        },
+                        y: {
+                            ticks: { color: '#8B949E' },
+                            grid: { color: '#30363D' },
+                            title: { display: true, text: 'GEX (Millions)', color: '#8B949E' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTable(strikes) {
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = strikes.map(row => `
+                <tr>
+                    <td>${row.strike}</td>
+                    <td style="color: ${row.gex > 0 ? '#238636' : '#DA3633'}">${(row.gex / 1000000).toFixed(2)}M</td>
+                    <td>${(row.callGex / 1000000).toFixed(2)}M</td>
+                    <td>${(row.putGex / 1000000).toFixed(2)}M</td>
+                    <td>${row.gamma.toFixed(4)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function refreshData() {
+            loadData();
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(refreshData, 30000);
+
+        // ===== LIVE EXTENSION DATA POLLING =====
+        let lastLiveData = null;
+
+        async function pollLiveData() {
+            const ticker = document.getElementById('tickerInput').value || 'SPY';
+            
+            try {
+                const response = await fetch(`/api/gex-data?ticker=${ticker}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    updateLivePanel(data);
+                } else {
+                    setLiveOffline();
+                }
+            } catch (error) {
+                setLiveOffline();
+            }
+        }
+
+        function updateLivePanel(data) {
+            const badge = document.getElementById('liveBadge');
+            const secondsAgo = Math.floor((Date.now() - new Date(data.receivedAt).getTime()) / 1000);
+            
+            // Update badge
+            if (secondsAgo < 10) {
+                badge.textContent = 'LIVE';
+                badge.className = 'live-badge';
+            } else {
+                badge.textContent = 'STALE (' + secondsAgo + 's)';
+                badge.className = 'live-badge offline';
+            }
+
+            // Update stats
+            document.getElementById('liveTicker').textContent = data.ticker || '--';
+            document.getElementById('livePrice').textContent = data.price ? '$' + data.price : '--';
+            document.getElementById('liveBias').textContent = data.biasScore !== undefined ? data.biasScore + ' ' + (data.biasLabel || '') : '--';
+            document.getElementById('liveMagnet').textContent = data.magnetPull || '--';
+            document.getElementById('liveKingPos').textContent = data.kingNodePositive || '--';
+            document.getElementById('liveKingNeg').textContent = data.kingNodeNegative || '--';
+            document.getElementById('liveVelocity').textContent = data.velocity || '--';
+            document.getElementById('liveLastUpdate').textContent = new Date(data.receivedAt).toLocaleTimeString();
+
+            // Update patterns
+            const patternsContainer = document.getElementById('livePatterns');
+            if (data.patterns && data.patterns.length > 0) {
+                patternsContainer.innerHTML = data.patterns.map(p => {
+                    const bullish = ['Holy Trinity', 'Slingshot', 'Velocity Burst'].includes(p);
+                    return `<span class="pattern-tag ${bullish ? 'bullish' : 'bearish'}">${p}</span>`;
+                }).join('');
+            } else {
+                patternsContainer.innerHTML = '<span style="color: #666;">No patterns detected</span>';
+            }
+
+            // Update trade plan
+            const tradePlanContainer = document.getElementById('liveTradePlan');
+            if (data.tradePlan) {
+                tradePlanContainer.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                        <div><span style="color: #8B949E;">Direction:</span> <strong>${data.tradePlan.direction || 'N/A'}</strong></div>
+                        <div><span style="color: #8B949E;">Entry:</span> <strong>${data.tradePlan.entry || 'N/A'}</strong></div>
+                        <div><span style="color: #8B949E;">Stop:</span> <strong>${data.tradePlan.stop || 'N/A'}</strong></div>
+                        <div><span style="color: #8B949E;">Target:</span> <strong>${data.tradePlan.target || 'N/A'}</strong></div>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <span style="color: #8B949E;">R:R = </span><strong style="color: #58A6FF;">${data.tradePlan.rr || 'N/A'}</strong>
+                    </div>
+                `;
+            } else {
+                tradePlanContainer.innerHTML = '<span style="color: #666;">No active trade plan</span>';
+            }
+
+            lastLiveData = data;
+        }
+
+        function setLiveOffline() {
+            const badge = document.getElementById('liveBadge');
+            badge.textContent = 'OFFLINE';
+            badge.className = 'live-badge offline';
+        }
+
+        // Poll live data every 2 seconds
+        setInterval(pollLiveData, 2000);
+
+        // Load initial data
+        loadData();
+        pollLiveData();
+    </script>
+</body>
+</html>

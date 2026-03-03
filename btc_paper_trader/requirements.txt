@@ -1,0 +1,54 @@
+# Python dependencies for Bitcoin Paper Trading Bot
+# Install with: pip install -r requirements.txt
+
+# Binance API
+python-binance==1.0.19
+
+# WebSocket client for real-time data
+websocket-client==1.7.0
+
+# Data manipulation and analysis
+pandas==2.1.4
+numpy==1.26.3
+
+# Technical analysis indicators
+TA-Lib==0.4.28
+
+# Environment variables
+python-dotenv==1.0.0
+
+# HTTP requests
+requests==2.31.0
+
+# Date/time handling
+python-dateutil==2.8.2
+pytz==2023.3.post1
+
+# Async support
+aiohttp==3.9.1
+asyncio==3.4.3
+
+# Data visualization (for dashboard)
+plotly==5.18.0
+matplotlib==3.8.2
+
+# Web dashboard
+flask==3.0.0
+flask-socketio==5.3.6
+
+# Database (for trade storage)
+sqlalchemy==2.0.25
+
+# Utilities
+colorama==0.4.6
+schedule==1.2.1
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+
+# Logging
+structlog==23.2.0
+
+# Type hints
+typing-extensions==4.9.0

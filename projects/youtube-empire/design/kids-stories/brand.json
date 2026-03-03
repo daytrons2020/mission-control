@@ -1,0 +1,20 @@
+{
+  "channel": "kids-stories",
+  "name": "Kids Stories",
+  "description": "Whimsical, storybook style read-aloud stories",
+  "colors": {
+    "primary": "#E74C3C",
+    "secondary": "#F1C40F",
+    "nature": "#2ECC71",
+    "magic": "#9B59B6",
+    "background": "#FDF6E3",
+    "text": "#5D4E37"
+  },
+  "fonts": {
+    "heading": "Amatic SC",
+    "body": "Poppins",
+    "accent": "Special Elite"
+  },
+  "style": "Storybook, whimsical, magical, paper texture",
+  "psychology": "Wonder, imagination, comfort"
+}

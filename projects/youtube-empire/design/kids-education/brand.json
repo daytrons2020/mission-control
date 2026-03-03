@@ -1,0 +1,20 @@
+{
+  "channel": "kids-education",
+  "name": "Kids Education",
+  "description": "Bright, simple, engaging educational content for children",
+  "colors": {
+    "primary": "#FFD93D",
+    "secondary": "#4ECDC4",
+    "accent": "#FF6B6B",
+    "success": "#95E1D3",
+    "background": "#FFF9F0",
+    "text": "#2D3436"
+  },
+  "fonts": {
+    "heading": "Fredoka One",
+    "body": "Nunito",
+    "accent": "Comic Neue"
+  },
+  "style": "High contrast, warm, inviting, rounded shapes",
+  "psychology": "Energetic, friendly, trustworthy for parents"
+}

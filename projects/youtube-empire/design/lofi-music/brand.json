@@ -1,0 +1,20 @@
+{
+  "channel": "lofi-music",
+  "name": "Lofi Music",
+  "description": "Aesthetic, calm, study vibes for focus and relaxation",
+  "colors": {
+    "primary": "#D4A5A5",
+    "secondary": "#9CAF88",
+    "background": "#F5F1E8",
+    "text": "#8B7355",
+    "accent": "#9B8AA5",
+    "dark": "#3D3D3D"
+  },
+  "fonts": {
+    "heading": "Josefin Sans",
+    "body": "Inter",
+    "accent": "Space Mono"
+  },
+  "style": "Muted, vintage, nostalgic, film grain texture",
+  "psychology": "Relaxing, nostalgic, focus-friendly"
+}

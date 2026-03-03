@@ -1,0 +1,19 @@
+{
+  "name": "RT Admin",
+  "short_name": "RT Admin",
+  "description": "Respiratory Therapy Admin Dashboard",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

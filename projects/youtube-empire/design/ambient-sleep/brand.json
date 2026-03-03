@@ -1,0 +1,20 @@
+{
+  "channel": "ambient-sleep",
+  "name": "Ambient Sleep",
+  "description": "Dark, peaceful, nature sounds for deep sleep",
+  "colors": {
+    "primary": "#1A1A2E",
+    "secondary": "#16213E",
+    "accent": "#A8A4CE",
+    "highlight": "#C8C6D7",
+    "nature": "#0F3460",
+    "soft": "#4A7C59"
+  },
+  "fonts": {
+    "heading": "Cormorant Garamond",
+    "body": "Lato",
+    "accent": "Quicksand"
+  },
+  "style": "Dark, cool, serene, minimal text",
+  "psychology": "Calming, sleep-inducing, peaceful"
+}
