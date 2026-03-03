@@ -1,0 +1,112 @@
+{
+  "lastUpdated": "2026-03-02T21:04:00-08:00",
+  "projects": [
+    {
+      "id": "respiratory-education",
+      "name": "🫁 Respiratory Education",
+      "status": "In Progress",
+      "progress": 45,
+      "priority": "High",
+      "details": "5 PowerPoints + 200 pages notes",
+      "tasks": [
+        {"name": "Anatomy & Physiology", "status": "Done", "progress": 100},
+        {"name": "COPD Management", "status": "Done", "progress": 100},
+        {"name": "Mechanical Ventilation", "status": "Done", "progress": 100},
+        {"name": "Patient Assessment", "status": "Done", "progress": 100},
+        {"name": "Emergency Procedures", "status": "Done", "progress": 100},
+        {"name": "Speaker Notes", "status": "In Progress", "progress": 40},
+        {"name": "Quiz Modules", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "rt-scheduling",
+      "name": "📅 RT Scheduling",
+      "status": "In Progress",
+      "progress": 35,
+      "priority": "High",
+      "details": "React app with PWA, Excel sync",
+      "tasks": [
+        {"name": "React scaffolding", "status": "Done", "progress": 100},
+        {"name": "28-day availability UI", "status": "Done", "progress": 100},
+        {"name": "PWA configuration", "status": "Done", "progress": 100},
+        {"name": "Excel sync", "status": "In Progress", "progress": 50},
+        {"name": "Staff management", "status": "In Progress", "progress": 30},
+        {"name": "UI polish", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "trading-system",
+      "name": "📈 Trading System",
+      "status": "In Progress",
+      "progress": 25,
+      "priority": "High",
+      "details": "Backend + Frontend, Heatseeker integration",
+      "tasks": [
+        {"name": "Price feed API", "status": "Done", "progress": 100},
+        {"name": "Trading engine", "status": "Done", "progress": 100},
+        {"name": "Risk manager", "status": "In Progress", "progress": 60},
+        {"name": "Frontend dashboard", "status": "In Progress", "progress": 30},
+        {"name": "Heatseeker integration", "status": "Blocked", "progress": 0},
+        {"name": "WebSocket real-time", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "respiratory-tools",
+      "name": "⚙️ RT Tools",
+      "status": "In Progress",
+      "progress": 25,
+      "priority": "High",
+      "details": "QR Scanner, QR Generator, Admin Dashboard",
+      "tasks": [
+        {"name": "QR Scanner PWA", "status": "Done", "progress": 100},
+        {"name": "QR Generator PWA", "status": "Done", "progress": 100},
+        {"name": "Admin Dashboard", "status": "Done", "progress": 100},
+        {"name": "Testing", "status": "In Progress", "progress": 20},
+        {"name": "Deployment", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "reselling-business",
+      "name": "🛒 Reselling Business",
+      "status": "In Progress",
+      "progress": 15,
+      "priority": "Medium",
+      "details": "5 strategy documents created",
+      "tasks": [
+        {"name": "Sourcing strategies", "status": "Done", "progress": 100},
+        {"name": "Automation workflows", "status": "Done", "progress": 100},
+        {"name": "Profit calculators", "status": "Done", "progress": 100},
+        {"name": "Quick-start guide", "status": "Done", "progress": 100},
+        {"name": "Reselling system doc", "status": "Done", "progress": 100},
+        {"name": "Implementation", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "youtube-empire",
+      "name": "📺 YouTube Empire",
+      "status": "Planning",
+      "progress": 10,
+      "priority": "Low",
+      "details": "5-channel system designed",
+      "tasks": [
+        {"name": "Master plan", "status": "Done", "progress": 100},
+        {"name": "Content calendars", "status": "Done", "progress": 100},
+        {"name": "Brand design", "status": "Done", "progress": 100},
+        {"name": "Audio assets", "status": "Done", "progress": 100},
+        {"name": "First video production", "status": "Not Started", "progress": 0}
+      ]
+    },
+    {
+      "id": "kids-app",
+      "name": "🎮 Kids Mobile App",
+      "status": "Planning",
+      "progress": 10,
+      "priority": "Low",
+      "details": "Complete game design doc",
+      "tasks": [
+        {"name": "Game design document", "status": "Done", "progress": 100},
+        {"name": "Development", "status": "Not Started", "progress": 0}
+      ]
+    }
+  ]
+}
