@@ -970,8 +970,378 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- TASKS PAGE -->
+                <div class="page" id="page-tasks">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">☐ Active Tasks</div>
+                            <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;">
+                                <span>+</span> Add Task
+                            </button>
+                        </div>
+                        <div class="task-list">
+                            <div class="task-item">
+                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Complete Respiratory Education PowerPoints</div>
+                                    <div class="task-meta">Project: Respiratory Education • Due: Today</div>
+                                </div>
+                                <span class="task-tag high">High</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Deploy BINARY Trading Dashboard</div>
+                                    <div class="task-meta">Project: Trading System • Due: Tomorrow</div>
+                                </div>
+                                <span class="task-tag high">High</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-checkbox checked" onclick="toggleTask(this)"></div>
+                                <div class="task-content">
+                                    <div class="task-title" style="text-decoration: line-through; opacity: 0.6;">Update Mission Control UI</div>
+                                    <div class="task-meta">Project: Mission Control • Completed</div>
+                                </div>
+                                <span class="task-tag medium">Medium</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Research reselling strategies</div>
+                                    <div class="task-meta">Project: Reselling Business • Due: This week</div>
+                                </div>
+                                <span class="task-tag low">Low</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONTENT PIPELINE PAGE -->
+                <div class="page" id="page-content">
+                    <div class="pipeline-columns">
+                        <div class="pipeline-column">
+                            <div class="pipeline-header">
+                                <span class="pipeline-title">Ideas</span>
+                                <span class="pipeline-count">3</span>
+                            </div>
+                            <div class="pipeline-card">
+                                <div style="font-weight: 500; margin-bottom: 4px;">Trading Strategy Video</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">YouTube Empire</div>
+                            </div>
+                            <div class="pipeline-card">
+                                <div style="font-weight: 500; margin-bottom: 4px;">RT Tools Tutorial</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">Respiratory Education</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-column">
+                            <div class="pipeline-header">
+                                <span class="pipeline-title">Scripting</span>
+                                <span class="pipeline-count">1</span>
+                            </div>
+                            <div class="pipeline-card">
+                                <div style="font-weight: 500; margin-bottom: 4px;">Mission Control Walkthrough</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">YouTube Empire</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-column">
+                            <div class="pipeline-header">
+                                <span class="pipeline-title">Recording</span>
+                                <span class="pipeline-count">0</span>
+                            </div>
+                        </div>
+                        <div class="pipeline-column">
+                            <div class="pipeline-header">
+                                <span class="pipeline-title">Editing</span>
+                                <span class="pipeline-count">1</span>
+                            </div>
+                            <div class="pipeline-card">
+                                <div style="font-weight: 500; margin-bottom: 4px;">Agent System Overview</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">YouTube Empire</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-column">
+                            <div class="pipeline-header">
+                                <span class="pipeline-title">Published</span>
+                                <span class="pipeline-count">2</span>
+                            </div>
+                            <div class="pipeline-card">
+                                <div style="font-weight: 500; margin-bottom: 4px;">Intro to OpenClaw</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">YouTube Empire • 1.2K views</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TRADING PAGE -->
+                <div class="page" id="page-trading">
+                    <div class="trading-grid">
+                        <div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">◧ BINARY Dashboard</div>
+                                </div>
+                                <div class="chart-placeholder">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                                        <div>Live trading data would appear here</div>
+                                        <div style="margin-top: 8px; font-size: 12px;">
+                                            <a href="https://frontend-wheat-five-e0jlij8zl2.vercel.app" target="_blank" style="color: var(--accent-cyan);">Open BINARY Dashboard →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Market Status</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div style="display: flex; justify-content: space-between; padding: 12px; background: var(--bg-app); border-radius: 6px;">
+                                        <span>SPX</span>
+                                        <span style="color: var(--accent-green); font-family: 'JetBrains Mono', monospace;">+1.2%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 12px; background: var(--bg-app); border-radius: 6px;">
+                                        <span>SPY</span>
+                                        <span style="color: var(--accent-green); font-family: 'JetBrains Mono', monospace;">+0.8%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 12px; background: var(--bg-app); border-radius: 6px;">
+                                        <span>QQQ</span>
+                                        <span style="color: var(--accent-red); font-family: 'JetBrains Mono', monospace;">-0.3%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OFFICE PAGE -->
+                <div class="page" id="page-office">
+                    <div class="office-grid">
+                        <div class="office-agent">
+                            <div class="office-avatar">
+                                D
+                                <div class="office-status working"></div>
+                            </div>
+                            <div class="office-name">Dayton</div>
+                            <div class="office-role">Human-in-Chief</div>
+                            <div class="office-task">Reviewing Mission Control updates</div>
+                        </div>
+                        <div class="office-agent">
+                            <div class="office-avatar" style="background: linear-gradient(135deg, #00f5ff, #8b5cf6);">
+                                N
+                                <div class="office-status working"></div>
+                            </div>
+                            <div class="office-name">Nano</div>
+                            <div class="office-role">Primary Agent</div>
+                            <div class="office-task">Building dashboard features</div>
+                        </div>
+                        <div class="office-agent" style="opacity: 0.5;">
+                            <div class="office-avatar" style="background: linear-gradient(135deg, #6b7280, #9ca3af);">
+                                ?
+                                <div class="office-status idle"></div>
+                            </div>
+                            <div class="office-name">Agent Slot</div>
+                            <div class="office-role">Available</div>
+                            <div class="office-task">Waiting for activation</div>
+                        </div>
+                        <div class="office-agent" style="opacity: 0.5;">
+                            <div class="office-avatar" style="background: linear-gradient(135deg, #6b7280, #9ca3af);">
+                                ?
+                                <div class="office-status idle"></div>
+                            </div>
+                            <div class="office-name">Agent Slot</div>
+                            <div class="office-role">Available</div>
+                            <div class="office-task">Waiting for activation</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MEMORY PAGE -->
+                <div class="page" id="page-memory">
+                    <div class="memory-timeline">
+                        <div class="memory-item">
+                            <div class="memory-date">2026-03-03 21:15 PST</div>
+                            <span class="memory-type decision">Decision</span>
+                            <div class="memory-content">
+                                Decided to make Mission Control the central hub for all project management with Discord integration for team communication.
+                            </div>
+                        </div>
+                        <div class="memory-item">
+                            <div class="memory-date">2026-03-03 19:48 PST</div>
+                            <span class="memory-type architecture">Architecture</span>
+                            <div class="memory-content">
+                                Redesigned Mission Control dashboard with Mission Control design system — sidebar navigation, cards, and cyberpunk aesthetic.
+                            </div>
+                        </div>
+                        <div class="memory-item">
+                            <div class="memory-date">2026-03-02 14:30 PST</div>
+                            <span class="memory-type business">Business</span>
+                            <div class="memory-content">
+                                Set value production goals: YouTube ($500-2000/wk), Reselling ($1000-5000/wk), Trading (variable), Education (long-term).
+                            </div>
+                        </div>
+                        <div class="memory-item">
+                            <div class="memory-date">2026-03-01 09:00 PST</div>
+                            <span class="memory-type architecture">Architecture</span>
+                            <div class="memory-content">
+                                Migrated from cloud to local Mac mini. All 13 cron jobs transferred, iMessage operational, Discord connected.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TEAM PAGE -->
+                <div class="page" id="page-team">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">◉ Team Members</div>
+                        </div>
+                        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                            <div class="team-member" style="padding: 20px;">
+                                <div class="member-avatar" style="width: 60px; height: 60px; font-size: 24px;">D</div>
+                                <div class="member-info">
+                                    <div class="member-name" style="font-size: 16px;">Dayton</div>
+                                    <div class="member-role">Human-in-Chief</div>
+                                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">
+                                        Projects: All • Status: Active
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-member" style="padding: 20px;">
+                                <div class="member-avatar" style="width: 60px; height: 60px; font-size: 24px; background: linear-gradient(135deg, #00f5ff, #8b5cf6);">N</div>
+                                <div class="member-info">
+                                    <div class="member-name" style="font-size: 16px;">Nano</div>
+                                    <div class="member-role">Primary Agent</div>
+                                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">
+                                        Model: Kimi K2.5 • Status: Online
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS PAGE -->
+                <div class="page" id="page-settings">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">⚙ Settings</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <div>
+                                <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Discord Webhook URL</label>
+                                <input type="text" id="discord-webhook-input" placeholder="https://discord.com/api/webhooks/..." 
+                                    style="width: 100%; padding: 10px; background: var(--bg-app); border: 1px solid var(--border-subtle); border-radius: 6px; color: var(--text-primary);">
+                                <button class="btn btn-primary" style="margin-top: 8px;" onclick="saveWebhook()">Save Webhook</button>
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Auto-sync to Discord</label>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="width: 40px; height: 20px; background: var(--accent-green); border-radius: 10px; position: relative; cursor: pointer;">
+                                        <div style="width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; right: 2px; top: 2px;"></div>
+                                    </div>
+                                    <span style="font-size: 13px;">Enabled</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+    
+    <script>
+        // Page Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const selectedPage = document.getElementById('page-' + pageName);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'projects': 'Projects',
+                'office': 'Office',
+                'memory': 'Memory',
+                'tasks': 'Tasks',
+                'content': 'Content Pipeline',
+                'trading': 'Trading',
+                'team': 'Team',
+                'settings': 'Settings'
+            };
+            document.getElementById('page-title').textContent = titles[pageName] || 'Dashboard';
+        }
+        
+        // Discord Integration
+        async function sendDiscordUpdate() {
+            const webhookUrl = localStorage.getItem('discord_webhook') || '';
+            
+            if (!webhookUrl) {
+                const url = prompt('Enter Discord webhook URL:');
+                if (url) {
+                    localStorage.setItem('discord_webhook', url);
+                }
+                return;
+            }
+            
+            const message = {
+                embeds: [{
+                    title: '🎯 Mission Control Update',
+                    description: 'Project status updated from Mission Control dashboard',
+                    color: 0x8b5cf6,
+                    fields: [
+                        { name: 'Active Projects', value: '7', inline: true },
+                        { name: 'Tasks Completed', value: '24', inline: true },
+                        { name: 'System Health', value: '98%', inline: true }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'Mission Control // NANO v2.0' }
+                }]
+            };
+            
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(message)
+                });
+                
+                if (response.ok) {
+                    alert('Update sent to Discord!');
+                } else {
+                    alert('Failed to send update');
+                }
+            } catch (error) {
+                console.error('Discord webhook error:', error);
+                alert('Error sending to Discord');
+            }
+        }
+        
+        // Task checkbox toggle
+        function toggleTask(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+        
+        // Auto-refresh stats every 30 seconds
+        setInterval(() => {
+            // Simulate live updates
+            console.log('Refreshing stats...');
+        }, 30000);
+    </script>
 </body>
 </html>
