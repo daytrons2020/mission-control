@@ -6,7 +6,7 @@
     <title>Mission Control // NANO v2.0</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-        
+
         :root {
             --bg-app: #0a0a0e;
             --bg-sidebar: #0c0c10;
@@ -25,18 +25,18 @@
             --sidebar-width: 260px;
             --header-height: 64px;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-app);
             color: var(--text-primary);
             min-height: 100vh;
         }
-        
+
         .app-container { display: flex; min-height: 100vh; }
-        
+
         .sidebar {
             width: var(--sidebar-width);
             background: var(--bg-sidebar);
@@ -47,18 +47,18 @@
             height: 100vh;
             z-index: 100;
         }
-        
+
         .sidebar-header {
             padding: 20px 16px;
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .logo-icon {
             width: 36px;
             height: 36px;
@@ -72,29 +72,29 @@
             font-size: 18px;
             color: white;
         }
-        
+
         .logo-text {
             font-size: 16px;
             font-weight: 600;
             letter-spacing: -0.02em;
         }
-        
+
         .logo-subtitle {
             font-size: 11px;
             color: var(--text-tertiary);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .sidebar-nav {
             flex: 1;
             padding: 16px 12px;
             overflow-y: auto;
         }
-        
+
         .nav-section {
             margin-bottom: 24px;
         }
-        
+
         .nav-section-title {
             font-size: 11px;
             font-weight: 500;
@@ -104,7 +104,7 @@
             padding: 0 12px;
             margin-bottom: 8px;
         }
-        
+
         .nav-item {
             display: flex;
             align-items: center;
@@ -117,18 +117,18 @@
             transition: all 0.15s ease;
             margin-bottom: 2px;
         }
-        
+
         .nav-item:hover {
             background: var(--bg-surface-hover);
             color: var(--text-primary);
         }
-        
+
         .nav-item.active {
             background: var(--bg-surface-hover);
             color: var(--text-primary);
             position: relative;
         }
-        
+
         .nav-item.active::before {
             content: '';
             position: absolute;
@@ -140,7 +140,7 @@
             background: var(--accent-purple);
             border-radius: 0 2px 2px 0;
         }
-        
+
         .nav-badge {
             margin-left: auto;
             background: var(--accent-purple);
@@ -150,14 +150,14 @@
             padding: 2px 8px;
             border-radius: 10px;
         }
-        
+
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
             display: flex;
             flex-direction: column;
         }
-        
+
         .header {
             height: var(--header-height);
             background: var(--bg-app);
@@ -170,19 +170,19 @@
             top: 0;
             z-index: 50;
         }
-        
+
         .header-left {
             display: flex;
             align-items: center;
             gap: 16px;
         }
-        
+
         .page-title {
             font-size: 20px;
             font-weight: 600;
             letter-spacing: -0.02em;
         }
-        
+
         .search-bar {
             display: flex;
             align-items: center;
@@ -193,7 +193,7 @@
             padding: 8px 12px;
             width: 300px;
         }
-        
+
         .search-bar input {
             background: transparent;
             border: none;
@@ -202,17 +202,17 @@
             outline: none;
             width: 100%;
         }
-        
+
         .search-bar input::placeholder {
             color: var(--text-tertiary);
         }
-        
+
         .header-right {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -225,95 +225,95 @@
             transition: all 0.15s ease;
             border: none;
         }
-        
+
         .btn-primary {
             background: var(--accent-purple);
             color: white;
         }
-        
+
         .btn-primary:hover { background: #7c3aed; }
-        
+
         .btn-secondary {
             background: var(--bg-surface);
             color: var(--text-secondary);
             border: 1px solid var(--border-subtle);
         }
-        
+
         .btn-secondary:hover {
             background: var(--bg-surface-hover);
             color: var(--text-primary);
         }
-        
+
         .content {
             flex: 1;
             padding: 24px;
             overflow-y: auto;
         }
-        
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px;
             margin-bottom: 24px;
         }
-        
+
         @media (max-width: 992px) {
             .stats-row { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         .stat-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
             padding: 16px;
         }
-        
+
         .stat-label {
             font-size: 12px;
             color: var(--text-tertiary);
             margin-bottom: 8px;
         }
-        
+
         .stat-value {
             font-size: 24px;
             font-weight: 700;
             color: var(--text-primary);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .stat-change {
             font-size: 12px;
             margin-top: 4px;
         }
-        
+
         .stat-change.positive { color: var(--accent-green); }
         .stat-change.negative { color: var(--accent-red); }
-        
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 24px;
             margin-bottom: 24px;
         }
-        
+
         @media (max-width: 1200px) {
             .dashboard-grid { grid-template-columns: 1fr; }
         }
-        
+
         .card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
             padding: 20px;
         }
-        
+
         .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 16px;
         }
-        
+
         .card-title {
             font-size: 14px;
             font-weight: 600;
@@ -322,20 +322,20 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .card-action {
             font-size: 12px;
             color: var(--text-tertiary);
             cursor: pointer;
         }
-        
+
         .card-action:hover { color: var(--text-secondary); }
-        
+
         .mission-card {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0, 245, 255, 0.05));
             border-color: rgba(139, 92, 246, 0.3);
         }
-        
+
         .mission-quote {
             font-size: 18px;
             font-style: italic;
@@ -347,17 +347,17 @@
             border-radius: 0 8px 8px 0;
             margin-bottom: 20px;
         }
-        
+
         .mission-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
         }
-        
+
         @media (max-width: 768px) {
             .mission-grid { grid-template-columns: 1fr; }
         }
-        
+
         .mission-section h4 {
             font-size: 12px;
             font-weight: 600;
@@ -366,11 +366,11 @@
             letter-spacing: 0.05em;
             margin-bottom: 12px;
         }
-        
+
         .principles-list {
             list-style: none;
         }
-        
+
         .principles-list li {
             padding: 8px 0;
             color: var(--text-secondary);
@@ -380,26 +380,26 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .principles-list li:last-child { border-bottom: none; }
-        
+
         .principles-list li::before {
             content: '›';
             color: var(--accent-purple);
             font-weight: bold;
         }
-        
+
         .principles-list strong {
             color: var(--text-primary);
             font-weight: 500;
         }
-        
+
         .goals-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-        
+
         .goal-item {
             display: flex;
             justify-content: space-between;
@@ -409,25 +409,25 @@
             border: 1px solid var(--border-subtle);
             border-radius: 6px;
         }
-        
+
         .goal-name {
             font-size: 13px;
             color: var(--text-secondary);
         }
-        
+
         .goal-value {
             font-size: 12px;
             font-weight: 600;
             color: var(--accent-green);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-        
+
         .team-member {
             display: flex;
             align-items: center;
@@ -437,7 +437,7 @@
             border: 1px solid var(--border-subtle);
             border-radius: 6px;
         }
-        
+
         .member-avatar {
             width: 40px;
             height: 40px;
@@ -450,7 +450,7 @@
             font-weight: 600;
             position: relative;
         }
-        
+
         .member-status {
             position: absolute;
             bottom: 0;
@@ -460,18 +460,18 @@
             border-radius: 50%;
             border: 2px solid var(--bg-app);
         }
-        
+
         .member-status.online { background: var(--accent-green); }
         .member-status.away { background: var(--accent-yellow); }
-        
+
         .member-info { flex: 1; }
-        
+
         .member-name {
             font-size: 13px;
             font-weight: 500;
             color: var(--text-primary);
         }
-        
+
         .member-role {
             font-size: 11px;
             color: var(--text-tertiary);
@@ -641,7 +641,7 @@
             flex-direction: column;
             gap: 12px;
         }
-        
+
         .activity-item {
             display: flex;
             gap: 12px;
@@ -650,7 +650,7 @@
             border: 1px solid var(--border-subtle);
             border-radius: 6px;
         }
-        
+
         .activity-avatar {
             width: 32px;
             height: 32px;
@@ -663,27 +663,27 @@
             font-weight: 600;
             flex-shrink: 0;
         }
-        
+
         .activity-content { flex: 1; }
-        
+
         .activity-text {
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.5;
         }
-        
+
         .activity-text strong {
             color: var(--text-primary);
             font-weight: 500;
         }
-        
+
         .activity-time {
             font-size: 11px;
             color: var(--text-tertiary);
             margin-top: 4px;
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .section-title {
             font-size: 12px;
             font-weight: 600;
@@ -692,21 +692,21 @@
             letter-spacing: 0.05em;
             margin-bottom: 16px;
         }
-        
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
         }
-        
+
         @media (max-width: 1200px) {
             .projects-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
         }
-        
+
         .project-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -715,67 +715,67 @@
             transition: all 0.15s ease;
             cursor: pointer;
         }
-        
+
         .project-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-2px);
         }
-        
+
         .project-header {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 12px;
         }
-        
+
         .project-name {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-primary);
         }
-        
+
         .project-status {
             width: 8px;
             height: 8px;
             border-radius: 50%;
         }
-        
+
         .project-status.active {
             background: var(--accent-green);
             box-shadow: 0 0 8px var(--accent-green);
         }
-        
+
         .project-status.pending {
             background: var(--accent-yellow);
         }
-        
+
         .project-status.stalled {
             background: var(--accent-red);
         }
-        
+
         .project-meta {
             font-size: 12px;
             color: var(--text-tertiary);
             margin-bottom: 12px;
         }
-        
+
         .progress-bar {
             height: 4px;
             background: var(--bg-app);
             border-radius: 2px;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
             border-radius: 2px;
             transition: width 0.5s ease;
         }
-        
+
         .progress-fill.high { background: var(--accent-green); }
         .progress-fill.medium { background: var(--accent-yellow); }
         .progress-fill.low { background: var(--accent-red); }
-        
+
         .project-footer {
             display: flex;
             justify-content: space-between;
@@ -783,19 +783,19 @@
             margin-top: 12px;
             font-size: 12px;
         }
-        
+
         .project-percent {
             color: var(--text-secondary);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .project-tasks {
             color: var(--text-tertiary);
         }
-        
+
         /* Tasks */
         .task-list { display: flex; flex-direction: column; gap: 10px; }
-        
+
         .task-item {
             display: flex;
             align-items: center;
@@ -805,7 +805,7 @@
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
         }
-        
+
         .task-checkbox {
             width: 18px;
             height: 18px;
@@ -814,13 +814,13 @@
             cursor: pointer;
             flex-shrink: 0;
         }
-        
+
         .task-checkbox.checked {
             background: var(--accent-green);
             border-color: var(--accent-green);
             position: relative;
         }
-        
+
         .task-checkbox.checked::after {
             content: '✓';
             position: absolute;
@@ -830,11 +830,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         .task-content { flex: 1; }
         .task-title { font-size: 14px; margin-bottom: 4px; }
         .task-meta { font-size: 11px; color: var(--text-tertiary); }
-        
+
         .task-tag {
             font-size: 10px;
             padding: 2px 8px;
@@ -842,11 +842,11 @@
             text-transform: uppercase;
             font-weight: 600;
         }
-        
+
         .task-tag.high { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
         .task-tag.medium { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
         .task-tag.low { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-        
+
         /* Task Board */
         .task-board-header {
             display: flex;
@@ -854,12 +854,12 @@
             align-items: center;
             margin-bottom: 20px;
         }
-        
+
         .task-filters {
             display: flex;
             gap: 8px;
         }
-        
+
         .task-filter {
             padding: 8px 16px;
             background: var(--bg-surface);
@@ -870,32 +870,32 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .task-filter:hover {
             border-color: var(--border-hover);
             color: var(--text-primary);
         }
-        
+
         .task-filter.active {
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
             border-color: transparent;
             color: white;
         }
-        
+
         .task-board {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px;
         }
-        
+
         @media (max-width: 1200px) {
             .task-board { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .task-board { grid-template-columns: 1fr; }
         }
-        
+
         .task-column {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -903,7 +903,7 @@
             padding: 16px;
             min-height: 500px;
         }
-        
+
         .task-column-header {
             display: flex;
             justify-content: space-between;
@@ -912,13 +912,13 @@
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .task-column-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 12px;
             font-weight: 600;
         }
-        
+
         .task-count {
             background: var(--bg-app);
             padding: 2px 10px;
@@ -927,13 +927,13 @@
             font-family: 'JetBrains Mono', monospace;
             color: var(--text-tertiary);
         }
-        
+
         .task-column-content {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .task-card {
             background: var(--bg-app);
             border: 1px solid var(--border-subtle);
@@ -942,27 +942,27 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .task-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-        
+
         .task-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 8px;
         }
-        
+
         .task-card-title {
             font-size: 14px;
             font-weight: 500;
             line-height: 1.4;
             flex: 1;
         }
-        
+
         .task-card-priority {
             width: 8px;
             height: 8px;
@@ -970,18 +970,18 @@
             margin-left: 8px;
             flex-shrink: 0;
         }
-        
+
         .task-card-priority.high { background: var(--accent-red); box-shadow: 0 0 6px var(--accent-red); }
         .task-card-priority.medium { background: var(--accent-yellow); box-shadow: 0 0 6px var(--accent-yellow); }
         .task-card-priority.low { background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
-        
+
         .task-card-meta {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-bottom: 10px;
         }
-        
+
         .task-card-project {
             font-size: 11px;
             padding: 2px 8px;
@@ -989,25 +989,25 @@
             border-radius: 4px;
             color: var(--accent-purple);
         }
-        
+
         .task-card-due {
             font-size: 11px;
             color: var(--text-tertiary);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .task-card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .task-card-assignee {
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        
+
         .task-assignee-avatar {
             width: 24px;
             height: 24px;
@@ -1020,17 +1020,17 @@
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
         }
-        
+
         .task-assignee-name {
             font-size: 12px;
             color: var(--text-secondary);
         }
-        
+
         .task-card-actions {
             display: flex;
             gap: 4px;
         }
-        
+
         .task-action-btn {
             width: 24px;
             height: 24px;
@@ -1041,27 +1041,27 @@
             border-radius: 4px;
             transition: all 0.2s ease;
         }
-        
+
         .task-action-btn:hover {
             background: var(--bg-surface-hover);
             color: var(--text-primary);
         }
-        
+
         /* Content Pipeline */
         .pipeline-columns {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
         }
-        
+
         @media (max-width: 1200px) {
             .pipeline-columns { grid-template-columns: repeat(3, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .pipeline-columns { grid-template-columns: 1fr; }
         }
-        
+
         .pipeline-column {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -1069,7 +1069,7 @@
             padding: 16px;
             min-height: 300px;
         }
-        
+
         .pipeline-header {
             display: flex;
             justify-content: space-between;
@@ -1078,13 +1078,13 @@
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .pipeline-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 12px;
             font-weight: 600;
         }
-        
+
         .pipeline-count {
             background: var(--bg-app);
             padding: 2px 8px;
@@ -1092,7 +1092,7 @@
             font-size: 11px;
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .pipeline-card {
             background: var(--bg-app);
             border: 1px solid var(--border-subtle);
@@ -1101,20 +1101,20 @@
             margin-bottom: 8px;
             cursor: pointer;
         }
-        
+
         .pipeline-card:hover { border-color: var(--border-hover); }
-        
+
         /* Trading */
         .trading-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 20px;
         }
-        
+
         @media (max-width: 992px) {
             .trading-grid { grid-template-columns: 1fr; }
         }
-        
+
         .chart-placeholder {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -1125,22 +1125,22 @@
             justify-content: center;
             color: var(--text-tertiary);
         }
-        
+
         /* Office */
         .office-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
-        
+
         @media (max-width: 1200px) {
             .office-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .office-grid { grid-template-columns: 1fr; }
         }
-        
+
         .office-agent {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -1148,7 +1148,7 @@
             padding: 24px;
             text-align: center;
         }
-        
+
         .office-avatar {
             width: 80px;
             height: 80px;
@@ -1164,7 +1164,7 @@
             position: relative;
             box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
         }
-        
+
         .office-status {
             position: absolute;
             bottom: 4px;
@@ -1174,22 +1174,22 @@
             border-radius: 50%;
             border: 3px solid var(--bg-surface);
         }
-        
+
         .office-status.working { background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); }
         .office-status.idle { background: var(--accent-yellow); box-shadow: 0 0 10px var(--accent-yellow); }
-        
+
         .office-name {
             font-family: 'Orbitron', sans-serif;
             font-size: 16px;
             margin-bottom: 4px;
         }
-        
+
         .office-role {
             font-size: 12px;
             color: var(--text-tertiary);
             margin-bottom: 12px;
         }
-        
+
         .office-task {
             font-size: 12px;
             color: var(--text-secondary);
@@ -1204,7 +1204,7 @@
         }
 
         .office-floor {
-            background: 
+            background:
                 linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
@@ -1457,12 +1457,96 @@
             background: var(--text-tertiary);
         }
 
-        /* Memory */
+        /* Memory Page */
+        .memory-header {
+            margin-bottom: 24px;
+        }
+
+        .memory-search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+
+        .memory-search input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+        }
+
+        .memory-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .memory-filter {
+            padding: 6px 14px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .memory-filter:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .memory-filter.active {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-color: transparent;
+            color: white;
+        }
+
+        .memory-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .memory-stats { grid-template-columns: 1fr; }
+        }
+
+        .memory-stat {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .memory-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .memory-stat-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
         .memory-timeline {
             position: relative;
             padding-left: 24px;
         }
-        
+
         .memory-timeline::before {
             content: '';
             position: absolute;
@@ -1472,7 +1556,118 @@
             width: 2px;
             background: var(--border-subtle);
         }
-        
+
+        .memory-item {
+            position: relative;
+            padding: 20px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .memory-item:hover {
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        .memory-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            border: 3px solid var(--bg-app);
+        }
+
+        .memory-item.high-importance::before {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .memory-item.hidden {
+            display: none;
+        }
+
+        .memory-date {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+        }
+
+        .memory-type {
+            display: inline-block;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .memory-type.decision { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+        .memory-type.architecture { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
+        .memory-type.business { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .memory-type.system { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
+        .memory-type.project { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+
+        .memory-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .memory-category {
+            font-size: 11px;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .memory-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .memory-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .memory-tag {
+            font-size: 10px;
+            padding: 3px 10px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* Memory */
+        .memory-timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .memory-timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-subtle);
+        }
+
         .memory-item {
             position: relative;
             padding: 16px;
@@ -1481,7 +1676,7 @@
             border-radius: 10px;
             margin-bottom: 12px;
         }
-        
+
         .memory-item::before {
             content: '';
             position: absolute;
@@ -1493,14 +1688,14 @@
             background: var(--accent-purple);
             border: 2px solid var(--bg-app);
         }
-        
+
         .memory-date {
             font-size: 11px;
             color: var(--text-tertiary);
             font-family: 'JetBrains Mono', monospace;
             margin-bottom: 8px;
         }
-        
+
         .memory-type {
             display: inline-block;
             font-size: 10px;
@@ -1510,13 +1705,13 @@
             font-weight: 600;
             margin-bottom: 8px;
         }
-        
+
         .memory-type.decision { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
         .memory-type.architecture { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
         .memory-type.business { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-        
+
         .memory-content { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-        
+
         /* Calendar */
         .calendar-container {
             background: var(--bg-surface);
@@ -1524,26 +1719,26 @@
             border-radius: 12px;
             padding: 24px;
         }
-        
+
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
         }
-        
+
         .calendar-nav {
             display: flex;
             align-items: center;
             gap: 16px;
         }
-        
+
         .calendar-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 18px;
             color: var(--neon-cyan);
         }
-        
+
         .calendar-btn {
             padding: 8px 16px;
             background: var(--bg-app);
@@ -1553,18 +1748,18 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .calendar-btn:hover {
             border-color: var(--accent-cyan);
             color: var(--accent-cyan);
         }
-        
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 8px;
         }
-        
+
         .calendar-day-header {
             text-align: center;
             padding: 12px;
@@ -1574,7 +1769,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .calendar-day {
             min-height: 100px;
             background: var(--bg-app);
@@ -1584,28 +1779,28 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .calendar-day:hover {
             border-color: var(--border-hover);
         }
-        
+
         .calendar-day.today {
             border-color: var(--accent-cyan);
             background: rgba(0, 245, 255, 0.05);
         }
-        
+
         .calendar-day-number {
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
             color: var(--text-secondary);
             margin-bottom: 4px;
         }
-        
+
         .calendar-day.today .calendar-day-number {
             color: var(--accent-cyan);
             font-weight: 600;
         }
-        
+
         .calendar-event {
             font-size: 10px;
             padding: 2px 6px;
@@ -1615,31 +1810,31 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
+
         .calendar-event.cron {
             background: rgba(139, 92, 246, 0.2);
             color: var(--accent-purple);
         }
-        
+
         .calendar-event.task {
             background: rgba(0, 245, 255, 0.2);
             color: var(--accent-cyan);
         }
-        
+
         .calendar-event.meeting {
             background: rgba(255, 107, 53, 0.2);
             color: var(--accent-orange);
         }
-        
+
         .calendar-event.reminder {
             background: rgba(16, 185, 129, 0.2);
             color: var(--accent-green);
         }
-        
+
         .cron-list {
             margin-top: 24px;
         }
-        
+
         .cron-item {
             display: flex;
             align-items: center;
@@ -1650,35 +1845,35 @@
             border-radius: 8px;
             margin-bottom: 8px;
         }
-        
+
         .cron-time {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             color: var(--accent-cyan);
             min-width: 80px;
         }
-        
+
         .cron-details {
             flex: 1;
         }
-        
+
         .cron-name {
             font-weight: 500;
             margin-bottom: 2px;
         }
-        
+
         .cron-desc {
             font-size: 12px;
             color: var(--text-tertiary);
         }
-        
+
         .cron-status {
             display: flex;
             align-items: center;
             gap: 6px;
             font-size: 12px;
         }
-        
+
         .cron-status-dot {
             width: 8px;
             height: 8px;
@@ -1686,30 +1881,30 @@
             background: var(--accent-green);
             animation: pulse-dot 2s infinite;
         }
-        
+
         .cron-status.paused .cron-status-dot {
             background: var(--accent-yellow);
             animation: none;
         }
-        
+
         /* Command Center */
         .command-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 24px;
         }
-        
+
         @media (max-width: 1200px) {
             .command-grid { grid-template-columns: 1fr; }
         }
-        
+
         .broadcast-panel {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(0, 245, 255, 0.1));
             border: 1px solid rgba(139, 92, 246, 0.4);
             border-radius: 12px;
             padding: 24px;
         }
-        
+
         .broadcast-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
@@ -1719,7 +1914,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .broadcast-textarea {
             width: 100%;
             min-height: 120px;
@@ -1733,20 +1928,20 @@
             resize: vertical;
             margin-bottom: 12px;
         }
-        
+
         .broadcast-textarea:focus {
             outline: none;
             border-color: var(--accent-purple);
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
         }
-        
+
         .broadcast-targets {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 16px;
         }
-        
+
         .broadcast-target {
             display: flex;
             align-items: center;
@@ -1759,21 +1954,21 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .broadcast-target:hover {
             border-color: var(--accent-purple);
         }
-        
+
         .broadcast-target.active {
             background: rgba(139, 92, 246, 0.2);
             border-color: var(--accent-purple);
             color: var(--accent-cyan);
         }
-        
+
         .broadcast-target input {
             display: none;
         }
-        
+
         .live-feed {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -1782,7 +1977,7 @@
             max-height: 500px;
             overflow-y: auto;
         }
-        
+
         .feed-header {
             display: flex;
             justify-content: space-between;
@@ -1791,13 +1986,13 @@
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .feed-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 13px;
             color: var(--neon-cyan);
         }
-        
+
         .feed-status {
             display: flex;
             align-items: center;
@@ -1805,7 +2000,7 @@
             font-size: 11px;
             color: var(--accent-green);
         }
-        
+
         .feed-pulse {
             width: 8px;
             height: 8px;
@@ -1813,7 +2008,7 @@
             background: var(--accent-green);
             animation: pulse-dot 2s infinite;
         }
-        
+
         .feed-item {
             padding: 12px;
             background: var(--bg-app);
@@ -1822,18 +2017,18 @@
             margin-bottom: 10px;
             transition: all 0.2s ease;
         }
-        
+
         .feed-item:hover {
             border-color: var(--border-hover);
         }
-        
+
         .feed-source {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-bottom: 6px;
         }
-        
+
         .feed-icon {
             width: 20px;
             height: 20px;
@@ -1844,30 +2039,30 @@
             font-size: 10px;
             font-weight: bold;
         }
-        
+
         .feed-icon.discord { background: #5865F2; color: white; }
         .feed-icon.github { background: #333; color: white; }
         .feed-icon.system { background: var(--accent-purple); color: white; }
-        
+
         .feed-channel {
             font-size: 11px;
             color: var(--text-tertiary);
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .feed-content {
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.5;
         }
-        
+
         .feed-time {
             font-size: 10px;
             color: var(--text-tertiary);
             margin-top: 6px;
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         /* Agent Terminal */
         .terminal-container {
             background: #0d0d12;
@@ -1875,7 +2070,7 @@
             border-radius: 12px;
             overflow: hidden;
         }
-        
+
         .terminal-header {
             display: flex;
             align-items: center;
@@ -1884,12 +2079,12 @@
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .terminal-tabs {
             display: flex;
             gap: 4px;
         }
-        
+
         .terminal-tab {
             padding: 6px 12px;
             background: transparent;
@@ -1900,17 +2095,17 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .terminal-tab:hover {
             background: var(--bg-surface-hover);
             color: var(--text-primary);
         }
-        
+
         .terminal-tab.active {
             background: rgba(139, 92, 246, 0.2);
             color: var(--accent-cyan);
         }
-        
+
         .terminal-body {
             padding: 16px;
             min-height: 400px;
@@ -1918,15 +2113,15 @@
             font-size: 13px;
             line-height: 1.6;
         }
-        
+
         .terminal-line {
             margin-bottom: 8px;
         }
-        
+
         .terminal-prompt {
             color: var(--accent-green);
         }
-        
+
         .terminal-input {
             background: transparent;
             border: none;
@@ -1936,17 +2131,17 @@
             outline: none;
             width: 80%;
         }
-        
+
         .terminal-output {
             color: var(--text-secondary);
             margin-left: 20px;
             margin-bottom: 12px;
         }
-        
+
         .terminal-output.success { color: var(--accent-green); }
         .terminal-output.error { color: var(--accent-red); }
         .terminal-output.info { color: var(--accent-cyan); }
-        
+
         /* Cost Tracking */
         .cost-grid {
             display: grid;
@@ -1954,11 +2149,11 @@
             gap: 16px;
             margin-bottom: 24px;
         }
-        
+
         @media (max-width: 992px) {
             .cost-grid { grid-template-columns: 1fr; }
         }
-        
+
         .cost-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -1966,25 +2161,25 @@
             padding: 20px;
             text-align: center;
         }
-        
+
         .cost-value {
             font-size: 32px;
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
             margin: 8px 0;
         }
-        
+
         .cost-value.budget { color: var(--accent-green); }
         .cost-value.spent { color: var(--accent-yellow); }
         .cost-value.remaining { color: var(--accent-cyan); }
-        
+
         .cost-label {
             font-size: 11px;
             color: var(--text-tertiary);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .cost-bar {
             height: 6px;
             background: var(--bg-app);
@@ -1992,13 +2187,13 @@
             margin-top: 12px;
             overflow: hidden;
         }
-        
+
         .cost-fill {
             height: 100%;
             border-radius: 3px;
             background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
         }
-        
+
         /* Toast Notifications */
         .toast-container {
             position: fixed;
@@ -2009,7 +2204,7 @@
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .toast {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
@@ -2019,7 +2214,7 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             animation: slideIn 0.3s ease;
         }
-        
+
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -2030,21 +2225,21 @@
                 opacity: 1;
             }
         }
-        
+
         .toast-title {
             font-weight: 600;
             margin-bottom: 4px;
         }
-        
+
         .toast-message {
             font-size: 13px;
             color: var(--text-secondary);
         }
-        
+
         .toast.success { border-left: 3px solid var(--accent-green); }
         .toast.error { border-left: 3px solid var(--accent-red); }
         .toast.info { border-left: 3px solid var(--accent-cyan); }
-        
+
         /* Discord Panel */
         .discord-panel {
             background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), rgba(88, 101, 242, 0.05));
@@ -2053,14 +2248,14 @@
             padding: 16px;
             margin-bottom: 20px;
         }
-        
+
         .discord-header {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 12px;
         }
-        
+
         .discord-icon {
             width: 24px;
             height: 24px;
@@ -2073,13 +2268,13 @@
             font-weight: bold;
             font-family: 'Orbitron', sans-serif;
         }
-        
+
         .discord-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 13px;
             color: #5865F2;
         }
-        
+
         .discord-status {
             display: flex;
             align-items: center;
@@ -2087,7 +2282,7 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
-        
+
         .discord-dot {
             width: 8px;
             height: 8px;
@@ -2095,19 +2290,19 @@
             background: var(--accent-green);
             animation: pulse-dot 2s infinite;
         }
-        
+
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-        
+
         .discord-channels {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-top: 12px;
         }
-        
+
         .discord-channel {
             font-size: 11px;
             padding: 4px 10px;
@@ -2116,7 +2311,7 @@
             color: #5865F2;
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         /* Page switching */
         .page { display: none; }
         .page.active { display: block; }
@@ -2200,7 +2395,7 @@
                 </div>
             </nav>
         </aside>
-        
+
         <main class="main-content">
             <header class="header">
                 <div class="header-left">
@@ -2221,7 +2416,7 @@
                     </button>
                 </div>
             </header>
-            
+
             <div class="content">
                 <!-- DASHBOARD PAGE -->
                 <div class="page active" id="page-dashboard">
@@ -2247,7 +2442,7 @@
                         <div class="stat-change positive">All systems operational</div>
                     </div>
                 </div>
-                
+
                 <div class="dashboard-grid">
                     <div>
                         <div class="card mission-card">
@@ -2264,11 +2459,11 @@
                                 <div class="mission-section">
                                     <h4>⚡ Core Principles</h4>
                                     <ul class="principles-list">
-                                        <li><strong>Autonomy First</strong> — Agents work independently</li>
-                                        <li><strong>Daily Value</strong> — Consistent 7-day output</li>
-                                        <li><strong>Resource Efficiency</strong> — Use existing first</li>
-                                        <li><strong>Cost-Effectiveness</strong> — Kimi K2.5 → Free → Paid</li>
-                                        <li><strong>Continuous Improvement</strong> — Always optimize</li>
+                                        <li><strong>Autonomy First</strong> - Agents work independently</li>
+                                        <li><strong>Daily Value</strong> - Consistent 7-day output</li>
+                                        <li><strong>Resource Efficiency</strong> - Use existing first</li>
+                                        <li><strong>Cost-Effectiveness</strong> - Kimi K2.5 → Free → Paid</li>
+                                        <li><strong>Continuous Improvement</strong> - Always optimize</li>
                                     </ul>
                                 </div>
                                 <div class="mission-section">
@@ -2295,7 +2490,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div>
                         <div class="card">
                             <div class="card-header">
@@ -2327,7 +2522,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="card" style="margin-top: 16px;">
                             <div class="card-header">
                                 <div class="card-title">
@@ -2368,7 +2563,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="section-title">/// Active Projects</div>
                 <div class="projects-grid">
                     <div class="project-card">
@@ -2385,7 +2580,7 @@
                             <span class="project-tasks">12 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">Trading System</div>
@@ -2400,7 +2595,7 @@
                             <span class="project-tasks">8 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">RT Scheduling</div>
@@ -2415,7 +2610,7 @@
                             <span class="project-tasks">6 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">RT Tools</div>
@@ -2430,7 +2625,7 @@
                             <span class="project-tasks">10 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">Reselling Business</div>
@@ -2445,7 +2640,7 @@
                             <span class="project-tasks">5 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">YouTube Empire</div>
@@ -2460,7 +2655,7 @@
                             <span class="project-tasks">3 tasks</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-card">
                         <div class="project-header">
                             <div class="project-name">Kids App</div>
@@ -2477,7 +2672,7 @@
                     </div>
                 </div>
                 </div>
-                
+
                 <!-- PROJECTS PAGE -->
                 <div class="page" id="page-projects">
                     <div class="card">
@@ -2589,7 +2784,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- CALENDAR PAGE -->
                 <div class="page" id="page-calendar">
                     <div class="calendar-container">
@@ -2607,7 +2802,7 @@
                             <!-- Calendar generated by JS -->
                         </div>
                     </div>
-                    
+
                     <div class="section-title">/// Scheduled Jobs (13 Active)</div>
                     <div class="cron-list">
                         <div class="cron-item">
@@ -2755,7 +2950,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- COMMAND CENTER PAGE -->
                 <div class="page" id="page-command">
                     <div class="command-grid">
@@ -2788,7 +2983,7 @@
                                     <span>📡</span> Broadcast Now
                                 </button>
                             </div>
-                            
+
                             <div class="card" style="margin-top: 20px;">
                                 <div class="card-header">
                                     <div class="card-title">💰 Cost Tracking</div>
@@ -2818,7 +3013,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <div class="live-feed">
                                 <div class="feed-header">
@@ -2845,7 +3040,7 @@
                                             <span class="feed-channel">System</span>
                                         </div>
                                         <div class="feed-content">
-                                            Health check completed — all systems operational
+                                            Health check completed - all systems operational
                                         </div>
                                         <div class="feed-time">8 min ago</div>
                                     </div>
@@ -2874,7 +3069,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- AGENT TERMINAL PAGE -->
                 <div class="page" id="page-terminal">
                     <div class="terminal-container">
@@ -2906,7 +3101,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- TASKS PAGE -->
                 <div class="page" id="page-tasks">
                     <div class="task-board-header">
@@ -2920,7 +3115,7 @@
                             <span>+</span> New Task
                         </button>
                     </div>
-                    
+
                     <div class="task-board">
                         <div class="task-column">
                             <div class="task-column-header">
@@ -2931,7 +3126,7 @@
                                 <!-- Tasks injected by JS -->
                             </div>
                         </div>
-                        
+
                         <div class="task-column">
                             <div class="task-column-header">
                                 <span class="task-column-title">🏃 In Progress</span>
@@ -2941,7 +3136,7 @@
                                 <!-- Tasks injected by JS -->
                             </div>
                         </div>
-                        
+
                         <div class="task-column">
                             <div class="task-column-header">
                                 <span class="task-column-title">👀 Review</span>
@@ -2951,7 +3146,7 @@
                                 <!-- Tasks injected by JS -->
                             </div>
                         </div>
-                        
+
                         <div class="task-column">
                             <div class="task-column-header">
                                 <span class="task-column-title">✅ Done</span>
@@ -2963,7 +3158,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- CONTENT PIPELINE PAGE -->
                 <div class="page" id="page-content">
                     <div class="pipeline-columns">
@@ -3019,7 +3214,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- TRADING PAGE -->
                 <div class="page" id="page-trading">
                     <div class="trading-grid">
@@ -3062,7 +3257,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- OFFICE PAGE -->
                 <div class="page" id="page-office">
                     <div class="office-container">
@@ -3407,41 +3602,51 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- MEMORY PAGE -->
                 <div class="page" id="page-memory">
-                    <div class="memory-timeline">
-                        <div class="memory-item">
-                            <div class="memory-date">2026-03-03 21:15 PST</div>
-                            <span class="memory-type decision">Decision</span>
-                            <div class="memory-content">
-                                Decided to make Mission Control the central hub for all project management with Discord integration for team communication.
-                            </div>
+                    <div class="memory-header">
+                        <div class="memory-search">
+                            <span>⌕</span>
+                            <input type="text" id="memory-search-input" placeholder="Search memories by keyword, tag, or content..." onkeyup="searchMemories()">
                         </div>
-                        <div class="memory-item">
-                            <div class="memory-date">2026-03-03 19:48 PST</div>
-                            <span class="memory-type architecture">Architecture</span>
-                            <div class="memory-content">
-                                Redesigned Mission Control dashboard with Mission Control design system — sidebar navigation, cards, and cyberpunk aesthetic.
-                            </div>
+                        <div class="memory-filters">
+                            <button class="memory-filter active" onclick="filterMemories('all')">All</button>
+                            <button class="memory-filter" onclick="filterMemories('decision')">Decisions</button>
+                            <button class="memory-filter" onclick="filterMemories('architecture')">Architecture</button>
+                            <button class="memory-filter" onclick="filterMemories('business')">Business</button>
+                            <button class="memory-filter" onclick="filterMemories('system')">System</button>
+                            <button class="memory-filter" onclick="filterMemories('project')">Projects</button>
                         </div>
-                        <div class="memory-item">
-                            <div class="memory-date">2026-03-02 14:30 PST</div>
-                            <span class="memory-type business">Business</span>
-                            <div class="memory-content">
-                                Set value production goals: YouTube ($500-2000/wk), Reselling ($1000-5000/wk), Trading (variable), Education (long-term).
-                            </div>
+                    </div>
+
+                    <div class="memory-stats">
+                        <div class="memory-stat">
+                            <div class="memory-stat-value" id="memory-total">12</div>
+                            <div class="memory-stat-label">Total Memories</div>
                         </div>
-                        <div class="memory-item">
-                            <div class="memory-date">2026-03-01 09:00 PST</div>
-                            <span class="memory-type architecture">Architecture</span>
-                            <div class="memory-content">
-                                Migrated from cloud to local Mac mini. All 13 cron jobs transferred, iMessage operational, Discord connected.
-                            </div>
+                        <div class="memory-stat">
+                            <div class="memory-stat-value" id="memory-high">6</div>
+                            <div class="memory-stat-label">High Importance</div>
+                        </div>
+                        <div class="memory-stat">
+                            <div class="memory-stat-value" id="memory-this-week">8</div>
+                            <div class="memory-stat-label">This Week</div>
+                        </div>
+                    </div>
+
+                    <div class="memory-timeline" id="memory-timeline">
+                        <!-- Memories loaded by JS -->
+                    </div>
+
+                    <div class="memory-empty" id="memory-empty" style="display: none;">
+                        <div style="text-align: center; padding: 60px; color: var(--text-tertiary);">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                            <div>No memories found matching your search.</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- TEAM PAGE -->
                 <div class="page" id="page-team">
                     <!-- Core Team -->
@@ -3715,7 +3920,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- SETTINGS PAGE -->
                 <div class="page" id="page-settings">
                     <div class="card">
@@ -3725,7 +3930,7 @@
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <div>
                                 <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Discord Webhook URL</label>
-                                <input type="text" id="discord-webhook-input" placeholder="https://discord.com/api/webhooks/..." 
+                                <input type="text" id="discord-webhook-input" placeholder="https://discord.com/api/webhooks/..."
                                     style="width: 100%; padding: 10px; background: var(--bg-app); border: 1px solid var(--border-subtle); border-radius: 6px; color: var(--text-primary);">
                                 <button class="btn btn-primary" style="margin-top: 8px;" onclick="saveWebhook()">Save Webhook</button>
                             </div>
@@ -3744,7 +3949,7 @@
             </div>
         </main>
     </div>
-    
+
     <script>
         // Page Navigation
         function showPage(pageName) {
@@ -3752,19 +3957,19 @@
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            
+
             // Show selected page
             const selectedPage = document.getElementById('page-' + pageName);
             if (selectedPage) {
                 selectedPage.classList.add('active');
             }
-            
+
             // Update nav active state
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             event.target.closest('.nav-item').classList.add('active');
-            
+
             // Update page title
             const titles = {
                 'dashboard': 'Dashboard',
@@ -3779,11 +3984,11 @@
             };
             document.getElementById('page-title').textContent = titles[pageName] || 'Dashboard';
         }
-        
+
         // Discord Integration
         async function sendDiscordUpdate() {
             const webhookUrl = localStorage.getItem('discord_webhook') || '';
-            
+
             if (!webhookUrl) {
                 const url = prompt('Enter Discord webhook URL:');
                 if (url) {
@@ -3791,7 +3996,7 @@
                 }
                 return;
             }
-            
+
             const message = {
                 embeds: [{
                     title: '🎯 Mission Control Update',
@@ -3806,14 +4011,14 @@
                     footer: { text: 'Mission Control // NANO v2.0' }
                 }]
             };
-            
+
             try {
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(message)
                 });
-                
+
                 if (response.ok) {
                     alert('Update sent to Discord!');
                 } else {
@@ -3824,18 +4029,18 @@
                 alert('Error sending to Discord');
             }
         }
-        
+
         // Task checkbox toggle
         function toggleTask(checkbox) {
             checkbox.classList.toggle('checked');
         }
-        
+
         // Auto-refresh stats every 30 seconds
         setInterval(() => {
             // Simulate live updates
             console.log('Refreshing stats...');
         }, 30000);
-        
+
         // Save Discord webhook
         function saveWebhook() {
             const webhookUrl = document.getElementById('discord-webhook-input').value;
@@ -3844,7 +4049,7 @@
                 alert('Discord webhook saved!');
             }
         }
-        
+
         // Calendar state
         let currentDate = new Date();
         const events = [
@@ -3864,10 +4069,10 @@
                 const input = document.getElementById('discord-webhook-input');
                 if (input) input.value = savedWebhook;
             }
-            
+
             // Start live feed simulation
             simulateLiveFeed();
-            
+
             // Initialize calendar
             renderCalendar();
         });
@@ -3876,18 +4081,18 @@
         function renderCalendar() {
             const grid = document.getElementById('calendar-grid');
             if (!grid) return;
-            
+
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
-            
+
             // Update header
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'];
             document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
-            
+
             // Clear grid
             grid.innerHTML = '';
-            
+
             // Day headers
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             days.forEach(day => {
@@ -3896,46 +4101,46 @@
                 header.textContent = day;
                 grid.appendChild(header);
             });
-            
+
             // Get first day of month and number of days
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
+
             // Empty cells for days before month starts
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 grid.appendChild(empty);
             }
-            
+
             // Days
             const today = new Date();
             for (let day = 1; day <= daysInMonth; day++) {
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day';
-                
+
                 // Check if today
-                if (year === today.getFullYear() && 
-                    month === today.getMonth() && 
+                if (year === today.getFullYear() &&
+                    month === today.getMonth() &&
                     day === today.getDate()) {
                     cell.classList.add('today');
                 }
-                
+
                 const dayNum = document.createElement('div');
                 dayNum.className = 'calendar-day-number';
                 dayNum.textContent = day;
                 cell.appendChild(dayNum);
-                
+
                 // Add events for this day
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const dayEvents = events.filter(e => e.date === dateStr);
-                
+
                 dayEvents.forEach(event => {
                     const eventEl = document.createElement('div');
                     eventEl.className = `calendar-event ${event.type}`;
                     eventEl.textContent = `${event.time} ${event.title}`;
                     cell.appendChild(eventEl);
                 });
-                
+
                 cell.onclick = () => showDayDetails(day, dayEvents);
                 grid.appendChild(cell);
             }
@@ -3970,13 +4175,13 @@
         function showAddEventModal() {
             const title = prompt('Event title:');
             if (!title) return;
-            
+
             const date = prompt('Date (YYYY-MM-DD):', '2026-03-04');
             if (!date) return;
-            
+
             const time = prompt('Time (HH:MM):', '12:00');
             const type = prompt('Type (cron/task/meeting/reminder):', 'task');
-            
+
             events.push({ date, type, title, time });
             renderCalendar();
             showToast(`Event added: ${title}`, 'success');
@@ -3989,7 +4194,7 @@
             renderCalendar();
             showToast(`Task scheduled: ${title}`, 'success');
             addToFeed('system', 'Calendar', `Task scheduled: ${title} for ${date} at ${time}`);
-            
+
             // Also send to Discord if configured
             const webhookUrl = localStorage.getItem('discord_webhook');
             if (webhookUrl) {
@@ -4007,7 +4212,7 @@
                 }).catch(console.error);
             }
         }
-        
+
         // Broadcast message to all channels
         async function broadcastMessage() {
             const message = document.getElementById('broadcast-message').value;
@@ -4015,18 +4220,18 @@
                 showToast('Please enter a message', 'error');
                 return;
             }
-            
+
             const targets = [];
             document.querySelectorAll('.broadcast-target.active').forEach(target => {
                 targets.push(target.textContent.trim());
             });
-            
+
             // Simulate broadcast
             showToast(`Broadcasting to ${targets.length} channels...`, 'info');
-            
+
             // Add to live feed
             addToFeed('system', 'Broadcast', message);
-            
+
             // Send to Discord if webhook configured
             const webhookUrl = localStorage.getItem('discord_webhook');
             if (webhookUrl && targets.some(t => t.includes('Discord'))) {
@@ -4048,11 +4253,11 @@
                     console.error('Discord broadcast failed:', error);
                 }
             }
-            
+
             document.getElementById('broadcast-message').value = '';
             showToast('Message broadcast successfully!', 'success');
         }
-        
+
         // Toggle broadcast target
         document.querySelectorAll('.broadcast-target').forEach(target => {
             target.addEventListener('click', () => {
@@ -4061,7 +4266,7 @@
                 if (checkbox) checkbox.checked = target.classList.contains('active');
             });
         });
-        
+
         // Live feed simulation
         function simulateLiveFeed() {
             const feedItems = [
@@ -4070,17 +4275,17 @@
                 { source: 'github', channel: 'GitHub', message: 'Auto-commit: 5 files changed' },
                 { source: 'discord', channel: '#token-tracker', message: 'Hourly cost report: $0.14' },
             ];
-            
+
             setInterval(() => {
                 const random = feedItems[Math.floor(Math.random() * feedItems.length)];
                 addToFeed(random.source, random.channel, random.message);
             }, 30000); // Add new item every 30 seconds
         }
-        
+
         function addToFeed(source, channel, message) {
             const feed = document.getElementById('live-feed-content');
             if (!feed) return;
-            
+
             const icons = { discord: 'D', github: 'G', system: 'S' };
             const item = document.createElement('div');
             item.className = 'feed-item';
@@ -4092,27 +4297,27 @@
                 <div class="feed-content">${message}</div>
                 <div class="feed-time">Just now</div>
             `;
-            
+
             feed.insertBefore(item, feed.firstChild);
-            
+
             // Keep only last 20 items
             while (feed.children.length > 20) {
                 feed.removeChild(feed.lastChild);
             }
         }
-        
+
         // Agent Terminal
         function switchTerminal(agent) {
             document.querySelectorAll('.terminal-tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             const body = document.getElementById('terminal-body');
             const agents = {
                 nano: { name: 'nano', status: 'Online', model: 'Kimi K2.5', tasks: 3 },
                 subagent1: { name: 'subagent1', status: 'Idle', model: 'Kimi K2.5', tasks: 0 },
                 subagent2: { name: 'subagent2', status: 'Offline', model: '-', tasks: 0 }
             };
-            
+
             const a = agents[agent];
             body.innerHTML = `
                 <div class="terminal-line">
@@ -4131,23 +4336,23 @@
                 </div>
             `;
         }
-        
+
         function handleTerminalInput(event) {
             if (event.key === 'Enter') {
                 const input = event.target;
                 const command = input.value.trim();
                 const body = document.getElementById('terminal-body');
-                
+
                 // Add command to terminal
                 const line = document.createElement('div');
                 line.className = 'terminal-line';
                 line.innerHTML = `<span class="terminal-prompt">nano@mission-control:~$</span> ${command}`;
                 body.insertBefore(line, body.lastElementChild);
-                
+
                 // Process command
                 let output = '';
                 let type = 'info';
-                
+
                 switch(command.toLowerCase()) {
                     case 'help':
                         output = 'Available commands: help, status, tasks, spawn, cost, clear';
@@ -4178,19 +4383,19 @@
                         output = `Command not found: ${command}. Type 'help' for available commands.`;
                         type = 'error';
                 }
-                
+
                 if (output) {
                     const outDiv = document.createElement('div');
                     outDiv.className = `terminal-output ${type}`;
                     outDiv.innerHTML = output.replace(/\n/g, '<br>');
                     body.insertBefore(outDiv, body.lastElementChild);
                 }
-                
+
                 // Clear input and add new prompt
                 input.value = '';
             }
         }
-        
+
         // Task Board Data
         let tasks = [
             {
@@ -4305,8 +4510,8 @@
             Object.values(columns).forEach(col => col.innerHTML = '');
 
             // Filter and render tasks
-            const filteredTasks = currentFilter === 'all' 
-                ? tasks 
+            const filteredTasks = currentFilter === 'all'
+                ? tasks
                 : tasks.filter(t => t.assignee === currentFilter);
 
             filteredTasks.forEach(task => {
@@ -4377,7 +4582,7 @@
 
             const statuses = ['backlog', 'progress', 'review', 'done'];
             const currentIndex = statuses.indexOf(task.status);
-            
+
             if (direction === 'next' && currentIndex < statuses.length - 1) {
                 task.status = statuses[currentIndex + 1];
             } else if (direction === 'prev' && currentIndex > 0) {
@@ -4386,7 +4591,7 @@
 
             renderTaskBoard();
             addToFeed('system', 'Tasks', `Task moved to ${task.status}: ${task.title}`);
-            
+
             // Notify if completed
             if (task.status === 'done') {
                 showToast(`Task completed: ${task.title}`, 'success');
@@ -4422,11 +4627,11 @@
             // Update existing task
             Object.assign(task, updates);
             renderTaskBoard();
-            
+
             const statusMsg = updates.status ? ` → ${updates.status}` : '';
             showToast(`Task updated${statusMsg}: ${task.title}`, 'info');
             addToFeed('system', 'Tasks', `Task updated: ${task.title}${statusMsg}`);
-            
+
             return task;
         }
 
@@ -4485,6 +4690,146 @@
         // Initialize task board on page load
         document.addEventListener('DOMContentLoaded', () => {
             renderTaskBoard();
+        });
+
+        // Memory System
+        let memories = [];
+        let currentMemoryFilter = 'all';
+
+        // Load memories from JSON
+        async function loadMemories() {
+            try {
+                const response = await fetch('memory.json');
+                memories = await response.json();
+                renderMemories();
+            } catch (error) {
+                console.error('Failed to load memories:', error);
+                // Fallback to inline memories
+                memories = [
+                    {
+                        id: 'mem-001',
+                        date: '2026-03-03',
+                        time: '21:55',
+                        type: 'decision',
+                        category: 'Mission Control',
+                        title: 'Mission Control Dashboard Complete',
+                        content: 'Built comprehensive Mission Control dashboard with 10 pages including real-time task board, agent workforce, and Discord integration.',
+                        tags: ['mission-control', 'dashboard'],
+                        importance: 'high'
+                    },
+                    {
+                        id: 'mem-002',
+                        date: '2026-03-03',
+                        time: '21:30',
+                        type: 'architecture',
+                        category: 'System Design',
+                        title: 'Agent Workforce Structure Defined',
+                        content: 'Created 3-tier agent system with Core, Specialists (7), and Domain Experts (4) agents.',
+                        tags: ['agents', 'workforce'],
+                        importance: 'high'
+                    }
+                ];
+                renderMemories();
+            }
+        }
+
+        function renderMemories() {
+            const timeline = document.getElementById('memory-timeline');
+            const empty = document.getElementById('memory-empty');
+            
+            if (!timeline) return;
+
+            // Filter memories
+            let filtered = memories;
+            
+            if (currentMemoryFilter !== 'all') {
+                filtered = filtered.filter(m => m.type === currentMemoryFilter);
+            }
+
+            // Search filter
+            const searchTerm = document.getElementById('memory-search-input')?.value.toLowerCase() || '';
+            if (searchTerm) {
+                filtered = filtered.filter(m => 
+                    m.title.toLowerCase().includes(searchTerm) ||
+                    m.content.toLowerCase().includes(searchTerm) ||
+                    m.tags.some(t => t.toLowerCase().includes(searchTerm)) ||
+                    m.category.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Show/hide empty state
+            if (filtered.length === 0) {
+                timeline.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            } else {
+                timeline.style.display = 'block';
+                empty.style.display = 'none';
+            }
+
+            // Render
+            timeline.innerHTML = filtered.map(memory => `
+                <div class="memory-item ${memory.importance === 'high' ? 'high-importance' : ''}">
+                    <div class="memory-date">${memory.date} ${memory.time}</div>
+                    <span class="memory-type ${memory.type}">${memory.type}</span>
+                    <div class="memory-title">${memory.title}</div>
+                    <div class="memory-category">${memory.category}</div>
+                    <div class="memory-content">${memory.content}</div>
+                    <div class="memory-tags">
+                        ${memory.tags.map(tag => `<span class="memory-tag">#${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Update stats
+            document.getElementById('memory-total').textContent = memories.length;
+            document.getElementById('memory-high').textContent = memories.filter(m => m.importance === 'high').length;
+            
+            const thisWeek = new Date();
+            thisWeek.setDate(thisWeek.getDate() - 7);
+            document.getElementById('memory-this-week').textContent = memories.filter(m => new Date(m.date) >= thisWeek).length;
+        }
+
+        function searchMemories() {
+            renderMemories();
+        }
+
+        function filterMemories(type) {
+            currentMemoryFilter = type;
+            
+            // Update button states
+            document.querySelectorAll('.memory-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderMemories();
+        }
+
+        // Add memory function - called when important events happen
+        function addMemory(memoryData) {
+            const newMemory = {
+                id: `mem-${Date.now()}`,
+                date: new Date().toISOString().split('T')[0],
+                time: new Date().toTimeString().slice(0, 5),
+                type: memoryData.type || 'system',
+                category: memoryData.category || 'General',
+                title: memoryData.title,
+                content: memoryData.content,
+                tags: memoryData.tags || [],
+                importance: memoryData.importance || 'medium'
+            };
+            
+            memories.unshift(newMemory);
+            renderMemories();
+            
+            showToast(`Memory recorded: ${newMemory.title}`, 'success');
+            addToFeed('system', 'Memory', `New memory: ${newMemory.title}`);
+        }
+
+        // Initialize memories on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMemories();
         });
 
         // Office Agent Click Handler
@@ -4662,7 +5007,7 @@
                         font-size: 20px;
                         cursor: pointer;
                     ">×</button>
-                    
+
                     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
                         <div style="
                             width: 64px;
@@ -4682,17 +5027,17 @@
                             <div style="color: var(--accent-cyan); font-size: 14px;">${agent.role}</div>
                         </div>
                     </div>
-                    
+
                     <div style="margin-bottom: 16px;">
                         <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Tier</div>
                         <div style="font-size: 14px;">${agent.tier}</div>
                     </div>
-                    
+
                     <div style="margin-bottom: 16px;">
                         <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Description</div>
                         <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">${agent.description}</div>
                     </div>
-                    
+
                     <div style="margin-bottom: 16px;">
                         <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Specialties</div>
                         <div style="display: flex; flex-wrap: wrap; gap: 6px;">
@@ -4706,7 +5051,7 @@
                             ">${s}</span>`).join('')}
                         </div>
                     </div>
-                    
+
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px;">
                         <div style="text-align: center; padding: 12px; background: var(--bg-app); border-radius: 8px;">
                             <div style="font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px;">Model</div>
@@ -4721,7 +5066,7 @@
                             <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${agent.tasksCompleted}</div>
                         </div>
                     </div>
-                    
+
                     <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="spawnAgent('${agentId}'); this.closest('.modal').remove();">
                         Spawn Agent
                     </button>
@@ -4755,32 +5100,32 @@
         // Toast notifications
         function showToast(message, type = 'info') {
             const container = document.querySelector('.toast-container') || createToastContainer();
-            
+
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            
+
             const titles = { success: '✓ Success', error: '✗ Error', info: 'ℹ Info' };
             toast.innerHTML = `
                 <div class="toast-title">${titles[type]}</div>
                 <div class="toast-message">${message}</div>
             `;
-            
+
             container.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateX(100%)';
                 setTimeout(() => toast.remove(), 300);
             }, 4000);
         }
-        
+
         function createToastContainer() {
             const container = document.createElement('div');
             container.className = 'toast-container';
             document.body.appendChild(container);
             return container;
         }
-        
+
         // Task creation
         function addTask() {
             const title = prompt('Task title:');

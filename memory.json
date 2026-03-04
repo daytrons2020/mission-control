@@ -1,0 +1,134 @@
+[
+  {
+    "id": "mem-001",
+    "date": "2026-03-03",
+    "time": "21:55",
+    "type": "decision",
+    "category": "Mission Control",
+    "title": "Mission Control Dashboard Complete",
+    "content": "Built comprehensive Mission Control dashboard with 10 pages: Dashboard, Calendar, Projects, Office, Memory, Tasks, Content Pipeline, Trading, Team, Settings. Includes real-time task board, agent workforce, isometric office view, and Discord integration.",
+    "tags": ["mission-control", "dashboard", "complete"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-002",
+    "date": "2026-03-03",
+    "time": "21:30",
+    "type": "architecture",
+    "category": "System Design",
+    "title": "Agent Workforce Structure Defined",
+    "content": "Created 3-tier agent system: Core (Nano), Specialists (7 agents: CodeSmith, Scribe, DataMiner, PixelWeaver, DevOps, TestPilot, Guardian), Domain Experts (4 agents: TradeBot, ContentForge, MediBot, GameDev). Each with specific roles and responsibilities.",
+    "tags": ["agents", "workforce", "organization"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-003",
+    "date": "2026-03-03",
+    "time": "21:15",
+    "type": "decision",
+    "category": "Strategy",
+    "title": "Mission Control as Central Hub",
+    "content": "Decided to make Mission Control the central hub for all project management with Discord integration for team communication. All tasks, schedules, and agent activities flow through this system.",
+    "tags": ["strategy", "mission-control", "discord"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-004",
+    "date": "2026-03-03",
+    "time": "19:48",
+    "type": "architecture",
+    "category": "UI/UX",
+    "title": "Mission Control Design System Implemented",
+    "content": "Redesigned dashboard with Mission Control design system — sidebar navigation, card-based layout, cyberpunk aesthetic with cyan/purple accents, Inter + Orbitron fonts, dark theme.",
+    "tags": ["design", "ui", "mission-control"],
+    "importance": "medium"
+  },
+  {
+    "id": "mem-005",
+    "date": "2026-03-03",
+    "time": "05:20",
+    "type": "system",
+    "category": "Infrastructure",
+    "title": "iMessage Fixed",
+    "content": "Fixed iMessage permissions by granting Full Disk Access to Node binary. Gateway now operational. Tested and working.",
+    "tags": ["imessage", "gateway", "fix"],
+    "importance": "medium"
+  },
+  {
+    "id": "mem-006",
+    "date": "2026-03-02",
+    "time": "21:06",
+    "type": "business",
+    "category": "Goals",
+    "title": "Value Production Goals Set",
+    "content": "Established value production targets: YouTube ($500-2000/week), Reselling ($1000-5000/week), Trading (variable), Education (long-term). Mission: autonomous organization producing value daily.",
+    "tags": ["goals", "business", "value"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-007",
+    "date": "2026-03-02",
+    "time": "20:24",
+    "type": "system",
+    "category": "Infrastructure",
+    "title": "Cron Jobs Migrated to Local",
+    "content": "All 13 cron jobs migrated from cloud to local Mac mini: BINARY Trading Monitor, Cost Report, Morning Brief, Market Watch, Smart Alerts, Daily Maintenance, Daily Digest, A+ Stock Setup, Twitter Trends, Weekly Report, Health Monitor, xAI Research, Git Auto-Commit.",
+    "tags": ["cron", "migration", "local"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-008",
+    "date": "2026-03-01",
+    "time": "09:00",
+    "type": "system",
+    "category": "Infrastructure",
+    "title": "Migration from Cloud Complete",
+    "content": "Successfully migrated from Kimi Claw cloud instance to local Mac mini. All Discord channels (21), cron jobs, and automations transferred. Gateway auto-starts on boot via LaunchAgent.",
+    "tags": ["migration", "cloud", "local"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-009",
+    "date": "2026-03-01",
+    "time": "08:30",
+    "type": "decision",
+    "category": "Identity",
+    "title": "Agent Identity: Nano",
+    "content": "Established agent identity: Name: Nano, Creature: Digital companion, Vibe: Sharp but approachable, Emoji: 🔬, Role: Primary agent for Dayton's Mission Control.",
+    "tags": ["identity", "nano", "setup"],
+    "importance": "medium"
+  },
+  {
+    "id": "mem-010",
+    "date": "2026-02-28",
+    "time": "14:00",
+    "type": "project",
+    "category": "Trading",
+    "title": "BINARY Dashboard Built",
+    "content": "Built real-time trading dashboard with Trinity Consensus Bias, Heatseeker patterns, live price feeds for SPX, SPY, QQQ. Deployed to Vercel.",
+    "tags": ["trading", "binary", "dashboard"],
+    "importance": "high"
+  },
+  {
+    "id": "mem-011",
+    "date": "2026-02-26",
+    "time": "10:00",
+    "type": "project",
+    "category": "Respiratory Education",
+    "title": "Respiratory Education Project Started",
+    "content": "Began creating 5 PowerPoints + 200 pages of notes for respiratory therapy education. 45% complete.",
+    "tags": ["respiratory", "education", "project"],
+    "importance": "medium"
+  },
+  {
+    "id": "mem-012",
+    "date": "2026-02-22",
+    "time": "09:00",
+    "type": "project",
+    "category": "RT Tools",
+    "title": "RT Tools Suite Started",
+    "content": "Building RT Tools: Scanner, QR Generator, PWA. TypeScript codebase with working components. 25% complete.",
+    "tags": ["rt-tools", "healthcare", "typescript"],
+    "importance": "medium"
+  }
+]
