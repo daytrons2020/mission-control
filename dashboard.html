@@ -899,6 +899,359 @@
         
         .memory-content { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
         
+        /* Command Center */
+        .command-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 1200px) {
+            .command-grid { grid-template-columns: 1fr; }
+        }
+        
+        .broadcast-panel {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(0, 245, 255, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .broadcast-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: var(--neon-cyan);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .broadcast-textarea {
+            width: 100%;
+            min-height: 120px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+        
+        .broadcast-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+        
+        .broadcast-targets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .broadcast-target {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .broadcast-target:hover {
+            border-color: var(--accent-purple);
+        }
+        
+        .broadcast-target.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--accent-purple);
+            color: var(--accent-cyan);
+        }
+        
+        .broadcast-target input {
+            display: none;
+        }
+        
+        .live-feed {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .feed-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: var(--neon-cyan);
+        }
+        
+        .feed-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--accent-green);
+        }
+        
+        .feed-pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+        
+        .feed-item {
+            padding: 12px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .feed-item:hover {
+            border-color: var(--border-hover);
+        }
+        
+        .feed-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .feed-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .feed-icon.discord { background: #5865F2; color: white; }
+        .feed-icon.github { background: #333; color: white; }
+        .feed-icon.system { background: var(--accent-purple); color: white; }
+        
+        .feed-channel {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .feed-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .feed-time {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Agent Terminal */
+        .terminal-container {
+            background: #0d0d12;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .terminal-tabs {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .terminal-tab {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .terminal-tab:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+        
+        .terminal-tab.active {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-cyan);
+        }
+        
+        .terminal-body {
+            padding: 16px;
+            min-height: 400px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .terminal-line {
+            margin-bottom: 8px;
+        }
+        
+        .terminal-prompt {
+            color: var(--accent-green);
+        }
+        
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            outline: none;
+            width: 80%;
+        }
+        
+        .terminal-output {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .terminal-output.success { color: var(--accent-green); }
+        .terminal-output.error { color: var(--accent-red); }
+        .terminal-output.info { color: var(--accent-cyan); }
+        
+        /* Cost Tracking */
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 992px) {
+            .cost-grid { grid-template-columns: 1fr; }
+        }
+        
+        .cost-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .cost-value {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            margin: 8px 0;
+        }
+        
+        .cost-value.budget { color: var(--accent-green); }
+        .cost-value.spent { color: var(--accent-yellow); }
+        .cost-value.remaining { color: var(--accent-cyan); }
+        
+        .cost-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cost-bar {
+            height: 6px;
+            background: var(--bg-app);
+            border-radius: 3px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        
+        .cost-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .toast {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 14px 18px;
+            min-width: 280px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .toast.success { border-left: 3px solid var(--accent-green); }
+        .toast.error { border-left: 3px solid var(--accent-red); }
+        .toast.info { border-left: 3px solid var(--accent-cyan); }
+        
         /* Discord Panel */
         .discord-panel {
             background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), rgba(88, 101, 242, 0.05));
@@ -1007,6 +1360,18 @@
                     <div class="nav-item" onclick="showPage('memory')">
                         <span>◍</span>
                         <span>Memory</span>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Command</div>
+                    <div class="nav-item" onclick="showPage('command')">
+                        <span>◆</span>
+                        <span>Command Center</span>
+                        <span class="nav-badge">NEW</span>
+                    </div>
+                    <div class="nav-item" onclick="showPage('terminal')">
+                        <span>▸</span>
+                        <span>Agent Terminal</span>
                     </div>
                 </div>
                 <div class="nav-section">
@@ -1427,6 +1792,157 @@
                     </div>
                 </div>
                 
+                <!-- COMMAND CENTER PAGE -->
+                <div class="page" id="page-command">
+                    <div class="command-grid">
+                        <div>
+                            <div class="broadcast-panel">
+                                <div class="broadcast-title">
+                                    <span>◆</span>
+                                    Broadcast Message
+                                </div>
+                                <textarea class="broadcast-textarea" id="broadcast-message" placeholder="Enter message to broadcast to all agents and systems..."></textarea>
+                                <div class="broadcast-targets">
+                                    <label class="broadcast-target active">
+                                        <input type="checkbox" checked>
+                                        <span>💬 Discord #mission-control</span>
+                                    </label>
+                                    <label class="broadcast-target active">
+                                        <input type="checkbox" checked>
+                                        <span>🤖 All Agents</span>
+                                    </label>
+                                    <label class="broadcast-target">
+                                        <input type="checkbox">
+                                        <span>📧 Email</span>
+                                    </label>
+                                    <label class="broadcast-target active">
+                                        <input type="checkbox" checked>
+                                        <span>📱 iMessage</span>
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary" onclick="broadcastMessage()" style="width: 100%;">
+                                    <span>📡</span> Broadcast Now
+                                </button>
+                            </div>
+                            
+                            <div class="card" style="margin-top: 20px;">
+                                <div class="card-header">
+                                    <div class="card-title">💰 Cost Tracking</div>
+                                </div>
+                                <div class="cost-grid">
+                                    <div class="cost-card">
+                                        <div class="cost-label">Daily Budget</div>
+                                        <div class="cost-value budget">$15.00</div>
+                                        <div class="cost-bar">
+                                            <div class="cost-fill" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="cost-card">
+                                        <div class="cost-label">Spent Today</div>
+                                        <div class="cost-value spent">$3.24</div>
+                                        <div class="cost-bar">
+                                            <div class="cost-fill" style="width: 22%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="cost-card">
+                                        <div class="cost-label">Remaining</div>
+                                        <div class="cost-value remaining">$11.76</div>
+                                        <div class="cost-bar">
+                                            <div class="cost-fill" style="width: 78%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="live-feed">
+                                <div class="feed-header">
+                                    <span class="feed-title">◐ Live Feed</span>
+                                    <div class="feed-status">
+                                        <div class="feed-pulse"></div>
+                                        <span>Live</span>
+                                    </div>
+                                </div>
+                                <div id="live-feed-content">
+                                    <div class="feed-item">
+                                        <div class="feed-source">
+                                            <div class="feed-icon discord">D</div>
+                                            <span class="feed-channel">#mission-control</span>
+                                        </div>
+                                        <div class="feed-content">
+                                            Nano: Mission Control dashboard updated with new features
+                                        </div>
+                                        <div class="feed-time">2 min ago</div>
+                                    </div>
+                                    <div class="feed-item">
+                                        <div class="feed-source">
+                                            <div class="feed-icon system">S</div>
+                                            <span class="feed-channel">System</span>
+                                        </div>
+                                        <div class="feed-content">
+                                            Health check completed — all systems operational
+                                        </div>
+                                        <div class="feed-time">8 min ago</div>
+                                    </div>
+                                    <div class="feed-item">
+                                        <div class="feed-source">
+                                            <div class="feed-icon github">G</div>
+                                            <span class="feed-channel">GitHub</span>
+                                        </div>
+                                        <div class="feed-content">
+                                            3 commits pushed to mission-control
+                                        </div>
+                                        <div class="feed-time">15 min ago</div>
+                                    </div>
+                                    <div class="feed-item">
+                                        <div class="feed-source">
+                                            <div class="feed-icon discord">D</div>
+                                            <span class="feed-channel">#agent-logs</span>
+                                        </div>
+                                        <div class="feed-content">
+                                            Cron job: BINARY Trading Monitor executed successfully
+                                        </div>
+                                        <div class="feed-time">20 min ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AGENT TERMINAL PAGE -->
+                <div class="page" id="page-terminal">
+                    <div class="terminal-container">
+                        <div class="terminal-header">
+                            <div class="terminal-tabs">
+                                <button class="terminal-tab active" onclick="switchTerminal('nano')">Nano</button>
+                                <button class="terminal-tab" onclick="switchTerminal('subagent1')">Sub-Agent 1</button>
+                                <button class="terminal-tab" onclick="switchTerminal('subagent2')">Sub-Agent 2</button>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-tertiary);">
+                                <span style="color: var(--accent-green);">●</span> Online
+                            </div>
+                        </div>
+                        <div class="terminal-body" id="terminal-body">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">nano@mission-control:~$</span>
+                                <span style="color: var(--text-secondary)"> status</span>
+                            </div>
+                            <div class="terminal-output info">
+                                Status: Online<br>
+                                Model: Kimi K2.5<br>
+                                Tasks: 3 active<br>
+                                Last activity: 2 min ago
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">nano@mission-control:~$</span>
+                                <input type="text" class="terminal-input" placeholder="Type command..." onkeypress="handleTerminalInput(event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- TASKS PAGE -->
                 <div class="page" id="page-tasks">
                     <div class="card">
@@ -1815,7 +2331,231 @@
                 const input = document.getElementById('discord-webhook-input');
                 if (input) input.value = savedWebhook;
             }
+            
+            // Start live feed simulation
+            simulateLiveFeed();
         });
+        
+        // Broadcast message to all channels
+        async function broadcastMessage() {
+            const message = document.getElementById('broadcast-message').value;
+            if (!message.trim()) {
+                showToast('Please enter a message', 'error');
+                return;
+            }
+            
+            const targets = [];
+            document.querySelectorAll('.broadcast-target.active').forEach(target => {
+                targets.push(target.textContent.trim());
+            });
+            
+            // Simulate broadcast
+            showToast(`Broadcasting to ${targets.length} channels...`, 'info');
+            
+            // Add to live feed
+            addToFeed('system', 'Broadcast', message);
+            
+            // Send to Discord if webhook configured
+            const webhookUrl = localStorage.getItem('discord_webhook');
+            if (webhookUrl && targets.some(t => t.includes('Discord'))) {
+                try {
+                    await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            embeds: [{
+                                title: '📡 Broadcast from Mission Control',
+                                description: message,
+                                color: 0x8b5cf6,
+                                timestamp: new Date().toISOString(),
+                                footer: { text: 'Sent by Dayton via Command Center' }
+                            }]
+                        })
+                    });
+                } catch (error) {
+                    console.error('Discord broadcast failed:', error);
+                }
+            }
+            
+            document.getElementById('broadcast-message').value = '';
+            showToast('Message broadcast successfully!', 'success');
+        }
+        
+        // Toggle broadcast target
+        document.querySelectorAll('.broadcast-target').forEach(target => {
+            target.addEventListener('click', () => {
+                target.classList.toggle('active');
+                const checkbox = target.querySelector('input');
+                if (checkbox) checkbox.checked = target.classList.contains('active');
+            });
+        });
+        
+        // Live feed simulation
+        function simulateLiveFeed() {
+            const feedItems = [
+                { source: 'discord', channel: '#agent-logs', message: 'Cron job: Daily Digest generated' },
+                { source: 'system', channel: 'System', message: 'Health check: All systems green' },
+                { source: 'github', channel: 'GitHub', message: 'Auto-commit: 5 files changed' },
+                { source: 'discord', channel: '#token-tracker', message: 'Hourly cost report: $0.14' },
+            ];
+            
+            setInterval(() => {
+                const random = feedItems[Math.floor(Math.random() * feedItems.length)];
+                addToFeed(random.source, random.channel, random.message);
+            }, 30000); // Add new item every 30 seconds
+        }
+        
+        function addToFeed(source, channel, message) {
+            const feed = document.getElementById('live-feed-content');
+            if (!feed) return;
+            
+            const icons = { discord: 'D', github: 'G', system: 'S' };
+            const item = document.createElement('div');
+            item.className = 'feed-item';
+            item.innerHTML = `
+                <div class="feed-source">
+                    <div class="feed-icon ${source}">${icons[source]}</div>
+                    <span class="feed-channel">${channel}</span>
+                </div>
+                <div class="feed-content">${message}</div>
+                <div class="feed-time">Just now</div>
+            `;
+            
+            feed.insertBefore(item, feed.firstChild);
+            
+            // Keep only last 20 items
+            while (feed.children.length > 20) {
+                feed.removeChild(feed.lastChild);
+            }
+        }
+        
+        // Agent Terminal
+        function switchTerminal(agent) {
+            document.querySelectorAll('.terminal-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const body = document.getElementById('terminal-body');
+            const agents = {
+                nano: { name: 'nano', status: 'Online', model: 'Kimi K2.5', tasks: 3 },
+                subagent1: { name: 'subagent1', status: 'Idle', model: 'Kimi K2.5', tasks: 0 },
+                subagent2: { name: 'subagent2', status: 'Offline', model: '-', tasks: 0 }
+            };
+            
+            const a = agents[agent];
+            body.innerHTML = `
+                <div class="terminal-line">
+                    <span class="terminal-prompt">${a.name}@mission-control:~$</span>
+                    <span style="color: var(--text-secondary)"> status</span>
+                </div>
+                <div class="terminal-output ${a.status === 'Online' ? 'success' : a.status === 'Idle' ? 'info' : 'error'}">
+                    Status: ${a.status}<br>
+                    Model: ${a.model}<br>
+                    Tasks: ${a.tasks} active<br>
+                    Last activity: ${a.status === 'Online' ? '2 min ago' : 'N/A'}
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">${a.name}@mission-control:~$</span>
+                    <input type="text" class="terminal-input" placeholder="Type command..." onkeypress="handleTerminalInput(event)">
+                </div>
+            `;
+        }
+        
+        function handleTerminalInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target;
+                const command = input.value.trim();
+                const body = document.getElementById('terminal-body');
+                
+                // Add command to terminal
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                line.innerHTML = `<span class="terminal-prompt">nano@mission-control:~$</span> ${command}`;
+                body.insertBefore(line, body.lastElementChild);
+                
+                // Process command
+                let output = '';
+                let type = 'info';
+                
+                switch(command.toLowerCase()) {
+                    case 'help':
+                        output = 'Available commands: help, status, tasks, spawn, cost, clear';
+                        break;
+                    case 'status':
+                        output = 'System: Online\nAgents: 2 active\nProjects: 7 in progress';
+                        type = 'success';
+                        break;
+                    case 'tasks':
+                        output = 'Active tasks: 4\n- Complete Respiratory Education PowerPoints\n- Deploy BINARY Trading Dashboard\n- Update Mission Control UI\n- Research reselling strategies';
+                        break;
+                    case 'spawn':
+                        output = 'Spawning sub-agent... Estimated cost: $0.05';
+                        type = 'success';
+                        break;
+                    case 'cost':
+                        output = 'Today: $3.24 / $15.00 (22%)\nThis week: $18.50 / $105.00 (18%)';
+                        break;
+                    case 'clear':
+                        body.innerHTML = `
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">nano@mission-control:~$</span>
+                                <input type="text" class="terminal-input" placeholder="Type command..." onkeypress="handleTerminalInput(event)">
+                            </div>
+                        `;
+                        return;
+                    default:
+                        output = `Command not found: ${command}. Type 'help' for available commands.`;
+                        type = 'error';
+                }
+                
+                if (output) {
+                    const outDiv = document.createElement('div');
+                    outDiv.className = `terminal-output ${type}`;
+                    outDiv.innerHTML = output.replace(/\n/g, '<br>');
+                    body.insertBefore(outDiv, body.lastElementChild);
+                }
+                
+                // Clear input and add new prompt
+                input.value = '';
+            }
+        }
+        
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const container = document.querySelector('.toast-container') || createToastContainer();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const titles = { success: '✓ Success', error: '✗ Error', info: 'ℹ Info' };
+            toast.innerHTML = `
+                <div class="toast-title">${titles[type]}</div>
+                <div class="toast-message">${message}</div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+        
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+        
+        // Task creation
+        function addTask() {
+            const title = prompt('Task title:');
+            if (title) {
+                showToast(`Task created: ${title}`, 'success');
+                addToFeed('system', 'Tasks', `New task created: ${title}`);
+            }
+        }
     </script>
 </body>
 </html>
