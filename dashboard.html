@@ -476,7 +476,166 @@
             font-size: 11px;
             color: var(--text-tertiary);
         }
-        
+
+        /* Workforce / Team Screen */
+        .workforce-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .workforce-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .workforce-grid { grid-template-columns: 1fr; }
+        }
+
+        .agent-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .agent-card.tier-core::before {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .agent-card.tier-specialist::before {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+        }
+
+        .agent-card.tier-domain::before {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-yellow));
+        }
+
+        .agent-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .agent-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-status {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .agent-status.online { color: var(--accent-green); }
+        .agent-status.idle { color: var(--text-tertiary); }
+        .agent-status.working { color: var(--accent-cyan); }
+
+        .agent-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .agent-role {
+            font-size: 12px;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .agent-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .agent-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .skill-tag {
+            font-size: 10px;
+            padding: 2px 8px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-tertiary);
+        }
+
+        .agent-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .agent-btn.primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-color: transparent;
+            color: white;
+        }
+
+        .agent-btn.primary:hover {
+            opacity: 0.9;
+        }
+
         .activity-list {
             display: flex;
             flex-direction: column;
@@ -2723,30 +2882,273 @@
                 
                 <!-- TEAM PAGE -->
                 <div class="page" id="page-team">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">◉ Team Members</div>
-                        </div>
-                        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); gap: 16px;">
-                            <div class="team-member" style="padding: 20px;">
-                                <div class="member-avatar" style="width: 60px; height: 60px; font-size: 24px;">D</div>
-                                <div class="member-info">
-                                    <div class="member-name" style="font-size: 16px;">Dayton</div>
-                                    <div class="member-role">Human-in-Chief</div>
-                                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">
-                                        Projects: All • Status: Active
-                                    </div>
-                                </div>
+                    <!-- Core Team -->
+                    <div class="section-title">/// Core Team</div>
+                    <div class="workforce-grid">
+                        <div class="agent-card tier-core">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #00f5ff, #8b5cf6);">N</div>
+                                <div class="agent-status online">● Online</div>
                             </div>
-                            <div class="team-member" style="padding: 20px;">
-                                <div class="member-avatar" style="width: 60px; height: 60px; font-size: 24px; background: linear-gradient(135deg, #00f5ff, #8b5cf6);">N</div>
-                                <div class="member-info">
-                                    <div class="member-name" style="font-size: 16px;">Nano</div>
-                                    <div class="member-role">Primary Agent</div>
-                                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">
-                                        Model: Kimi K2.5 • Status: Online
-                                    </div>
-                                </div>
+                            <div class="agent-name">Nano</div>
+                            <div class="agent-role">Primary Agent / Mission Control</div>
+                            <div class="agent-desc">Coordinator, operator, and primary interface. Manages all systems and delegates to specialists.</div>
+                            <div class="agent-meta">
+                                <span>Model: Kimi K2.5</span>
+                                <span>Uptime: 99.9%</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('nano')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('nano')">Ping</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specialists -->
+                    <div class="section-title">/// Specialists (Tier 2)</div>
+                    <div class="workforce-grid">
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">CS</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">CodeSmith</div>
+                            <div class="agent-role">Senior Developer</div>
+                            <div class="agent-desc">Complex coding, architecture design, debugging, refactoring. Full-stack expertise.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Architecture</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('codesmith')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('codesmith')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">SC</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">Scribe</div>
+                            <div class="agent-role">Technical Writer</div>
+                            <div class="agent-desc">Documentation, READMEs, guides, API docs. Makes complex systems understandable.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Documentation</span>
+                                <span class="skill-tag">Markdown</span>
+                                <span class="skill-tag">Tutorials</span>
+                                <span class="skill-tag">API Docs</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('scribe')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('scribe')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">DM</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">DataMiner</div>
+                            <div class="agent-role">Research Analyst</div>
+                            <div class="agent-desc">Web research, data gathering, competitive analysis, market research.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Web Scraping</span>
+                                <span class="skill-tag">Analysis</span>
+                                <span class="skill-tag">Reports</span>
+                                <span class="skill-tag">Trends</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('dataminer')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('dataminer')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #ec4899, #db2777);">PW</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">PixelWeaver</div>
+                            <div class="agent-role">UI/UX Designer</div>
+                            <div class="agent-desc">Design systems, mockups, CSS, user experience. Makes things beautiful and usable.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">CSS</span>
+                                <span class="skill-tag">Design Systems</span>
+                                <span class="skill-tag">UX</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('pixelweaver')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('pixelweaver')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #6b7280, #4b5563);">DO</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">DevOps</div>
+                            <div class="agent-role">Infrastructure Engineer</div>
+                            <div class="agent-desc">Deployments, CI/CD, server config, automation. Keeps systems running.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">Vercel</span>
+                                <span class="skill-tag">GitHub</span>
+                                <span class="skill-tag">Automation</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('devops')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('devops')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #14b8a6, #0d9488);">TP</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">TestPilot</div>
+                            <div class="agent-role">QA Engineer</div>
+                            <div class="agent-desc">Testing, test cases, bug reports, quality assurance. Catches issues before users do.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Testing</span>
+                                <span class="skill-tag">Bug Hunts</span>
+                                <span class="skill-tag">QA</span>
+                                <span class="skill-tag">Reports</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('testpilot')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('testpilot')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-specialist">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #dc2626, #b91c1c);">GD</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">Guardian</div>
+                            <div class="agent-role">Security Analyst</div>
+                            <div class="agent-desc">Security audits, best practices, vulnerability scanning. Protects systems.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Security</span>
+                                <span class="skill-tag">Audits</span>
+                                <span class="skill-tag">Best Practices</span>
+                                <span class="skill-tag">Hardening</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('guardian')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('guardian')">Spawn</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain Experts -->
+                    <div class="section-title">/// Domain Experts (Tier 3)</div>
+                    <div class="workforce-grid">
+                        <div class="agent-card tier-domain">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #f97316, #ea580c);">TB</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">TradeBot</div>
+                            <div class="agent-role">Trading Strategist</div>
+                            <div class="agent-desc">Market analysis, backtesting, trading strategies. Specialized in financial markets.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Trading</span>
+                                <span class="skill-tag">Analysis</span>
+                                <span class="skill-tag">Backtesting</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('tradebot')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('tradebot')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-domain">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">CF</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">ContentForge</div>
+                            <div class="agent-role">Content Creator</div>
+                            <div class="agent-desc">YouTube scripts, thumbnails, content strategy. Creates engaging content.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Scripts</span>
+                                <span class="skill-tag">Thumbnails</span>
+                                <span class="skill-tag">Strategy</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('contentforge')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('contentforge')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-domain">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">MB</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">MediBot</div>
+                            <div class="agent-role">Healthcare Tech Specialist</div>
+                            <div class="agent-desc">RT tools, medical apps, healthcare workflows. Specialized in respiratory therapy tech.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Healthcare</span>
+                                <span class="skill-tag">RT Tools</span>
+                                <span class="skill-tag">Workflows</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('medibot')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('medibot')">Spawn</button>
+                            </div>
+                        </div>
+
+                        <div class="agent-card tier-domain">
+                            <div class="agent-header">
+                                <div class="agent-avatar" style="background: linear-gradient(135deg, #84cc16, #65a30d);">GD</div>
+                                <div class="agent-status idle">● Idle</div>
+                            </div>
+                            <div class="agent-name">GameDev</div>
+                            <div class="agent-role">Game Developer</div>
+                            <div class="agent-desc">Game mechanics, design, development. Specialized in kids apps and games.</div>
+                            <div class="agent-skills">
+                                <span class="skill-tag">Game Design</span>
+                                <span class="skill-tag">Mechanics</span>
+                                <span class="skill-tag">Kids Apps</span>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="agent-btn" onclick="showAgentDetails('gamedev')">View Profile</button>
+                                <button class="agent-btn primary" onclick="spawnAgent('gamedev')">Spawn</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workforce Stats -->
+                    <div class="card" style="margin-top: 24px;">
+                        <div class="card-header">
+                            <div class="card-title">◉ Workforce Stats</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                            <div style="text-align: center; padding: 16px;">
+                                <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan);">1</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Core Agent</div>
+                            </div>
+                            <div style="text-align: center; padding: 16px;">
+                                <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-purple);">7</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Specialists</div>
+                            </div>
+                            <div style="text-align: center; padding: 16px;">
+                                <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-orange);">4</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Domain Experts</div>
+                            </div>
+                            <div style="text-align: center; padding: 16px;">
+                                <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-green);">1</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Active Now</div>
                             </div>
                         </div>
                     </div>
@@ -3522,6 +3924,259 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderTaskBoard();
         });
+
+        // Agent Management
+        const agentProfiles = {
+            nano: {
+                name: 'Nano',
+                role: 'Primary Agent / Mission Control',
+                tier: 'Core',
+                model: 'Kimi K2.5',
+                uptime: '99.9%',
+                tasksCompleted: 156,
+                specialties: ['Coordination', 'System Design', 'Full-Stack Development'],
+                description: 'Primary interface and coordinator. Manages all systems and delegates to specialist agents.'
+            },
+            codesmith: {
+                name: 'CodeSmith',
+                role: 'Senior Developer',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['React', 'Node.js', 'Python', 'Architecture'],
+                description: 'Complex coding, architecture design, debugging, refactoring. Full-stack expertise.'
+            },
+            scribe: {
+                name: 'Scribe',
+                role: 'Technical Writer',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Documentation', 'Markdown', 'Tutorials', 'API Docs'],
+                description: 'Documentation, READMEs, guides, API docs. Makes complex systems understandable.'
+            },
+            dataminer: {
+                name: 'DataMiner',
+                role: 'Research Analyst',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Web Scraping', 'Analysis', 'Reports', 'Trends'],
+                description: 'Web research, data gathering, competitive analysis, market research.'
+            },
+            pixelweaver: {
+                name: 'PixelWeaver',
+                role: 'UI/UX Designer',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Figma', 'CSS', 'Design Systems', 'UX'],
+                description: 'Design systems, mockups, CSS, user experience. Makes things beautiful and usable.'
+            },
+            devops: {
+                name: 'DevOps',
+                role: 'Infrastructure Engineer',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Docker', 'Vercel', 'GitHub', 'Automation'],
+                description: 'Deployments, CI/CD, server config, automation. Keeps systems running.'
+            },
+            testpilot: {
+                name: 'TestPilot',
+                role: 'QA Engineer',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Testing', 'Bug Hunts', 'QA', 'Reports'],
+                description: 'Testing, test cases, bug reports, quality assurance. Catches issues before users do.'
+            },
+            guardian: {
+                name: 'Guardian',
+                role: 'Security Analyst',
+                tier: 'Specialist',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Security', 'Audits', 'Best Practices', 'Hardening'],
+                description: 'Security audits, best practices, vulnerability scanning. Protects systems.'
+            },
+            tradebot: {
+                name: 'TradeBot',
+                role: 'Trading Strategist',
+                tier: 'Domain Expert',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Trading', 'Analysis', 'Backtesting'],
+                description: 'Market analysis, backtesting, trading strategies. Specialized in financial markets.'
+            },
+            contentforge: {
+                name: 'ContentForge',
+                role: 'Content Creator',
+                tier: 'Domain Expert',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Scripts', 'Thumbnails', 'Strategy'],
+                description: 'YouTube scripts, thumbnails, content strategy. Creates engaging content.'
+            },
+            medibot: {
+                name: 'MediBot',
+                role: 'Healthcare Tech Specialist',
+                tier: 'Domain Expert',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Healthcare', 'RT Tools', 'Workflows'],
+                description: 'RT tools, medical apps, healthcare workflows. Specialized in respiratory therapy tech.'
+            },
+            gamedev: {
+                name: 'GameDev',
+                role: 'Game Developer',
+                tier: 'Domain Expert',
+                model: 'Kimi K2.5',
+                uptime: 'N/A',
+                tasksCompleted: 0,
+                specialties: ['Game Design', 'Mechanics', 'Kids Apps'],
+                description: 'Game mechanics, design, development. Specialized in kids apps and games.'
+            }
+        };
+
+        function showAgentDetails(agentId) {
+            const agent = agentProfiles[agentId];
+            if (!agent) return;
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            `;
+
+            modal.innerHTML = `
+                <div style="
+                    background: var(--bg-surface);
+                    border: 1px solid var(--border-subtle);
+                    border-radius: 16px;
+                    padding: 32px;
+                    max-width: 500px;
+                    width: 90%;
+                    position: relative;
+                ">
+                    <button onclick="this.closest('.modal').remove()" style="
+                        position: absolute;
+                        top: 16px;
+                        right: 16px;
+                        background: transparent;
+                        border: none;
+                        color: var(--text-tertiary);
+                        font-size: 20px;
+                        cursor: pointer;
+                    ">×</button>
+                    
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <div style="
+                            width: 64px;
+                            height: 64px;
+                            border-radius: 16px;
+                            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 24px;
+                            font-weight: 700;
+                            color: white;
+                        ">${agent.name[0]}</div>
+                        <div>
+                            <div style="font-family: 'Orbitron', sans-serif; font-size: 20px; margin-bottom: 4px;">${agent.name}</div>
+                            <div style="color: var(--accent-cyan); font-size: 14px;">${agent.role}</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Tier</div>
+                        <div style="font-size: 14px;">${agent.tier}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Description</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">${agent.description}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Specialties</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                            ${agent.specialties.map(s => `<span style="
+                                font-size: 11px;
+                                padding: 4px 10px;
+                                background: var(--bg-app);
+                                border: 1px solid var(--border-subtle);
+                                border-radius: 4px;
+                                color: var(--text-secondary);
+                            ">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px;">
+                        <div style="text-align: center; padding: 12px; background: var(--bg-app); border-radius: 8px;">
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px;">Model</div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${agent.model}</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: var(--bg-app); border-radius: 8px;">
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px;">Uptime</div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${agent.uptime}</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: var(--bg-app); border-radius: 8px;">
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px;">Tasks</div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">${agent.tasksCompleted}</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="spawnAgent('${agentId}'); this.closest('.modal').remove();">
+                        Spawn Agent
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+
+        function spawnAgent(agentId) {
+            const agent = agentProfiles[agentId];
+            if (!agent) return;
+
+            // Update agent status to working
+            showToast(`Spawning ${agent.name}...`, 'info');
+            addToFeed('system', 'Agents', `${agent.name} spawned and ready for tasks`);
+
+            // In a real implementation, this would:
+            // 1. Start a new sub-agent session
+            // 2. Assign the specialist role
+            // 3. Track costs separately
+
+            setTimeout(() => {
+                showToast(`${agent.name} is now active`, 'success');
+            }, 1500);
+        }
 
         // Toast notifications
         function showToast(message, type = 'info') {
