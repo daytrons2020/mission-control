@@ -1,0 +1,23 @@
+{
+  "lastChecks": {
+    "trading-monitor": 1741088460,
+    "discord-health": 1741099320,
+    "gateway-status": 1741099320,
+    "git-sync": 1741099320,
+    "system-health": 1741099320
+  },
+  "autoRunEnabled": true,
+  "trading": {
+    "lastAlertTime": "2026-03-04T11:41:00Z",
+    "lastAlertType": "PRE-MARKET UPDATE",
+    "spyPrice": 682.10,
+    "spyPrevClose": 680.33,
+    "qqqPrice": 603.55,
+    "qqqPrevClose": 601.58,
+    "spxPrice": 6816.63,
+    "vix": 22.91,
+    "marketStatus": "PRE-MARKET",
+    "trinityAligned": false,
+    "setupQuality": null
+  }
+}
