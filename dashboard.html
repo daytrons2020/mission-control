@@ -899,6 +899,181 @@
         
         .memory-content { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
         
+        /* Calendar */
+        .calendar-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .calendar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--neon-cyan);
+        }
+        
+        .calendar-btn {
+            padding: 8px 16px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            padding: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .calendar-day {
+            min-height: 100px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-day:hover {
+            border-color: var(--border-hover);
+        }
+        
+        .calendar-day.today {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 245, 255, 0.05);
+        }
+        
+        .calendar-day-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .calendar-day.today .calendar-day-number {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        
+        .calendar-event {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .calendar-event.cron {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+        }
+        
+        .calendar-event.task {
+            background: rgba(0, 245, 255, 0.2);
+            color: var(--accent-cyan);
+        }
+        
+        .calendar-event.meeting {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent-orange);
+        }
+        
+        .calendar-event.reminder {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .cron-list {
+            margin-top: 24px;
+        }
+        
+        .cron-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .cron-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            min-width: 80px;
+        }
+        
+        .cron-details {
+            flex: 1;
+        }
+        
+        .cron-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .cron-desc {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+        
+        .cron-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        
+        .cron-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+        
+        .cron-status.paused .cron-status-dot {
+            background: var(--accent-yellow);
+            animation: none;
+        }
+        
         /* Command Center */
         .command-grid {
             display: grid;
@@ -1348,6 +1523,11 @@
                         <span>◈</span>
                         <span>Dashboard</span>
                     </div>
+                    <div class="nav-item" onclick="showPage('calendar')">
+                        <span>◴</span>
+                        <span>Calendar</span>
+                        <span class="nav-badge">13</span>
+                    </div>
                     <div class="nav-item" onclick="showPage('projects')">
                         <span>◫</span>
                         <span>Projects</span>
@@ -1787,6 +1967,172 @@
                                     <span class="project-percent">10%</span>
                                     <span class="project-tasks">2 tasks</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CALENDAR PAGE -->
+                <div class="page" id="page-calendar">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <div class="calendar-nav">
+                                <button class="calendar-btn" onclick="changeMonth(-1)">←</button>
+                                <h2 class="calendar-title" id="calendar-month">March 2026</h2>
+                                <button class="calendar-btn" onclick="changeMonth(1)">→</button>
+                            </div>
+                            <button class="btn btn-primary" onclick="showAddEventModal()">
+                                <span>+</span> Add Event
+                            </button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Calendar generated by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">/// Scheduled Jobs (13 Active)</div>
+                    <div class="cron-list">
+                        <div class="cron-item">
+                            <div class="cron-time">Every 5 min</div>
+                            <div class="cron-details">
+                                <div class="cron-name">BINARY Trading Monitor</div>
+                                <div class="cron-desc">Market hours only • Checks SPX, SPY, QQQ patterns</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Every hour</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Cost Report</div>
+                                <div class="cron-desc">Posts token usage to #token-tracker</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">6:00 AM PT</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Morning Brief</div>
+                                <div class="cron-desc">Daily weather, trends, important news to #morning-brief</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Every 10 min</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Market Watch Alerts</div>
+                                <div class="cron-desc">3% price threshold alerts</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Every 15 min</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Smart Alerts</div>
+                                <div class="cron-desc">5% price + news triggers</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">5:00 AM PT</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Daily Maintenance</div>
+                                <div class="cron-desc">Health checks, git cleanup</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">8:00 PM ET</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Daily Digest</div>
+                                <div class="cron-desc">Auto-generated summary to #daily-digest</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">8:00 PM ET</div>
+                            <div class="cron-details">
+                                <div class="cron-name">A+ Stock Setup</div>
+                                <div class="cron-desc">Weekdays only • Trading setup analysis</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Every 2 hours</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Twitter Trends</div>
+                                <div class="cron-desc">X/Twitter research to #twitter-trends</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Sundays 9:00 AM ET</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Weekly Report</div>
+                                <div class="cron-desc">Comprehensive weekly summary</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Every 6 hours</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Health Monitor</div>
+                                <div class="cron-desc">System health checks + auto-fix</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Daily</div>
+                            <div class="cron-details">
+                                <div class="cron-name">xAI Twitter Research</div>
+                                <div class="cron-desc">Investigative analysis to #xai-twitter-research</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="cron-item">
+                            <div class="cron-time">Daily</div>
+                            <div class="cron-details">
+                                <div class="cron-name">Git Auto-Commit</div>
+                                <div class="cron-desc">Commits uncommitted changes</div>
+                            </div>
+                            <div class="cron-status">
+                                <div class="cron-status-dot"></div>
+                                <span>Active</span>
                             </div>
                         </div>
                     </div>
@@ -2324,6 +2670,18 @@
             }
         }
         
+        // Calendar state
+        let currentDate = new Date();
+        const events = [
+            { date: '2026-03-03', type: 'cron', title: 'Health Check', time: '21:30' },
+            { date: '2026-03-04', type: 'task', title: 'Deploy BINARY', time: '10:00' },
+            { date: '2026-03-04', type: 'cron', title: 'Morning Brief', time: '06:00' },
+            { date: '2026-03-04', type: 'cron', title: 'Daily Digest', time: '20:00' },
+            { date: '2026-03-05', type: 'meeting', title: 'Weekly Review', time: '09:00' },
+            { date: '2026-03-07', type: 'cron', title: 'Weekly Report', time: '09:00' },
+            { date: '2026-03-08', type: 'reminder', title: 'Trading Strategy Review', time: '14:00' },
+        ];
+
         // Load saved webhook on page load
         document.addEventListener('DOMContentLoaded', () => {
             const savedWebhook = localStorage.getItem('discord_webhook');
@@ -2334,7 +2692,146 @@
             
             // Start live feed simulation
             simulateLiveFeed();
+            
+            // Initialize calendar
+            renderCalendar();
         });
+
+        // Calendar functions
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            if (!grid) return;
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
+            
+            // Clear grid
+            grid.innerHTML = '';
+            
+            // Day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                grid.appendChild(empty);
+            }
+            
+            // Days
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day';
+                
+                // Check if today
+                if (year === today.getFullYear() && 
+                    month === today.getMonth() && 
+                    day === today.getDate()) {
+                    cell.classList.add('today');
+                }
+                
+                const dayNum = document.createElement('div');
+                dayNum.className = 'calendar-day-number';
+                dayNum.textContent = day;
+                cell.appendChild(dayNum);
+                
+                // Add events for this day
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = events.filter(e => e.date === dateStr);
+                
+                dayEvents.forEach(event => {
+                    const eventEl = document.createElement('div');
+                    eventEl.className = `calendar-event ${event.type}`;
+                    eventEl.textContent = `${event.time} ${event.title}`;
+                    cell.appendChild(eventEl);
+                });
+                
+                cell.onclick = () => showDayDetails(day, dayEvents);
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function showDayDetails(day, dayEvents) {
+            if (dayEvents.length === 0) {
+                const title = prompt(`Add event for March ${day}:`);
+                if (title) {
+                    const time = prompt('Time (HH:MM):') || '12:00';
+                    const type = prompt('Type (cron/task/meeting/reminder):') || 'task';
+                    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    events.push({ date: dateStr, type, title, time });
+                    renderCalendar();
+                    showToast(`Event added: ${title}`, 'success');
+                    addToFeed('system', 'Calendar', `New event scheduled: ${title} on March ${day}`);
+                }
+            } else {
+                let msg = `Events for March ${day}:\n\n`;
+                dayEvents.forEach(e => {
+                    msg += `• ${e.time} - ${e.title} (${e.type})\n`;
+                });
+                alert(msg);
+            }
+        }
+
+        function showAddEventModal() {
+            const title = prompt('Event title:');
+            if (!title) return;
+            
+            const date = prompt('Date (YYYY-MM-DD):', '2026-03-04');
+            if (!date) return;
+            
+            const time = prompt('Time (HH:MM):', '12:00');
+            const type = prompt('Type (cron/task/meeting/reminder):', 'task');
+            
+            events.push({ date, type, title, time });
+            renderCalendar();
+            showToast(`Event added: ${title}`, 'success');
+            addToFeed('system', 'Calendar', `New event scheduled: ${title}`);
+        }
+
+        // Schedule a task function (called when you ask me to schedule something)
+        function scheduleTask(title, date, time, type = 'task') {
+            events.push({ date, type, title, time });
+            renderCalendar();
+            showToast(`Task scheduled: ${title}`, 'success');
+            addToFeed('system', 'Calendar', `Task scheduled: ${title} for ${date} at ${time}`);
+            
+            // Also send to Discord if configured
+            const webhookUrl = localStorage.getItem('discord_webhook');
+            if (webhookUrl) {
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: '📅 New Task Scheduled',
+                            description: `**${title}**\n📆 ${date} at ${time}`,
+                            color: 0x00f5ff,
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
+                }).catch(console.error);
+            }
+        }
         
         // Broadcast message to all channels
         async function broadcastMessage() {
