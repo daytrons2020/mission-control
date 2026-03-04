@@ -251,6 +251,138 @@
             background: rgba(0, 245, 255, 0.2);
             box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
         }
+
+        /* Mission Statement Section */
+        .mission-card {
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.6), rgba(30, 15, 40, 0.5));
+            border: 1px solid rgba(184, 41, 221, 0.3);
+        }
+
+        .mission-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .mission-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 0 10px rgba(184, 41, 221, 0.5));
+        }
+
+        .mission-card h3 {
+            color: var(--neon-purple);
+            margin-bottom: 0;
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        .mission-quote {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            border-left: 3px solid var(--neon-purple);
+            padding-left: 20px;
+            margin: 20px 0;
+            line-height: 1.6;
+            text-shadow: 0 0 20px rgba(184, 41, 221, 0.2);
+        }
+
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .mission-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mission-section h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mission-section .icon {
+            font-size: 14px;
+        }
+
+        .principles-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .principles-list li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .principles-list li:last-child {
+            border-bottom: none;
+        }
+
+        .principles-list strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .goals-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .goal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .goal-item:hover {
+            border-color: rgba(0, 245, 255, 0.2);
+            background: rgba(0, 245, 255, 0.05);
+        }
+
+        .goal-name {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .goal-value {
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .mission-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--neon-purple);
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -273,25 +405,96 @@
         </nav>
         
         <div id="overview" class="tab-content active">
+            <!-- Mission Statement Section -->
+            <div class="glass-card mission-card">
+                <div class="mission-header">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Mission Statement</h3>
+                </div>
+                <blockquote class="mission-quote">
+                    "To create and strive for an autonomous organization of AI agents that produces value consistently every day of the week."
+                </blockquote>
+                <div class="mission-content">
+                    <div class="mission-section">
+                        <h4><span class="icon">⚡</span> Core Principles</h4>
+                        <ul class="principles-list">
+                            <li><strong>Autonomy First</strong> — Agents work independently</li>
+                            <li><strong>Daily Value</strong> — Consistent 7-day output</li>
+                            <li><strong>Resource Efficiency</strong> — Use existing first</li>
+                            <li><strong>Cost-Effectiveness</strong> — Kimi K2.5 → Free → Paid</li>
+                            <li><strong>Continuous Improvement</strong> — Always optimize</li>
+                        </ul>
+                    </div>
+                    <div class="mission-section">
+                        <h4>Value Production Goals</h4>
+                        <div class="goals-grid">
+                            <div class="goal-item">
+                                <span class="goal-name">YouTube</span>
+                                <span class="goal-value">$500-2000/week</span>
+                            </div>
+                            <div class="goal-item">
+                                <span class="goal-name">Reselling</span>
+                                <span class="goal-value">$1000-5000/week</span>
+                            </div>
+                            <div class="goal-item">
+                                <span class="goal-name">Trading</span>
+                                <span class="goal-value">Variable</span>
+                            </div>
+                            <div class="goal-item">
+                                <span class="goal-name">Education</span>
+                                <span class="goal-value">Long-term</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-footer">
+                    Autonomous. Consistent. Valuable. Every day.
+                </div>
+            </div>
+
             <div class="glass-card">
                 <h3>/// Active Projects</h3>
                 <div class="project-list">
                     <div class="project-item">
-                        <div class="project-name">Respiratory Education</div>
+                        <div class="project-name">Respiratory Education <span style="color: var(--text-muted); font-size: 12px;">45%</span></div>
                         <div class="progress-bar">
                             <div class="progress-fill progress-orange" style="width: 45%"></div>
                         </div>
                     </div>
                     <div class="project-item">
-                        <div class="project-name">RT Scheduling</div>
+                        <div class="project-name">Trading System <span style="color: var(--text-muted); font-size: 12px;">35%</span></div>
                         <div class="progress-bar">
                             <div class="progress-fill progress-orange" style="width: 35%"></div>
                         </div>
                     </div>
                     <div class="project-item">
-                        <div class="project-name">Trading System</div>
+                        <div class="project-name">RT Scheduling <span style="color: var(--text-muted); font-size: 12px;">35%</span></div>
                         <div class="progress-bar">
                             <div class="progress-fill progress-orange" style="width: 35%"></div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-name">RT Tools <span style="color: var(--text-muted); font-size: 12px;">25%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-red" style="width: 25%"></div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-name">Reselling Business <span style="color: var(--text-muted); font-size: 12px;">15%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-red" style="width: 15%"></div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-name">YouTube Empire <span style="color: var(--text-muted); font-size: 12px;">10%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-red" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-name">Kids App <span style="color: var(--text-muted); font-size: 12px;">10%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-red" style="width: 10%"></div>
                         </div>
                     </div>
                 </div>
