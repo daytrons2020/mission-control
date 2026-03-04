@@ -688,6 +688,206 @@
         .task-tag.medium { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
         .task-tag.low { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
         
+        /* Task Board */
+        .task-board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .task-filters {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .task-filter {
+            padding: 8px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .task-filter:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+        
+        .task-filter.active {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-color: transparent;
+            color: white;
+        }
+        
+        .task-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        @media (max-width: 1200px) {
+            .task-board { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .task-board { grid-template-columns: 1fr; }
+        }
+        
+        .task-column {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
+            min-height: 500px;
+        }
+        
+        .task-column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .task-column-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .task-count {
+            background: var(--bg-app);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-tertiary);
+        }
+        
+        .task-column-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .task-card {
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .task-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .task-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .task-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            flex: 1;
+        }
+        
+        .task-card-priority {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        
+        .task-card-priority.high { background: var(--accent-red); box-shadow: 0 0 6px var(--accent-red); }
+        .task-card-priority.medium { background: var(--accent-yellow); box-shadow: 0 0 6px var(--accent-yellow); }
+        .task-card-priority.low { background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
+        
+        .task-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .task-card-project {
+            font-size: 11px;
+            padding: 2px 8px;
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 4px;
+            color: var(--accent-purple);
+        }
+        
+        .task-card-due {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .task-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-card-assignee {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .task-assignee-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .task-assignee-name {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .task-card-actions {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .task-action-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .task-action-btn:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+        
         /* Content Pipeline */
         .pipeline-columns {
             display: grid;
@@ -2291,45 +2491,56 @@
                 
                 <!-- TASKS PAGE -->
                 <div class="page" id="page-tasks">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">☐ Active Tasks</div>
-                            <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;">
-                                <span>+</span> Add Task
-                            </button>
+                    <div class="task-board-header">
+                        <div class="task-filters">
+                            <button class="task-filter active" onclick="filterTasks('all')">All</button>
+                            <button class="task-filter" onclick="filterTasks('dayton')">Dayton</button>
+                            <button class="task-filter" onclick="filterTasks('nano')">Nano</button>
+                            <button class="task-filter" onclick="filterTasks('agents')">Agents</button>
                         </div>
-                        <div class="task-list">
-                            <div class="task-item">
-                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
-                                <div class="task-content">
-                                    <div class="task-title">Complete Respiratory Education PowerPoints</div>
-                                    <div class="task-meta">Project: Respiratory Education • Due: Today</div>
-                                </div>
-                                <span class="task-tag high">High</span>
+                        <button class="btn btn-primary" onclick="showAddTaskModal()">
+                            <span>+</span> New Task
+                        </button>
+                    </div>
+                    
+                    <div class="task-board">
+                        <div class="task-column">
+                            <div class="task-column-header">
+                                <span class="task-column-title">📋 Backlog</span>
+                                <span class="task-count" id="count-backlog">0</span>
                             </div>
-                            <div class="task-item">
-                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
-                                <div class="task-content">
-                                    <div class="task-title">Deploy BINARY Trading Dashboard</div>
-                                    <div class="task-meta">Project: Trading System • Due: Tomorrow</div>
-                                </div>
-                                <span class="task-tag high">High</span>
+                            <div class="task-column-content" id="column-backlog">
+                                <!-- Tasks injected by JS -->
                             </div>
-                            <div class="task-item">
-                                <div class="task-checkbox checked" onclick="toggleTask(this)"></div>
-                                <div class="task-content">
-                                    <div class="task-title" style="text-decoration: line-through; opacity: 0.6;">Update Mission Control UI</div>
-                                    <div class="task-meta">Project: Mission Control • Completed</div>
-                                </div>
-                                <span class="task-tag medium">Medium</span>
+                        </div>
+                        
+                        <div class="task-column">
+                            <div class="task-column-header">
+                                <span class="task-column-title">🏃 In Progress</span>
+                                <span class="task-count" id="count-progress">0</span>
                             </div>
-                            <div class="task-item">
-                                <div class="task-checkbox" onclick="toggleTask(this)"></div>
-                                <div class="task-content">
-                                    <div class="task-title">Research reselling strategies</div>
-                                    <div class="task-meta">Project: Reselling Business • Due: This week</div>
-                                </div>
-                                <span class="task-tag low">Low</span>
+                            <div class="task-column-content" id="column-progress">
+                                <!-- Tasks injected by JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="task-column">
+                            <div class="task-column-header">
+                                <span class="task-column-title">👀 Review</span>
+                                <span class="task-count" id="count-review">0</span>
+                            </div>
+                            <div class="task-column-content" id="column-review">
+                                <!-- Tasks injected by JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="task-column">
+                            <div class="task-column-header">
+                                <span class="task-column-title">✅ Done</span>
+                                <span class="task-count" id="count-done">0</span>
+                            </div>
+                            <div class="task-column-content" id="column-done">
+                                <!-- Tasks injected by JS -->
                             </div>
                         </div>
                     </div>
@@ -3016,6 +3227,302 @@
             }
         }
         
+        // Task Board Data
+        let tasks = [
+            {
+                id: 'task-1',
+                title: 'Complete Respiratory Education PowerPoints',
+                project: 'Respiratory Education',
+                status: 'progress',
+                priority: 'high',
+                assignee: 'dayton',
+                assigneeName: 'Dayton',
+                due: '2026-03-05',
+                created: '2026-03-01'
+            },
+            {
+                id: 'task-2',
+                title: 'Deploy BINARY Trading Dashboard to Vercel',
+                project: 'Trading System',
+                status: 'progress',
+                priority: 'high',
+                assignee: 'nano',
+                assigneeName: 'Nano',
+                due: '2026-03-04',
+                created: '2026-03-02'
+            },
+            {
+                id: 'task-3',
+                title: 'Build Mission Control Calendar with cron jobs',
+                project: 'Mission Control',
+                status: 'done',
+                priority: 'high',
+                assignee: 'nano',
+                assigneeName: 'Nano',
+                due: '2026-03-03',
+                created: '2026-03-03'
+            },
+            {
+                id: 'task-4',
+                title: 'Rebuild Task Board with assignees and status',
+                project: 'Mission Control',
+                status: 'progress',
+                priority: 'high',
+                assignee: 'nano',
+                assigneeName: 'Nano',
+                due: '2026-03-03',
+                created: '2026-03-03'
+            },
+            {
+                id: 'task-5',
+                title: 'Research reselling strategies and suppliers',
+                project: 'Reselling Business',
+                status: 'backlog',
+                priority: 'medium',
+                assignee: 'dayton',
+                assigneeName: 'Dayton',
+                due: '2026-03-10',
+                created: '2026-03-02'
+            },
+            {
+                id: 'task-6',
+                title: 'Set up YouTube automation pipeline',
+                project: 'YouTube Empire',
+                status: 'backlog',
+                priority: 'medium',
+                assignee: 'agents',
+                assigneeName: 'Sub-Agent',
+                due: '2026-03-15',
+                created: '2026-03-01'
+            },
+            {
+                id: 'task-7',
+                title: 'Complete RT Scheduling React components',
+                project: 'RT Scheduling',
+                status: 'review',
+                priority: 'medium',
+                assignee: 'nano',
+                assigneeName: 'Nano',
+                due: '2026-03-04',
+                created: '2026-03-01'
+            },
+            {
+                id: 'task-8',
+                title: 'Design Kids App game mechanics',
+                project: 'Kids App',
+                status: 'backlog',
+                priority: 'low',
+                assignee: 'dayton',
+                assigneeName: 'Dayton',
+                due: '2026-03-20',
+                created: '2026-02-28'
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        // Render task board
+        function renderTaskBoard() {
+            const columns = {
+                backlog: document.getElementById('column-backlog'),
+                progress: document.getElementById('column-progress'),
+                review: document.getElementById('column-review'),
+                done: document.getElementById('column-done')
+            };
+
+            const counts = {
+                backlog: 0,
+                progress: 0,
+                review: 0,
+                done: 0
+            };
+
+            // Clear columns
+            Object.values(columns).forEach(col => col.innerHTML = '');
+
+            // Filter and render tasks
+            const filteredTasks = currentFilter === 'all' 
+                ? tasks 
+                : tasks.filter(t => t.assignee === currentFilter);
+
+            filteredTasks.forEach(task => {
+                const card = createTaskCard(task);
+                columns[task.status].appendChild(card);
+                counts[task.status]++;
+            });
+
+            // Update counts
+            Object.keys(counts).forEach(status => {
+                const countEl = document.getElementById(`count-${status}`);
+                if (countEl) countEl.textContent = counts[status];
+            });
+        }
+
+        function createTaskCard(task) {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.draggable = true;
+            card.dataset.taskId = task.id;
+
+            const priorityColors = { high: 'high', medium: 'medium', low: 'low' };
+            const daysUntilDue = Math.ceil((new Date(task.due) - new Date()) / (1000 * 60 * 60 * 24));
+            const dueText = daysUntilDue < 0 ? 'Overdue' : daysUntilDue === 0 ? 'Today' : daysUntilDue === 1 ? 'Tomorrow' : `${daysUntilDue} days`;
+            const dueColor = daysUntilDue < 0 ? 'color: var(--accent-red)' : daysUntilDue <= 1 ? 'color: var(--accent-yellow)' : '';
+
+            card.innerHTML = `
+                <div class="task-card-header">
+                    <div class="task-card-title">${task.title}</div>
+                    <div class="task-card-priority ${priorityColors[task.priority]}"></div>
+                </div>
+                <div class="task-card-meta">
+                    <span class="task-card-project">${task.project}</span>
+                    <span class="task-card-due" style="${dueColor}">📅 ${dueText}</span>
+                </div>
+                <div class="task-card-footer">
+                    <div class="task-card-assignee">
+                        <div class="task-assignee-avatar">${task.assigneeName[0]}</div>
+                        <span class="task-assignee-name">${task.assigneeName}</span>
+                    </div>
+                    <div class="task-card-actions">
+                        <button class="task-action-btn" onclick="moveTask('${task.id}', 'prev')" title="Move left">←</button>
+                        <button class="task-action-btn" onclick="moveTask('${task.id}', 'next')" title="Move right">→</button>
+                    </div>
+                </div>
+            `;
+
+            // Add click to edit
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.task-action-btn')) {
+                    editTask(task.id);
+                }
+            });
+
+            return card;
+        }
+
+        function filterTasks(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.task-filter').forEach(f => f.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTaskBoard();
+        }
+
+        function moveTask(taskId, direction) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            const statuses = ['backlog', 'progress', 'review', 'done'];
+            const currentIndex = statuses.indexOf(task.status);
+            
+            if (direction === 'next' && currentIndex < statuses.length - 1) {
+                task.status = statuses[currentIndex + 1];
+            } else if (direction === 'prev' && currentIndex > 0) {
+                task.status = statuses[currentIndex - 1];
+            }
+
+            renderTaskBoard();
+            addToFeed('system', 'Tasks', `Task moved to ${task.status}: ${task.title}`);
+            
+            // Notify if completed
+            if (task.status === 'done') {
+                showToast(`Task completed: ${task.title}`, 'success');
+            }
+        }
+
+        // Update task function - called when I work on tasks
+        function updateTask(taskId, updates) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) {
+                // Create new task if not found
+                if (updates.title) {
+                    const newTask = {
+                        id: taskId || 'task-' + Date.now(),
+                        title: updates.title,
+                        project: updates.project || 'General',
+                        status: updates.status || 'backlog',
+                        priority: updates.priority || 'medium',
+                        assignee: updates.assignee || 'nano',
+                        assigneeName: updates.assigneeName || 'Nano',
+                        due: updates.due || new Date().toISOString().split('T')[0],
+                        created: new Date().toISOString().split('T')[0]
+                    };
+                    tasks.push(newTask);
+                    renderTaskBoard();
+                    showToast(`New task created: ${newTask.title}`, 'success');
+                    addToFeed('system', 'Tasks', `New task: ${newTask.title} assigned to ${newTask.assigneeName}`);
+                    return newTask;
+                }
+                return null;
+            }
+
+            // Update existing task
+            Object.assign(task, updates);
+            renderTaskBoard();
+            
+            const statusMsg = updates.status ? ` → ${updates.status}` : '';
+            showToast(`Task updated${statusMsg}: ${task.title}`, 'info');
+            addToFeed('system', 'Tasks', `Task updated: ${task.title}${statusMsg}`);
+            
+            return task;
+        }
+
+        // Create task from my work
+        function createTaskFromWork(title, project, priority = 'medium') {
+            return updateTask(null, {
+                title,
+                project,
+                priority,
+                assignee: 'nano',
+                assigneeName: 'Nano',
+                status: 'progress'
+            });
+        }
+
+        function editTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            const newTitle = prompt('Task title:', task.title);
+            if (newTitle === null) return;
+
+            const newStatus = prompt('Status (backlog/progress/review/done):', task.status);
+            const newAssignee = prompt('Assignee (dayton/nano/agents):', task.assignee);
+            const newPriority = prompt('Priority (high/medium/low):', task.priority);
+
+            updateTask(taskId, {
+                title: newTitle || task.title,
+                status: newStatus || task.status,
+                assignee: newAssignee || task.assignee,
+                assigneeName: newAssignee === 'dayton' ? 'Dayton' : newAssignee === 'agents' ? 'Sub-Agent' : 'Nano',
+                priority: newPriority || task.priority
+            });
+        }
+
+        function showAddTaskModal() {
+            const title = prompt('Task title:');
+            if (!title) return;
+
+            const project = prompt('Project:', 'General');
+            const assignee = prompt('Assignee (dayton/nano/agents):', 'nano');
+            const priority = prompt('Priority (high/medium/low):', 'medium');
+            const due = prompt('Due date (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
+
+            updateTask(null, {
+                title,
+                project: project || 'General',
+                assignee: assignee || 'nano',
+                assigneeName: assignee === 'dayton' ? 'Dayton' : assignee === 'agents' ? 'Sub-Agent' : 'Nano',
+                priority: priority || 'medium',
+                due: due || new Date().toISOString().split('T')[0],
+                status: 'backlog'
+            });
+        }
+
+        // Initialize task board on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTaskBoard();
+        });
+
         // Toast notifications
         function showToast(message, type = 'info') {
             const container = document.querySelector('.toast-container') || createToastContainer();
