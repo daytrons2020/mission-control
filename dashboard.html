@@ -1197,7 +1197,266 @@
             background: var(--bg-app);
             border-radius: 6px;
         }
-        
+
+        /* Isometric Office */
+        .office-container {
+            padding: 20px;
+        }
+
+        .office-floor {
+            background: 
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .office-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .desk-area {
+            position: relative;
+            width: 140px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .desk-area:hover {
+            transform: translateY(-5px);
+        }
+
+        .desk {
+            position: relative;
+            width: 100px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        .desk-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(180deg, #2a2a35, #1a1a25);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            transform: perspective(100px) rotateX(30deg);
+        }
+
+        .monitor {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 35px;
+            background: #1a1a20;
+            border: 2px solid var(--border-subtle);
+            border-radius: 4px;
+        }
+
+        .screen {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: #0a0a0e;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .screen.active {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(139, 92, 246, 0.1));
+            animation: screenGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes screenGlow {
+            0%, 100% { box-shadow: inset 0 0 10px rgba(0, 245, 255, 0.2); }
+            50% { box-shadow: inset 0 0 20px rgba(0, 245, 255, 0.4); }
+        }
+
+        .code-lines {
+            padding: 4px;
+        }
+
+        .code-line {
+            height: 2px;
+            background: var(--accent-cyan);
+            margin-bottom: 3px;
+            border-radius: 1px;
+            opacity: 0.6;
+        }
+
+        .code-line:nth-child(1) { width: 80%; }
+        .code-line:nth-child(2) { width: 60%; }
+        .code-line:nth-child(3) { width: 90%; }
+        .code-line:nth-child(4) { width: 40%; }
+
+        .keyboard {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%) perspective(50px) rotateX(45deg);
+            width: 40px;
+            height: 12px;
+            background: #2a2a35;
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+        }
+
+        .chair {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+        }
+
+        .chair-back {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 25px;
+            background: linear-gradient(180deg, #3a3a45, #2a2a35);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .chair-seat {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%) perspective(30px) rotateX(30deg);
+            width: 26px;
+            height: 12px;
+            background: linear-gradient(180deg, #4a4a55, #3a3a45);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+        }
+
+        .agent-avatar-office {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            border: 3px solid var(--bg-app);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .agent-status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-app);
+        }
+
+        .agent-status-indicator.online {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+
+        .agent-status-indicator.working {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse-dot 2s infinite;
+        }
+
+        .agent-status-indicator.offline {
+            background: var(--text-tertiary);
+        }
+
+        .agent-info-office {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .agent-name-office {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .agent-role-office {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .agent-task-office {
+            font-size: 11px;
+            color: var(--accent-cyan);
+            padding: 4px 8px;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .office-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.online {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .legend-dot.working {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .legend-dot.offline {
+            background: var(--text-tertiary);
+        }
+
         /* Memory */
         .memory-timeline {
             position: relative;
@@ -2806,42 +3065,345 @@
                 
                 <!-- OFFICE PAGE -->
                 <div class="page" id="page-office">
-                    <div class="office-grid">
-                        <div class="office-agent">
-                            <div class="office-avatar">
-                                D
-                                <div class="office-status working"></div>
+                    <div class="office-container">
+                        <div class="office-floor">
+                            <!-- Row 1: Core Team -->
+                            <div class="office-row">
+                                <div class="desk-area" data-agent="dayton">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                        D
+                                        <div class="agent-status-indicator online"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">Dayton</div>
+                                        <div class="agent-role-office">Human-in-Chief</div>
+                                        <div class="agent-task-office">Reviewing dashboard</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="nano">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen active">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #00f5ff, #8b5cf6);">
+                                        N
+                                        <div class="agent-status-indicator online"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">Nano</div>
+                                        <div class="agent-role-office">Primary Agent</div>
+                                        <div class="agent-task-office">Building features</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="office-name">Dayton</div>
-                            <div class="office-role">Human-in-Chief</div>
-                            <div class="office-task">Reviewing Mission Control updates</div>
+
+                            <!-- Row 2: Developers -->
+                            <div class="office-row">
+                                <div class="desk-area" data-agent="codesmith">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); opacity: 0.4;">
+                                        CS
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">CodeSmith</div>
+                                        <div class="agent-role-office">Senior Developer</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="devops">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #6b7280, #4b5563); opacity: 0.4;">
+                                        DO
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">DevOps</div>
+                                        <div class="agent-role-office">Infrastructure</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="testpilot">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #14b8a6, #0d9488); opacity: 0.4;">
+                                        TP
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">TestPilot</div>
+                                        <div class="agent-role-office">QA Engineer</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Creative & Research -->
+                            <div class="office-row">
+                                <div class="desk-area" data-agent="pixelweaver">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                                                <div style="padding: 8px;">
+                                                    <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.3); margin-bottom: 4px;"></div>
+                                                    <div style="width: 70%; height: 4px; background: rgba(255,255,255,0.3);"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #ec4899, #db2777); opacity: 0.4;">
+                                        PW
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">PixelWeaver</div>
+                                        <div class="agent-role-office">UI/UX Designer</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="scribe">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #10b981, #059669); opacity: 0.4;">
+                                        SC
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">Scribe</div>
+                                        <div class="agent-role-office">Technical Writer</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="dataminer">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen">
+                                                <div class="code-lines">
+                                                    <div class="code-line"></div>
+                                                    <div class="code-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #f59e0b, #d97706); opacity: 0.4;">
+                                        DM
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">DataMiner</div>
+                                        <div class="agent-role-office">Research Analyst</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Domain Experts -->
+                            <div class="office-row">
+                                <div class="desk-area" data-agent="tradebot">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                                <div style="padding: 8px; text-align: center;">
+                                                    <div style="font-size: 10px; color: white; margin-bottom: 4px;">SPX</div>
+                                                    <div style="font-size: 14px; color: white; font-weight: bold;">+1.2%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #f97316, #ea580c); opacity: 0.4;">
+                                        TB
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">TradeBot</div>
+                                        <div class="agent-role-office">Trading Strategist</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="contentforge">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                                                <div style="padding: 8px;">
+                                                    <div style="width: 100%; height: 20px; background: rgba(255,255,255,0.2); margin-bottom: 4px;"></div>
+                                                    <div style="width: 60%; height: 8px; background: rgba(255,255,255,0.2);"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); opacity: 0.4;">
+                                        CF
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">ContentForge</div>
+                                        <div class="agent-role-office">Content Creator</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+
+                                <div class="desk-area" data-agent="guardian">
+                                    <div class="desk">
+                                        <div class="desk-surface"></div>
+                                        <div class="monitor">
+                                            <div class="screen" style="background: linear-gradient(135deg, #dc2626, #b91c1c);">
+                                                <div style="padding: 8px; text-align: center;">
+                                                    <div style="font-size: 16px; color: white;">🔒</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keyboard"></div>
+                                    </div>
+                                    <div class="chair">
+                                        <div class="chair-back"></div>
+                                        <div class="chair-seat"></div>
+                                    </div>
+                                    <div class="agent-avatar-office" style="background: linear-gradient(135deg, #dc2626, #b91c1c); opacity: 0.4;">
+                                        GD
+                                        <div class="agent-status-indicator offline"></div>
+                                    </div>
+                                    <div class="agent-info-office">
+                                        <div class="agent-name-office">Guardian</div>
+                                        <div class="agent-role-office">Security Analyst</div>
+                                        <div class="agent-task-office">Offline</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="office-agent">
-                            <div class="office-avatar" style="background: linear-gradient(135deg, #00f5ff, #8b5cf6);">
-                                N
-                                <div class="office-status working"></div>
+
+                        <!-- Office Legend -->
+                        <div class="office-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot online"></div>
+                                <span>Online (2)</span>
                             </div>
-                            <div class="office-name">Nano</div>
-                            <div class="office-role">Primary Agent</div>
-                            <div class="office-task">Building dashboard features</div>
-                        </div>
-                        <div class="office-agent" style="opacity: 0.5;">
-                            <div class="office-avatar" style="background: linear-gradient(135deg, #6b7280, #9ca3af);">
-                                ?
-                                <div class="office-status idle"></div>
+                            <div class="legend-item">
+                                <div class="legend-dot working"></div>
+                                <span>Working (2)</span>
                             </div>
-                            <div class="office-name">Agent Slot</div>
-                            <div class="office-role">Available</div>
-                            <div class="office-task">Waiting for activation</div>
-                        </div>
-                        <div class="office-agent" style="opacity: 0.5;">
-                            <div class="office-avatar" style="background: linear-gradient(135deg, #6b7280, #9ca3af);">
-                                ?
-                                <div class="office-status idle"></div>
+                            <div class="legend-item">
+                                <div class="legend-dot offline"></div>
+                                <span>Offline (10)</span>
                             </div>
-                            <div class="office-name">Agent Slot</div>
-                            <div class="office-role">Available</div>
-                            <div class="office-task">Waiting for activation</div>
                         </div>
                     </div>
                 </div>
@@ -3923,6 +4485,18 @@
         // Initialize task board on page load
         document.addEventListener('DOMContentLoaded', () => {
             renderTaskBoard();
+        });
+
+        // Office Agent Click Handler
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.desk-area').forEach(desk => {
+                desk.addEventListener('click', () => {
+                    const agentId = desk.dataset.agent;
+                    if (agentId) {
+                        showAgentDetails(agentId);
+                    }
+                });
+            });
         });
 
         // Agent Management
