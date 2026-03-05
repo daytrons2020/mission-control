@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRC | California Society for Respiratory Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --accent: #0ea5e9;
+            --gray-900: #111827;
+            --gray-600: #4b5563;
+            --gray-500: #6b7280;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50: #f9fafb;
+            --white: #ffffff;
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--gray-900); line-height: 1.6; }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; background: var(--white);
+            border-bottom: 1px solid var(--gray-200); z-index: 1000;
+        }
+        .header-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 1rem;
+            display: flex; align-items: center; justify-content: space-between; height: 64px;
+        }
+        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: var(--white); font-weight: 700; font-size: 1.1rem;
+        }
+        .logo-title { font-weight: 700; font-size: 1.1rem; color: var(--gray-900); }
+        .logo-subtitle { font-size: 0.7rem; color: var(--gray-500); text-transform: uppercase; }
+
+        /* Nav */
+        .nav { display: none; }
+        .nav-list { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-link { padding: 0.5rem 0.75rem; color: var(--gray-600); text-decoration: none; font-size: 0.875rem; font-weight: 500; border-radius: 6px; }
+        .nav-link:hover { color: var(--primary); background: var(--gray-50); }
+
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+        .btn-white { background: var(--white); color: var(--primary); }
+        .btn-white:hover { background: var(--gray-100); }
+        .btn-outline-white { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.3); }
+        .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+        .btn-sm { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+        .btn-lg { padding: 0.875rem 1.5rem; font-size: 1rem; }
+
+        /* Mobile Menu */
+        .menu-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; }
+        .mobile-menu { position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 999; transform: translateX(100%); transition: transform 0.3s; }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-nav-list { list-style: none; padding: 1rem; }
+        .mobile-nav-link { display: block; padding: 1rem 0; color: var(--gray-900); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--gray-200); }
+
+        /* Hero */
+        .hero { padding: 8rem 1rem 4rem; background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%); color: var(--white); }
+        .hero-container { max-width: 1280px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.875rem; margin-bottom: 1.5rem; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; max-width: 600px; }
+        .hero-description { font-size: 1.125rem; opacity: 0.9; max-width: 540px; margin-bottom: 2rem; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+        /* Stats */
+        .quick-stats { padding: 2rem 1rem; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); }
+        .quick-stats-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.75rem; color: var(--gray-500); text-transform: uppercase; }
+
+        /* Sections */
+        .section { padding: 4rem 1rem; }
+        .section-container { max-width: 1280px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-label { display: inline-block; padding: 0.375rem 0.875rem; background: var(--primary); color: var(--white); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 50px; margin-bottom: 1rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-description { font-size: 1.125rem; color: var(--gray-600); max-width: 600px; margin: 0 auto; }
+
+        /* Cards */
+        .cards-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
+        .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+        .card-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--white); }
+        .card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .card-text { color: var(--gray-600); margin-bottom: 1rem; }
+        .card-link { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+        /* Footer */
+        .footer { background: var(--gray-900); color: var(--gray-500); padding: 3rem 1rem; }
+        .footer-container { max-width: 1280px; margin: 0 auto; text-align: center; }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .nav { display: flex; }
+            .menu-btn { display: none; }
+            .hero-title { font-size: 3.5rem; }
+            .quick-stats-container { grid-template-columns: repeat(4, 1fr); }
+            .cards-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">CS</div>
+                <div>
+                    <div class="logo-title">CSRC</div>
+                    <div class="logo-subtitle">California Society for Respiratory Care</div>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">About</a></li>
+                    <li><a href="#" class="nav-link">Membership</a></li>
+                    <li><a href="#" class="nav-link">Events</a></li>
+                    <li><a href="#" class="nav-link">Resources</a></li>
+                </ul>
+            </nav>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <a href="#" class="btn btn-primary btn-sm">Join Now</a>
+                <button class="menu-btn" id="menuBtn">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-list">
+            <li><a href="#" class="mobile-nav-link">About CSRC</a></li>
+            <li><a href="#" class="mobile-nav-link">Membership</a></li>
+            <li><a href="#" class="mobile-nav-link">Events</a></li>
+            <li><a href="#" class="mobile-nav-link">Resources</a></li>
+            <li><a href="#" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">✓ Serving California RTs Since 1978</div>
+            <h1 class="hero-title">Advancing Respiratory Care Across California</h1>
+            <p class="hero-description">Join over 4,000 respiratory care professionals dedicated to excellence in patient care, professional development, and advocacy.</p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn-white btn-lg">Become a Member</a>
+                <a href="#" class="btn btn-outline-white btn-lg">Upcoming Events</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="quick-stats">
+        <div class="quick-stats-container">
+            <div class="stat-item"><div class="stat-value">4,000+</div><div class="stat-label">Members</div></div>
+            <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Regions</div></div>
+            <div class="stat-item"><div class="stat-value">45+</div><div class="stat-label">Years</div></div>
+            <div class="stat-item"><div class="stat-value">50+</div><div class="stat-label">CE Courses</div></div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Membership</span>
+                <h2 class="section-title">Why Join CSRC</h2>
+                <p class="section-description">Membership provides access to exclusive resources, networking, and professional development.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3 class="card-title">Continuing Education</h3>
+                    <p class="card-text">Access 50+ CE courses, conferences, and workshops to maintain your license.</p>
+                    <a href="#" class="card-link">Explore Courses →</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">Professional Network</h3>
+                    <p class="card-text">Connect with 4,000+ RT professionals across California.</p>
+                    <a href="#" class="card-link">Find Your Region →</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">Advocacy</h3>
+                    <p class="card-text">CSRC advocates for the profession at the state level.</p>
+                    <a href="#" class="card-link">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>© 2026 California Society for Respiratory Care</p>
+            <p>1415 L Street, Ste 1100, Sacramento, CA 95814 | 888-730-2772</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

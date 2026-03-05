@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRC - China Securities Regulatory Commission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-dark: #152a45;
+            --accent: #c9a227;
+            --accent-light: #e8c547;
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --border: #e0e0e0;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 8px 16px 8px 36px;
+            color: white;
+            width: 280px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .search-box input::placeholder { color: rgba(255,255,255,0.5); }
+        .search-box input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .lang-toggle a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .lang-toggle a.active,
+        .lang-toggle a:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            padding: 0 24px;
+            gap: 4px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item > a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-item:hover > a {
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-item.active > a {
+            color: white;
+            border-bottom-color: var(--accent);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--surface);
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            padding: 8px 0;
+            border: 1px solid var(--border);
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 16px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.15s;
+        }
+
+        .dropdown a:hover {
+            background: var(--bg);
+            color: var(--primary);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        /* Quick Links Bar */
+        .quick-links {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 24px;
+        }
+
+        .quick-links-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .quick-link:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .quick-link-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .quick-link-text {
+            flex: 1;
+        }
+
+        .quick-link-text strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .quick-link-text span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .news-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--bg);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .news-tag.urgent {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .news-tag.regulatory {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Market Overview */
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .market-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .market-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .market-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .market-change {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .market-change.up {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .market-change.down {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .market-chart {
+            height: 60px;
+            background: linear-gradient(to right, var(--bg) 0%, var(--bg) 100%);
+            border-radius: 8px;
+            margin-top: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-chart::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, var(--success) 0%, transparent 100%);
+            opacity: 0.2;
+        }
+
+        /* Regulatory Calendar */
+        .calendar-list {
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .calendar-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .calendar-item:last-child {
+            border-bottom: none;
+        }
+
+        .calendar-item:hover {
+            background: var(--bg);
+        }
+
+        .calendar-date {
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .calendar-date .day {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .calendar-date .month {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .calendar-content {
+            flex: 1;
+        }
+
+        .calendar-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .calendar-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .calendar-type {
+            padding: 4px 12px;
+            background: var(--bg);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 48px 24px 24px;
+            margin-top: 64px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--accent-light);
+        }
+
+        .footer-section a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 6px 0;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">CSRC</div>
+                <div class="logo-text">
+                    <h1>China Securities Regulatory Commission</h1>
+                    <span>中国证券监督管理委员会</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" placeholder="Search regulations, filings...">
+                </div>
+                <div class="lang-toggle">
+                    <a href="#" class="active">EN</a>
+                    <a href="#">中文</a>
+                </div>
+                <button class="mobile-toggle" onclick="document.querySelector('.nav').classList.toggle('active')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <nav class="nav">
+            <div class="nav-item active">
+                <a href="#">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="#">Regulations <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown">
+                    <a href="#">Laws & Regulations</a>
+                    <a href="#">Department Rules</a>
+                    <a href="#">Administrative Rules</a>
+                    <a href="#">Self-Regulatory Rules</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#">Disclosure <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown">
+                    <a href="#">IPO Prospectuses</a>
+                    <a href="#">Annual Reports</a>
+                    <a href="#">Material Events</a>
+                    <a href="#">Insider Trading Reports</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#">Enforcement <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown">
+                    <a href="#">Administrative Sanctions</a>
+                    <a href="#">Market Entry Bans</a>
+                    <a href="#">Case Updates</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#">Market Data</a>
+            </div>
+            <div class="nav-item">
+                <a href="#">Investor Protection</a>
+            </div>
+            <div class="nav-item">
+                <a href="#">About CSRC</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Regulating China's Securities Markets</h2>
+            <p>Maintaining fair, transparent, and efficient markets while protecting investor interests and promoting healthy development of the capital markets.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">5,200+</div>
+                    <div class="stat-label">Listed Companies</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">¥85T</div>
+                    <div class="stat-label">Market Cap</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">200M+</div>
+                    <div class="stat-label">Investors</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">36</div>
+                    <div class="stat-label">Regional Offices</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="quick-links">
+        <div class="quick-links-grid">
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">📋</div>
+                <div class="quick-link-text">
+                    <strong>File a Complaint</strong>
+                    <span>Report violations or misconduct</span>
+                </div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">📊</div>
+                <div class="quick-link-text">
+                    <strong>Market Statistics</strong>
+                    <span>Real-time market data</span>
+                </div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">📑</div>
+                <div class="quick-link-text">
+                    <strong>IPO Applications</strong>
+                    <span>Review pending listings</span>
+                </div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">⚖️</div>
+                <div class="quick-link-text">
+                    <strong>Enforcement Actions</strong>
+                    <span>View recent sanctions</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Latest News -->
+        <section class="section">
+            <div class="section-header">
+                <h3 class="section-title">Latest Announcements</h3>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-tag urgent">Urgent</span>
+                    <h4 class="news-title">CSRC Issues New Guidelines on IPO Registration System Reform</h4>
+                    <div class="news-meta">
+                        <span>📅 March 4, 2025</span>
+                        <span>🏷️ Policy Update</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-tag regulatory">Regulatory</span>
+                    <h4 class="news-title">Notice on Strengthening Supervision of Private Fund Managers</h4>
+                    <div class="news-meta">
+                        <span>📅 March 3, 2025</span>
+                        <span>🏷️ Regulation</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-tag">Enforcement</span>
+                    <h4 class="news-title">Administrative Penalty Decision: XYZ Securities Co., Ltd.</h4>
+                    <div class="news-meta">
+                        <span>📅 March 2, 2025</span>
+                        <span>🏷️ Enforcement</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Overview -->
+        <section class="section">
+            <div class="section-header">
+                <h3 class="section-title">Market Overview</h3>
+                <a href="#" class="view-all">Full Market Data →</a>
+            </div>
+            <div class="market-grid">
+                <div class="market-card">
+                    <div class="market-header">
+                        <div>
+                            <div class="market-name">Shanghai Composite</div>
+                            <div class="market-value">3,245.67</div>
+                        </div>
+                        <span class="market-change up">▲ +1.24%</span>
+                    </div>
+                    <div class="market-chart"></div>
+                </div>
+                <div class="market-card">
+                    <div class="market-header">
+                        <div>
+                            <div class="market-name">Shenzhen Component</div>
+                            <div class="market-value">10,892.45</div>
+                        </div>
+                        <span class="market-change up">▲ +0.89%</span>
+                    </div>
+                    <div class="market-chart"></div>
+                </div>
+                <div class="market-card">
+                    <div class="market-header">
+                        <div>
+                            <div class="market-name">ChiNext Index</div>
+                            <div class="market-value">2,156.78</div>
+                        </div>
+                        <span class="market-change down">▼ -0.45%</span>
+                    </div>
+                    <div class="market-chart"></div>
+                </div>
+                <div class="market-card">
+                    <div class="market-header">
+                        <div>
+                            <div class="market-name">STAR Market 50</div>
+                            <div class="market-value">985.34</div>
+                        </div>
+                        <span class="market-change up">▲ +2.15%</span>
+                    </div>
+                    <div class="market-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulatory Calendar -->
+        <section class="section">
+            <div class="section-header">
+                <h3 class="section-title">Regulatory Calendar</h3>
+                <a href="#" class="view-all">Full Calendar →</a>
+            </div>
+            <div class="calendar-list">
+                <div class="calendar-item">
+                    <div class="calendar-date">
+                        <div class="day">15</div>
+                        <div class="month">Mar</div>
+                    </div>
+                    <div class="calendar-content">
+                        <div class="calendar-title">Public Consultation Deadline: Derivatives Trading Rules</div>
+                        <div class="calendar-desc">Last day for market participants to submit feedback on proposed derivatives regulations.</div>
+                    </div>
+                    <span class="calendar-type">Consultation</span>
+                </div>
+                <div class="calendar-item">
+                    <div class="calendar-date">
+                        <div class="day">22</div>
+                        <div class="month">Mar</div>
+                    </div>
+                    <div class="calendar-content">
+                        <div class="calendar-title">Q1 2025 Market Integrity Report Release</div>
+                        <div class="calendar-desc">Quarterly publication on market surveillance and enforcement activities.</div>
+                    </div>
+                    <span class="calendar-type">Publication</span>
+                </div>
+                <div class="calendar-item">
+                    <div class="calendar-date">
+                        <div class="day">28</div>
+                        <div class="month">Mar</div>
+                    </div>
+                    <div class="calendar-content">
+                        <div class="calendar-title">Investor Protection Forum 2025</div>
+                        <div class="calendar-desc">Annual conference on retail investor education and protection initiatives.</div>
+                    </div>
+                    <span class="calendar-type">Event</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Regulations</h4>
+                <a href="#">Laws & Regulations</a>
+                <a href="#">Department Rules</a>
+                <a href="#">Administrative Rules</a>
+                <a href="#">Self-Regulatory Rules</a>
+            </div>
+            <div class="footer-section">
+                <h4>Market Participants</h4>
+                <a href="#">Listed Companies</a>
+                <a href="#">Securities Firms</a>
+                <a href="#">Fund Managers</a>
+                <a href="#">Audit Firms</a>
+            </div>
+            <div class="footer-section">
+                <h4>Investor Services</h4>
+                <a href="#">File a Complaint</a>
+                <a href="#">Investor Education</a>
+                <a href="#">Risk Warning</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h4>About CSRC</h4>
+                <a href="#">Organization</a>
+                <a href="#">Leadership</a>
+                <a href="#">Regional Offices</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 China Securities Regulatory Commission. All rights reserved.</span>
+            <span>Privacy Policy | Terms of Use | Accessibility</span>
+        </div>
+    </footer>
+</body>
+</html>

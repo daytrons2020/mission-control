@@ -21,6 +21,18 @@
 - Daily digest preparation
 - Project status update
 
+### Mission Control Auto-Posts (12 per day)
+- 6:00 AM PT - Morning brief + system health
+- 8:00 AM PT - Project pulse (what changed)
+- 10:00 AM PT - Mission Control sync
+- 12:00 PM PT - Health check
+- 2:00 PM PT - Mission Control sync
+- 4:00 PM PT - Health check
+- 6:00 PM PT - Mission Control sync
+- 8:00 PM PT - Daily digest
+- Plus: Hourly cost reports (already active)
+- Plus: Real-time trading alerts during market hours
+
 ---
 
 ## Commands to Run
