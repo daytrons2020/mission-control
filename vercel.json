@@ -25,6 +25,14 @@
       "dest": "/api/status.js"
     },
     {
+      "src": "/dashboard-v2",
+      "dest": "/dashboard-v2.html"
+    },
+    {
+      "src": "/mobile",
+      "dest": "/mobile-dashboard.html"
+    },
+    {
       "src": "/",
       "dest": "/dashboard.html"
     },
