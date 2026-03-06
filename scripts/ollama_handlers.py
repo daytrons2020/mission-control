@@ -13,7 +13,7 @@ OLLAMA_MODEL = "llama3.2:latest"
 
 def ollama_generate(prompt, system=None):
     """Call Ollama for simple generation tasks."""
-    cmd = ["/opt/homebrew/bin/ollama"], "run", OLLAMA_MODEL]
+    cmd = ["/opt/homebrew/bin/ollama", "run", OLLAMA_MODEL]
     full_prompt = f"{system}\n\n{prompt}" if system else prompt
     try:
         result = subprocess.run(

@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 
 def ollama_generate(prompt, system=None, timeout=60):
-    cmd = ["/opt/homebrew/bin/ollama"], "run", "llama3.2:latest"]
+    cmd = ["/opt/homebrew/bin/ollama", "run", "llama3.2:latest"]
     full = f"{system}\n\n{prompt}" if system else prompt
     try:
         r = subprocess.run(cmd, input=full, capture_output=True, text=True, timeout=timeout)
