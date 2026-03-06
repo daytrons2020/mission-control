@@ -1,10 +1,10 @@
 {
   "lastChecks": {
-    "trading-monitor": 1741289460,
-    "discord-health": 1741289460,
-    "gateway-status": 1741289460,
-    "git-sync": 1741289460,
-    "system-health": 1741289460
+    "trading-monitor": 1741291260,
+    "discord-health": 1741291260,
+    "gateway-status": 1741291260,
+    "git-sync": 1741291260,
+    "system-health": 1741291260
   },
   "autoRunEnabled": true,
   "trading": {
@@ -16,7 +16,7 @@
     "qqqPrevClose": 601.58,
     "spxPrice": 6882.15,
     "vix": 20.84,
-    "marketStatus": "OPEN",
+    "marketStatus": "CLOSED",
     "trinityAligned": true,
     "setupQuality": "A+",
     "patterns": ["Slingshot", "Trend", "Beach Ball"],
