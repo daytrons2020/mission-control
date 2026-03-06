@@ -1,0 +1,3526 @@
+{
+  "generated_at": "2026-03-05T23:04:08.465056",
+  "total_count": 352,
+  "documents": [
+    {
+      "id": "doc_0177",
+      "name": "document_indexer.py",
+      "path": "mission_control/document_indexer.py",
+      "category": "Mission Control",
+      "size": 4974,
+      "created": "2026-03-05T23:03:19.135142",
+      "modified": "2026-03-05T23:03:19.135142",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0257",
+      "name": "documents_index.json",
+      "path": "mission_control/documents_index.json",
+      "category": "Mission Control",
+      "size": 89,
+      "created": "2026-03-05T23:01:53.236696",
+      "modified": "2026-03-05T23:01:53.236696",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0133",
+      "name": "dashboard.html",
+      "path": "dashboard.html",
+      "category": "Dashboard",
+      "size": 215543,
+      "created": "2026-03-05T22:51:53.651962",
+      "modified": "2026-03-05T22:51:53.651962",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0246",
+      "name": "vercel.json",
+      "path": "vercel.json",
+      "category": "Other",
+      "size": 1341,
+      "created": "2026-03-05T22:36:02.257221",
+      "modified": "2026-03-05T22:36:02.257221",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0135",
+      "name": "dashboard-v2.html",
+      "path": "dashboard-v2.html",
+      "category": "Dashboard",
+      "size": 9366,
+      "created": "2026-03-05T22:12:53.161679",
+      "modified": "2026-03-05T22:12:53.161679",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0316",
+      "name": "sidebar-controller.js",
+      "path": "scripts/sidebar-controller.js",
+      "category": "Scripts",
+      "size": 3955,
+      "created": "2026-03-05T22:11:21.366936",
+      "modified": "2026-03-05T22:11:21.366936",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0302",
+      "name": "sidebar-collapsible.css",
+      "path": "styles/sidebar-collapsible.css",
+      "category": "Styles",
+      "size": 4176,
+      "created": "2026-03-05T22:10:50.251447",
+      "modified": "2026-03-05T22:10:50.251447",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0250",
+      "name": "manifest.json",
+      "path": "manifest.json",
+      "category": "Other",
+      "size": 1131,
+      "created": "2026-03-05T22:07:53.349851",
+      "modified": "2026-03-05T22:07:53.349851",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0132",
+      "name": "mobile-dashboard.html",
+      "path": "mobile-dashboard.html",
+      "category": "Dashboard",
+      "size": 10441,
+      "created": "2026-03-05T22:07:38.045296",
+      "modified": "2026-03-05T22:07:38.045296",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0303",
+      "name": "mobile-optimization-v2.css",
+      "path": "styles/mobile-optimization-v2.css",
+      "category": "Styles",
+      "size": 3506,
+      "created": "2026-03-05T22:06:00.797416",
+      "modified": "2026-03-05T22:06:00.797416",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0259",
+      "name": "projects.json",
+      "path": "mission_control/projects.json",
+      "category": "Mission Control",
+      "size": 566,
+      "created": "2026-03-05T22:05:16.866362",
+      "modified": "2026-03-05T22:05:16.866362",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0260",
+      "name": "task_queue.json",
+      "path": "mission_control/task_queue.json",
+      "category": "Mission Control",
+      "size": 142,
+      "created": "2026-03-05T22:05:07.362283",
+      "modified": "2026-03-05T22:05:07.362283",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0258",
+      "name": "agents.json",
+      "path": "mission_control/agents.json",
+      "category": "Mission Control",
+      "size": 982,
+      "created": "2026-03-05T22:05:01.108364",
+      "modified": "2026-03-05T22:05:01.108364",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0182",
+      "name": "trading_research.py",
+      "path": "mission_control/trading_research.py",
+      "category": "Mission Control",
+      "size": 4694,
+      "created": "2026-03-05T22:04:13.686471",
+      "modified": "2026-03-05T22:04:04.925820",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0181",
+      "name": "spawner.py",
+      "path": "mission_control/spawner.py",
+      "category": "Mission Control",
+      "size": 5656,
+      "created": "2026-03-05T22:04:13.686441",
+      "modified": "2026-03-05T22:03:28.732733",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0176",
+      "name": "error_recovery.py",
+      "path": "mission_control/error_recovery.py",
+      "category": "Mission Control",
+      "size": 5353,
+      "created": "2026-03-05T22:04:13.686331",
+      "modified": "2026-03-05T22:02:43.015388",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0174",
+      "name": "mc_discord.py",
+      "path": "mission_control/mc_discord.py",
+      "category": "Mission Control",
+      "size": 744,
+      "created": "2026-03-05T22:04:13.686410",
+      "modified": "2026-03-05T21:57:59.088508",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0180",
+      "name": "mc_cli.py",
+      "path": "mission_control/mc_cli.py",
+      "category": "Mission Control",
+      "size": 6905,
+      "created": "2026-03-05T22:04:13.686369",
+      "modified": "2026-03-05T21:57:07.216497",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0227",
+      "name": "dashboard_updater.sh",
+      "path": "mission_control/dashboard_updater.sh",
+      "category": "Mission Control",
+      "size": 1081,
+      "created": "2026-03-05T21:55:52.761985",
+      "modified": "2026-03-05T21:55:48.950881",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0183",
+      "name": "ollama_router.py",
+      "path": "mission_control/ollama_router.py",
+      "category": "Mission Control",
+      "size": 3327,
+      "created": "2026-03-05T21:55:52.761924",
+      "modified": "2026-03-05T21:55:36.457339",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0178",
+      "name": "autoscaler.py",
+      "path": "mission_control/autoscaler.py",
+      "category": "Mission Control",
+      "size": 2637,
+      "created": "2026-03-05T21:55:52.761847",
+      "modified": "2026-03-05T21:55:14.138330",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0175",
+      "name": "comms.py",
+      "path": "mission_control/comms.py",
+      "category": "Mission Control",
+      "size": 3459,
+      "created": "2026-03-05T21:55:52.761892",
+      "modified": "2026-03-05T21:54:53.944734",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0179",
+      "name": "orchestrator.py",
+      "path": "mission_control/orchestrator.py",
+      "category": "Mission Control",
+      "size": 6320,
+      "created": "2026-03-05T21:55:52.761954",
+      "modified": "2026-03-05T21:54:28.677785",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0029",
+      "name": "ARCHITECTURE.md",
+      "path": "mission_control/ARCHITECTURE.md",
+      "category": "Mission Control",
+      "size": 2511,
+      "created": "2026-03-05T21:51:52.447094",
+      "modified": "2026-03-05T21:51:52.447094",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0168",
+      "name": "ollama_morning_brief_full.py",
+      "path": "scripts/ollama_morning_brief_full.py",
+      "category": "Scripts",
+      "size": 989,
+      "created": "2026-03-05T21:48:32.073869",
+      "modified": "2026-03-05T21:48:32.073869",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0213",
+      "name": "ollama_morning_brief_discord.sh",
+      "path": "scripts/ollama_morning_brief_discord.sh",
+      "category": "Scripts",
+      "size": 1092,
+      "created": "2026-03-05T21:48:22.865973",
+      "modified": "2026-03-05T21:48:22.865973",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0220",
+      "name": "ollama_weekly_report_discord.sh",
+      "path": "scripts/ollama_weekly_report_discord.sh",
+      "category": "Scripts",
+      "size": 880,
+      "created": "2026-03-05T21:46:49.229169",
+      "modified": "2026-03-05T21:46:46.083640",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0224",
+      "name": "ollama_daily_digest_discord.sh",
+      "path": "scripts/ollama_daily_digest_discord.sh",
+      "category": "Scripts",
+      "size": 872,
+      "created": "2026-03-05T21:46:49.229124",
+      "modified": "2026-03-05T21:46:37.392175",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0155",
+      "name": "discord_notifier.py",
+      "path": "scripts/discord_notifier.py",
+      "category": "Scripts",
+      "size": 2392,
+      "created": "2026-03-05T21:46:19.275048",
+      "modified": "2026-03-05T21:46:19.275048",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0245",
+      "name": "MEMORY_INDEX.json",
+      "path": "MEMORY_INDEX.json",
+      "category": "Memory",
+      "size": 918,
+      "created": "2026-03-05T21:43:45.881890",
+      "modified": "2026-03-05T21:43:45.881890",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0163",
+      "name": "cleanup_old_digests.py",
+      "path": "scripts/cleanup_old_digests.py",
+      "category": "Scripts",
+      "size": 1163,
+      "created": "2026-03-05T21:43:43.101410",
+      "modified": "2026-03-05T21:43:43.101410",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0209",
+      "name": "ollama_weekly_report.sh",
+      "path": "scripts/ollama_weekly_report.sh",
+      "category": "Scripts",
+      "size": 164,
+      "created": "2026-03-05T21:41:13.979040",
+      "modified": "2026-03-05T21:41:11.139515",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0225",
+      "name": "ollama_daily_digest.sh",
+      "path": "scripts/ollama_daily_digest.sh",
+      "category": "Scripts",
+      "size": 154,
+      "created": "2026-03-05T21:41:13.978987",
+      "modified": "2026-03-05T21:41:07.167506",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0166",
+      "name": "ollama_weekly_report.py",
+      "path": "scripts/ollama_weekly_report.py",
+      "category": "Scripts",
+      "size": 1714,
+      "created": "2026-03-05T21:41:03.160562",
+      "modified": "2026-03-05T21:41:03.160562",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0161",
+      "name": "ollama_daily_digest.py",
+      "path": "scripts/ollama_daily_digest.py",
+      "category": "Scripts",
+      "size": 1684,
+      "created": "2026-03-05T21:40:50.551373",
+      "modified": "2026-03-05T21:40:50.551373",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0167",
+      "name": "test_ollama_quality.py",
+      "path": "scripts/test_ollama_quality.py",
+      "category": "Scripts",
+      "size": 1611,
+      "created": "2026-03-05T21:39:32.429220",
+      "modified": "2026-03-05T21:39:32.429220",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0214",
+      "name": "ollama_morning_brief.sh",
+      "path": "scripts/ollama_morning_brief.sh",
+      "category": "Scripts",
+      "size": 599,
+      "created": "2026-03-05T21:37:52.819472",
+      "modified": "2026-03-05T21:37:49.490362",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0172",
+      "name": "ollama_morning_brief.py",
+      "path": "scripts/ollama_morning_brief.py",
+      "category": "Scripts",
+      "size": 2046,
+      "created": "2026-03-05T21:37:42.949448",
+      "modified": "2026-03-05T21:37:42.949448",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0223",
+      "name": "run_with_model.sh",
+      "path": "scripts/run_with_model.sh",
+      "category": "Scripts",
+      "size": 900,
+      "created": "2026-03-05T21:35:58.086393",
+      "modified": "2026-03-05T21:35:55.689151",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0218",
+      "name": "ollama_health_check.sh",
+      "path": "scripts/ollama_health_check.sh",
+      "category": "Scripts",
+      "size": 475,
+      "created": "2026-03-05T21:32:49.076485",
+      "modified": "2026-03-05T21:32:44.654339",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0217",
+      "name": "ollama_cost_report.sh",
+      "path": "scripts/ollama_cost_report.sh",
+      "category": "Scripts",
+      "size": 686,
+      "created": "2026-03-05T21:32:49.076461",
+      "modified": "2026-03-05T21:32:39.869085",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0221",
+      "name": "ollama_trading_monitor.sh",
+      "path": "scripts/ollama_trading_monitor.sh",
+      "category": "Scripts",
+      "size": 665,
+      "created": "2026-03-05T21:32:49.076501",
+      "modified": "2026-03-05T21:32:34.200028",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0169",
+      "name": "ollama_handlers.py",
+      "path": "scripts/ollama_handlers.py",
+      "category": "Scripts",
+      "size": 3573,
+      "created": "2026-03-05T21:32:28.005249",
+      "modified": "2026-03-05T21:32:28.005249",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0226",
+      "name": "ollama_optimized.sh",
+      "path": "scripts/ollama_optimized.sh",
+      "category": "Scripts",
+      "size": 2285,
+      "created": "2026-03-05T21:16:53.314368",
+      "modified": "2026-03-05T21:16:49.287795",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0211",
+      "name": "ollama_cron.sh",
+      "path": "scripts/ollama_cron.sh",
+      "category": "Scripts",
+      "size": 1604,
+      "created": "2026-03-05T21:13:14.927968",
+      "modified": "2026-03-05T21:13:11.236145",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0212",
+      "name": "ollama_task.sh",
+      "path": "scripts/ollama_task.sh",
+      "category": "Scripts",
+      "size": 681,
+      "created": "2026-03-05T21:11:41.204700",
+      "modified": "2026-03-05T21:11:20.011534",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0032",
+      "name": "SKILL.md",
+      "path": "skills/summarize/SKILL.md",
+      "category": "Documentation",
+      "size": 1425,
+      "created": "2026-03-05T20:43:52.998958",
+      "modified": "2026-03-05T20:43:52.998859",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0264",
+      "name": "_meta.json",
+      "path": "skills/summarize/_meta.json",
+      "category": "Other",
+      "size": 128,
+      "created": "2026-03-05T20:43:52.998480",
+      "modified": "2026-03-05T20:43:52.998376",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0035",
+      "name": "SKILL-v2.3-backup.md",
+      "path": "skills/proactive-agent/SKILL-v2.3-backup.md",
+      "category": "Documentation",
+      "size": 20156,
+      "created": "2026-03-05T20:43:52.995341",
+      "modified": "2026-03-05T20:43:52.995282",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0045",
+      "name": "TOOLS.md",
+      "path": "skills/proactive-agent/assets/TOOLS.md",
+      "category": "Documentation",
+      "size": 1044,
+      "created": "2026-03-05T20:43:52.994971",
+      "modified": "2026-03-05T20:43:52.994878",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0044",
+      "name": "ONBOARDING.md",
+      "path": "skills/proactive-agent/assets/ONBOARDING.md",
+      "category": "Documentation",
+      "size": 2423,
+      "created": "2026-03-05T20:43:52.994629",
+      "modified": "2026-03-05T20:43:52.994524",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0043",
+      "name": "AGENTS.md",
+      "path": "skills/proactive-agent/assets/AGENTS.md",
+      "category": "Documentation",
+      "size": 3860,
+      "created": "2026-03-05T20:43:52.994248",
+      "modified": "2026-03-05T20:43:52.994148",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0042",
+      "name": "SOUL.md",
+      "path": "skills/proactive-agent/assets/SOUL.md",
+      "category": "Documentation",
+      "size": 1431,
+      "created": "2026-03-05T20:43:52.993801",
+      "modified": "2026-03-05T20:43:52.993702",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0041",
+      "name": "USER.md",
+      "path": "skills/proactive-agent/assets/USER.md",
+      "category": "Documentation",
+      "size": 926,
+      "created": "2026-03-05T20:43:52.993035",
+      "modified": "2026-03-05T20:43:52.992933",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0040",
+      "name": "MEMORY.md",
+      "path": "skills/proactive-agent/assets/MEMORY.md",
+      "category": "Memory",
+      "size": 836,
+      "created": "2026-03-05T20:43:52.992654",
+      "modified": "2026-03-05T20:43:52.992597",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0039",
+      "name": "HEARTBEAT.md",
+      "path": "skills/proactive-agent/assets/HEARTBEAT.md",
+      "category": "Documentation",
+      "size": 2939,
+      "created": "2026-03-05T20:43:52.992407",
+      "modified": "2026-03-05T20:43:52.992345",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0034",
+      "name": "SKILL.md",
+      "path": "skills/proactive-agent/SKILL.md",
+      "category": "Documentation",
+      "size": 20883,
+      "created": "2026-03-05T20:43:52.991817",
+      "modified": "2026-03-05T20:43:52.991701",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0228",
+      "name": "security-audit.sh",
+      "path": "skills/proactive-agent/scripts/security-audit.sh",
+      "category": "Scripts",
+      "size": 4110,
+      "created": "2026-03-05T20:43:52.991236",
+      "modified": "2026-03-05T20:43:52.991104",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0038",
+      "name": "security-patterns.md",
+      "path": "skills/proactive-agent/references/security-patterns.md",
+      "category": "Documentation",
+      "size": 3034,
+      "created": "2026-03-05T20:43:52.990464",
+      "modified": "2026-03-05T20:43:52.990323",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0037",
+      "name": "onboarding-flow.md",
+      "path": "skills/proactive-agent/references/onboarding-flow.md",
+      "category": "Documentation",
+      "size": 4078,
+      "created": "2026-03-05T20:43:52.990030",
+      "modified": "2026-03-05T20:43:52.989962",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0033",
+      "name": "SKILL-v3-draft.md",
+      "path": "skills/proactive-agent/SKILL-v3-draft.md",
+      "category": "Documentation",
+      "size": 16960,
+      "created": "2026-03-05T20:43:52.989496",
+      "modified": "2026-03-05T20:43:52.989374",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0265",
+      "name": "_meta.json",
+      "path": "skills/proactive-agent/_meta.json",
+      "category": "Other",
+      "size": 134,
+      "created": "2026-03-05T20:43:52.988857",
+      "modified": "2026-03-05T20:43:52.988723",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0053",
+      "name": "LEARNINGS.md",
+      "path": "skills/self-improving-agent/.learnings/LEARNINGS.md",
+      "category": "Documentation",
+      "size": 99,
+      "created": "2026-03-05T20:39:29.542518",
+      "modified": "2026-03-05T20:39:29.542464",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0052",
+      "name": "ERRORS.md",
+      "path": "skills/self-improving-agent/.learnings/ERRORS.md",
+      "category": "Documentation",
+      "size": 75,
+      "created": "2026-03-05T20:39:29.542263",
+      "modified": "2026-03-05T20:39:29.542205",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0051",
+      "name": "FEATURE_REQUESTS.md",
+      "path": "skills/self-improving-agent/.learnings/FEATURE_REQUESTS.md",
+      "category": "Documentation",
+      "size": 84,
+      "created": "2026-03-05T20:39:29.541765",
+      "modified": "2026-03-05T20:39:29.541679",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0050",
+      "name": "LEARNINGS.md",
+      "path": "skills/self-improving-agent/assets/LEARNINGS.md",
+      "category": "Documentation",
+      "size": 1152,
+      "created": "2026-03-05T20:39:29.540872",
+      "modified": "2026-03-05T20:39:29.540782",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0049",
+      "name": "SKILL-TEMPLATE.md",
+      "path": "skills/self-improving-agent/assets/SKILL-TEMPLATE.md",
+      "category": "Documentation",
+      "size": 3407,
+      "created": "2026-03-05T20:39:29.540491",
+      "modified": "2026-03-05T20:39:29.540400",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0030",
+      "name": "SKILL.md",
+      "path": "skills/self-improving-agent/SKILL.md",
+      "category": "Documentation",
+      "size": 19704,
+      "created": "2026-03-05T20:39:29.539706",
+      "modified": "2026-03-05T20:39:29.539645",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0232",
+      "name": "error-detector.sh",
+      "path": "skills/self-improving-agent/scripts/error-detector.sh",
+      "category": "Scripts",
+      "size": 1317,
+      "created": "2026-03-05T20:39:29.539031",
+      "modified": "2026-03-05T20:39:29.538944",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0231",
+      "name": "extract-skill.sh",
+      "path": "skills/self-improving-agent/scripts/extract-skill.sh",
+      "category": "Scripts",
+      "size": 5293,
+      "created": "2026-03-05T20:39:29.538634",
+      "modified": "2026-03-05T20:39:29.538547",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0230",
+      "name": "activator.sh",
+      "path": "skills/self-improving-agent/scripts/activator.sh",
+      "category": "Scripts",
+      "size": 680,
+      "created": "2026-03-05T20:39:29.538314",
+      "modified": "2026-03-05T20:39:29.538222",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0054",
+      "name": "HOOK.md",
+      "path": "skills/self-improving-agent/hooks/openclaw/HOOK.md",
+      "category": "Documentation",
+      "size": 589,
+      "created": "2026-03-05T20:39:29.537364",
+      "modified": "2026-03-05T20:39:29.537299",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0319",
+      "name": "handler.js",
+      "path": "skills/self-improving-agent/hooks/openclaw/handler.js",
+      "category": "Other",
+      "size": 1620,
+      "created": "2026-03-05T20:39:29.537094",
+      "modified": "2026-03-05T20:39:29.537035",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0048",
+      "name": "hooks-setup.md",
+      "path": "skills/self-improving-agent/references/hooks-setup.md",
+      "category": "Documentation",
+      "size": 4867,
+      "created": "2026-03-05T20:39:29.536446",
+      "modified": "2026-03-05T20:39:29.536337",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0047",
+      "name": "openclaw-integration.md",
+      "path": "skills/self-improving-agent/references/openclaw-integration.md",
+      "category": "Documentation",
+      "size": 5638,
+      "created": "2026-03-05T20:39:29.536007",
+      "modified": "2026-03-05T20:39:29.535897",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0046",
+      "name": "examples.md",
+      "path": "skills/self-improving-agent/references/examples.md",
+      "category": "Documentation",
+      "size": 8291,
+      "created": "2026-03-05T20:39:29.535425",
+      "modified": "2026-03-05T20:39:29.535321",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0262",
+      "name": "_meta.json",
+      "path": "skills/self-improving-agent/_meta.json",
+      "category": "Other",
+      "size": 140,
+      "created": "2026-03-05T20:39:29.534719",
+      "modified": "2026-03-05T20:39:29.534652",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0253",
+      "name": "lock.json",
+      "path": ".clawhub/lock.json",
+      "category": "Other",
+      "size": 219,
+      "created": "2026-03-05T20:33:27.708361",
+      "modified": "2026-03-05T20:33:27.708361",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0267",
+      "name": "origin.json",
+      "path": "skills/automation-workflows/.clawhub/origin.json",
+      "category": "Other",
+      "size": 152,
+      "created": "2026-03-05T20:33:27.707154",
+      "modified": "2026-03-05T20:33:27.707154",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0266",
+      "name": "_meta.json",
+      "path": "skills/automation-workflows/_meta.json",
+      "category": "Other",
+      "size": 139,
+      "created": "2026-03-05T20:33:27.706408",
+      "modified": "2026-03-05T20:33:27.706408",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0036",
+      "name": "SKILL.md",
+      "path": "skills/automation-workflows/SKILL.md",
+      "category": "Documentation",
+      "size": 10358,
+      "created": "2026-03-05T20:33:27.705668",
+      "modified": "2026-03-05T20:33:27.705668",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0268",
+      "name": "origin.json",
+      "path": "skills/linear/.clawhub/origin.json",
+      "category": "Other",
+      "size": 138,
+      "created": "2026-03-05T20:33:15.878052",
+      "modified": "2026-03-05T20:33:15.878052",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0263",
+      "name": "_meta.json",
+      "path": "skills/linear/_meta.json",
+      "category": "Other",
+      "size": 125,
+      "created": "2026-03-05T20:33:15.877333",
+      "modified": "2026-03-05T20:33:15.877333",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0031",
+      "name": "SKILL.md",
+      "path": "skills/linear/SKILL.md",
+      "category": "Documentation",
+      "size": 4675,
+      "created": "2026-03-05T20:33:15.876985",
+      "modified": "2026-03-05T20:33:15.876985",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0229",
+      "name": "linear.sh",
+      "path": "skills/linear/scripts/linear.sh",
+      "category": "Scripts",
+      "size": 13759,
+      "created": "2026-03-05T20:33:15.876207",
+      "modified": "2026-03-05T20:33:15.876207",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0006",
+      "name": "MEMORY.md",
+      "path": "MEMORY.md",
+      "category": "Memory",
+      "size": 1249,
+      "created": "2026-03-05T20:20:54.642179",
+      "modified": "2026-03-05T20:20:54.642179",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0023",
+      "name": "2026-03-05.md",
+      "path": "memory/2026-03-05.md",
+      "category": "Memory",
+      "size": 393,
+      "created": "2026-03-05T20:20:54.642017",
+      "modified": "2026-03-05T20:20:54.642017",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0148",
+      "name": "auto_persist.py",
+      "path": "auto_persist.py",
+      "category": "Python",
+      "size": 2538,
+      "created": "2026-03-05T20:20:51.144282",
+      "modified": "2026-03-05T20:20:51.144282",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0021",
+      "name": "migration-20260305-200952.md",
+      "path": "memory/migration-20260305-200952.md",
+      "category": "Memory",
+      "size": 161,
+      "created": "2026-03-05T20:09:52.001296",
+      "modified": "2026-03-05T20:09:52.001296",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0149",
+      "name": "migrate_memory.py",
+      "path": "migrate_memory.py",
+      "category": "Memory",
+      "size": 3581,
+      "created": "2026-03-05T20:09:29.774422",
+      "modified": "2026-03-05T20:09:29.774422",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0248",
+      "name": "MEMORY_SUMMARY.json",
+      "path": "MEMORY_SUMMARY.json",
+      "category": "Memory",
+      "size": 512,
+      "created": "2026-03-05T19:11:56.802952",
+      "modified": "2026-03-05T19:11:56.802952",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0015",
+      "name": "MEMORY_SUMMARY.md",
+      "path": "MEMORY_SUMMARY.md",
+      "category": "Memory",
+      "size": 1345,
+      "created": "2026-03-05T19:11:56.802806",
+      "modified": "2026-03-05T19:11:56.802806",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0156",
+      "name": "digest_run.py",
+      "path": "scripts/digest_run.py",
+      "category": "Scripts",
+      "size": 3719,
+      "created": "2026-03-05T19:07:42.521386",
+      "modified": "2026-03-05T19:07:42.521386",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0004",
+      "name": "AGENT_CONTEXT.md",
+      "path": "AGENT_CONTEXT.md",
+      "category": "Documentation",
+      "size": 259,
+      "created": "2026-03-05T19:06:16.025857",
+      "modified": "2026-03-05T19:06:16.025857",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0014",
+      "name": "HEARTBEAT_SUMMARY.md",
+      "path": "HEARTBEAT_SUMMARY.md",
+      "category": "Documentation",
+      "size": 127,
+      "created": "2026-03-05T19:06:12.915376",
+      "modified": "2026-03-05T19:06:12.915376",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0019",
+      "name": "migration-2026-03-05.md",
+      "path": "memory/migration-2026-03-05.md",
+      "category": "Memory",
+      "size": 66,
+      "created": "2026-03-05T18:17:42.301691",
+      "modified": "2026-03-05T18:17:42.301691",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0261",
+      "name": "price_cache.json",
+      "path": "data/price_cache.json",
+      "category": "Other",
+      "size": 1354,
+      "created": "2026-03-04T20:04:52.192266",
+      "modified": "2026-03-04T20:04:52.192266",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0134",
+      "name": "csrc-modern.html",
+      "path": "csrc-modern.html",
+      "category": "Dashboard",
+      "size": 11865,
+      "created": "2026-03-04T16:27:03.788210",
+      "modified": "2026-03-04T16:27:03.788210",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0281",
+      "name": "package-lock.json",
+      "path": "projects/trading-system/package-lock.json",
+      "category": "Other",
+      "size": 29738,
+      "created": "2026-03-04T15:37:28.050534",
+      "modified": "2026-03-04T15:37:28.050534",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0282",
+      "name": "package.json",
+      "path": "projects/trading-system/package.json",
+      "category": "Other",
+      "size": 74,
+      "created": "2026-03-04T15:37:28.044621",
+      "modified": "2026-03-04T15:37:28.044621",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0208",
+      "name": "deploy-both-sites.sh",
+      "path": "deploy-both-sites.sh",
+      "category": "Shell",
+      "size": 1705,
+      "created": "2026-03-04T15:03:04.575509",
+      "modified": "2026-03-04T15:03:04.528431",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0136",
+      "name": "index.html",
+      "path": "csrc-website/index.html",
+      "category": "Dashboard",
+      "size": 30531,
+      "created": "2026-03-04T14:55:58.988693",
+      "modified": "2026-03-04T14:55:58.988693",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0003",
+      "name": "HEARTBEAT.md",
+      "path": "HEARTBEAT.md",
+      "category": "Documentation",
+      "size": 1270,
+      "created": "2026-03-04T14:48:06.306374",
+      "modified": "2026-03-04T14:48:06.306374",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0241",
+      "name": "deploy-tunnel.sh",
+      "path": "projects/trading-system/frontend/deploy-tunnel.sh",
+      "category": "Shell",
+      "size": 2428,
+      "created": "2026-03-04T12:25:45.154377",
+      "modified": "2026-03-04T12:25:45.103829",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0242",
+      "name": "finish-github-deploy.sh",
+      "path": "projects/trading-system/frontend/finish-github-deploy.sh",
+      "category": "Shell",
+      "size": 741,
+      "created": "2026-03-04T12:23:45.474633",
+      "modified": "2026-03-04T12:23:45.425040",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0240",
+      "name": "deploy-github-pages.sh",
+      "path": "projects/trading-system/frontend/deploy-github-pages.sh",
+      "category": "Shell",
+      "size": 1958,
+      "created": "2026-03-04T12:22:20.726056",
+      "modified": "2026-03-04T12:22:20.675046",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0024",
+      "name": "MISSION_CONTROL_ESSENTIALS.md",
+      "path": "docs/MISSION_CONTROL_ESSENTIALS.md",
+      "category": "Mission Control",
+      "size": 5214,
+      "created": "2026-03-04T12:18:23.046837",
+      "modified": "2026-03-04T12:18:23.046837",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0215",
+      "name": "setup_mission_control.sh",
+      "path": "scripts/setup_mission_control.sh",
+      "category": "Mission Control",
+      "size": 5701,
+      "created": "2026-03-04T12:17:53.449847",
+      "modified": "2026-03-04T12:17:50.956343",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0137",
+      "name": "mobile-nav.html",
+      "path": "components/mobile-nav.html",
+      "category": "Dashboard",
+      "size": 3498,
+      "created": "2026-03-04T12:17:24.740371",
+      "modified": "2026-03-04T12:17:24.740371",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0304",
+      "name": "mobile-first.css",
+      "path": "styles/mobile-first.css",
+      "category": "Styles",
+      "size": 7181,
+      "created": "2026-03-04T12:16:59.982975",
+      "modified": "2026-03-04T12:16:59.982975",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0318",
+      "name": "status.js",
+      "path": "api/status.js",
+      "category": "API",
+      "size": 2113,
+      "created": "2026-03-04T12:16:18.670722",
+      "modified": "2026-03-04T12:16:18.670722",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0317",
+      "name": "health.js",
+      "path": "api/health.js",
+      "category": "API",
+      "size": 3300,
+      "created": "2026-03-04T12:16:18.635484",
+      "modified": "2026-03-04T12:16:18.635484",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0158",
+      "name": "discord_slash_commands.py",
+      "path": "scripts/discord_slash_commands.py",
+      "category": "Scripts",
+      "size": 21263,
+      "created": "2026-03-04T12:17:28.370993",
+      "modified": "2026-03-04T12:15:49.925415",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0159",
+      "name": "health_score.py",
+      "path": "scripts/health_score.py",
+      "category": "Scripts",
+      "size": 17863,
+      "created": "2026-03-04T12:17:28.370961",
+      "modified": "2026-03-04T12:14:22.359375",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0219",
+      "name": "setup_github_auto_sync.sh",
+      "path": "scripts/setup_github_auto_sync.sh",
+      "category": "Scripts",
+      "size": 5088,
+      "created": "2026-03-04T12:17:28.370906",
+      "modified": "2026-03-04T12:13:16.566258",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0252",
+      "name": "heartbeat-state.json",
+      "path": "memory/heartbeat-state.json",
+      "category": "Memory",
+      "size": 670,
+      "created": "2026-03-04T10:43:30.711007",
+      "modified": "2026-03-04T10:43:30.711007",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0247",
+      "name": "memory.json",
+      "path": "memory.json",
+      "category": "Memory",
+      "size": 5385,
+      "created": "2026-03-03T22:00:49.092728",
+      "modified": "2026-03-03T22:00:49.092728",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0298",
+      "name": "project.json",
+      "path": "projects/trading-system/frontend/.vercel/project.json",
+      "category": "Other",
+      "size": 113,
+      "created": "2026-03-03T10:38:26.504239",
+      "modified": "2026-03-03T10:38:26.504239",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0251",
+      "name": "project.json",
+      "path": ".vercel/project.json",
+      "category": "Other",
+      "size": 120,
+      "created": "2026-03-03T09:32:12.883414",
+      "modified": "2026-03-03T09:32:12.883414",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0008",
+      "name": "OPTION_A_SUMMARY.md",
+      "path": "OPTION_A_SUMMARY.md",
+      "category": "Documentation",
+      "size": 3162,
+      "created": "2026-03-02T21:10:42.734533",
+      "modified": "2026-03-02T21:10:42.734533",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0026",
+      "name": "DEPLOY_SETUP.md",
+      "path": "docs/DEPLOY_SETUP.md",
+      "category": "Documentation",
+      "size": 1449,
+      "created": "2026-03-02T21:10:07.265174",
+      "modified": "2026-03-02T21:10:07.265174",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0210",
+      "name": "setup_vercel_deploy.sh",
+      "path": "scripts/setup_vercel_deploy.sh",
+      "category": "Scripts",
+      "size": 1769,
+      "created": "2026-03-02T21:09:52.846068",
+      "modified": "2026-03-02T21:09:47.498536",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0254",
+      "name": "status.json",
+      "path": "projects/status.json",
+      "category": "Other",
+      "size": 4492,
+      "created": "2026-03-02T21:06:01.919024",
+      "modified": "2026-03-02T21:06:01.919024",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0222",
+      "name": "quick_health_check.sh",
+      "path": "scripts/quick_health_check.sh",
+      "category": "Scripts",
+      "size": 2280,
+      "created": "2026-03-02T20:24:13.670927",
+      "modified": "2026-03-02T20:24:07.153550",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0162",
+      "name": "health_monitor.py",
+      "path": "scripts/health_monitor.py",
+      "category": "Scripts",
+      "size": 9583,
+      "created": "2026-03-02T20:22:51.384339",
+      "modified": "2026-03-02T20:22:47.501746",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0164",
+      "name": "market_scheduler.py",
+      "path": "scripts/market_scheduler.py",
+      "category": "Scripts",
+      "size": 10749,
+      "created": "2026-03-02T20:13:14.595326",
+      "modified": "2026-03-02T20:13:14.595326",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0243",
+      "name": "deploy.sh",
+      "path": "projects/trading-system/frontend/deploy.sh",
+      "category": "Shell",
+      "size": 1184,
+      "created": "2026-03-02T20:11:26.843750",
+      "modified": "2026-03-02T20:11:20.388686",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0025",
+      "name": "slash-commands-setup.md",
+      "path": "docs/slash-commands-setup.md",
+      "category": "Documentation",
+      "size": 2851,
+      "created": "2026-03-02T20:10:04.628964",
+      "modified": "2026-03-02T20:10:04.628964",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0216",
+      "name": "setup_github_repo.sh",
+      "path": "scripts/setup_github_repo.sh",
+      "category": "Scripts",
+      "size": 1253,
+      "created": "2026-03-02T20:09:34.446531",
+      "modified": "2026-03-02T20:09:27.261600",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0009",
+      "name": "MISSION_CONTROL_IMPROVEMENTS.md",
+      "path": "MISSION_CONTROL_IMPROVEMENTS.md",
+      "category": "Mission Control",
+      "size": 10129,
+      "created": "2026-03-02T19:49:47.670756",
+      "modified": "2026-03-02T19:49:47.670756",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0173",
+      "name": "stock_fetcher.py",
+      "path": "scripts/stock_fetcher.py",
+      "category": "Scripts",
+      "size": 2044,
+      "created": "2026-03-02T19:48:02.910773",
+      "modified": "2026-03-02T19:48:02.910668",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0171",
+      "name": "trends_reporter.py",
+      "path": "scripts/trends_reporter.py",
+      "category": "Scripts",
+      "size": 1451,
+      "created": "2026-03-02T19:48:02.907922",
+      "modified": "2026-03-02T19:48:02.907807",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0170",
+      "name": "cost_reporter.py",
+      "path": "scripts/cost_reporter.py",
+      "category": "Scripts",
+      "size": 1125,
+      "created": "2026-03-02T19:48:02.905069",
+      "modified": "2026-03-02T19:48:02.904977",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0165",
+      "name": "news_fetcher.py",
+      "path": "scripts/news_fetcher.py",
+      "category": "Scripts",
+      "size": 2483,
+      "created": "2026-03-02T19:48:02.902113",
+      "modified": "2026-03-02T19:48:02.902002",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0160",
+      "name": "scheduler_runner.py",
+      "path": "scripts/scheduler_runner.py",
+      "category": "Scripts",
+      "size": 927,
+      "created": "2026-03-02T19:48:02.894979",
+      "modified": "2026-03-02T19:48:02.894809",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0157",
+      "name": "stock_alert.py",
+      "path": "scripts/stock_alert.py",
+      "category": "Scripts",
+      "size": 1592,
+      "created": "2026-03-02T19:48:02.890490",
+      "modified": "2026-03-02T19:48:02.890267",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0249",
+      "name": "cron-jobs-migration.json",
+      "path": "cron-jobs-migration.json",
+      "category": "Other",
+      "size": 11910,
+      "created": "2026-03-02T19:47:50.792395",
+      "modified": "2026-03-02T19:47:50.792395",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0001",
+      "name": "MISSION_STATEMENT.md",
+      "path": "MISSION_STATEMENT.md",
+      "category": "Documentation",
+      "size": 1224,
+      "created": "2026-03-01T21:46:37.939644",
+      "modified": "2026-03-01T21:46:37.939540",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0007",
+      "name": "MISSION_CONTROL.md",
+      "path": "MISSION_CONTROL.md",
+      "category": "Mission Control",
+      "size": 1321,
+      "created": "2026-03-01T21:41:39.277878",
+      "modified": "2026-03-01T21:40:59.860384",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0005",
+      "name": "TASKS.md",
+      "path": "TASKS.md",
+      "category": "Documentation",
+      "size": 1188,
+      "created": "2026-03-01T21:31:52.488753",
+      "modified": "2026-03-01T21:31:52.488635",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0012",
+      "name": "SOUL.md",
+      "path": "SOUL.md",
+      "category": "Documentation",
+      "size": 2496,
+      "created": "2026-03-01T21:23:57.152189",
+      "modified": "2026-03-01T21:23:57.152189",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0022",
+      "name": "2026-02-23.md",
+      "path": "memory/2026-02-23.md",
+      "category": "Memory",
+      "size": 2003,
+      "created": "2026-03-01T21:23:42.843291",
+      "modified": "2026-03-01T21:23:42.843217",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0020",
+      "name": "2026-02-22.md",
+      "path": "memory/2026-02-22.md",
+      "category": "Memory",
+      "size": 720,
+      "created": "2026-03-01T21:23:42.842975",
+      "modified": "2026-03-01T21:23:42.842907",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0002",
+      "name": "IDENTITY.md",
+      "path": "IDENTITY.md",
+      "category": "Documentation",
+      "size": 535,
+      "created": "2026-03-01T20:39:53.131915",
+      "modified": "2026-03-01T20:39:53.131915",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0011",
+      "name": "USER.md",
+      "path": "USER.md",
+      "category": "Documentation",
+      "size": 517,
+      "created": "2026-03-01T20:37:02.418779",
+      "modified": "2026-03-01T20:37:02.418779",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0010",
+      "name": "BOOTSTRAP.md",
+      "path": "BOOTSTRAP.md",
+      "category": "Documentation",
+      "size": 1470,
+      "created": "2026-03-01T20:22:05.848935",
+      "modified": "2026-03-01T20:22:05.848935",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0016",
+      "name": "TOOLS.md",
+      "path": "TOOLS.md",
+      "category": "Documentation",
+      "size": 860,
+      "created": "2026-03-01T20:22:05.847888",
+      "modified": "2026-03-01T20:22:05.847888",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0013",
+      "name": "AGENTS.md",
+      "path": "AGENTS.md",
+      "category": "Documentation",
+      "size": 7869,
+      "created": "2026-03-01T20:22:05.847649",
+      "modified": "2026-03-01T20:22:05.847649",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0233",
+      "name": "generate-ssl.sh",
+      "path": "polymarket-bot/dashboard/generate-ssl.sh",
+      "category": "Shell",
+      "size": 386,
+      "created": "2026-03-01T21:24:37.435811",
+      "modified": "2026-02-26T19:47:02",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0255",
+      "name": "package-lock.json",
+      "path": "polymarket-bot/package-lock.json",
+      "category": "Other",
+      "size": 178070,
+      "created": "2026-03-01T21:24:37.435357",
+      "modified": "2026-02-26T19:46:46",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0256",
+      "name": "package.json",
+      "path": "polymarket-bot/package.json",
+      "category": "Other",
+      "size": 564,
+      "created": "2026-03-01T21:24:37.435613",
+      "modified": "2026-02-26T19:46:46",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0320",
+      "name": "server.js",
+      "path": "polymarket-bot/dashboard/server.js",
+      "category": "Other",
+      "size": 5579,
+      "created": "2026-03-01T21:24:37.435969",
+      "modified": "2026-02-26T19:46:28",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0325",
+      "name": "bot.js",
+      "path": "polymarket-bot/src/bot.js",
+      "category": "Other",
+      "size": 21245,
+      "created": "2026-03-01T21:24:37.436293",
+      "modified": "2026-02-26T19:43:34",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0138",
+      "name": "index.html",
+      "path": "polymarket-bot/web/index.html",
+      "category": "Dashboard",
+      "size": 22717,
+      "created": "2026-03-01T21:24:37.438147",
+      "modified": "2026-02-26T17:54:47",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0321",
+      "name": "deposits.js",
+      "path": "polymarket-bot/src/deposits.js",
+      "category": "Other",
+      "size": 5535,
+      "created": "2026-03-01T21:24:37.436992",
+      "modified": "2026-02-26T17:45:40",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0028",
+      "name": "BUILD_STATUS.md",
+      "path": "polymarket-bot/BUILD_STATUS.md",
+      "category": "Documentation",
+      "size": 4173,
+      "created": "2026-03-01T21:24:37.432922",
+      "modified": "2026-02-26T17:18:30",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0326",
+      "name": "sniper.js",
+      "path": "polymarket-bot/src/sniper.js",
+      "category": "Other",
+      "size": 6626,
+      "created": "2026-03-01T21:24:37.437433",
+      "modified": "2026-02-26T17:17:56",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0323",
+      "name": "copytrader.js",
+      "path": "polymarket-bot/src/copytrader.js",
+      "category": "Other",
+      "size": 8927,
+      "created": "2026-03-01T21:24:37.436754",
+      "modified": "2026-02-26T17:17:07",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0328",
+      "name": "clob.js",
+      "path": "polymarket-bot/src/clob.js",
+      "category": "Other",
+      "size": 6092,
+      "created": "2026-03-01T21:24:37.436500",
+      "modified": "2026-02-26T17:16:34",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0327",
+      "name": "trader.js",
+      "path": "polymarket-bot/src/trader.js",
+      "category": "Other",
+      "size": 5524,
+      "created": "2026-03-01T21:24:37.437656",
+      "modified": "2026-02-26T17:08:21",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0324",
+      "name": "wallet.js",
+      "path": "polymarket-bot/src/wallet.js",
+      "category": "Other",
+      "size": 3787,
+      "created": "2026-03-01T21:24:37.437868",
+      "modified": "2026-02-26T16:35:33",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0234",
+      "name": "setup.sh",
+      "path": "polymarket-bot/scripts/setup.sh",
+      "category": "Scripts",
+      "size": 1184,
+      "created": "2026-03-01T21:24:37.436109",
+      "modified": "2026-02-26T16:35:17",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0146",
+      "name": "gex-dashboard.html",
+      "path": "projects/trading-system/frontend/gex-dashboard.html",
+      "category": "Dashboard",
+      "size": 18607,
+      "created": "2026-03-01T21:24:31.317614",
+      "modified": "2026-02-26T16:34:52",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0322",
+      "name": "polymarket.js",
+      "path": "polymarket-bot/src/polymarket.js",
+      "category": "Other",
+      "size": 5171,
+      "created": "2026-03-01T21:24:37.437208",
+      "modified": "2026-02-26T16:33:43",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0027",
+      "name": "README.md",
+      "path": "polymarket-bot/README.md",
+      "category": "Documentation",
+      "size": 2133,
+      "created": "2026-03-01T21:24:37.433145",
+      "modified": "2026-02-26T16:33:14",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0335",
+      "name": "gex-server.js",
+      "path": "projects/trading-system/gex-server.js",
+      "category": "Other",
+      "size": 7365,
+      "created": "2026-03-01T21:24:31.315681",
+      "modified": "2026-02-26T15:46:59",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0150",
+      "name": "config.py",
+      "path": "btc_paper_trader/config.py",
+      "category": "Configuration",
+      "size": 6538,
+      "created": "2026-03-01T21:24:37.416342",
+      "modified": "2026-02-24T21:59:24",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0151",
+      "name": "test_connection.py",
+      "path": "btc_paper_trader/test_connection.py",
+      "category": "Python",
+      "size": 7138,
+      "created": "2026-03-01T21:24:37.417450",
+      "modified": "2026-02-24T21:58:50",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0152",
+      "name": "dashboard.py",
+      "path": "btc_paper_trader/dashboard.py",
+      "category": "Python",
+      "size": 20756,
+      "created": "2026-03-01T21:24:37.416768",
+      "modified": "2026-02-24T21:58:27",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0154",
+      "name": "backtester.py",
+      "path": "btc_paper_trader/backtester.py",
+      "category": "Python",
+      "size": 18268,
+      "created": "2026-03-01T21:24:37.415625",
+      "modified": "2026-02-24T21:57:29",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0153",
+      "name": "bot.py",
+      "path": "btc_paper_trader/bot.py",
+      "category": "Python",
+      "size": 16236,
+      "created": "2026-03-01T21:24:37.416018",
+      "modified": "2026-02-24T21:56:41",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0206",
+      "name": "__init__.py",
+      "path": "btc_paper_trader/strategies/__init__.py",
+      "category": "Python",
+      "size": 165,
+      "created": "2026-03-01T21:24:37.417767",
+      "modified": "2026-02-24T21:55:55",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0207",
+      "name": "trend_follower.py",
+      "path": "btc_paper_trader/strategies/trend_follower.py",
+      "category": "Python",
+      "size": 9389,
+      "created": "2026-03-01T21:24:37.418224",
+      "modified": "2026-02-24T21:55:55",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0017",
+      "name": "README.md",
+      "path": "btc_paper_trader/README.md",
+      "category": "Documentation",
+      "size": 5460,
+      "created": "2026-03-01T21:24:37.414882",
+      "modified": "2026-02-24T21:55:05",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0018",
+      "name": "SETUP_GUIDE.md",
+      "path": "btc_paper_trader/SETUP_GUIDE.md",
+      "category": "Documentation",
+      "size": 5128,
+      "created": "2026-03-01T21:24:37.415200",
+      "modified": "2026-02-24T21:55:05",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0110",
+      "name": "letter-of-recommendation-example-sarah-chen.md",
+      "path": "projects/respiratory-education/resources/letter-of-recommendation-example-sarah-chen.md",
+      "category": "Documentation",
+      "size": 7139,
+      "created": "2026-03-01T21:24:31.285492",
+      "modified": "2026-02-24T19:44:33",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0114",
+      "name": "letter-of-recommendation-template.md",
+      "path": "projects/respiratory-education/resources/letter-of-recommendation-template.md",
+      "category": "Documentation",
+      "size": 5904,
+      "created": "2026-03-01T21:24:31.285646",
+      "modified": "2026-02-24T19:42:56",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0345",
+      "name": "workbox-8c29f6e4.js",
+      "path": "projects/rt-qr-generator/dist/workbox-8c29f6e4.js",
+      "category": "Other",
+      "size": 15123,
+      "created": "2026-03-01T21:24:31.298110",
+      "modified": "2026-02-23T09:01:54",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0347",
+      "name": "sw.js",
+      "path": "projects/rt-qr-generator/dist/sw.js",
+      "category": "Other",
+      "size": 1216,
+      "created": "2026-03-01T21:24:31.297956",
+      "modified": "2026-02-23T09:01:54",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0144",
+      "name": "index.html",
+      "path": "projects/rt-qr-generator/dist/index.html",
+      "category": "Dashboard",
+      "size": 1066,
+      "created": "2026-03-01T21:24:31.297587",
+      "modified": "2026-02-23T09:01:52",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0310",
+      "name": "index-DEX59qx7.css",
+      "path": "projects/rt-qr-generator/dist/assets/index-DEX59qx7.css",
+      "category": "Other",
+      "size": 11128,
+      "created": "2026-03-01T21:24:31.298267",
+      "modified": "2026-02-23T09:01:52",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0346",
+      "name": "registerSW.js",
+      "path": "projects/rt-qr-generator/dist/registerSW.js",
+      "category": "Other",
+      "size": 134,
+      "created": "2026-03-01T21:24:31.297832",
+      "modified": "2026-02-23T09:01:52",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0348",
+      "name": "index-OacLD47V.js",
+      "path": "projects/rt-qr-generator/dist/assets/index-OacLD47V.js",
+      "category": "Other",
+      "size": 605900,
+      "created": "2026-03-01T21:24:31.300082",
+      "modified": "2026-02-23T09:01:52",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0284",
+      "name": "package-lock.json",
+      "path": "projects/rt-qr-generator/package-lock.json",
+      "category": "Other",
+      "size": 263966,
+      "created": "2026-03-01T21:24:31.296574",
+      "modified": "2026-02-23T09:01:46",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0285",
+      "name": "package.json",
+      "path": "projects/rt-qr-generator/package.json",
+      "category": "Other",
+      "size": 686,
+      "created": "2026-03-01T21:24:31.296712",
+      "modified": "2026-02-23T09:01:22",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0141",
+      "name": "index.html",
+      "path": "projects/rt-qr-generator/index.html",
+      "category": "Dashboard",
+      "size": 847,
+      "created": "2026-03-01T21:24:31.295693",
+      "modified": "2026-02-23T09:01:13",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0111",
+      "name": "student-orientation-15min.md",
+      "path": "projects/respiratory-education/resources/student-orientation-15min.md",
+      "category": "Documentation",
+      "size": 3713,
+      "created": "2026-03-01T21:24:31.285807",
+      "modified": "2026-02-22T23:22:40",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0115",
+      "name": "student-orientation-handout.md",
+      "path": "projects/respiratory-education/resources/student-orientation-handout.md",
+      "category": "Documentation",
+      "size": 3533,
+      "created": "2026-03-01T21:24:31.285959",
+      "modified": "2026-02-22T23:15:55",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0112",
+      "name": "student-orientation-speaking-points.md",
+      "path": "projects/respiratory-education/resources/student-orientation-speaking-points.md",
+      "category": "Documentation",
+      "size": 7095,
+      "created": "2026-03-01T21:24:31.286130",
+      "modified": "2026-02-22T23:15:25",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0092",
+      "name": "scientific_terms.md",
+      "path": "projects/youtube-empire/audio/pronunciation/scientific_terms.md",
+      "category": "Documentation",
+      "size": 6820,
+      "created": "2026-03-01T21:24:31.319683",
+      "modified": "2026-02-22T23:14:27",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0093",
+      "name": "medical_terms.md",
+      "path": "projects/youtube-empire/audio/pronunciation/medical_terms.md",
+      "category": "Documentation",
+      "size": 3985,
+      "created": "2026-03-01T21:24:31.319562",
+      "modified": "2026-02-22T23:14:27",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0094",
+      "name": "stories_template.md",
+      "path": "projects/youtube-empire/audio/scripts/stories_template.md",
+      "category": "Scripts",
+      "size": 3968,
+      "created": "2026-03-01T21:24:31.336945",
+      "modified": "2026-02-22T23:13:03",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0095",
+      "name": "lofi_template.md",
+      "path": "projects/youtube-empire/audio/scripts/lofi_template.md",
+      "category": "Scripts",
+      "size": 3423,
+      "created": "2026-03-01T21:24:31.336834",
+      "modified": "2026-02-22T23:13:03",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0096",
+      "name": "education_template.md",
+      "path": "projects/youtube-empire/audio/scripts/education_template.md",
+      "category": "Scripts",
+      "size": 3320,
+      "created": "2026-03-01T21:24:31.336729",
+      "modified": "2026-02-22T23:13:03",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0238",
+      "name": "process_audio.sh",
+      "path": "projects/youtube-empire/audio/process_audio.sh",
+      "category": "Shell",
+      "size": 1750,
+      "created": "2026-03-01T21:24:31.319459",
+      "modified": "2026-02-22T23:10:27",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0084",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/README.md",
+      "category": "Documentation",
+      "size": 4141,
+      "created": "2026-03-01T21:24:31.337436",
+      "modified": "2026-02-22T23:09:50",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0086",
+      "name": "QUICK_REFERENCE.md",
+      "path": "projects/youtube-empire/design/QUICK_REFERENCE.md",
+      "category": "Documentation",
+      "size": 4734,
+      "created": "2026-03-01T21:24:31.337328",
+      "modified": "2026-02-22T23:09:35",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0083",
+      "name": "COST_ANALYSIS.md",
+      "path": "projects/youtube-empire/design/COST_ANALYSIS.md",
+      "category": "Documentation",
+      "size": 6972,
+      "created": "2026-03-01T21:24:31.337067",
+      "modified": "2026-02-22T23:09:18",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0097",
+      "name": "KIMI_PROMPTS.md",
+      "path": "projects/youtube-empire/design/assets/KIMI_PROMPTS.md",
+      "category": "Documentation",
+      "size": 9346,
+      "created": "2026-03-01T21:24:31.337887",
+      "modified": "2026-02-22T23:08:54",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0087",
+      "name": "README.md",
+      "path": "projects/youtube-empire/audio/README.md",
+      "category": "Documentation",
+      "size": 22445,
+      "created": "2026-03-01T21:24:31.319360",
+      "modified": "2026-02-22T23:08:47",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0100",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/assets/overlays/README.md",
+      "category": "Documentation",
+      "size": 7525,
+      "created": "2026-03-01T21:24:31.338009",
+      "modified": "2026-02-22T23:08:23",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0098",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/ambient-sleep/channel-art/README.md",
+      "category": "Documentation",
+      "size": 2878,
+      "created": "2026-03-01T21:24:31.337647",
+      "modified": "2026-02-22T23:08:01",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0101",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/lofi-music/channel-art/README.md",
+      "category": "Documentation",
+      "size": 2577,
+      "created": "2026-03-01T21:24:31.338884",
+      "modified": "2026-02-22T23:08:01",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0103",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/kids-stories/channel-art/README.md",
+      "category": "Documentation",
+      "size": 3029,
+      "created": "2026-03-01T21:24:31.338553",
+      "modified": "2026-02-22T23:08:01",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0105",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/kids-education/channel-art/README.md",
+      "category": "Documentation",
+      "size": 3075,
+      "created": "2026-03-01T21:24:31.338229",
+      "modified": "2026-02-22T23:08:01",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0091",
+      "name": "QUICK_REFERENCE.md",
+      "path": "projects/youtube-empire/video-production/QUICK_REFERENCE.md",
+      "category": "Documentation",
+      "size": 1999,
+      "created": "2026-03-01T21:24:31.339104",
+      "modified": "2026-02-22T23:07:59",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0089",
+      "name": "first_video_script.md",
+      "path": "projects/youtube-empire/video-production/first_video_script.md",
+      "category": "Documentation",
+      "size": 11784,
+      "created": "2026-03-01T21:24:31.339597",
+      "modified": "2026-02-22T23:07:50",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0099",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/ambient-sleep/thumbnails/README.md",
+      "category": "Documentation",
+      "size": 5401,
+      "created": "2026-03-01T21:24:31.337765",
+      "modified": "2026-02-22T23:07:24",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0102",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/lofi-music/thumbnails/README.md",
+      "category": "Documentation",
+      "size": 5314,
+      "created": "2026-03-01T21:24:31.338996",
+      "modified": "2026-02-22T23:07:24",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0104",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/kids-stories/thumbnails/README.md",
+      "category": "Documentation",
+      "size": 6346,
+      "created": "2026-03-01T21:24:31.338672",
+      "modified": "2026-02-22T23:07:24",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0106",
+      "name": "README.md",
+      "path": "projects/youtube-empire/design/kids-education/thumbnails/README.md",
+      "category": "Documentation",
+      "size": 4998,
+      "created": "2026-03-01T21:24:31.338344",
+      "modified": "2026-02-22T23:07:24",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0088",
+      "name": "TOOL_COST_ANALYSIS.md",
+      "path": "projects/youtube-empire/video-production/TOOL_COST_ANALYSIS.md",
+      "category": "Documentation",
+      "size": 8657,
+      "created": "2026-03-01T21:24:31.339221",
+      "modified": "2026-02-22T23:07:06",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0239",
+      "name": "ffmpeg_library.sh",
+      "path": "projects/youtube-empire/video-production/ffmpeg_library.sh",
+      "category": "Shell",
+      "size": 8619,
+      "created": "2026-03-01T21:24:31.339479",
+      "modified": "2026-02-22T23:06:37",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0295",
+      "name": "brand.json",
+      "path": "projects/youtube-empire/design/kids-stories/brand.json",
+      "category": "Other",
+      "size": 503,
+      "created": "2026-03-01T21:24:31.338445",
+      "modified": "2026-02-22T23:06:16",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0294",
+      "name": "brand.json",
+      "path": "projects/youtube-empire/design/kids-education/brand.json",
+      "category": "Other",
+      "size": 536,
+      "created": "2026-03-01T21:24:31.338119",
+      "modified": "2026-02-22T23:06:15",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0296",
+      "name": "brand.json",
+      "path": "projects/youtube-empire/design/lofi-music/brand.json",
+      "category": "Other",
+      "size": 512,
+      "created": "2026-03-01T21:24:31.338773",
+      "modified": "2026-02-22T23:06:15",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0297",
+      "name": "brand.json",
+      "path": "projects/youtube-empire/design/ambient-sleep/brand.json",
+      "category": "Other",
+      "size": 499,
+      "created": "2026-03-01T21:24:31.337536",
+      "modified": "2026-02-22T23:06:15",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0090",
+      "name": "VIDEO_PRODUCTION_GUIDE.md",
+      "path": "projects/youtube-empire/video-production/VIDEO_PRODUCTION_GUIDE.md",
+      "category": "Documentation",
+      "size": 16547,
+      "created": "2026-03-01T21:24:31.339364",
+      "modified": "2026-02-22T23:06:02",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0085",
+      "name": "DESIGN_SYSTEM.md",
+      "path": "projects/youtube-empire/design/DESIGN_SYSTEM.md",
+      "category": "Documentation",
+      "size": 17446,
+      "created": "2026-03-01T21:24:31.337213",
+      "modified": "2026-02-22T23:06:00",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0308",
+      "name": "App.css",
+      "path": "projects/rt-qr-generator/src/App.css",
+      "category": "Other",
+      "size": 40,
+      "created": "2026-03-01T21:24:31.300376",
+      "modified": "2026-02-22T22:25:02",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0283",
+      "name": "tsconfig.node.json",
+      "path": "projects/rt-qr-generator/tsconfig.node.json",
+      "category": "Configuration",
+      "size": 212,
+      "created": "2026-03-01T21:24:31.297211",
+      "modified": "2026-02-22T22:24:40",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0286",
+      "name": "tsconfig.json",
+      "path": "projects/rt-qr-generator/tsconfig.json",
+      "category": "Configuration",
+      "size": 561,
+      "created": "2026-03-01T21:24:31.297087",
+      "modified": "2026-02-22T22:24:36",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0337",
+      "name": "postcss.config.js",
+      "path": "projects/rt-qr-generator/postcss.config.js",
+      "category": "Configuration",
+      "size": 79,
+      "created": "2026-03-01T21:24:31.296841",
+      "modified": "2026-02-22T22:24:30",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0336",
+      "name": "tailwind.config.js",
+      "path": "projects/rt-qr-generator/tailwind.config.js",
+      "category": "Configuration",
+      "size": 181,
+      "created": "2026-03-01T21:24:31.296966",
+      "modified": "2026-02-22T22:24:26",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0080",
+      "name": "README.md",
+      "path": "projects/rt-qr-generator/README.md",
+      "category": "Documentation",
+      "size": 1012,
+      "created": "2026-03-01T21:24:31.295559",
+      "modified": "2026-02-22T22:24:22",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0309",
+      "name": "index.css",
+      "path": "projects/rt-qr-generator/src/index.css",
+      "category": "Other",
+      "size": 452,
+      "created": "2026-03-01T21:24:31.300683",
+      "modified": "2026-02-22T22:24:14",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0349",
+      "name": "workbox-1d305bb8.js",
+      "path": "projects/rt-scanner/dist/workbox-1d305bb8.js",
+      "category": "Other",
+      "size": 21874,
+      "created": "2026-03-01T21:24:31.304708",
+      "modified": "2026-02-22T22:22:04",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0351",
+      "name": "sw.js",
+      "path": "projects/rt-scanner/dist/sw.js",
+      "category": "Other",
+      "size": 1514,
+      "created": "2026-03-01T21:24:31.304420",
+      "modified": "2026-02-22T22:22:04",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0147",
+      "name": "index.html",
+      "path": "projects/rt-scanner/dist/index.html",
+      "category": "Dashboard",
+      "size": 1063,
+      "created": "2026-03-01T21:24:31.303885",
+      "modified": "2026-02-22T22:22:01",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0313",
+      "name": "index-Vv6UkaWd.css",
+      "path": "projects/rt-scanner/dist/assets/index-Vv6UkaWd.css",
+      "category": "Other",
+      "size": 13293,
+      "created": "2026-03-01T21:24:31.306898",
+      "modified": "2026-02-22T22:22:01",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0350",
+      "name": "registerSW.js",
+      "path": "projects/rt-scanner/dist/registerSW.js",
+      "category": "Other",
+      "size": 134,
+      "created": "2026-03-01T21:24:31.304294",
+      "modified": "2026-02-22T22:22:01",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0352",
+      "name": "index-CF2qi1EO.js",
+      "path": "projects/rt-scanner/dist/assets/index-CF2qi1EO.js",
+      "category": "Other",
+      "size": 776392,
+      "created": "2026-03-01T21:24:31.306756",
+      "modified": "2026-02-22T22:22:01",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0299",
+      "name": "manifest.json",
+      "path": "projects/rt-scanner/dist/manifest.json",
+      "category": "Other",
+      "size": 409,
+      "created": "2026-03-01T21:24:31.304018",
+      "modified": "2026-02-22T22:22:00",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0312",
+      "name": "index.css",
+      "path": "projects/rt-scanner/src/index.css",
+      "category": "Other",
+      "size": 638,
+      "created": "2026-03-01T21:24:31.307835",
+      "modified": "2026-02-22T22:21:49",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0332",
+      "name": "tailwind.config.js",
+      "path": "projects/rt-scanner/tailwind.config.js",
+      "category": "Configuration",
+      "size": 181,
+      "created": "2026-03-01T21:24:31.302667",
+      "modified": "2026-02-22T22:21:42",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0278",
+      "name": "package-lock.json",
+      "path": "projects/rt-scanner/package-lock.json",
+      "category": "Other",
+      "size": 255184,
+      "created": "2026-03-01T21:24:31.302185",
+      "modified": "2026-02-22T22:21:38",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0279",
+      "name": "package.json",
+      "path": "projects/rt-scanner/package.json",
+      "category": "Other",
+      "size": 656,
+      "created": "2026-03-01T21:24:31.302348",
+      "modified": "2026-02-22T22:21:38",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0341",
+      "name": "workbox-1d305bb8.js",
+      "path": "projects/rt-scheduling/dist/workbox-1d305bb8.js",
+      "category": "Other",
+      "size": 21874,
+      "created": "2026-03-01T21:24:31.311250",
+      "modified": "2026-02-22T22:21:28",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0343",
+      "name": "sw.js",
+      "path": "projects/rt-scheduling/dist/sw.js",
+      "category": "Other",
+      "size": 1514,
+      "created": "2026-03-01T21:24:31.310970",
+      "modified": "2026-02-22T22:21:28",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0143",
+      "name": "index.html",
+      "path": "projects/rt-scheduling/dist/index.html",
+      "category": "Dashboard",
+      "size": 1066,
+      "created": "2026-03-01T21:24:31.310491",
+      "modified": "2026-02-22T22:21:25",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0292",
+      "name": "manifest.json",
+      "path": "projects/rt-scheduling/dist/manifest.json",
+      "category": "Other",
+      "size": 412,
+      "created": "2026-03-01T21:24:31.310601",
+      "modified": "2026-02-22T22:21:25",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0307",
+      "name": "index-CuCBSJtp.css",
+      "path": "projects/rt-scheduling/dist/assets/index-CuCBSJtp.css",
+      "category": "Other",
+      "size": 12354,
+      "created": "2026-03-01T21:24:31.312636",
+      "modified": "2026-02-22T22:21:25",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0342",
+      "name": "registerSW.js",
+      "path": "projects/rt-scheduling/dist/registerSW.js",
+      "category": "Other",
+      "size": 134,
+      "created": "2026-03-01T21:24:31.310848",
+      "modified": "2026-02-22T22:21:25",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0344",
+      "name": "index-BbM3s6qX.js",
+      "path": "projects/rt-scheduling/dist/assets/index-BbM3s6qX.js",
+      "category": "Other",
+      "size": 435274,
+      "created": "2026-03-01T21:24:31.312478",
+      "modified": "2026-02-22T22:21:25",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0306",
+      "name": "index.css",
+      "path": "projects/rt-scheduling/src/index.css",
+      "category": "Other",
+      "size": 694,
+      "created": "2026-03-01T21:24:31.313654",
+      "modified": "2026-02-22T22:21:16",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0338",
+      "name": "tailwind.config.js",
+      "path": "projects/rt-scheduling/tailwind.config.js",
+      "category": "Configuration",
+      "size": 181,
+      "created": "2026-03-01T21:24:31.309582",
+      "modified": "2026-02-22T22:21:09",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0340",
+      "name": "postcss.config.js",
+      "path": "projects/rt-scheduling/postcss.config.js",
+      "category": "Configuration",
+      "size": 80,
+      "created": "2026-03-01T21:24:31.309469",
+      "modified": "2026-02-22T22:21:05",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0289",
+      "name": "package-lock.json",
+      "path": "projects/rt-scheduling/package-lock.json",
+      "category": "Other",
+      "size": 264083,
+      "created": "2026-03-01T21:24:31.309237",
+      "modified": "2026-02-22T22:21:01",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0290",
+      "name": "package.json",
+      "path": "projects/rt-scheduling/package.json",
+      "category": "Other",
+      "size": 655,
+      "created": "2026-03-01T21:24:31.309354",
+      "modified": "2026-02-22T22:21:01",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0145",
+      "name": "index.html",
+      "path": "projects/trading-system/frontend/index.html",
+      "category": "Dashboard",
+      "size": 68760,
+      "created": "2026-03-01T21:24:31.317868",
+      "modified": "2026-02-22T21:55:59",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0067",
+      "name": "ENHANCEMENTS.md",
+      "path": "projects/trading-system/ENHANCEMENTS.md",
+      "category": "Documentation",
+      "size": 1636,
+      "created": "2026-03-01T21:24:31.314308",
+      "modified": "2026-02-22T21:43:25",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0192",
+      "name": "binary_hf_server.py",
+      "path": "projects/trading-system/binary_hf_server.py",
+      "category": "Python",
+      "size": 8994,
+      "created": "2026-03-01T21:24:31.315420",
+      "modified": "2026-02-22T20:30:30",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0193",
+      "name": "combined_server.py",
+      "path": "projects/trading-system/combined_server.py",
+      "category": "Python",
+      "size": 4808,
+      "created": "2026-03-01T21:24:31.315547",
+      "modified": "2026-02-22T20:24:17",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0200",
+      "name": "price_api.py",
+      "path": "projects/trading-system/backend/price_api.py",
+      "category": "API",
+      "size": 2947,
+      "created": "2026-03-01T21:24:31.316448",
+      "modified": "2026-02-22T20:22:05",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0237",
+      "name": "test_real_data.sh",
+      "path": "projects/trading-system/test_real_data.sh",
+      "category": "Shell",
+      "size": 990,
+      "created": "2026-03-01T21:24:31.316231",
+      "modified": "2026-02-22T20:12:43",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0199",
+      "name": "trading_engine.py",
+      "path": "projects/trading-system/backend/trading_engine.py",
+      "category": "Python",
+      "size": 25552,
+      "created": "2026-03-01T21:24:31.316703",
+      "modified": "2026-02-22T20:12:14",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0201",
+      "name": "data_provider.py",
+      "path": "projects/trading-system/backend/data_provider.py",
+      "category": "Python",
+      "size": 7080,
+      "created": "2026-03-01T21:24:31.316348",
+      "modified": "2026-02-22T20:10:25",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0066",
+      "name": "REAL_DATA_INTEGRATION.md",
+      "path": "projects/trading-system/REAL_DATA_INTEGRATION.md",
+      "category": "Documentation",
+      "size": 7625,
+      "created": "2026-03-01T21:24:31.314972",
+      "modified": "2026-02-22T20:09:42",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0069",
+      "name": "HEATSEEKER_ADVANCED_PATTERNS.md",
+      "path": "projects/trading-system/HEATSEEKER_ADVANCED_PATTERNS.md",
+      "category": "Documentation",
+      "size": 16252,
+      "created": "2026-03-01T21:24:31.314464",
+      "modified": "2026-02-22T20:08:23",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0072",
+      "name": "HEATSEEKER_INTEGRATION.md",
+      "path": "projects/trading-system/HEATSEEKER_INTEGRATION.md",
+      "category": "Documentation",
+      "size": 10545,
+      "created": "2026-03-01T21:24:31.314599",
+      "modified": "2026-02-22T20:08:06",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0073",
+      "name": "TRADING_SYSTEM_DESIGN.md",
+      "path": "projects/trading-system/TRADING_SYSTEM_DESIGN.md",
+      "category": "Documentation",
+      "size": 26172,
+      "created": "2026-03-01T21:24:31.315145",
+      "modified": "2026-02-22T20:07:54",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0065",
+      "name": "AGENT_REPORT.md",
+      "path": "projects/trading-system/AGENT_REPORT.md",
+      "category": "Documentation",
+      "size": 4079,
+      "created": "2026-03-01T21:24:31.314055",
+      "modified": "2026-02-22T20:07:41",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0235",
+      "name": "start_servers.sh",
+      "path": "projects/trading-system/start_servers.sh",
+      "category": "Shell",
+      "size": 921,
+      "created": "2026-03-01T21:24:31.316131",
+      "modified": "2026-02-22T20:07:15",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0236",
+      "name": "setup_tunnel.sh",
+      "path": "projects/trading-system/setup_tunnel.sh",
+      "category": "Shell",
+      "size": 1334,
+      "created": "2026-03-01T21:24:31.316020",
+      "modified": "2026-02-22T20:06:53",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0068",
+      "name": "DEPLOY_GUIDE.md",
+      "path": "projects/trading-system/DEPLOY_GUIDE.md",
+      "category": "Documentation",
+      "size": 4470,
+      "created": "2026-03-01T21:24:31.314185",
+      "modified": "2026-02-22T20:06:12",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0070",
+      "name": "README.md",
+      "path": "projects/trading-system/README.md",
+      "category": "Documentation",
+      "size": 7085,
+      "created": "2026-03-01T21:24:31.314713",
+      "modified": "2026-02-22T20:06:00",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0071",
+      "name": "UI_SPECIFICATION.md",
+      "path": "projects/trading-system/UI_SPECIFICATION.md",
+      "category": "Documentation",
+      "size": 24298,
+      "created": "2026-03-01T21:24:31.315290",
+      "modified": "2026-02-22T20:05:30",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0064",
+      "name": "README.md",
+      "path": "projects/rt-scanner/README.md",
+      "category": "Documentation",
+      "size": 1908,
+      "created": "2026-03-01T21:24:31.301094",
+      "modified": "2026-02-22T17:08:41",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0081",
+      "name": "README.md",
+      "path": "projects/rt-scheduling/README.md",
+      "category": "Documentation",
+      "size": 1138,
+      "created": "2026-03-01T21:24:31.308288",
+      "modified": "2026-02-22T17:05:53",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0269",
+      "name": "tsconfig.node.json",
+      "path": "projects/rt-admin/tsconfig.node.json",
+      "category": "Configuration",
+      "size": 689,
+      "created": "2026-03-01T21:24:31.293172",
+      "modified": "2026-02-22T16:36:41",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0276",
+      "name": "tsconfig.node.json",
+      "path": "projects/rt-scanner/tsconfig.node.json",
+      "category": "Configuration",
+      "size": 689,
+      "created": "2026-03-01T21:24:31.303138",
+      "modified": "2026-02-22T16:36:41",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0287",
+      "name": "tsconfig.node.json",
+      "path": "projects/rt-scheduling/tsconfig.node.json",
+      "category": "Configuration",
+      "size": 689,
+      "created": "2026-03-01T21:24:31.309925",
+      "modified": "2026-02-22T16:36:41",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0293",
+      "name": "manifest.json",
+      "path": "projects/rt-scheduling/public/manifest.json",
+      "category": "Other",
+      "size": 412,
+      "created": "2026-03-01T21:24:31.313130",
+      "modified": "2026-02-22T16:36:13",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0300",
+      "name": "manifest.json",
+      "path": "projects/rt-scanner/public/manifest.json",
+      "category": "Other",
+      "size": 409,
+      "created": "2026-03-01T21:24:31.307357",
+      "modified": "2026-02-22T16:36:13",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0301",
+      "name": "manifest.json",
+      "path": "projects/rt-admin/public/manifest.json",
+      "category": "Other",
+      "size": 403,
+      "created": "2026-03-01T21:24:31.293832",
+      "modified": "2026-02-22T16:36:13",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0139",
+      "name": "index.html",
+      "path": "projects/rt-admin/index.html",
+      "category": "Dashboard",
+      "size": 838,
+      "created": "2026-03-01T21:24:31.291406",
+      "modified": "2026-02-22T16:35:33",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0140",
+      "name": "index.html",
+      "path": "projects/rt-scanner/index.html",
+      "category": "Dashboard",
+      "size": 844,
+      "created": "2026-03-01T21:24:31.301380",
+      "modified": "2026-02-22T16:35:33",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0142",
+      "name": "index.html",
+      "path": "projects/rt-scheduling/index.html",
+      "category": "Dashboard",
+      "size": 847,
+      "created": "2026-03-01T21:24:31.308507",
+      "modified": "2026-02-22T16:35:33",
+      "extension": ".html"
+    },
+    {
+      "id": "doc_0331",
+      "name": "postcss.config.js",
+      "path": "projects/rt-admin/postcss.config.js",
+      "category": "Configuration",
+      "size": 80,
+      "created": "2026-03-01T21:24:31.292635",
+      "modified": "2026-02-22T16:35:20",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0334",
+      "name": "postcss.config.js",
+      "path": "projects/rt-scanner/postcss.config.js",
+      "category": "Configuration",
+      "size": 80,
+      "created": "2026-03-01T21:24:31.302514",
+      "modified": "2026-02-22T16:35:20",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0329",
+      "name": "tailwind.config.js",
+      "path": "projects/rt-admin/tailwind.config.js",
+      "category": "Configuration",
+      "size": 182,
+      "created": "2026-03-01T21:24:31.292773",
+      "modified": "2026-02-22T16:35:16",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0271",
+      "name": "package-lock.json",
+      "path": "projects/rt-admin/package-lock.json",
+      "category": "Other",
+      "size": 265755,
+      "created": "2026-03-01T21:24:31.292323",
+      "modified": "2026-02-22T16:35:11",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0272",
+      "name": "package.json",
+      "path": "projects/rt-admin/package.json",
+      "category": "Other",
+      "size": 651,
+      "created": "2026-03-01T21:24:31.292479",
+      "modified": "2026-02-22T16:35:11",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0055",
+      "name": "README.md",
+      "path": "projects/rt-admin/README.md",
+      "category": "Documentation",
+      "size": 2083,
+      "created": "2026-03-01T21:24:31.291094",
+      "modified": "2026-02-22T16:34:51",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0315",
+      "name": "index.css",
+      "path": "projects/rt-admin/src/index.css",
+      "category": "Other",
+      "size": 580,
+      "created": "2026-03-01T21:24:31.294394",
+      "modified": "2026-02-22T16:34:35",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0305",
+      "name": "App.css",
+      "path": "projects/rt-scheduling/src/App.css",
+      "category": "Other",
+      "size": 1346,
+      "created": "2026-03-01T21:24:31.313385",
+      "modified": "2026-02-22T16:34:22",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0311",
+      "name": "App.css",
+      "path": "projects/rt-scanner/src/App.css",
+      "category": "Other",
+      "size": 1751,
+      "created": "2026-03-01T21:24:31.307584",
+      "modified": "2026-02-22T16:34:22",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0314",
+      "name": "App.css",
+      "path": "projects/rt-admin/src/App.css",
+      "category": "Other",
+      "size": 1271,
+      "created": "2026-03-01T21:24:31.294093",
+      "modified": "2026-02-22T16:34:22",
+      "extension": ".css"
+    },
+    {
+      "id": "doc_0273",
+      "name": "tsconfig.json",
+      "path": "projects/rt-admin/tsconfig.json",
+      "category": "Configuration",
+      "size": 562,
+      "created": "2026-03-01T21:24:31.293039",
+      "modified": "2026-02-22T16:28:29",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0280",
+      "name": "tsconfig.json",
+      "path": "projects/rt-scanner/tsconfig.json",
+      "category": "Configuration",
+      "size": 562,
+      "created": "2026-03-01T21:24:31.302981",
+      "modified": "2026-02-22T16:28:29",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0291",
+      "name": "tsconfig.json",
+      "path": "projects/rt-scheduling/tsconfig.json",
+      "category": "Configuration",
+      "size": 562,
+      "created": "2026-03-01T21:24:31.309819",
+      "modified": "2026-02-22T16:28:29",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0270",
+      "name": "tsconfig.app.json",
+      "path": "projects/rt-admin/tsconfig.app.json",
+      "category": "Configuration",
+      "size": 732,
+      "created": "2026-03-01T21:24:31.292909",
+      "modified": "2026-02-22T16:27:09",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0330",
+      "name": "eslint.config.js",
+      "path": "projects/rt-admin/eslint.config.js",
+      "category": "Configuration",
+      "size": 616,
+      "created": "2026-03-01T21:24:31.291250",
+      "modified": "2026-02-22T16:27:09",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0277",
+      "name": "tsconfig.app.json",
+      "path": "projects/rt-scanner/tsconfig.app.json",
+      "category": "Configuration",
+      "size": 732,
+      "created": "2026-03-01T21:24:31.302824",
+      "modified": "2026-02-22T16:27:07",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0333",
+      "name": "eslint.config.js",
+      "path": "projects/rt-scanner/eslint.config.js",
+      "category": "Configuration",
+      "size": 616,
+      "created": "2026-03-01T21:24:31.301227",
+      "modified": "2026-02-22T16:27:07",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0288",
+      "name": "tsconfig.app.json",
+      "path": "projects/rt-scheduling/tsconfig.app.json",
+      "category": "Configuration",
+      "size": 732,
+      "created": "2026-03-01T21:24:31.309708",
+      "modified": "2026-02-22T16:27:05",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0339",
+      "name": "eslint.config.js",
+      "path": "projects/rt-scheduling/eslint.config.js",
+      "category": "Configuration",
+      "size": 616,
+      "created": "2026-03-01T21:24:31.308397",
+      "modified": "2026-02-22T16:27:05",
+      "extension": ".js"
+    },
+    {
+      "id": "doc_0191",
+      "name": "create_diagrams.py",
+      "path": "projects/respiratory-education/create_diagrams.py",
+      "category": "Python",
+      "size": 61985,
+      "created": "2026-03-01T21:24:31.261077",
+      "modified": "2026-02-22T14:17:03",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0109",
+      "name": "README.md",
+      "path": "projects/respiratory-education/images/README.md",
+      "category": "Documentation",
+      "size": 1118,
+      "created": "2026-03-01T21:24:31.264240",
+      "modified": "2026-02-22T13:43:08",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0244",
+      "name": "download-images.sh",
+      "path": "projects/respiratory-education/images/download-images.sh",
+      "category": "Shell",
+      "size": 1406,
+      "created": "2026-03-01T21:24:31.269809",
+      "modified": "2026-02-22T13:43:05",
+      "extension": ".sh"
+    },
+    {
+      "id": "doc_0185",
+      "name": "add_images.py",
+      "path": "projects/respiratory-education/add_images.py",
+      "category": "Python",
+      "size": 2821,
+      "created": "2026-03-01T21:24:31.260434",
+      "modified": "2026-02-22T12:38:35",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0187",
+      "name": "create_ppts.py",
+      "path": "projects/respiratory-education/create_ppts.py",
+      "category": "Python",
+      "size": 65298,
+      "created": "2026-03-01T21:24:31.261819",
+      "modified": "2026-02-22T12:37:32",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0189",
+      "name": "create_pptx_ventilation.py",
+      "path": "projects/respiratory-education/create_pptx_ventilation.py",
+      "category": "Python",
+      "size": 23000,
+      "created": "2026-03-01T21:24:31.263131",
+      "modified": "2026-02-22T12:29:28",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0186",
+      "name": "create_pptx_copd.py",
+      "path": "projects/respiratory-education/create_pptx_copd.py",
+      "category": "Python",
+      "size": 26419,
+      "created": "2026-03-01T21:24:31.262739",
+      "modified": "2026-02-22T12:27:14",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0190",
+      "name": "create_pptx_anatomy.py",
+      "path": "projects/respiratory-education/create_pptx_anatomy.py",
+      "category": "Python",
+      "size": 29307,
+      "created": "2026-03-01T21:24:31.262380",
+      "modified": "2026-02-22T12:24:52",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0184",
+      "name": "generate_detailed_docs.py",
+      "path": "projects/respiratory-education/generate_detailed_docs.py",
+      "category": "Python",
+      "size": 6109,
+      "created": "2026-03-01T21:24:31.263360",
+      "modified": "2026-02-22T11:23:47",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0188",
+      "name": "generate_ppt_word.py",
+      "path": "projects/respiratory-education/generate_ppt_word.py",
+      "category": "Python",
+      "size": 11467,
+      "created": "2026-03-01T21:24:31.263673",
+      "modified": "2026-02-22T11:23:03",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0130",
+      "name": "admin-guide.md",
+      "path": "projects/respiratory-tools/docs/admin-guide.md",
+      "category": "Documentation",
+      "size": 5607,
+      "created": "2026-03-01T21:24:31.289656",
+      "modified": "2026-02-22T10:52:58",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0131",
+      "name": "user-guide.md",
+      "path": "projects/respiratory-tools/docs/user-guide.md",
+      "category": "Documentation",
+      "size": 2786,
+      "created": "2026-03-01T21:24:31.289816",
+      "modified": "2026-02-22T10:52:58",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0274",
+      "name": "package.json",
+      "path": "projects/respiratory-tools/package.json",
+      "category": "Other",
+      "size": 1503,
+      "created": "2026-03-01T21:24:31.289339",
+      "modified": "2026-02-22T10:52:03",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0275",
+      "name": "tsconfig.json",
+      "path": "projects/respiratory-tools/tsconfig.json",
+      "category": "Configuration",
+      "size": 805,
+      "created": "2026-03-01T21:24:31.289488",
+      "modified": "2026-02-22T10:52:03",
+      "extension": ".json"
+    },
+    {
+      "id": "doc_0079",
+      "name": "QUICK_START.md",
+      "path": "projects/youtube-empire/QUICK_START.md",
+      "category": "Documentation",
+      "size": 4938,
+      "created": "2026-03-01T21:24:31.319070",
+      "modified": "2026-02-22T10:50:37",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0074",
+      "name": "MONETIZATION_STRATEGY.md",
+      "path": "projects/youtube-empire/MONETIZATION_STRATEGY.md",
+      "category": "Documentation",
+      "size": 10022,
+      "created": "2026-03-01T21:24:31.318969",
+      "modified": "2026-02-22T10:50:03",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0077",
+      "name": "TOOLS_GUIDE.md",
+      "path": "projects/youtube-empire/TOOLS_GUIDE.md",
+      "category": "Documentation",
+      "size": 8172,
+      "created": "2026-03-01T21:24:31.319203",
+      "modified": "2026-02-22T10:48:56",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0056",
+      "name": "README.md",
+      "path": "projects/respiratory-tools/README.md",
+      "category": "Documentation",
+      "size": 18256,
+      "created": "2026-03-01T21:24:31.289190",
+      "modified": "2026-02-22T10:48:50",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0075",
+      "name": "AUTOMATION_SCRIPTS.md",
+      "path": "projects/youtube-empire/AUTOMATION_SCRIPTS.md",
+      "category": "Scripts",
+      "size": 19361,
+      "created": "2026-03-01T21:24:31.318582",
+      "modified": "2026-02-22T10:47:53",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0058",
+      "name": "CONTENT-SUMMARY.md",
+      "path": "projects/respiratory-education/CONTENT-SUMMARY.md",
+      "category": "Documentation",
+      "size": 4728,
+      "created": "2026-03-01T21:24:31.260031",
+      "modified": "2026-02-22T10:47:18",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0119",
+      "name": "04-patient-assessment-outline.md",
+      "path": "projects/respiratory-education/templates/04-patient-assessment-outline.md",
+      "category": "Documentation",
+      "size": 23232,
+      "created": "2026-03-01T21:24:31.287720",
+      "modified": "2026-02-22T10:46:44",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0125",
+      "name": "05-emergency-procedures-outline.md",
+      "path": "projects/respiratory-education/templates/05-emergency-procedures-outline.md",
+      "category": "Documentation",
+      "size": 20604,
+      "created": "2026-03-01T21:24:31.288099",
+      "modified": "2026-02-22T10:46:44",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0076",
+      "name": "CONTENT_CALENDARS.md",
+      "path": "projects/youtube-empire/CONTENT_CALENDARS.md",
+      "category": "Documentation",
+      "size": 6283,
+      "created": "2026-03-01T21:24:31.318691",
+      "modified": "2026-02-22T10:45:49",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0078",
+      "name": "MASTER_PLAN.md",
+      "path": "projects/youtube-empire/MASTER_PLAN.md",
+      "category": "Documentation",
+      "size": 13256,
+      "created": "2026-03-01T21:24:31.318827",
+      "modified": "2026-02-22T10:45:00",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0082",
+      "name": "GAME_DESIGN.md",
+      "path": "projects/kids-app/GAME_DESIGN.md",
+      "category": "Documentation",
+      "size": 11620,
+      "created": "2026-03-01T21:24:31.257684",
+      "modified": "2026-02-22T10:44:20",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0122",
+      "name": "02-copd-management-outline.md",
+      "path": "projects/respiratory-education/templates/02-copd-management-outline.md",
+      "category": "Documentation",
+      "size": 32874,
+      "created": "2026-03-01T21:24:31.286941",
+      "modified": "2026-02-22T10:44:15",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0126",
+      "name": "03-mechanical-ventilation-outline.md",
+      "path": "projects/respiratory-education/templates/03-mechanical-ventilation-outline.md",
+      "category": "Documentation",
+      "size": 24911,
+      "created": "2026-03-01T21:24:31.287338",
+      "modified": "2026-02-22T10:44:15",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0121",
+      "name": "04-patient-assessment.md",
+      "path": "projects/respiratory-education/templates/04-patient-assessment.md",
+      "category": "Documentation",
+      "size": 13399,
+      "created": "2026-03-01T21:24:31.287888",
+      "modified": "2026-02-22T10:40:54",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0128",
+      "name": "05-emergency-procedures.md",
+      "path": "projects/respiratory-education/templates/05-emergency-procedures.md",
+      "category": "Documentation",
+      "size": 13414,
+      "created": "2026-03-01T21:24:31.288295",
+      "modified": "2026-02-22T10:40:54",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0120",
+      "name": "03-mechanical-ventilation.md",
+      "path": "projects/respiratory-education/templates/03-mechanical-ventilation.md",
+      "category": "Documentation",
+      "size": 15380,
+      "created": "2026-03-01T21:24:31.287526",
+      "modified": "2026-02-22T10:38:42",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0129",
+      "name": "02-copd-management.md",
+      "path": "projects/respiratory-education/templates/02-copd-management.md",
+      "category": "Documentation",
+      "size": 17209,
+      "created": "2026-03-01T21:24:31.287119",
+      "modified": "2026-02-22T10:38:42",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0118",
+      "name": "01-anatomy-physiology.md",
+      "path": "projects/respiratory-education/templates/01-anatomy-physiology.md",
+      "category": "Documentation",
+      "size": 16009,
+      "created": "2026-03-01T21:24:31.286703",
+      "modified": "2026-02-22T10:36:25",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0127",
+      "name": "01-anatomy-physiology-outline.md",
+      "path": "projects/respiratory-education/templates/01-anatomy-physiology-outline.md",
+      "category": "Documentation",
+      "size": 29770,
+      "created": "2026-03-01T21:24:31.286525",
+      "modified": "2026-02-22T10:36:25",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0194",
+      "name": "main.py",
+      "path": "projects/trading-system/main.py",
+      "category": "Python",
+      "size": 6674,
+      "created": "2026-03-01T21:24:31.315804",
+      "modified": "2026-02-22T10:33:23",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0108",
+      "name": "niv-boot-camp.md",
+      "path": "projects/respiratory-education/workshops/niv-boot-camp.md",
+      "category": "Documentation",
+      "size": 6654,
+      "created": "2026-03-01T21:24:31.288998",
+      "modified": "2026-02-22T10:33:19",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0123",
+      "name": "mechanical-ventilation-basics.md",
+      "path": "projects/respiratory-education/templates/mechanical-ventilation-basics.md",
+      "category": "Documentation",
+      "size": 6479,
+      "created": "2026-03-01T21:24:31.288632",
+      "modified": "2026-02-22T10:33:19",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0202",
+      "name": "ensemble.py",
+      "path": "projects/trading-system/models/ensemble.py",
+      "category": "Python",
+      "size": 9426,
+      "created": "2026-03-01T21:24:31.318000",
+      "modified": "2026-02-22T10:32:51",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0113",
+      "name": "README.md",
+      "path": "projects/respiratory-education/resources/README.md",
+      "category": "Documentation",
+      "size": 12798,
+      "created": "2026-03-01T21:24:31.285325",
+      "modified": "2026-02-22T10:31:57",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0203",
+      "name": "engine.py",
+      "path": "projects/trading-system/backtest/engine.py",
+      "category": "Python",
+      "size": 6466,
+      "created": "2026-03-01T21:24:31.317248",
+      "modified": "2026-02-22T10:31:56",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0204",
+      "name": "ingestor.py",
+      "path": "projects/trading-system/data/ingestor.py",
+      "category": "Python",
+      "size": 6204,
+      "created": "2026-03-01T21:24:31.317463",
+      "modified": "2026-02-22T10:31:23",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0205",
+      "name": "manager.py",
+      "path": "projects/trading-system/risk/manager.py",
+      "category": "Python",
+      "size": 7321,
+      "created": "2026-03-01T21:24:31.318108",
+      "modified": "2026-02-22T10:30:48",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0117",
+      "name": "README.md",
+      "path": "projects/respiratory-education/skills-labs/README.md",
+      "category": "Documentation",
+      "size": 20874,
+      "created": "2026-03-01T21:24:31.286330",
+      "modified": "2026-02-22T10:30:40",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0059",
+      "name": "sourcing-strategies.md",
+      "path": "projects/reselling-business/sourcing-strategies.md",
+      "category": "Documentation",
+      "size": 15474,
+      "created": "2026-03-01T21:24:31.259854",
+      "modified": "2026-02-22T10:30:20",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0196",
+      "name": "trend_following.py",
+      "path": "projects/trading-system/strategies/trend_following.py",
+      "category": "Python",
+      "size": 6533,
+      "created": "2026-03-01T21:24:31.318433",
+      "modified": "2026-02-22T10:30:08",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0062",
+      "name": "automation-workflows.md",
+      "path": "projects/reselling-business/automation-workflows.md",
+      "category": "Documentation",
+      "size": 41974,
+      "created": "2026-03-01T21:24:31.258825",
+      "modified": "2026-02-22T10:29:35",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0197",
+      "name": "mean_reversion.py",
+      "path": "projects/trading-system/strategies/mean_reversion.py",
+      "category": "Python",
+      "size": 5929,
+      "created": "2026-03-01T21:24:31.318324",
+      "modified": "2026-02-22T10:29:24",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0198",
+      "name": "base.py",
+      "path": "projects/trading-system/strategies/base.py",
+      "category": "Python",
+      "size": 2922,
+      "created": "2026-03-01T21:24:31.318220",
+      "modified": "2026-02-22T10:28:48",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0061",
+      "name": "profit-calculators.md",
+      "path": "projects/reselling-business/profit-calculators.md",
+      "category": "Documentation",
+      "size": 16654,
+      "created": "2026-03-01T21:24:31.259240",
+      "modified": "2026-02-22T10:28:35",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0195",
+      "name": "settings.py",
+      "path": "projects/trading-system/config/settings.py",
+      "category": "Configuration",
+      "size": 2607,
+      "created": "2026-03-01T21:24:31.317354",
+      "modified": "2026-02-22T10:28:30",
+      "extension": ".py"
+    },
+    {
+      "id": "doc_0107",
+      "name": "README.md",
+      "path": "projects/respiratory-education/workshops/README.md",
+      "category": "Documentation",
+      "size": 9672,
+      "created": "2026-03-01T21:24:31.288816",
+      "modified": "2026-02-22T10:28:28",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0116",
+      "name": "README.md",
+      "path": "projects/respiratory-education/content-library/README.md",
+      "category": "Documentation",
+      "size": 8994,
+      "created": "2026-03-01T21:24:31.264002",
+      "modified": "2026-02-22T10:28:28",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0063",
+      "name": "quick-start-checklist.md",
+      "path": "projects/reselling-business/quick-start-checklist.md",
+      "category": "Documentation",
+      "size": 4328,
+      "created": "2026-03-01T21:24:31.259509",
+      "modified": "2026-02-22T10:27:10",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0060",
+      "name": "automated-reselling-system.md",
+      "path": "projects/reselling-business/automated-reselling-system.md",
+      "category": "Documentation",
+      "size": 29856,
+      "created": "2026-03-01T21:24:31.258183",
+      "modified": "2026-02-22T10:26:57",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0057",
+      "name": "README.md",
+      "path": "projects/respiratory-education/README.md",
+      "category": "Documentation",
+      "size": 1251,
+      "created": "2026-03-01T21:24:31.260199",
+      "modified": "2026-02-22T10:26:30",
+      "extension": ".md"
+    },
+    {
+      "id": "doc_0124",
+      "name": "README.md",
+      "path": "projects/respiratory-education/templates/README.md",
+      "category": "Documentation",
+      "size": 5634,
+      "created": "2026-03-01T21:24:31.288460",
+      "modified": "2026-02-22T10:26:30",
+      "extension": ".md"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[2026-03-06 06:00] Generating Morning Brief with Ollama...
+{
+  "date": "Friday, March 06, 2026",
+  "weather": "Weather data unavailable",
+  "brief": "Error: [Errno 2] No such file or directory: 'ollama'",
+  "generated_at": "2026-03-06T06:00:11.156600",
+  "model": "llama3.2:latest"
+}
+{
+  "date": "Friday, March 06, 2026",
+  "weather": "Weather data unavailable",
+  "brief": "Error: [Errno 2] No such file or directory: 'ollama'",
+  "generated_at": "2026-03-06T06:00:11.156600",
+  "model": "llama3.2:latest"
+}
+[2026-03-06 06:00] Morning Brief complete.

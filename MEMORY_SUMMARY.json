@@ -1,0 +1,21 @@
+{
+  "updated_at": "2026-03-05T19:11:56.802744",
+  "updated_by": "Nano (automation)",
+  "source_files": [
+    "/Users/daytrons/.openclaw/workspace/MEMORY.md"
+  ],
+  "summary": "Concise context snapshot from MEMORY and recent memory; top decisions, risks, and open items.",
+  "decisions": [
+    "automatic digest generated"
+  ],
+  "risks": [
+    "privacy redaction enforced by default"
+  ],
+  "open_items": [
+    {
+      "item": "wire cadence controls",
+      "owner": "Nano",
+      "due": "2026-03-05"
+    }
+  ]
+}

@@ -2403,6 +2403,117 @@
         /* Page switching */
         .page { display: none; }
         .page.active { display: block; }
+
+        /* Documents Widget Styles */
+        .documents-widget {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .documents-widget .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .documents-widget h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .doc-count {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            background: var(--bg-app);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .doc-category {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-header {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 0;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-app);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .doc-item:hover {
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .doc-icon {
+            font-size: 16px;
+        }
+
+        .doc-name {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .doc-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .view-all-docs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px;
+            background: var(--bg-app);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .view-all-docs:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -2583,6 +2694,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Documents Widget -->
+                    <div id="documents-widget-container">
+                        <!-- Documents will be loaded here -->
                     </div>
 
                     <div>

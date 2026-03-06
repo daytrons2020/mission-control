@@ -1,0 +1,26 @@
+[
+  {
+    "id": "digest_20260305190744",
+    "type": "summary_digest",
+    "date": "2026-03-05",
+    "timestamp": "2026-03-05T19:07:44.221766",
+    "source_paths": [
+      "/Users/daytrons/.openclaw/workspace/MEMORY.md"
+    ],
+    "summary": "Concise context snapshot from MEMORY and recent memory; top decisions, risks, and open items.",
+    "updated_by": "Nano (automation)",
+    "digest_path": "/Users/daytrons/.openclaw/workspace/MEMORY_SUMMARY.json"
+  },
+  {
+    "id": "digest_20260305191156",
+    "type": "summary_digest",
+    "date": "2026-03-05",
+    "timestamp": "2026-03-05T19:11:56.802744",
+    "source_paths": [
+      "/Users/daytrons/.openclaw/workspace/MEMORY.md"
+    ],
+    "summary": "Concise context snapshot from MEMORY and recent memory; top decisions, risks, and open items.",
+    "updated_by": "Nano (automation)",
+    "digest_path": "/Users/daytrons/.openclaw/workspace/MEMORY_SUMMARY.json"
+  }
+]
