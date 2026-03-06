@@ -51,3 +51,11 @@ Traceback (most recent call last):
                                                            ^
 SyntaxError: unmatched ']'
 Cost report complete.
+[2026-03-06 14:00] Generating cost report...
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "/Users/daytrons/.openclaw/workspace/scripts/ollama_handlers.py", line 16
+    cmd = ["/opt/homebrew/bin/ollama"], "run", OLLAMA_MODEL]
+                                                           ^
+SyntaxError: unmatched ']'
+Cost report complete.
