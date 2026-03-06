@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0f0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Mission Control Mobile</title>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/mobile-first.css">
+  <link rel="stylesheet" href="styles/mobile-optimization-v2.css">
+  
+  <!-- iOS Icons -->
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+</head>
+<body>
+  <!-- Mobile Header -->
+  <header class="header">
+    <button class="menu-btn" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <h1 class="page-title">Mission Control</h1>
+    <button class="notifications-btn" aria-label="Notifications">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Stats Overview -->
+    <section class="section">
+      <div class="section-header">
+        <h2>System Status</h2>
+        <span class="live-indicator">● Live</span>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-label">Active Tasks</span>
+          <span class="stat-value" id="active-tasks">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pending</span>
+          <span class="stat-value" id="pending-tasks">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Agents</span>
+          <span class="stat-value" id="active-agents">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Quick Actions</h2>
+      </div>
+      <div class="quick-actions">
+        <button class="action-btn" onclick="showAddTask()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>New Task</span>
+        </button>
+        <button class="action-btn" onclick="showStatus()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+          </svg>
+          <span>Status</span>
+        </button>
+        <button class="action-btn" onclick="showProjects()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span>Projects</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Task Queue -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Task Queue</h2>
+        <button class="view-all">View All</button>
+      </div>
+      <div class="task-list" id="task-list">
+        <!-- Tasks loaded dynamically -->
+        <div class="skeleton task-skeleton"></div>
+        <div class="skeleton task-skeleton"></div>
+        <div class="skeleton task-skeleton"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Action Button -->
+  <button class="fab" onclick="showAddTask()" aria-label="Add Task">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+  </button>
+
+  <!-- Bottom Navigation -->
+  <nav class="mobile-nav">
+    <button class="mobile-nav-item active" data-page="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="mobile-nav-item" data-page="tasks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11l3 3L22 4"></path>
+        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+      </svg>
+      <span>Tasks</span>
+    </button>
+    <button class="mobile-nav-item" data-page="agents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 010 7.75"></path>
+      </svg>
+      <span>Agents</span>
+    </button>
+    <button class="mobile-nav-item" data-page="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path>
+      </svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+  <!-- Bottom Sheet for Add Task -->
+  <div class="bottom-sheet" id="add-task-sheet">
+    <div class="sheet-header">
+      <h3>New Task</h3>
+      <button class="close-btn" onclick="hideAddTask()">✕</button>
+    </div>
+    <div class="sheet-content">
+      <input type="text" id="task-input" placeholder="What needs to be done?" class="task-input">
+      <div class="task-options">
+        <select id="task-priority" class="task-select">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+          <option value="critical">Critical</option>
+        </select>
+        <select id="task-type" class="task-select">
+          <option value="general">General</option>
+          <option value="code">Code</option>
+          <option value="research">Research</option>
+          <option value="analysis">Analysis</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="submitTask()">Add Task</button>
+    </div>
+  </div>
+
+  <script>
+    // Mobile app logic
+    let currentPage = 'dashboard';
+    
+    // Load data
+    async function loadData() {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        
+        document.getElementById('active-tasks').textContent = data.active || 0;
+        document.getElementById('pending-tasks').textContent = data.pending || 0;
+        document.getElementById('active-agents').textContent = data.agents || 0;
+        
+        // Remove skeletons and load real tasks
+        loadTasks();
+      } catch (e) {
+        console.error('Failed to load data:', e);
+      }
+    }
+    
+    function loadTasks() {
+      // Simulate loading tasks
+      const taskList = document.getElementById('task-list');
+      taskList.innerHTML = `
+        <div class="task-item">
+          <span class="task-priority high">HIGH</span>
+          <span class="task-desc">Trading system optimization</span>
+        </div>
+        <div class="task-item">
+          <span class="task-priority medium">MED</span>
+          <span class="task-desc">Update documentation</span>
+        </div>
+      `;
+    }
+    
+    // Navigation
+    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        currentPage = item.dataset.page;
+      });
+    });
+    
+    // Bottom sheet
+    function showAddTask() {
+      document.getElementById('add-task-sheet').classList.add('open');
+      document.getElementById('task-input').focus();
+    }
+    
+    function hideAddTask() {
+      document.getElementById('add-task-sheet').classList.remove('open');
+    }
+    
+    function submitTask() {
+      const input = document.getElementById('task-input');
+      const priority = document.getElementById('task-priority').value;
+      
+      if (input.value.trim()) {
+        // Send to API
+        fetch('/api/tasks', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            description: input.value,
+            priority: priority
+          })
+        });
+        
+        input.value = '';
+        hideAddTask();
+        loadData();
+      }
+    }
+    
+    // Pull to refresh
+    let touchStartY = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    });
+    
+    document.addEventListener('touchend', e => {
+      const touchEndY = e.changedTouches[0].clientY;
+      if (touchEndY - touchStartY > 100 && window.scrollY === 0) {
+        loadData();
+      }
+    });
+    
+    // Initial load
+    loadData();
+    
+    // Refresh every 30 seconds
+    setInterval(loadData, 30000);
+  </script>
+</body>
+</html>

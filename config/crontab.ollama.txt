@@ -1,0 +1,37 @@
+# Ollama-Optimized Cron Schedule
+# High-frequency tasks → Ollama (local, zero tokens)
+# Complex analysis → Minimax/Kimi (banked tokens)
+
+# === OLLAMA TASKS (Zero Tokens) ===
+
+# Trading Monitor - every 5 min during market hours (6:30 AM - 1:00 PM PT)
+*/5 6-13 * * 1-5 /Users/daytrons/.openclaw/workspace/scripts/ollama_trading_monitor.sh >> /Users/daytrons/.openclaw/workspace/logs/trading_monitor.log 2>&1
+
+# Market Alerts - every 10 min during market hours
+*/10 6-13 * * 1-5 /Users/daytrons/.openclaw/workspace/scripts/ollama_handlers.py >> /Users/daytrons/.openclaw/workspace/logs/market_alerts.log 2>&1
+
+# Hourly Cost Report
+0 * * * * /Users/daytrons/.openclaw/workspace/scripts/ollama_cost_report.sh >> /Users/daytrons/.openclaw/workspace/logs/cost_report.log 2>&1
+
+# Gateway Health Check - every 2 hours
+0 */2 * * * /Users/daytrons/.openclaw/workspace/scripts/ollama_health_check.sh >> /Users/daytrons/.openclaw/workspace/logs/health_check.log 2>&1
+
+# Morning Brief - 6 AM PT
+0 6 * * * /Users/daytrons/.openclaw/workspace/scripts/ollama_morning_brief.sh >> /Users/daytrons/.openclaw/workspace/logs/morning_brief.log 2>&1
+
+# Daily Digest - 5 PM PT
+0 17 * * * /Users/daytrons/.openclaw/workspace/scripts/ollama_daily_digest.sh >> /Users/daytrons/.openclaw/workspace/logs/daily_digest.log 2>&1
+
+# Weekly Report - Sundays 6 AM PT
+0 6 * * 0 /Users/daytrons/.openclaw/workspace/scripts/ollama_weekly_report.sh >> /Users/daytrons/.openclaw/workspace/logs/weekly_report.log 2>&1
+
+# Maintenance - 5 AM PT
+0 5 * * * /Users/daytrons/.openclaw/workspace/scripts/cleanup_old_digests.py >> /Users/daytrons/.openclaw/workspace/logs/maintenance.log 2>&1
+
+# === BANKED TOKEN TASKS (Minimax/Kimi) ===
+
+# A+ Stock Setup - PAUSED (commented out by user request)
+# 0 17 * * 1-5 /Users/daytrons/.openclaw/workspace/scripts/run_with_model.sh minimax stock_setup >> /Users/daytrons/.openclaw/workspace/logs/stock_setup.log 2>&1
+
+# Twitter Research - PAUSED (commented out by user request)
+# 0 */2 * * * /Users/daytrons/.openclaw/workspace/scripts/run_with_model.sh kimi twitter_research >> /Users/daytrons/.openclaw/workspace/logs/twitter_research.log 2>&1

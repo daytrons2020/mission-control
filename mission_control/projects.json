@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0",
+  "last_updated": "2026-03-05T21:53:00-08:00",
+  "projects": [
+    {
+      "id": "trading-system",
+      "name": "Trading System",
+      "status": "active",
+      "owner": "daytrons",
+      "progress": 35,
+      "tasks_total": 12,
+      "tasks_completed": 4,
+      "priority": "high"
+    },
+    {
+      "id": "mission-control",
+      "name": "Mission Control Enhancement", 
+      "status": "active",
+      "owner": "daytrons",
+      "progress": 60,
+      "tasks_total": 8,
+      "tasks_completed": 5,
+      "priority": "high"
+    }
+  ]
+}

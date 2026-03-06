@@ -1,0 +1,13 @@
+#!/bin/bash
+# Quick access to Mission Control CLI
+# Usage: mc <command>
+
+WORKSPACE_DIR="/Users/daytrons/.openclaw/workspace"
+
+if [ $# -eq 0 ]; then
+    # Interactive mode
+    python3 "$WORKSPACE_DIR/mission_control/mc_cli.py"
+else
+    # Single command mode
+    python3 "$WORKSPACE_DIR/mission_control/mc_cli.py" "$@"
+fi

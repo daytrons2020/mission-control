@@ -1,0 +1,41 @@
+{
+  "schema_version": "2.0",
+  "last_updated": "2026-03-05T21:53:00-08:00",
+  "agents": {
+    "nano-main": {
+      "id": "nano-main",
+      "type": "coordinator",
+      "model": "ollama/llama3.2",
+      "status": "active",
+      "capabilities": ["orchestrate", "delegate", "monitor"],
+      "current_tasks": [],
+      "max_concurrent": 10
+    }
+  },
+  "agent_templates": {
+    "worker": {
+      "type": "worker",
+      "model": "ollama/llama3.2",
+      "capabilities": ["execute", "process", "format"],
+      "timeout": 300
+    },
+    "analyst": {
+      "type": "analyst", 
+      "model": "kimi",
+      "capabilities": ["research", "analyze", "summarize"],
+      "timeout": 600
+    },
+    "coder": {
+      "type": "coder",
+      "model": "minimax",
+      "capabilities": ["code", "debug", "review"],
+      "timeout": 900
+    },
+    "verifier": {
+      "type": "verifier",
+      "model": "kimi",
+      "capabilities": ["verify", "validate", "check"],
+      "timeout": 300
+    }
+  }
+}
