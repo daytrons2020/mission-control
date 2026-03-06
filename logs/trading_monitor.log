@@ -1328,3 +1328,60 @@ Cost report: Error: [Errno 2] No such file or directory: 'ollama'
 Alert format: Error: [Errno 2] No such file or directory: 'ollama'
 Handlers ready.
 Monitor cycle complete.
+[11:50] Checking SPY...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[11:50] Checking QQQ...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[11:50] Checking SPX...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+Monitor cycle complete.
+[11:55] Checking SPY...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[11:55] Checking QQQ...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[11:55] Checking SPX...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+Monitor cycle complete.
+[12:00] Checking SPY...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[12:00] Checking QQQ...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+[12:00] Checking SPX...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Error: [Errno 2] No such file or directory: 'ollama'
+Alert format: Error: [Errno 2] No such file or directory: 'ollama'
+Handlers ready.
+Monitor cycle complete.
