@@ -79,18 +79,20 @@
             left: var(--sidebar-width);
             top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            height: 60px;
-            background: var(--accent-purple);
+            width: 24px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
             border: none;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
             cursor: pointer;
-            z-index: 101;
-            display: flex;
+            z-index: 1001;
+            display: flex !important;
             align-items: center;
             justify-content: center;
-            transition: left 0.3s ease;
-            box-shadow: 2px 0 8px rgba(139, 92, 246, 0.3);
+            transition: left 0.3s ease, background 0.2s;
+            box-shadow: 3px 0 12px rgba(139, 92, 246, 0.4);
+            opacity: 1;
+            visibility: visible;
         }
 
         .sidebar-toggle:hover {
