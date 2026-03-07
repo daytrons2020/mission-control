@@ -2506,6 +2506,78 @@
             margin-top: 24px;
         }
 
+        /* Documents Page Styles */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .doc-category {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-header {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 0;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-app);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .doc-item:hover {
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .doc-icon {
+            font-size: 16px;
+        }
+
+        .doc-name {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .doc-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .documents-widget .widget-header {
             display: flex;
             justify-content: space-between;
@@ -2675,7 +2747,12 @@
                     </div>
                 </div>
                 <div class="nav-section">
-                    <div class="nav-section-title">System</div>
+                    <div class="nav-section-title">Resources</div>
+                    <div class="nav-item" onclick="showPage('documents')">
+                        <span>📄</span>
+                        <span>Documents</span>
+                        <span class="nav-badge" id="doc-count">0</span>
+                    </div>
                     <div class="nav-item" onclick="showPage('team')">
                         <span>◉</span>
                         <span>Team</span>
@@ -4236,6 +4313,92 @@
                     </div>
                 </div>
 
+                <!-- DOCUMENTS PAGE -->
+                <div class="page" id="page-documents">
+                    <div class="section-title">/// Mission Control Documents</div>
+                    <div class="documents-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">📄 System Documents</div>
+                                <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="refreshDocuments()">
+                                    <span>↻</span> Refresh
+                                </button>
+                            </div>
+                            <div class="documents-list" id="documents-list">
+                                <div class="doc-category">
+                                    <div class="category-header">Core System</div>
+                                    <div class="doc-item" onclick="openDocument('AGENTS.md')">
+                                        <span class="doc-icon">📋</span>
+                                        <span class="doc-name">AGENTS.md</span>
+                                        <span class="doc-meta">Agent system guide</span>
+                                    </div>
+                                    <div class="doc-item" onclick="openDocument('SOUL.md')">
+                                        <span class="doc-icon">🧠</span>
+                                        <span class="doc-name">SOUL.md</span>
+                                        <span class="doc-meta">Personality & behavior</span>
+                                    </div>
+                                    <div class="doc-item" onclick="openDocument('USER.md')">
+                                        <span class="doc-icon">👤</span>
+                                        <span class="doc-name">USER.md</span>
+                                        <span class="doc-meta">User preferences</span>
+                                    </div>
+                                    <div class="doc-item" onclick="openDocument('MEMORY.md')">
+                                        <span class="doc-icon">🧠</span>
+                                        <span class="doc-name">MEMORY.md</span>
+                                        <span class="doc-meta">Long-term memory</span>
+                                    </div>
+                                </div>
+                                <div class="doc-category">
+                                    <div class="category-header">Projects</div>
+                                    <div class="doc-item" onclick="openDocument('MISSION_CONTROL_IMPROVEMENTS.md')">
+                                        <span class="doc-icon">🚀</span>
+                                        <span class="doc-name">MISSION_CONTROL_IMPROVEMENTS.md</span>
+                                        <span class="doc-meta">Dashboard upgrade plan</span>
+                                    </div>
+                                    <div class="doc-item" onclick="openDocument('AGENTS_V2.md')">
+                                        <span class="doc-icon">🤖</span>
+                                        <span class="doc-name">AGENTS_V2.md</span>
+                                        <span class="doc-meta">Next-gen agent system</span>
+                                    </div>
+                                </div>
+                                <div class="doc-category">
+                                    <div class="category-header">Configuration</div>
+                                    <div class="doc-item" onclick="openDocument('HEARTBEAT.md')">
+                                        <span class="doc-icon">💓</span>
+                                        <span class="doc-name">HEARTBEAT.md</span>
+                                        <span class="doc-meta">Automated checks</span>
+                                    </div>
+                                    <div class="doc-item" onclick="openDocument('TOOLS.md')">
+                                        <span class="doc-icon">🛠️</span>
+                                        <span class="doc-name">TOOLS.md</span>
+                                        <span class="doc-meta">Tool preferences</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">📊 Document Stats</div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 16px 0;">
+                                <div style="text-align: center; padding: 16px; background: var(--bg-app); border-radius: 8px;">
+                                    <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan);" id="total-docs">8</div>
+                                    <div style="font-size: 12px; color: var(--text-tertiary);">Total Documents</div>
+                                </div>
+                                <div style="text-align: center; padding: 16px; background: var(--bg-app); border-radius: 8px;">
+                                    <div style="font-size: 32px; font-family: 'Orbitron', sans-serif; color: var(--accent-green);" id="recent-docs">3</div>
+                                    <div style="font-size: 12px; color: var(--text-tertiary);">Updated Today</div>
+                                </div>
+                            </div>
+                            <div style="padding: 16px; background: var(--bg-app); border-radius: 8px; margin-top: 16px;">
+                                <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px;">Last Updated</div>
+                                <div style="font-size: 14px; color: var(--text-primary);" id="last-updated-doc">MISSION_CONTROL_IMPROVEMENTS.md</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);" id="last-updated-time">2 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- SETTINGS PAGE -->
                 <div class="page" id="page-settings">
                     <div class="card">
@@ -5449,6 +5612,32 @@
                 addToFeed('system', 'Tasks', `New task created: ${title}`);
             }
         }
+
+        // Documents Functions
+        function openDocument(filename) {
+            showToast(`Opening ${filename}...`, 'info');
+            // In a real implementation, this would fetch and display the document
+            // For now, we'll show a preview modal
+            const content = `# ${filename}\n\nThis document contains important system information.\n\nLast modified: ${new Date().toLocaleString()}`;
+            alert(content);
+            addToFeed('system', 'Documents', `Opened document: ${filename}`);
+        }
+
+        function refreshDocuments() {
+            showToast('Refreshing document list...', 'info');
+            // Simulate refresh
+            setTimeout(() => {
+                showToast('Documents refreshed', 'success');
+                addToFeed('system', 'Documents', 'Document list refreshed');
+            }, 1000);
+        }
+
+        // Update document count on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const docCount = document.querySelectorAll('.doc-item').length;
+            const badge = document.getElementById('doc-count');
+            if (badge) badge.textContent = docCount;
+        });
 
         // Sidebar Toggle Functionality
         (function() {
