@@ -114,6 +114,99 @@
             transform: rotate(180deg);
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            width: 44px;
+            height: 44px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .mobile-menu-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-primary);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px !important;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+            }
+
+            .header {
+                padding-left: 72px;
+            }
+
+            .sidebar.collapsed {
+                width: 280px !important;
+            }
+
+            .sidebar.collapsed .logo-text,
+            .sidebar.collapsed .logo-subtitle,
+            .sidebar.collapsed .nav-section-title,
+            .sidebar.collapsed .nav-item span:not(.nav-icon) {
+                display: block !important;
+            }
+        }
+
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+
         /* Tooltip for collapsed sidebar */
         .sidebar.collapsed .nav-item {
             position: relative;
@@ -2600,6 +2693,18 @@
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
         </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <main class="main-content">
             <header class="header">
@@ -5349,13 +5454,15 @@
         (function() {
             const sidebar = document.querySelector('.sidebar');
             const toggleBtn = document.getElementById('sidebarToggle');
+            const mobileToggleBtn = document.getElementById('mobileMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
             const navItems = document.querySelectorAll('.nav-item');
             
-            // Load saved state
+            // Load saved state (desktop only)
             const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-            if (isCollapsed) {
+            if (isCollapsed && window.innerWidth > 768) {
                 sidebar.classList.add('collapsed');
-                toggleBtn.classList.add('collapsed');
+                toggleBtn?.classList.add('collapsed');
             }
             
             // Add tooltips to nav items
@@ -5366,8 +5473,9 @@
                 }
             });
             
-            // Toggle function
+            // Desktop toggle function
             function toggleSidebar() {
+                if (window.innerWidth <= 768) return; // Don't run on mobile
                 sidebar.classList.toggle('collapsed');
                 toggleBtn.classList.toggle('collapsed');
                 
@@ -5375,17 +5483,62 @@
                 localStorage.setItem('sidebarCollapsed', collapsed);
             }
             
-            // Click handler
-            toggleBtn.addEventListener('click', toggleSidebar);
+            // Mobile toggle function
+            function toggleMobileSidebar() {
+                sidebar.classList.toggle('mobile-open');
+                sidebarOverlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('mobile-open') ? 'hidden' : '';
+            }
             
-            // Keyboard shortcut (B key)
+            // Close mobile sidebar
+            function closeMobileSidebar() {
+                sidebar.classList.remove('mobile-open');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Desktop toggle click handler
+            toggleBtn?.addEventListener('click', toggleSidebar);
+            
+            // Mobile toggle click handler
+            mobileToggleBtn?.addEventListener('click', toggleMobileSidebar);
+            
+            // Overlay click handler
+            sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+            
+            // Close mobile sidebar when clicking a nav item
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        closeMobileSidebar();
+                    }
+                });
+            });
+            
+            // Keyboard shortcut (B key) - desktop only
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'b' && !e.ctrlKey && !e.metaKey && !e.altKey) {
                     // Don't trigger if typing in input
                     if (document.activeElement.tagName !== 'INPUT' && 
                         document.activeElement.tagName !== 'TEXTAREA') {
-                        toggleSidebar();
+                        if (window.innerWidth > 768) {
+                            toggleSidebar();
+                        } else {
+                            toggleMobileSidebar();
+                        }
                     }
+                }
+                
+                // Escape key to close mobile sidebar
+                if (e.key === 'Escape') {
+                    closeMobileSidebar();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    closeMobileSidebar();
                 }
             });
         })();
