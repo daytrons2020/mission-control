@@ -1,0 +1,12 @@
+{
+  "date": "2026-03-06",
+  "digest": "Here is the daily trading digest:\n\n**Market Update**\nThe market ended the day with a positive tone, with the S&P 500 and tech-heavy indexes posting gains.\n\n**Key Events**\n\n* Tomorrow, the Federal Reserve is set to deliver its monthly monetary policy statement, which may impact interest rates and market sentiment.\n* Tech stocks continued their rally, driven by strong earnings reports and optimistic forecasts.\n\n**Action Items**\nReview your portfolio's exposure to tech stocks and consider rebalancing if necessary.",
+  "data": {
+    "spy_change": "+1.2%",
+    "qqq_change": "+0.8%",
+    "notable": "Tech rally, Fed speech tomorrow",
+    "portfolio_change": "+1.5%"
+  },
+  "generated_at": "2026-03-06T17:00:04.947345",
+  "model": "llama3.2:latest"
+}
