@@ -84,3 +84,9 @@ Here is a 2-line summary:
 
 "Total: $0.07 | Model: $0.05 (kimi: $0.04, minimax: $0.01)"
 Cost report complete.
+[2026-03-06 21:00] Generating cost report...
+Error: Command '['/opt/homebrew/bin/ollama', 'run', 'llama3.2:latest']' timed out after 30 seconds
+Cost report complete.
+[2026-03-06 22:00] Generating cost report...
+Error: Command '['/opt/homebrew/bin/ollama', 'run', 'llama3.2:latest']' timed out after 30 seconds
+Cost report complete.
