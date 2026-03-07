@@ -1,144 +1,93 @@
+---
+name: discord-cron
+description: Send automated messages to Discord channels on a schedule. Adapted from Telegram to work with Discord webhooks and bot API.
+homepage: https://discord.com/developers/docs
+metadata:
+  {
+    "openclaw":
+      {
+        "emoji": "💬",
+        "requires": { "env": ["DISCORD_WEBHOOK_URL"] },
+      },
+  }
+---
+
 # Discord Cron Message Skill
 
-## Overview
-This skill sends automated messages to Discord channels on a schedule. It's adapted from the Telegram version to work with Discord webhooks and bot API.
+Send automated messages to Discord channels using webhooks or bot API.
 
 ## Quick Start
 
 ### 1. Configure Webhook
-```javascript
-const config = {
-  webhookUrl: process.env.DISCORD_WEBHOOK_URL,
-  username: "Mission Control",
-  avatarUrl: "https://your-avatar.png"
-};
+
+Create a Discord webhook:
+- Server Settings → Integrations → Webhooks → New Webhook
+- Copy the webhook URL
+
+Set environment variable:
+```bash
+export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
 ```
 
-### 2. Send Simple Message
+### 2. Send Message
+
+Use the `message` tool with Discord channel:
 ```javascript
-await sendDiscordMessage({
+message({
+  channel: "discord",
+  to: "#admin",
   content: "Hello from Mission Control!"
-});
+})
 ```
 
-### 3. Send Rich Embed
+### 3. Rich Embed
+
 ```javascript
-await sendDiscordEmbed({
-  title: "Daily Report",
-  description: "System status update",
-  color: 0x8b5cf6,
-  fields: [
-    { name: "Status", value: "✅ Online", inline: true },
-    { name: "Uptime", value: "99.9%", inline: true }
-  ]
-});
+message({
+  channel: "discord",
+  to: "#admin",
+  components: {
+    embeds: [{
+      title: "📊 Daily Report",
+      description: "System status",
+      color: 0x8b5cf6,
+      fields: [
+        { name: "Status", value: "✅ Online", inline: true }
+      ]
+    }]
+  }
+})
 ```
 
-### 4. Schedule Message
-```javascript
-// Every day at 6 AM
-cron.schedule('0 6 * * *', async () => {
-  await sendDiscordEmbed({
-    title: "🌅 Morning Brief",
-    description: "Daily status update"
-  });
-});
+## Cron Integration
+
+Use in cron jobs:
+```json
+{
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Post daily brief to #morning-brief",
+    "model": "ollama/llama3.2"
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "discord",
+    "to": "#morning-brief"
+  }
+}
 ```
 
-## API Reference
+## Templates
 
-### sendDiscordMessage(options)
-Send a simple text message.
-
-**Parameters:**
-- `content` (string) - Message text
-- `username` (string, optional) - Override webhook username
-- `avatarUrl` (string, optional) - Override webhook avatar
-
-**Example:**
-```javascript
-await sendDiscordMessage({
-  content: "System check complete!",
-  username: "Health Monitor"
-});
-```
-
-### sendDiscordEmbed(options)
-Send a rich embed message.
-
-**Parameters:**
-- `title` (string) - Embed title
-- `description` (string) - Embed description
-- `color` (number) - Color code (decimal)
-- `fields` (array) - Field objects with name/value/inline
-- `timestamp` (string, optional) - ISO timestamp
-- `footer` (object, optional) - Footer text and icon
-
-**Example:**
-```javascript
-await sendDiscordEmbed({
-  title: "📊 System Status",
-  description: "All systems operational",
-  color: 3066993, // Green
-  fields: [
-    { name: "CPU", value: "45%", inline: true },
-    { name: "Memory", value: "60%", inline: true }
-  ],
-  timestamp: new Date().toISOString(),
-  footer: { text: "Mission Control" }
-});
-```
-
-## Discord vs Telegram
-
-| Feature | Telegram | Discord |
-|---------|----------|---------|
-| Text Formatting | Markdown | Markdown |
-| Rich Media | Limited | Embeds |
-| Max Message Length | 4096 chars | 2000 chars |
-| Rate Limits | 30 msgs/sec | 5 msgs/sec |
-| Webhooks | Yes | Yes |
-| Bot API | Yes | Yes |
-
-## Migration from Telegram
-
-### Message Formatting
-```javascript
-// Telegram
-bot.sendMessage(chatId, "*Bold* _italic_ `code`");
-
-// Discord
-sendDiscordMessage({ content: "**Bold** *italic* `code`" });
-```
-
-### Rich Messages
-```javascript
-// Telegram (limited)
-bot.sendMessage(chatId, "Title\n\nDescription", {
-  parse_mode: 'Markdown'
-});
-
-// Discord (rich embeds)
-sendDiscordEmbed({
-  title: "Title",
-  description: "Description",
-  color: 0x8b5cf6,
-  fields: [...]
-});
-```
+See `cron-message.md` for message templates:
+- Morning Brief
+- Health Check
+- Cost Report
+- Trading Alerts
 
 ## Files
 
-- `README.md` - This documentation
-- `CONFIGURATION.md` - Setup and configuration guide
+- `SKILL.md` - This file
+- `CONFIGURATION.md` - Setup guide
 - `cron-message.md` - Message templates
-- `_meta.json` - Skill metadata
-
-## Support
-
-For issues or questions, check:
-- Discord Developer Docs: https://discord.com/developers/docs
-- Discord Webhooks Guide: https://support.discord.com/hc/en-us/articles/228383668
-
-## License
-MIT
+- `scripts/discord_sender.py` - Python sender script
