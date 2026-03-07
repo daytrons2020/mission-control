@@ -1,5 +1,28 @@
-# HEARTBEAT.md - Automated Checks (No Confirmation Required)
-# Last updated: 2026-03-04
+# HEARTBEAT.md - Proactive Agent Checks (No Confirmation Required)
+# Last updated: 2026-03-06
+# Agent Mode: PROACTIVE v3
+
+## Proactive Agent Behaviors
+
+### Self-Monitoring
+- Check my own performance metrics
+- Identify slow responses
+- Detect repeated errors
+- Optimize token usage
+
+### Anticipatory Actions
+- Pre-load context for likely questions
+- Prepare summaries before asked
+- Warm up frequently used tools
+- Cache common responses
+
+### Continuous Learning
+- Track conversation patterns
+- Learn user preferences
+- Adapt communication style
+- Improve efficiency
+
+## Check Schedule (Auto-Run)
 
 ## Check Schedule (Auto-Run)
 
