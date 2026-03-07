@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Menu Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: sans-serif; background: #0a0a0e; color: white; }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #16161a;
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+            z-index: 100;
+            padding: 20px;
+        }
+        
+        .sidebar.open { transform: translateX(0); }
+        
+        .mobile-toggle {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            width: 44px;
+            height: 44px;
+            background: #16161a;
+            border: 1px solid #2a2a30;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .mobile-toggle svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .content {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .nav-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #1f1f25;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover { background: #2a2a35; }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" id="menuBtn">
+        <svg viewBox="0 0 24 24">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <aside class="sidebar" id="sidebar">
+        <h2 style="margin-bottom: 20px;">Menu</h2>
+        <div class="nav-item">Dashboard</div>
+        <div class="nav-item">Projects</div>
+        <div class="nav-item">Documents</div>
+        <div class="nav-item">Settings</div>
+    </aside>
+    
+    <main class="content">
+        <h1>Mobile Menu Test</h1>
+        <p>Tap the ☰ button to open sidebar</p>
+    </main>
+    
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+        
+        menuBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>
