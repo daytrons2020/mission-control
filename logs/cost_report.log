@@ -99,3 +99,6 @@ Cost report complete.
 [2026-03-07 01:00] Generating cost report...
 "Total: $0.07 | Model: $0.035 (kimi) / $0.025 (minimax) | Efficiency: 57.14%"
 Cost report complete.
+[2026-03-07 02:00] Generating cost report...
+"Total: $0.07 | Model: $0.035 ($0.01X) | Efficiency: 0.57%"
+Cost report complete.
