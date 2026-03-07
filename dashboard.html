@@ -5256,6 +5256,11 @@
         // Initialize task board on page load
         document.addEventListener('DOMContentLoaded', () => {
             renderTaskBoard();
+            
+            // Initialize document count
+            const docCount = document.querySelectorAll('.doc-item').length;
+            const badge = document.getElementById('doc-count');
+            if (badge) badge.textContent = docCount;
         });
 
         // Memory System
@@ -5688,6 +5693,21 @@
                 toast.style.transform = 'translateX(100%)';
                 setTimeout(() => toast.remove(), 300);
             }, 4000);
+        }
+
+        // Documents Functions
+        function openDocument(filename) {
+            showToast(`Opening ${filename}...`, 'info');
+            addToFeed('system', 'Documents', `Opened document: ${filename}`);
+            // In production, this would fetch and display the actual document
+        }
+
+        function refreshDocuments() {
+            showToast('Refreshing document list...', 'info');
+            setTimeout(() => {
+                showToast('Documents refreshed', 'success');
+                addToFeed('system', 'Documents', 'Document list refreshed');
+            }, 1000);
         }
 
         function createToastContainer() {
