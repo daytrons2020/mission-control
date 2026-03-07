@@ -90,3 +90,6 @@ Cost report complete.
 [2026-03-06 22:00] Generating cost report...
 Error: Command '['/opt/homebrew/bin/ollama', 'run', 'llama3.2:latest']' timed out after 30 seconds
 Cost report complete.
+[2026-03-06 23:00] Generating cost report...
+Error: Command '['/opt/homebrew/bin/ollama', 'run', 'llama3.2:latest']' timed out after 30 seconds
+Cost report complete.
