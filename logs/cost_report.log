@@ -62,3 +62,8 @@ Cost report complete.
 [2026-03-06 15:00] Generating cost report...
 "Total: $0.07 | Model: $0.035 (minimax) | Efficiency: 83.33%"
 Cost report complete.
+[2026-03-06 16:00] Generating cost report...
+Here is a concise 2-line summary:
+
+"Total: $0.07 | Model: $0.035 ($0.03/min) | Efficiency: 33.33%"
+Cost report complete.
