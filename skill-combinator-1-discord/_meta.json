@@ -1,0 +1,26 @@
+{
+  "name": "cron-message-discord",
+  "version": "1.0.0",
+  "description": "Send automated messages to Discord channels on a schedule",
+  "author": "Dayton",
+  "license": "MIT",
+  "platform": "discord",
+  "capabilities": ["messaging", "webhooks", "cron"],
+  "config": {
+    "webhook_url": {
+      "type": "string",
+      "required": true,
+      "description": "Discord webhook URL"
+    },
+    "channel_id": {
+      "type": "string",
+      "required": false,
+      "description": "Discord channel ID (if using bot instead of webhook)"
+    },
+    "bot_token": {
+      "type": "string",
+      "required": false,
+      "description": "Discord bot token (if not using webhook)"
+    }
+  }
+}
