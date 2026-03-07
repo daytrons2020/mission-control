@@ -1,77 +1,81 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react';
 
-const STORAGE_KEY = 'inventory_scanner_session'
+const STORAGE_KEY = 'inventory-session-v1';
 
 export function useLocalSession() {
   const [session, setSession] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : { items: [], name: '', startedAt: null }
-  })
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : { startedAt: null, name: '', items: [] };
+  });
 
+  // Persist to localStorage whenever session changes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(session))
-  }, [session])
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+  }, [session]);
 
-  const addItem = (item) => {
-    setSession(prev => {
-      const existingIndex = prev.items.findIndex(i => i.sku === item.sku)
-      if (existingIndex >= 0) {
-        const updated = [...prev.items]
-        updated[existingIndex] = { ...updated[existingIndex], quantity: updated[existingIndex].quantity + item.quantity }
-        return { ...prev, items: updated }
-      }
-      return { ...prev, items: [...prev.items, item] }
-    })
-  }
+  const startSession = useCallback((name) => {
+    setSession({
+      startedAt: new Date().toISOString(),
+      name,
+      items: []
+    });
+  }, []);
 
-  const updateItem = (sku, updates) => {
+  const addItem = useCallback((item) => {
     setSession(prev => ({
       ...prev,
-      items: prev.items.map(item => item.sku === sku ? { ...item, ...updates } : item)
-    }))
-  }
+      items: [...prev.items, { ...item, id: Date.now() }]
+    }));
+  }, []);
 
-  const removeItem = (sku) => {
+  const updateItem = useCallback((id, updates) => {
     setSession(prev => ({
       ...prev,
-      items: prev.items.filter(item => item.sku !== sku)
-    }))
-  }
+      items: prev.items.map(item =>
+        item.id === id ? { ...item, ...updates } : item
+      )
+    }));
+  }, []);
 
-  const clearSession = () => {
-    setSession({ items: [], name: '', startedAt: null })
-  }
+  const removeItem = useCallback((id) => {
+    setSession(prev => ({
+      ...prev,
+      items: prev.items.filter(item => item.id !== id)
+    }));
+  }, []);
 
-  const startSession = (name) => {
-    setSession({ items: [], name, startedAt: new Date().toISOString() })
-  }
+  const clearSession = useCallback(() => {
+    setSession({ startedAt: null, name: '', items: [] });
+  }, []);
 
-  const exportToCSV = () => {
-    if (session.items.length === 0) return null
-    
-    const headers = ['SKU', 'Name', 'Category', 'Quantity', 'Scanned At']
+  const exportToCSV = useCallback(() => {
+    if (session.items.length === 0) return;
+
+    const headers = ['SKU', 'Name', 'Quantity', 'Scanned At'];
     const rows = session.items.map(item => [
       item.sku,
       item.name,
-      item.category || '',
       item.quantity,
-      item.scannedAt
-    ])
-    
+      new Date(item.scannedAt).toLocaleString()
+    ]);
+
     const csv = [headers, ...rows]
-      .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
-      .join('\n')
-    
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `inventory-session-${new Date().toISOString().split('T')[0]}.csv`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+      .map(row => row.map(cell => `"${cell}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `inventory-${session.name.replace(/\s+/g, '-').toLowerCase()}-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [session]);
+
+  const itemCount = session.items.length;
+  const totalQuantity = session.items.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
     session,
@@ -81,7 +85,7 @@ export function useLocalSession() {
     clearSession,
     startSession,
     exportToCSV,
-    itemCount: session.items.length,
-    totalQuantity: session.items.reduce((sum, item) => sum + item.quantity, 0)
-  }
+    itemCount,
+    totalQuantity
+  };
 }

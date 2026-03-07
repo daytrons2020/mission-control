@@ -1,81 +1,86 @@
-import { useState } from 'react'
-import { Trash2, Edit2, Check, X } from 'lucide-react'
+import { useState } from 'react';
+import { Trash2, Edit2, Check, X, Package } from 'lucide-react';
 
 export function SessionList({ items, onUpdateItem, onRemoveItem }) {
-  const [editingSku, setEditingSku] = useState(null)
-  const [editQuantity, setEditQuantity] = useState(1)
-
-  const startEdit = (item) => {
-    setEditingSku(item.sku)
-    setEditQuantity(item.quantity)
-  }
-
-  const saveEdit = (sku) => {
-    onUpdateItem(sku, { quantity: editQuantity })
-    setEditingSku(null)
-  }
-
-  const cancelEdit = () => {
-    setEditingSku(null)
-  }
+  const [editingId, setEditingId] = useState(null);
+  const [editValues, setEditValues] = useState({});
 
   if (items.length === 0) {
     return (
       <div className="session-list empty">
-        <p>No items scanned yet.</p>
-        <p className="hint">Tap the scan button to start adding items.</p>
+        <Package size={48} />
+        <p>No items scanned yet</p>
+        <p className="hint">Tap the barcode button to start scanning</p>
       </div>
-    )
+    );
   }
+
+  const startEdit = (item) => {
+    setEditingId(item.id);
+    setEditValues({
+      name: item.name,
+      quantity: item.quantity
+    });
+  };
+
+  const saveEdit = (id) => {
+    onUpdateItem(id, {
+      name: editValues.name,
+      quantity: parseInt(editValues.quantity) || 1
+    });
+    setEditingId(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditValues({});
+  };
 
   return (
     <div className="session-list">
-      <div className="list-header">
-        <span>{items.length} item{items.length !== 1 ? 's' : ''}</span>
-        <span>Qty: {items.reduce((sum, item) => sum + item.quantity, 0)}</span>
-      </div>
-      
-      <ul className="items-list">
-        {items.map((item) => (
-          <li key={item.sku} className="item-row">
-            <div className="item-info">
-              <span className="item-name">{item.name}</span>
-              <span className="item-sku">{item.sku}</span>
-              {item.category && <span className="item-category">{item.category}</span>}
+      {items.map((item) => (
+        <div key={item.id} className="session-item">
+          {editingId === item.id ? (
+            <div className="session-item-edit">
+              <input
+                type="text"
+                value={editValues.name}
+                onChange={(e) => setEditValues({ ...editValues, name: e.target.value })}
+                className="edit-name"
+              />
+              <input
+                type="number"
+                min="1"
+                value={editValues.quantity}
+                onChange={(e) => setEditValues({ ...editValues, quantity: e.target.value })}
+                className="edit-qty"
+              />
+              <button className="btn-icon btn-success" onClick={() => saveEdit(item.id)}>
+                <Check size={18} />
+              </button>
+              <button className="btn-icon" onClick={cancelEdit}>
+                <X size={18} />
+              </button>
             </div>
-            
-            <div className="item-actions">
-              {editingSku === item.sku ? (
-                <>
-                  <input
-                    type="number"
-                    value={editQuantity}
-                    onChange={(e) => setEditQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="edit-input"
-                    autoFocus
-                  />
-                  <button className="btn-icon btn-save" onClick={() => saveEdit(item.sku)}>
-                    <Check size={18} />
-                  </button>
-                  <button className="btn-icon btn-cancel" onClick={cancelEdit}>
-                    <X size={18} />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <span className="item-quantity">×{item.quantity}</span>
-                  <button className="btn-icon" onClick={() => startEdit(item)}>
-                    <Edit2 size={18} />
-                  </button>
-                  <button className="btn-icon btn-delete" onClick={() => onRemoveItem(item.sku)}>
-                    <Trash2 size={18} />
-                  </button>
-                </>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+          ) : (
+            <>
+              <div className="session-item-info">
+                <span className="item-name">{item.name}</span>
+                <span className="item-sku">{item.sku}</span>
+              </div>
+              <div className="session-item-actions">
+                <span className="item-qty">×{item.quantity}</span>
+                <button className="btn-icon" onClick={() => startEdit(item)}>
+                  <Edit2 size={16} />
+                </button>
+                <button className="btn-icon btn-danger" onClick={() => onRemoveItem(item.id)}>
+                  <Trash2 size={16} />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
     </div>
-  )
+  );
 }

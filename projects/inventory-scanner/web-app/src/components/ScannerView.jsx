@@ -1,65 +1,80 @@
-import { useScanner } from '../hooks/useScanner'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
+import { Html5Qrcode } from 'html5-qrcode';
+import { X, Camera } from 'lucide-react';
 
 export function ScannerView({ onScan, onClose }) {
-  const [lastScan, setLastScan] = useState(null)
-  const { isScanning, hasPermission, cameraError, startScanning, stopScanning, requestPermission } = useScanner(
-    (code) => {
-      setLastScan(code)
-      onScan(code)
-    }
-  )
+  const scannerRef = useRef(null);
+  const [error, setError] = useState(null);
+  const [isStarting, setIsStarting] = useState(true);
+
+  useEffect(() => {
+    const scanner = new Html5Qrcode('scanner-container');
+    scannerRef.current = scanner;
+
+    const config = {
+      fps: 10,
+      qrbox: { width: 250, height: 250 },
+      aspectRatio: 1.0
+    };
+
+    scanner.start(
+      { facingMode: 'environment' },
+      config,
+      (decodedText) => {
+        onScan(decodedText);
+        scanner.stop().catch(() => {});
+      },
+      () => {
+        // QR code not found in this frame - ignore
+      }
+    )
+    .then(() => setIsStarting(false))
+    .catch((err) => {
+      setError('Camera access denied or not available. Please allow camera permissions.');
+      setIsStarting(false);
+      console.error('Scanner error:', err);
+    });
+
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.stop().catch(() => {});
+      }
+    };
+  }, [onScan]);
 
   return (
     <div className="scanner-view">
       <div className="scanner-header">
-        <h2>Scan Barcode</h2>
-        <button className="btn-close" onClick={onClose}>✕</button>
+        <h3>Scan Barcode</h3>
+        <button className="btn-icon" onClick={onClose}>
+          <X size={24} />
+        </button>
       </div>
 
-      {cameraError && (
-        <div className="error-message">
-          <p>{cameraError}</p>
-          <button className="btn-primary" onClick={requestPermission}>
-            Try Again
+      {isStarting && (
+        <div className="scanner-loading">
+          <Camera size={48} />
+          <p>Starting camera...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="scanner-error">
+          <p>{error}</p>
+          <button className="btn-primary" onClick={onClose}>
+            Close
           </button>
         </div>
       )}
 
-      {!hasPermission && !cameraError && (
-        <div className="permission-request">
-          <p>Camera access is required to scan barcodes.</p>
-          <button className="btn-primary" onClick={requestPermission}>
-            Allow Camera Access
-          </button>
-        </div>
-      )}
+      <div 
+        id="scanner-container" 
+        className={`scanner-container ${isStarting ? 'hidden' : ''}`}
+      />
 
-      {hasPermission && !isScanning && !cameraError && (
-        <div className="scanner-ready">
-          <button className="btn-primary btn-large" onClick={startScanning}>
-            Start Scanning
-          </button>
-        </div>
-      )}
-
-      <div id="scanner-container" className={`scanner-container ${!isScanning ? 'hidden' : ''}`}></div>
-
-      {isScanning && (
-        <div className="scanning-indicator">
-          <div className="scan-line"></div>
-          <p>Point camera at barcode</p>
-          <button className="btn-secondary" onClick={stopScanning}>
-            Stop Scanning
-          </button>
-        </div>
-      )}
-
-      {lastScan && (
-        <div className="last-scan">
-          <p>Last scan: <strong>{lastScan}</strong></p>
-        </div>
-      )}
+      <p className="scanner-hint">
+        Point camera at a barcode or QR code
+      </p>
     </div>
-  )
+  );
 }

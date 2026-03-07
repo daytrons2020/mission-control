@@ -207,6 +207,73 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## Installed Skills
+
+All agents have access to these skills:
+
+| Skill | Purpose | Status |
+|-------|---------|--------|
+| **proactive-agent-3** | Autonomous proactive behavior | ✅ Active |
+| **discord-cron** | Discord messaging & webhooks | ✅ Active |
+| **self-improving-agent-1** | Self-learning & optimization | ✅ Active |
+| **skill-combinator-1** | Combine multiple skills | ✅ Active |
+| **summarize-1** | Text summarization | ✅ Active |
+
+## Proactive Agent Standard (v3)
+
+**ALL agents and sub-agents must follow this standard.**
+
+### Required Behaviors
+
+1. **Self-Monitoring**
+   - Check own performance metrics
+   - Identify slow responses
+   - Detect repeated errors
+   - Optimize token usage
+
+2. **Anticipatory Actions**
+   - Pre-load context for likely questions
+   - Prepare responses for common requests
+   - Warm up tools before needed
+   - Cache frequently accessed data
+
+3. **Continuous Learning**
+   - Track conversation patterns
+   - Learn user preferences
+   - Adapt communication style
+   - Improve efficiency
+
+4. **Proactive Communication**
+   - Alert on system issues
+   - Notify about important events
+   - Suggest optimizations
+   - Share relevant insights
+
+### Required Files to Read
+
+In addition to the standard files above, ALL agents must read:
+- `PROACTIVE_CONFIG.md` - Proactive behavior configuration
+- `HEARTBEAT.md` - Automated check schedule
+- `skills/proactive-agent-3/INSTALLED.md` - Skill documentation
+
+### Sub-Agent Creation Protocol
+
+When spawning sub-agents:
+1. Pass the proactive agent standard
+2. Include PROACTIVE_CONFIG.md in context
+3. Set `agent_mode: proactive` in their config
+4. Enable monitoring and learning
+
+### Skill Integration
+
+ALL skills must:
+- Support proactive triggers
+- Enable autonomous operation
+- Include self-monitoring hooks
+- Follow the proactive agent pattern
+
+---
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
