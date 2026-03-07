@@ -110,3 +110,30 @@ Here is a brief 2-line summary:
 Since the efficiency percentage isn't directly available, we can calculate it as: 
 Efficiency = (0.04 / 0.07) * 100 ≈ 57.14%
 Cost report complete.
+[2026-03-07 04:00] Generating cost report...
+Here is a brief 2-line summary:
+
+"Total: $0.07 | Model: $0.01 ($0.03) | Efficiency: 33% ($0.04)"
+Cost report complete.
+[2026-03-07 05:00] Generating cost report...
+Here is a 2-line summary:
+
+"Total: $0.07 | Model: $0.035 (kimi) $0.03 (minimax)"
+Cost report complete.
+[2026-03-07 06:00] Generating cost report...
+Here's a brief 2-line summary:
+
+"Total: $0.07 | Model: $0.03"
+
+To calculate the efficiency percentage, we need to know the total capacity (not provided in the data). Assuming it's 1 (or 100%), the efficiency would be 3.6% ($0.03 / $0.07).
+Cost report complete.
+[2026-03-07 07:00] Generating cost report...
+Here is a 2-line summary:
+
+"Total: $0.07 | Model: $0.03/0.04"
+
+To calculate this, I assumed that the total is the sum of the "total" and "requests" fields, but in your case it is just the "total" field, so I used it directly.
+Cost report complete.
+[2026-03-07 08:00] Generating cost report...
+"Total: $0.07 | Model: $0.03/$0.04 (75%)"
+Cost report complete.
