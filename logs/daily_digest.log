@@ -10,3 +10,15 @@
   "generated_at": "2026-03-06T17:00:04.947345",
   "model": "llama3.2:latest"
 }
+{
+  "date": "2026-03-07",
+  "digest": "Here is the daily trading digest:\n\n**Daily Trading Digest**\n\n**Market Update**\nThe market closed with a positive tone, with the S&P 500 (SPY) and Nasdaq 100 (QQQ) indices gaining 1.2% and 0.8% respectively.\n\n**Key Events**\n\n* Tech sector rallies, driven by strong earnings reports and positive analyst expectations\n* Fed Chairman's speech tomorrow may impact market sentiment and interest rates\n\n**Action Item**\nReview and adjust your tech-heavy portfolios, considering potential buying opportunities and hedging strategies to mitigate potential risks.",
+  "data": {
+    "spy_change": "+1.2%",
+    "qqq_change": "+0.8%",
+    "notable": "Tech rally, Fed speech tomorrow",
+    "portfolio_change": "+1.5%"
+  },
+  "generated_at": "2026-03-07T17:00:05.498061",
+  "model": "llama3.2:latest"
+}
