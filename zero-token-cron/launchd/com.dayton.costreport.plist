@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.dayton.costreport</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/daytrons/.openclaw/workspace/zero-token-cron/jobs/cost_report_job.sh</string>
+    </array>
+    
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Minute</key>
+            <integer>5</integer>
+        </dict>
+    </array>
+    
+    <key>RunAtLoad</key>
+    <false/>
+    
+    <key>StandardOutPath</key>
+    <string>/Users/daytrons/.openclaw/workspace/zero-token-cron/logs/costreport.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/daytrons/.openclaw/workspace/zero-token-cron/logs/costreport.error.log</string>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/daytrons/.openclaw/workspace</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>

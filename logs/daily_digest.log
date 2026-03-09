@@ -22,3 +22,15 @@
   "generated_at": "2026-03-07T17:00:05.498061",
   "model": "llama3.2:latest"
 }
+{
+  "date": "2026-03-08",
+  "digest": "Here is your daily trading digest:\n\n**Market Update**\nThe markets closed with a positive tone, with the S&P 500 and Nasdaq composite indices up 1.2% and 0.8%, respectively, driven by the tech sector.\n\n**Notable Events**\n- Tomorrow, the Federal Reserve is set to release a speech from a key central bank official, which may impact interest rates and market sentiment.\n- The tech sector has been on a rally, with many stocks experiencing significant gains in recent days.\n\n**Action Items**\nInvest $100 in QQQ to capitalize on the tech sector's momentum and ride out potential volatility from the Fed speech.",
+  "data": {
+    "spy_change": "+1.2%",
+    "qqq_change": "+0.8%",
+    "notable": "Tech rally, Fed speech tomorrow",
+    "portfolio_change": "+1.5%"
+  },
+  "generated_at": "2026-03-08T17:00:07.956482",
+  "model": "llama3.2:latest"
+}

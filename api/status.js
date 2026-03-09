@@ -1,38 +1,6 @@
 // API endpoint: /api/status.js
 // Returns Mission Control system status
-
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
-
-const WORKSPACE_DIR = '/Users/daytrons/.openclaw/workspace';
-
-function loadProjects() {
-  try {
-    const data = fs.readFileSync(path.join(WORKSPACE_DIR, 'projects/status.json'), 'utf8');
-    return JSON.parse(data);
-  } catch {
-    return { projects: [] };
-  }
-}
-
-function getGitStats() {
-  try {
-    const lastCommit = execSync('git log -1 --format="%h %s"', { 
-      encoding: 'utf8',
-      cwd: WORKSPACE_DIR
-    }).trim();
-    
-    const uncommitted = parseInt(execSync('git status --porcelain | wc -l', {
-      encoding: 'utf8',
-      cwd: WORKSPACE_DIR
-    }).trim()) || 0;
-    
-    return { lastCommit, uncommitted };
-  } catch {
-    return { lastCommit: 'Unknown', uncommitted: 0 };
-  }
-}
+// Vercel-compatible version (no local filesystem dependencies)
 
 module.exports = (req, res) => {
   // Enable CORS
@@ -45,29 +13,27 @@ module.exports = (req, res) => {
   }
   
   try {
-    const projects = loadProjects();
-    const gitStats = getGitStats();
-    
-    const projectList = projects.projects || [];
-    const active = projectList.filter(p => p.status === 'In Progress').length;
-    const completed = projectList.filter(p => p.progress === 100).length;
+    const isVercel = process.env.VERCEL === '1';
+    const deploymentUrl = process.env.VERCEL_URL || 'localhost';
     
     res.status(200).json({
       status: 'operational',
       timestamp: new Date().toISOString(),
-      projects: {
-        total: projectList.length,
-        active,
-        completed,
-        list: projectList.map(p => ({
-          id: p.id,
-          name: p.name,
-          progress: p.progress,
-          status: p.status,
-          priority: p.priority
-        }))
+      environment: {
+        platform: isVercel ? 'vercel' : 'local',
+        url: isVercel ? `https://${deploymentUrl}` : 'http://localhost',
+        region: process.env.VERCEL_REGION || 'unknown'
       },
-      git: gitStats,
+      projects: {
+        total: 0,
+        active: 0,
+        completed: 0,
+        list: []
+      },
+      git: {
+        lastCommit: 'N/A (serverless)',
+        uncommitted: 0
+      },
       agent: {
         name: 'Nano',
         version: '2.0',

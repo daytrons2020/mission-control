@@ -1,44 +1,32 @@
 {
   "version": 2,
   "name": "mission-control",
-  "builds": [
+  "framework": null,
+  "outputDirectory": ".",
+  "rewrites": [
     {
-      "src": "dashboard.html",
-      "use": "@vercel/static"
+      "source": "/api/health",
+      "destination": "/api/health.js"
     },
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/api/status",
+      "destination": "/api/status.js"
     },
     {
-      "src": "/health",
-      "dest": "/api/health.js"
+      "source": "/health",
+      "destination": "/api/health.js"
     },
     {
-      "src": "/status",
-      "dest": "/api/status.js"
+      "source": "/status",
+      "destination": "/api/status.js"
     },
     {
-      "src": "/dashboard-v2",
-      "dest": "/dashboard-v2.html"
+      "source": "/dashboard-v2",
+      "destination": "/dashboard-v2.html"
     },
     {
-      "src": "/mobile",
-      "dest": "/mobile-dashboard.html"
-    },
-    {
-      "src": "/",
-      "dest": "/dashboard.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/mobile",
+      "destination": "/mobile-dashboard.html"
     }
   ],
   "headers": [
