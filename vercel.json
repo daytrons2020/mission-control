@@ -27,6 +27,10 @@
     {
       "source": "/mobile",
       "destination": "/mobile-dashboard.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
