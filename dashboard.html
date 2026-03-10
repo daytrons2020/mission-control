@@ -222,6 +222,24 @@
     .activity-meta { font-size: 12px; color: var(--text-tertiary); }
     .activity-time { font-size: 12px; color: var(--text-tertiary); }
 
+    /* Trading Section Styles */
+    .trading-section { grid-column: span 12; }
+    .trading-preview { padding: 20px; }
+    .trading-stats { display: flex; gap: 24px; margin-bottom: 20px; }
+    .trading-stat { display: flex; flex-direction: column; gap: 4px; }
+    .trading-label { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; }
+    .trading-value { font-size: 24px; font-weight: 700; }
+    .trading-change { font-size: 13px; font-weight: 500; }
+    .trading-change.positive { color: var(--accent-green); }
+    .trading-change.negative { color: var(--accent-red); }
+    .trading-patterns { display: flex; gap: 8px; margin-bottom: 16px; }
+    .pattern-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+    .pattern-badge.bullish { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .pattern-badge.bearish { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .pattern-badge.neutral { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .trading-status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-tertiary); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); animation: pulse 2s infinite; }
+
     @media (max-width: 1200px) {
       .stats-row { grid-template-columns: repeat(2, 1fr); }
       .model-selector, .cost-tracker, .agent-terminal { grid-column: span 6; }
@@ -609,6 +627,45 @@
             </div>
           </div>
 
+          <!-- Trading Dashboard Link -->
+          <div class="card glass trading-section">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-title-icon" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(6, 182, 212, 0.1));">📈</div>
+                Trading Command Center
+              </div>
+              <a href="https://frontend-wheat-five-e0jlij8zl2.vercel.app/" class="card-action" target="_blank">Open Binary Command →</a>
+            </div>
+            <div class="trading-preview">
+              <div class="trading-stats">
+                <div class="trading-stat">
+                  <span class="trading-label">SPX</span>
+                  <span class="trading-value">6,909.51</span>
+                  <span class="trading-change positive">+0.45%</span>
+                </div>
+                <div class="trading-stat">
+                  <span class="trading-label">SPY</span>
+                  <span class="trading-value">$689.43</span>
+                  <span class="trading-change positive">+0.38%</span>
+                </div>
+                <div class="trading-stat">
+                  <span class="trading-label">QQQ</span>
+                  <span class="trading-value">$608.81</span>
+                  <span class="trading-change negative">-0.12%</span>
+                </div>
+              </div>
+              <div class="trading-patterns">
+                <div class="pattern-badge bullish">SLINGSHOT</div>
+                <div class="pattern-badge bearish">RUG PULL</div>
+                <div class="pattern-badge neutral">FADE</div>
+              </div>
+              <div class="trading-status">
+                <span class="status-dot online"></span>
+                <span>Live market data • Trinity Consensus: BULLISH</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Activity Feed -->
           <div class="card glass activity-feed">
             <div class="card-header">
@@ -723,6 +780,102 @@
         }
       });
     });
+  </script>
+  
+  <!-- Unified Navigation (links to Binary Command Center) -->
+  <script src="unified-navigation.js"></script>
+  
+  <!-- Mission Control v2 Core Functionality -->
+  <script src="mission-control-core.js"></script>
+  
+  <!-- Additional functionality for missing features -->
+  <script>
+    // Extend the existing dashboard with new features
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Mission Control if not already done
+      if (!window.missionControl) {
+        window.missionControl = new MissionControl();
+      }
+      
+      // Setup natural language input
+      setupNaturalLanguageInput();
+      
+      // Setup cost alerts
+      setupCostAlerts();
+      
+      // Setup War Room chat
+      setupWarRoomChat();
+      
+      // Setup agent spawning
+      setupAgentSpawning();
+    });
+    
+    function setupNaturalLanguageInput() {
+      const input = document.getElementById('natural-language-input');
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            const result = window.missionControl.parseNaturalLanguage(e.target.value);
+            
+            if (result.success) {
+              showNotification(result.message, 'success');
+            } else {
+              showNotification(result.error, 'error');
+            }
+            
+            e.target.value = '';
+          }
+        });
+      }
+    }
+    
+    function setupCostAlerts() {
+      // Check costs every 5 minutes
+      setInterval(() => {
+        window.missionControl.checkCostAlerts();
+      }, 5 * 60 * 1000);
+      
+      // Initial check
+      window.missionControl.checkCostAlerts();
+    }
+    
+    function setupWarRoomChat() {
+      const chatInput = document.querySelector('.war-room-input');
+      if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' && e.target.value.trim()) {
+            window.missionControl.sendWarRoomMessage(e.target.value, 'user');
+            e.target.value = '';
+          }
+        });
+      }
+    }
+    
+    function setupAgentSpawning() {
+      // Find spawn buttons and wire them up
+      const spawnButtons = document.querySelectorAll('[data-action="spawn-agent"]');
+      spawnButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.dataset.agentType;
+          const task = btn.dataset.task || 'General task';
+          
+          window.missionControl.spawnAgent(type, task);
+        });
+      });
+    }
+    
+    function showNotification(message, type = 'info') {
+      const container = document.getElementById('notification-container') || document.body;
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <span class="notification-message">${message}</span>
+        <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+      `;
+      container.appendChild(notification);
+      
+      setTimeout(() => notification.remove(), 5000);
+    }
   </script>
 </body>
 </html>
