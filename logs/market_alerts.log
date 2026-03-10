@@ -364,3 +364,10 @@ Cost report: Here is a 2-line summary:
 "Total: $0.14 | Model: $0.07 (kimi: $0.08, minimax: $0.06) | Efficiency: 50.0%"
 Alert format: "High alert: S&P 500 ETF Trust (SPY) price reaches $450.25, up 2.50%."
 Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi) + $0.06 (minimax)"
+Alert format: "SPY: Bullish alert at $450.25, +2.50% from previous close, indicating a potential uptrend."
+Handlers ready.
