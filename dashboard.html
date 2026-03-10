@@ -724,5 +724,98 @@
       });
     });
   </script>
+  
+  <!-- Mission Control v2 Core Functionality -->
+  <script src="mission-control-core.js"></script>
+  
+  <!-- Additional functionality for missing features -->
+  <script>
+    // Extend the existing dashboard with new features
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Mission Control if not already done
+      if (!window.missionControl) {
+        window.missionControl = new MissionControl();
+      }
+      
+      // Setup natural language input
+      setupNaturalLanguageInput();
+      
+      // Setup cost alerts
+      setupCostAlerts();
+      
+      // Setup War Room chat
+      setupWarRoomChat();
+      
+      // Setup agent spawning
+      setupAgentSpawning();
+    });
+    
+    function setupNaturalLanguageInput() {
+      const input = document.getElementById('natural-language-input');
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            const result = window.missionControl.parseNaturalLanguage(e.target.value);
+            
+            if (result.success) {
+              showNotification(result.message, 'success');
+            } else {
+              showNotification(result.error, 'error');
+            }
+            
+            e.target.value = '';
+          }
+        });
+      }
+    }
+    
+    function setupCostAlerts() {
+      // Check costs every 5 minutes
+      setInterval(() => {
+        window.missionControl.checkCostAlerts();
+      }, 5 * 60 * 1000);
+      
+      // Initial check
+      window.missionControl.checkCostAlerts();
+    }
+    
+    function setupWarRoomChat() {
+      const chatInput = document.querySelector('.war-room-input');
+      if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' && e.target.value.trim()) {
+            window.missionControl.sendWarRoomMessage(e.target.value, 'user');
+            e.target.value = '';
+          }
+        });
+      }
+    }
+    
+    function setupAgentSpawning() {
+      // Find spawn buttons and wire them up
+      const spawnButtons = document.querySelectorAll('[data-action="spawn-agent"]');
+      spawnButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.dataset.agentType;
+          const task = btn.dataset.task || 'General task';
+          
+          window.missionControl.spawnAgent(type, task);
+        });
+      });
+    }
+    
+    function showNotification(message, type = 'info') {
+      const container = document.getElementById('notification-container') || document.body;
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <span class="notification-message">${message}</span>
+        <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+      `;
+      container.appendChild(notification);
+      
+      setTimeout(() => notification.remove(), 5000);
+    }
+  </script>
 </body>
 </html>
