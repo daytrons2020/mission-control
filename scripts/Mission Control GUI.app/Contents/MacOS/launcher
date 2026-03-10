@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Mission Control GUI Launcher
+# Opens dashboard with native macOS dialogs
+
+WORKSPACE_DIR="/Users/daytrons/.openclaw/workspace"
+DASHBOARD_FILE="$WORKSPACE_DIR/dashboard.html"
+
+# Check if dashboard exists
+if [ ! -f "$DASHBOARD_FILE" ]; then
+    osascript -e 'display alert "Dashboard Not Found" message "Could not find dashboard.html" buttons {"OK"} default button "OK" as critical'
+    exit 1
+fi
+
+# Show welcome dialog with options
+DIALOG_RESULT=$(osascript <<EOF
+try
+    set dialogResult to display dialog "🚀 Mission Control NANO v2.0" & return & return & "Choose an action:" buttons {"Cancel", "System Status", "Open Dashboard"} default button "Open Dashboard" with icon note
+    return button returned of dialogResult
+on error
+    return "Cancel"
+end try
+EOF
+)
+
+if [ "$DIALOG_RESULT" = "Cancel" ]; then
+    exit 0
+fi
+
+if [ "$DIALOG_RESULT" = "System Status" ]; then
+    # Show system status in a dialog
+    STATUS=$(cd "$WORKSPACE_DIR" && bash scripts/quick_health_check.sh 2>/dev/null | head -20 || echo "Status check failed")
+    osascript -e "display dialog \"$STATUS\" buttons {\"OK\", \"Open Dashboard\"} default button \"Open Dashboard\" with title \"System Status\""
+    if [ $? -ne 0 ]; then
+        exit 0
+    fi
+fi
+
+# Open dashboard
+DASHBOARD_PATH="file://$DASHBOARD_FILE"
+
+# Detect and use best browser
+if [ -d "/Applications/Google Chrome.app" ]; then
+    osascript -e "tell application \"Google Chrome\" to activate"
+    osascript -e "tell application \"Google Chrome\" to open location \"$DASHBOARD_PATH\""
+elif [ -d "/Applications/Arc.app" ]; then
+    open -a "Arc" "$DASHBOARD_PATH"
+elif [ -d "/Applications/Safari.app" ]; then
+    osascript -e "tell application \"Safari\" to activate"
+    osascript -e "tell application \"Safari\" to open location \"$DASHBOARD_PATH\""
+else
+    open "$DASHBOARD_PATH"
+fi
+
+# Success notification
+osascript -e 'display notification "Mission Control is now running" with title "🚀 Mission Control" sound name "Glass"'
+
+exit 0

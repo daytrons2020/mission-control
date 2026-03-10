@@ -1,0 +1,203 @@
+/* Glassmorphism Responsive Layout System */
+
+/* Container */
+.glass-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.glass-container-sm { max-width: 640px; }
+.glass-container-md { max-width: 768px; }
+.glass-container-lg { max-width: 1024px; }
+.glass-container-xl { max-width: 1280px; }
+.glass-container-full { max-width: 100%; }
+
+/* Grid System */
+.glass-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.glass-grid-1 { grid-template-columns: repeat(1, 1fr); }
+.glass-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.glass-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.glass-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.glass-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.glass-grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* Auto-fit grids */
+.glass-grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.glass-grid-auto-sm {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.glass-grid-auto-lg {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Flex Layout */
+.glass-flex {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.glass-flex-col { flex-direction: column; }
+.glass-flex-wrap { flex-wrap: wrap; }
+.glass-flex-nowrap { flex-wrap: nowrap; }
+
+.glass-items-start { align-items: flex-start; }
+.glass-items-center { align-items: center; }
+.glass-items-end { align-items: flex-end; }
+.glass-items-stretch { align-items: stretch; }
+
+.glass-justify-start { justify-content: flex-start; }
+.glass-justify-center { justify-content: center; }
+.glass-justify-end { justify-content: flex-end; }
+.glass-justify-between { justify-content: space-between; }
+.glass-justify-around { justify-content: space-around; }
+.glass-justify-evenly { justify-content: space-evenly; }
+
+/* Responsive Breakpoints */
+
+/* Mobile First - Small screens (default) */
+@media (max-width: 639px) {
+  .glass-container {
+    padding: 0 var(--space-sm);
+  }
+  
+  .glass-grid-2,
+  .glass-grid-3,
+  .glass-grid-4,
+  .glass-grid-5,
+  .glass-grid-6 {
+    grid-template-columns: 1fr;
+  }
+  
+  .glass-hide-sm { display: none !important; }
+  
+  .glass-text-sm-center { text-align: center; }
+  .glass-text-sm-left { text-align: left; }
+  .glass-text-sm-right { text-align: right; }
+}
+
+/* Medium screens (640px+) */
+@media (min-width: 640px) {
+  .glass-grid-sm-1 { grid-template-columns: repeat(1, 1fr); }
+  .glass-grid-sm-2 { grid-template-columns: repeat(2, 1fr); }
+  .glass-grid-sm-3 { grid-template-columns: repeat(3, 1fr); }
+  .glass-grid-sm-4 { grid-template-columns: repeat(4, 1fr); }
+  
+  .glass-flex-sm-row { flex-direction: row; }
+  .glass-flex-sm-col { flex-direction: column; }
+  
+  .glass-hide-md-up { display: none !important; }
+}
+
+/* Large screens (768px+) */
+@media (min-width: 768px) {
+  .glass-grid-md-1 { grid-template-columns: repeat(1, 1fr); }
+  .glass-grid-md-2 { grid-template-columns: repeat(2, 1fr); }
+  .glass-grid-md-3 { grid-template-columns: repeat(3, 1fr); }
+  .glass-grid-md-4 { grid-template-columns: repeat(4, 1fr); }
+  .glass-grid-md-5 { grid-template-columns: repeat(5, 1fr); }
+  .glass-grid-md-6 { grid-template-columns: repeat(6, 1fr); }
+  
+  .glass-flex-md-row { flex-direction: row; }
+  .glass-flex-md-col { flex-direction: column; }
+  
+  .glass-hide-lg-up { display: none !important; }
+}
+
+/* Extra large screens (1024px+) */
+@media (min-width: 1024px) {
+  .glass-grid-lg-1 { grid-template-columns: repeat(1, 1fr); }
+  .glass-grid-lg-2 { grid-template-columns: repeat(2, 1fr); }
+  .glass-grid-lg-3 { grid-template-columns: repeat(3, 1fr); }
+  .glass-grid-lg-4 { grid-template-columns: repeat(4, 1fr); }
+  .glass-grid-lg-5 { grid-template-columns: repeat(5, 1fr); }
+  .glass-grid-lg-6 { grid-template-columns: repeat(6, 1fr); }
+  
+  .glass-flex-lg-row { flex-direction: row; }
+  .glass-flex-lg-col { flex-direction: column; }
+  
+  .glass-hide-xl-up { display: none !important; }
+}
+
+/* 2XL screens (1280px+) */
+@media (min-width: 1280px) {
+  .glass-grid-xl-1 { grid-template-columns: repeat(1, 1fr); }
+  .glass-grid-xl-2 { grid-template-columns: repeat(2, 1fr); }
+  .glass-grid-xl-3 { grid-template-columns: repeat(3, 1fr); }
+  .glass-grid-xl-4 { grid-template-columns: repeat(4, 1fr); }
+  .glass-grid-xl-5 { grid-template-columns: repeat(5, 1fr); }
+  .glass-grid-xl-6 { grid-template-columns: repeat(6, 1fr); }
+  
+  .glass-hide-2xl-up { display: none !important; }
+}
+
+/* Spacing Utilities */
+.glass-gap-0 { gap: 0; }
+.glass-gap-xs { gap: var(--space-xs); }
+.glass-gap-sm { gap: var(--space-sm); }
+.glass-gap-md { gap: var(--space-md); }
+.glass-gap-lg { gap: var(--space-lg); }
+.glass-gap-xl { gap: var(--space-xl); }
+.glass-gap-2xl { gap: var(--space-2xl); }
+
+/* Padding Utilities */
+.glass-p-0 { padding: 0; }
+.glass-p-xs { padding: var(--space-xs); }
+.glass-p-sm { padding: var(--space-sm); }
+.glass-p-md { padding: var(--space-md); }
+.glass-p-lg { padding: var(--space-lg); }
+.glass-p-xl { padding: var(--space-xl); }
+.glass-p-2xl { padding: var(--space-2xl); }
+
+/* Margin Utilities */
+.glass-m-0 { margin: 0; }
+.glass-m-xs { margin: var(--space-xs); }
+.glass-m-sm { margin: var(--space-sm); }
+.glass-m-md { margin: var(--space-md); }
+.glass-m-lg { margin: var(--space-lg); }
+.glass-m-xl { margin: var(--space-xl); }
+.glass-m-2xl { margin: var(--space-2xl); }
+
+.glass-mx-auto { margin-left: auto; margin-right: auto; }
+.glass-my-auto { margin-top: auto; margin-bottom: auto; }
+
+/* Width/Height Utilities */
+.glass-w-full { width: 100%; }
+.glass-w-auto { width: auto; }
+.glass-w-screen { width: 100vw; }
+
+.glass-h-full { height: 100%; }
+.glass-h-auto { height: auto; }
+.glass-h-screen { height: 100vh; }
+
+/* Position Utilities */
+.glass-relative { position: relative; }
+.glass-absolute { position: absolute; }
+.glass-fixed { position: fixed; }
+.glass-sticky { position: sticky; }
+
+/* Overflow */
+.glass-overflow-hidden { overflow: hidden; }
+.glass-overflow-auto { overflow: auto; }
+.glass-overflow-scroll { overflow: scroll; }
+.glass-overflow-visible { overflow: visible; }
+
+/* Display Utilities */
+.glass-block { display: block; }
+.glass-inline { display: inline; }
+.glass-inline-block { display: inline-block; }
+.glass-hidden { display: none; }
+
+/* Aspect Ratio */
+.glass-aspect-square { aspect-ratio: 1 / 1; }
+.glass-aspect-video { aspect-ratio: 16 / 9; }
+.glass-aspect-portrait { aspect-ratio: 3 / 4; }

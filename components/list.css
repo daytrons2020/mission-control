@@ -1,0 +1,218 @@
+/* Glass List & Table Components */
+
+/* List */
+.glass-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.glass-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.glass-list-item:last-child {
+  border-bottom: none;
+}
+
+.glass-list-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.glass-list-item.active {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* List Item Content */
+.glass-list-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+}
+
+.glass-list-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.glass-list-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.glass-list-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: var(--space-xs) 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.glass-list-action {
+  flex-shrink: 0;
+}
+
+/* Table */
+.glass-table-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.glass-table th,
+.glass-table td {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.glass-table th {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.glass-table td {
+  color: var(--text-secondary);
+}
+
+.glass-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.glass-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Table Variants */
+.glass-table-compact th,
+.glass-table-compact td {
+  padding: var(--space-sm) var(--space-md);
+}
+
+.glass-table-striped tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Avatar */
+.glass-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+}
+
+.glass-avatar-sm {
+  width: 32px;
+  height: 32px;
+}
+
+.glass-avatar-lg {
+  width: 56px;
+  height: 56px;
+}
+
+.glass-avatar-xl {
+  width: 80px;
+  height: 80px;
+}
+
+.glass-avatar-group {
+  display: flex;
+  align-items: center;
+}
+
+.glass-avatar-group .glass-avatar {
+  margin-left: -12px;
+  border: 2px solid var(--glass-bg);
+}
+
+.glass-avatar-group .glass-avatar:first-child {
+  margin-left: 0;
+}
+
+/* Divider */
+.glass-divider {
+  height: 1px;
+  background: var(--glass-border);
+  margin: var(--space-md) 0;
+}
+
+.glass-divider-vertical {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  margin: 0 var(--space-md);
+}
+
+/* Empty State */
+.glass-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+  text-align: center;
+}
+
+.glass-empty-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  font-size: 32px;
+}
+
+.glass-empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.glass-empty-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  max-width: 300px;
+}

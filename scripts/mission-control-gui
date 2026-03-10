@@ -1,0 +1,205 @@
+#!/bin/bash
+# Mission Control GUI Launcher
+# Usage: ./mission-control-gui [command]
+# Commands: open, status, logs, health, help
+
+set -e
+
+WORKSPACE_DIR="/Users/daytrons/.openclaw/workspace"
+SCRIPTS_DIR="$WORKSPACE_DIR/scripts"
+DASHBOARD_FILE="$WORKSPACE_DIR/dashboard.html"
+
+# Colors
+PURPLE='\033[38;5;141m'
+CYAN='\033[38;5;51m'
+GREEN='\033[38;5;84m'
+YELLOW='\033[38;5;220m'
+RED='\033[38;5;203m'
+GRAY='\033[38;5;245m'
+RESET='\033[0m'
+BOLD='\033[1m'
+
+show_logo() {
+    clear
+    echo ""
+    echo -e "${PURPLE}    ╭──────────────────────────────────────────────────────────╮${RESET}"
+    echo -e "${PURPLE}    │${RESET}                                                          ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}███╗   ███╗${RESET} ${PURPLE}██╗${RESET} ${CYAN}███████╗${RESET} ${PURPLE}███████╗${RESET} ${CYAN}██╗${RESET}   ${PURPLE}██╗${RESET} ${CYAN} ██████╗${RESET}  ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}████╗ ████║${RESET} ${PURPLE}██║${RESET} ${CYAN}██╔════╝${RESET} ${PURPLE}██╔════╝${RESET} ${CYAN}██║${RESET}   ${PURPLE}██║${RESET} ${CYAN}██╔════╝${RESET}  ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}██╔████╔██║${RESET} ${PURPLE}██║${RESET} ${CYAN}███████╗${RESET} ${PURPLE}█████╗${RESET}  ${CYAN}██║${RESET}   ${PURPLE}██║${RESET} ${CYAN}██║${RESET}       ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}██║╚██╔╝██║${RESET} ${PURPLE}██║${RESET} ${CYAN}╚════██║${RESET} ${PURPLE}██╔══╝${RESET}  ${CYAN}██║${RESET}   ${PURPLE}██║${RESET} ${CYAN}██║${RESET}       ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}██║ ╚═╝ ██║${RESET} ${PURPLE}██║${RESET} ${CYAN}███████║${RESET} ${PURPLE}██║${RESET}     ${CYAN}╚██████╔╝${RESET} ${CYAN}╚██████╗${RESET}  ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}   ${CYAN}╚═╝     ╚═╝${RESET} ${PURPLE}╚═╝${RESET} ${CYAN}╚══════╝${RESET} ${PURPLE}╚═╝${RESET}      ${CYAN}╚═════╝${RESET}  ${CYAN}╚═════╝${RESET}  ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}                                                          ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    │${RESET}           ${GRAY}NANO v2.0 // AI Mission Control${RESET}              ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}    ╰──────────────────────────────────────────────────────────╯${RESET}"
+    echo ""
+}
+
+print_menu() {
+    echo -e "${GRAY}┌────────────────────────────────────────────────────────────┐${RESET}"
+    echo -e "${GRAY}│${RESET} ${BOLD}${CYAN}  QUICK ACTIONS${RESET}                                            ${GRAY}│${RESET}"
+    echo -e "${GRAY}├────────────────────────────────────────────────────────────┤${RESET}"
+    echo -e "${GRAY}│${RESET}                                                            ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}   ${GREEN}1.${RESET} ${BOLD}Open Dashboard${RESET}      - Launch the web dashboard        ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}   ${CYAN}2.${RESET} ${BOLD}System Status${RESET}       - Show quick health check         ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}   ${YELLOW}3.${RESET} ${BOLD}View Logs${RESET}           - Open recent log entries         ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}   ${PURPLE}4.${RESET} ${BOLD}Health Report${RESET}       - Full health score report        ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}   ${RED}5.${RESET} ${BOLD}Exit${RESET}                - Close this menu                 ${GRAY}│${RESET}"
+    echo -e "${GRAY}│${RESET}                                                            ${GRAY}│${RESET}"
+    echo -e "${GRAY}└────────────────────────────────────────────────────────────┘${RESET}"
+    echo ""
+}
+
+open_dashboard() {
+    echo -e "${CYAN}🚀 Launching Mission Control Dashboard...${RESET}"
+    
+    if [ ! -f "$DASHBOARD_FILE" ]; then
+        echo -e "${RED}❌ Dashboard file not found!${RESET}"
+        return 1
+    fi
+    
+    DASHBOARD_PATH="file://$DASHBOARD_FILE"
+    
+    # Try different browsers in order of preference
+    if [ -d "/Applications/Google Chrome.app" ]; then
+        echo -e "${GREEN}✓ Opening in Google Chrome${RESET}"
+        open -a "Google Chrome" "$DASHBOARD_PATH"
+    elif [ -d "/Applications/Arc.app" ]; then
+        echo -e "${GREEN}✓ Opening in Arc${RESET}"
+        open -a "Arc" "$DASHBOARD_PATH"
+    elif [ -d "/Applications/Safari.app" ]; then
+        echo -e "${GREEN}✓ Opening in Safari${RESET}"
+        open -a "Safari" "$DASHBOARD_PATH"
+    else
+        echo -e "${GREEN}✓ Opening in default browser${RESET}"
+        open "$DASHBOARD_PATH"
+    fi
+    
+    # Show macOS notification
+    osascript -e 'display notification "Dashboard is now open" with title "🚀 Mission Control" sound name "Glass"' 2>/dev/null || true
+    
+    echo ""
+    echo -e "${GREEN}✅ Dashboard launched successfully!${RESET}"
+}
+
+show_status() {
+    echo -e "${CYAN}🔍 Checking system status...${RESET}"
+    echo ""
+    
+    if [ -f "$SCRIPTS_DIR/quick_health_check.sh" ]; then
+        bash "$SCRIPTS_DIR/quick_health_check.sh" 2>/dev/null || echo -e "${YELLOW}⚠️ Health check script encountered an issue${RESET}"
+    else
+        echo -e "${YELLOW}⚠️ Health check script not found${RESET}"
+    fi
+    
+    echo ""
+    echo -e "${GRAY}Press any key to continue...${RESET}"
+    read -n 1
+}
+
+show_logs() {
+    echo -e "${CYAN}📋 Recent log entries:${RESET}"
+    echo ""
+    
+    LOGS_DIR="$WORKSPACE_DIR/logs"
+    if [ -d "$LOGS_DIR" ]; then
+        ls -lt "$LOGS_DIR" 2>/dev/null | head -10
+        echo ""
+        LATEST_LOG=$(ls -t "$LOGS_DIR"/*.log 2>/dev/null | head -1)
+        if [ -n "$LATEST_LOG" ]; then
+            echo -e "${GRAY}Latest log (${LATEST_LOG}):${RESET}"
+            tail -20 "$LATEST_LOG" 2>/dev/null | head -20
+        fi
+    else
+        echo -e "${YELLOW}⚠️ No logs directory found${RESET}"
+    fi
+    
+    echo ""
+    echo -e "${GRAY}Press any key to continue...${RESET}"
+    read -n 1
+}
+
+show_health_report() {
+    echo -e "${CYAN}🏥 Generating health report...${RESET}"
+    echo ""
+    
+    if [ -f "$SCRIPTS_DIR/health_score.py" ]; then
+        python3 "$SCRIPTS_DIR/health_score.py" 2>/dev/null || echo -e "${YELLOW}⚠️ Health score script encountered an issue${RESET}"
+    else
+        echo -e "${YELLOW}⚠️ Health score script not found${RESET}"
+    fi
+    
+    echo ""
+    echo -e "${GRAY}Press any key to continue...${RESET}"
+    read -n 1
+}
+
+# Main menu loop
+if [ $# -eq 0 ]; then
+    # Interactive mode
+    while true; do
+        show_logo
+        print_menu
+        echo -ne "${CYAN}Select option (1-5): ${RESET}"
+        read -n 1 choice
+        echo ""
+        
+        case $choice in
+            1) 
+                open_dashboard
+                break
+                ;;
+            2)
+                show_status
+                ;;
+            3)
+                show_logs
+                ;;
+            4)
+                show_health_report
+                ;;
+            5|q|Q)
+                echo -e "${GREEN}👋 Goodbye!${RESET}"
+                exit 0
+                ;;
+            *)
+                echo -e "${RED}Invalid option. Press any key to try again...${RESET}"
+                read -n 1
+                ;;
+        esac
+    done
+else
+    # Command mode
+    case $1 in
+        open|start|launch)
+            show_logo
+            open_dashboard
+            ;;
+        status)
+            show_status
+            ;;
+        logs)
+            show_logs
+            ;;
+        health|report)
+            show_health_report
+            ;;
+        help|--help|-h)
+            show_logo
+            echo "Usage: mission-control-gui [command]"
+            echo ""
+            echo "Commands:"
+            echo "  open      - Open the dashboard in browser"
+            echo "  status    - Show quick system status"
+            echo "  logs      - View recent log entries"
+            echo "  health    - Show full health report"
+            echo "  help      - Show this help message"
+            ;;
+        *)
+            echo -e "${RED}Unknown command: $1${RESET}"
+            echo "Run 'mission-control-gui help' for usage"
+            exit 1
+            ;;
+    esac
+fi

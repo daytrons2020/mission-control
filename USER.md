@@ -1,17 +1,9 @@
-# USER.md - About Your Human
-
-_Learn about the person you're helping. Update this as you go._
+# USER.md - About Dayton
 
 - **Name:** Dayton
 - **What to call them:** Dayton
-- **Pronouns:** _(optional)_
 - **Timezone:** America/Los_Angeles (PST)
-- **Notes:**
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
-
----
-
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+(Build over time: what they care about, projects, preferences)

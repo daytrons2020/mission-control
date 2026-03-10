@@ -46,3 +46,321 @@
 /bin/sh: /Users/daytrons/.openclaw/workspace/scripts/ollama_handlers.py: Permission denied
 /bin/sh: /Users/daytrons/.openclaw/workspace/scripts/ollama_handlers.py: Permission denied
 /bin/sh: /Users/daytrons/.openclaw/workspace/scripts/ollama_handlers.py: Permission denied
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07X (kimi: $0.08, minimax: $0.01)"
+
+or, rearranged as:
+
+"Total: $0.14 | Model: $0.07X, Efficiency: (kimi: 57.14%, minimax: 14.29%)"
+
+(Note: These summaries are brief, but the efficiency calculation may be omitted to fit the 2-line format)
+Alert format: "SPY Alert: Index price has surged to $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50.0%)"
+Alert format: "SPY Index breaks out at $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi: $0.08, minimax: $0.06)"
+Alert format: SPY Alert: S&P 500 Index (SPY) currently trading at $450.25, up 2.50% in real-time.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (51%)"
+Alert format: "ALERT: S&P 500 ETF (SPY) at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07 + $0.07) | Efficiency: 50%"
+Alert format: Alert: SPY breaks above $450 resistance, now trading at $450.25, a +2.50% gain from yesterday's close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: "S&P 500 Index (SPY) breaches resistance at $450.25, up 2.50% on the day."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (50%)"
+Alert format: "SPY Alert: Short-term bullish momentum, consider increasing exposure at current price of $450.25 (+2.50%).
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50.00%)"
+Alert format: "SPY Alert: S&P 500 Index (SPY) hits $450.25, up 2.50% from previous close, indicating potential upward market momentum."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: Alert: S&P 500 ETF (SPY) price at $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "S&P 500 Futures Break Out: SPY at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: "S&P 500 Index (SPY) hits new highs at $450.25, up 2.50% in intraday trading."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi $0.08, minimax $0.06) | Efficiency: 57.14%"
+Alert format: SPY ALERT: S&P 500 Index (SPY) has reached $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/0.14 = 50%)"
+Alert format: "S&P 500 futures trigger buy alert at $450.25, +2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: Alert: S&P 500 ETF (SPY) price is currently at $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the summary:
+
+"Total: $0.14 | Model: $0.07 (kimi)/$0.06 (minimax) | Efficiency: 56.25%"
+Alert format: "SPY price alert: Index currently trading at $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here's a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi), $0.07 (minimax) | Efficiency: 50.00%"
+Alert format: "S&P 500 Index (SPY) is trading at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07X (kimi) & $0.07Y (minimax)"
+Alert format: "SPY price alert: $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: Alert: S&P 500 ETF (SPY) price has surged to $450.25, representing a 2.50% increase.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "Bullish alert: SPY index at $450.25, up 2.50% from previous close, indicating a strong upward trend in US equities."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: "Alert: S&P 500 Index (SPY) breaks through $450.25, up 2.50% - Consider buying on this pullback opportunity."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (50%)"
+Alert format: "SPY Alert: SPDR S&P 500 ETF Trust (SPY) is trading at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi: $0.08, minimax: $0.06)"
+Alert format: SPY Alert: S&P 500 ETF (SPY) trading at $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi=$0.08, minimax=$0.06) | Efficiency: 55.56%"
+Alert format: "High alert: SPY index at $450.25, experiencing a 2.50% increase."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: SPY Alert: S&P 500 futures up 2.50% at $450.25.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi $0.08, minimax $0.06)"
+Alert format: "SPY Alert: S&P 500 ETF (SPY) is trading at $450.25, up 2.50% from the previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (50%)"
+
+Or, using the original data:
+
+"Total: $0.14 | Model: $0.06 ($0.08) (43%)"
+
+ Let me know if you need any further changes.
+Alert format: "S&P 500 ETF (SPY) has surged to $450.25, up 2.50% due to significant market momentum, recommend monitoring for potential pullbacks."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi) & $0.07 (minimax) | Efficiency: 57.14%"
+Alert format: Alert: S&P 500 ETF (SPY) is trading at $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here's a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "SPY Alert: S&P 500 futures surge 2.5% to $450.25, indicating a significant market upward trend."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "SPY Alert: S&P 500 Index ETF trades at $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi) + $0.07 (minimax) = $0.14 | Efficiency: 0.14/0.14 * 100% = 100%"
+Alert format: "SPY price alert: $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (50.0%)"
+Alert format: "S&P 500 futures surge 2.5% to $450.25, triggering a buy signal for SPY."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07/ $0.14 = 50%)"
+Alert format: "SPY is trading at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07 / $0.14 = 50%)"
+Alert format: "S&P 500 futures spike 2.50% to $450.25, triggering a buy alert."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi=$0.08, minimax=$0.06) | Efficiency: 57.14%"
+Alert format: "SPY: Trading Alert - Price: $450.25, Change: +2.50%, Watch for potential breakout/continuation."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (50%)"
+
+The efficiency percentage (50%) is calculated as (kimi: 50%) + (minimax: 33.3%)
+Alert format: "SPY: Bullish alert, currently trading at $450.25 (+2.50%), indicating a potential uptrend in the S&P 500 Index."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (50%) | Efficiency: 57%"
+Alert format: Trading Alert: S&P 500 ETF (SPY) price alert: $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07/ $0.14 = 50%)"
+Alert format: "SPY alert: $450.25, +2.50%, indicating a 30-minute price increase."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "SPY is trading at $450.25, up 2.50% from previous close, indicating a potential upward trend in the S&P 500 index."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "SPY Alert: The S&P 500 Index (SPY) is trading at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07X (kimi: $0.08, minimax: $0.06)" 
+
+or if you want to calculate the efficiency
+
+"Total: $0.14 | Efficiency: 57.14%"
+Alert format: "SPY is up 2.50% at $450.25, indicating a significant surge in the S&P 500 index."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.08 + $0.06 | Efficiency: 57.14%"
+Alert format: "SPY price alert: $450.25 (up 2.50%), indicating significant market movement."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is the 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi: $0.08, minimax: $0.06)"
+Alert format: "Bullish alert: S&P 500 Index (SPY) is trading at $450.25, up 2.50%."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi) + $0.06 (minimax) = $0.13 | Efficiency: 50%"
+Alert format: "Alert: S&P 500 ETF (SPY) at $450.25, up 2.50% for the day."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07X (kimi) + $0.06Y (minimax) | Efficiency: 57.1%"
+Alert format: Alert: S&P 500 ETF (SPY) hits new high at $450.25, up 2.50% from previous close.
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a brief 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07) Efficiency: 57%"
+Alert format: "SPY price alert: $450.25, up 2.50% from previous close, indicating potential bullish momentum in the market."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a concise 2-line summary:
+
+"Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "S&P 500 futures (SPY) are up 2.50% at $450.25, indicating a bullish trend."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary of the token usage data:
+
+"Total: $0.14 | Model: $0.07 (kimi: 0.08, minimax: 0.06) | Efficiency: 50.0%"
+Alert format: "Bullish alert: S&P 500 futures (SPY) at $450.25, up 2.50% from previous close."
+Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi: $0.08, minimax: $0.06) | Efficiency: 50.0%"
+Alert format: "High alert: S&P 500 ETF Trust (SPY) price reaches $450.25, up 2.50%."
+Handlers ready.

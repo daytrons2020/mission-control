@@ -1,0 +1,188 @@
+/* Glass Modal Component */
+.glass-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.glass-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.glass-modal {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  transform: scale(0.95) translateY(20px);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.glass-modal-overlay.active .glass-modal {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Sizes */
+.glass-modal-sm { max-width: 400px; }
+.glass-modal-lg { max-width: 700px; }
+.glass-modal-xl { max-width: 900px; }
+.glass-modal-full { max-width: 95vw; max-height: 95vh; }
+
+/* Modal Header */
+.glass-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.glass-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.glass-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-modal-close:hover {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+}
+
+/* Modal Body */
+.glass-modal-body {
+  padding: var(--space-lg);
+  overflow-y: auto;
+  max-height: calc(90vh - 140px);
+}
+
+/* Modal Footer */
+.glass-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Glass Panel (Sidebar/Drawer) */
+.glass-panel {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-lg);
+  z-index: 1000;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.glass-panel-left {
+  left: 0;
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  transform: translateX(-100%);
+}
+
+.glass-panel-right {
+  right: 0;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  transform: translateX(100%);
+}
+
+.glass-panel.active {
+  transform: translateX(0);
+}
+
+.glass-panel-sm { width: 300px; }
+.glass-panel-md { width: 400px; }
+.glass-panel-lg { width: 500px; }
+
+/* Panel Header */
+.glass-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Panel Body */
+.glass-panel-body {
+  padding: var(--space-lg);
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+/* Tooltip */
+.glass-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.glass-tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--glass-bg-dark);
+  backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-fast) var(--ease-out);
+  z-index: 100;
+}
+
+.glass-tooltip:hover .glass-tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.glass-tooltip-bottom .glass-tooltip-content {
+  bottom: auto;
+  top: 100%;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.glass-tooltip-bottom:hover .glass-tooltip-content {
+  transform: translateX(-50%) translateY(4px);
+}

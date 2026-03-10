@@ -1,0 +1,87 @@
+/* Main Glassmorphism Component Library - Import all components */
+
+/* Core Variables */
+@import url('glassmorphism.css');
+
+/* Animations */
+@import url('animations.css');
+
+/* Layout System */
+@import url('layout.css');
+
+/* Components */
+@import url('card.css');
+@import url('button.css');
+@import url('input.css');
+@import url('modal.css');
+@import url('navigation.css');
+@import url('badge.css');
+@import url('list.css');
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Demo Background - Gradient for showcasing glassmorphism */
+.glass-demo-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-attachment: fixed;
+  padding: var(--space-xl);
+}
+
+/* Utility Classes */
+.glass-text-center { text-align: center; }
+.glass-text-left { text-align: left; }
+.glass-text-right { text-align: right; }
+
+.glass-font-mono { font-family: var(--font-mono); }
+.glass-font-bold { font-weight: 700; }
+.glass-font-semibold { font-weight: 600; }
+.glass-font-medium { font-weight: 500; }
+
+.glass-text-sm { font-size: 12px; }
+.glass-text-base { font-size: 14px; }
+.glass-text-lg { font-size: 16px; }
+.glass-text-xl { font-size: 20px; }
+.glass-text-2xl { font-size: 24px; }
+.glass-text-3xl { font-size: 30px; }
+
+/* Cursor utilities */
+.glass-cursor-pointer { cursor: pointer; }
+.glass-cursor-default { cursor: default; }
+.glass-cursor-not-allowed { cursor: not-allowed; }
+
+/* Selection */
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--glass-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

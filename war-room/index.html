@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War Room | Mission Control</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">War Room</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot active"></span>
+                    <span class="status-text">Mission Control Online</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="real-time-badge">
+                    <span class="pulse"></span>
+                    <span class="badge-text">Live Updates</span>
+                </div>
+                <div class="connection-status">
+                    <span class="conn-icon">🟢</span>
+                    <span class="conn-text">Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar - Chat History -->
+            <aside class="glass-sidebar">
+                <div class="sidebar-header">
+                    <h3>Chat History</h3>
+                    <button class="icon-btn" title="New Chat">+</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <!-- History items will be populated here -->
+                    <div class="history-item active">
+                        <div class="history-icon">💬</div>
+                        <div class="history-info">
+                            <span class="history-title">Current Session</span>
+                            <span class="history-time">Just now</span>
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-icon">🤖</div>
+                        <div class="history-info">
+                            <span class="history-title">Agent Coordination</span>
+                            <span class="history-time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-icon">📊</div>
+                        <div class="history-info">
+                            <span class="history-title">Trading Analysis</span>
+                            <span class="history-time">Yesterday</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="quick-actions">
+                        <button class="quick-btn" title="Clear History">🗑️</button>
+                        <button class="quick-btn" title="Export">📥</button>
+                        <button class="quick-btn" title="Settings">⚙️</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Chat Area -->
+            <main class="chat-container">
+                <!-- Messages Area -->
+                <div class="messages-area" id="messagesArea">
+                    <!-- Welcome Message -->
+                    <div class="message system-message">
+                        <div class="message-avatar">
+                            <span class="avatar-icon">🎯</span>
+                        </div>
+                        <div class="message-content glass-panel">
+                            <div class="message-header">
+                                <span class="message-author">System</span>
+                                <span class="message-time">Now</span>
+                            </div>
+                            <div class="message-body">
+                                <p>Welcome to <strong>War Room</strong> — Mission Control's command center.</p>
+                                <p>Coordinate agents, monitor systems, and execute operations from here.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agent Message Example -->
+                    <div class="message agent-message">
+                        <div class="message-avatar">
+                            <span class="avatar-icon">🤖</span>
+                        </div>
+                        <div class="message-content glass-panel">
+                            <div class="message-header">
+                                <span class="message-author">Nano</span>
+                                <span class="badge agent-badge">Agent</span>
+                                <span class="message-time">Now</span>
+                            </div>
+                            <div class="message-body">
+                                <p>War Room foundation is operational. Ready for commands.</p>
+                                <div class="message-actions">
+                                    <button class="action-btn">✓ Acknowledge</button>
+                                    <button class="action-btn">📋 Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator hidden" id="typingIndicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="typing-text">Agent is typing...</span>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-container glass-panel">
+                    <div class="input-wrapper">
+                        <button class="attach-btn" title="Attach file">📎</button>
+                        <textarea 
+                            id="messageInput" 
+                            class="message-input" 
+                            placeholder="Type your command or message..."
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" title="Send">
+                            <span class="send-icon">➤</span>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <div class="input-hints">
+                            <span class="hint">Press <kbd>Enter</kbd> to send</span>
+                            <span class="hint"><kbd>Shift</kbd> + <kbd>Enter</kbd> for new line</span>
+                        </div>
+                        <div class="input-actions">
+                            <button class="tool-btn" title="Voice">🎤</button>
+                            <button class="tool-btn" title="Emoji">😊</button>
+                            <button class="tool-btn" title="Mention">@</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Panel - Real-time Info -->
+            <aside class="glass-panel info-panel">
+                <div class="panel-section">
+                    <h4>Active Agents</h4>
+                    <div class="agent-list">
+                        <div class="agent-item online">
+                            <span class="agent-dot"></span>
+                            <span class="agent-name">Nano</span>
+                            <span class="agent-status">Active</span>
+                        </div>
+                        <div class="agent-item online">
+                            <span class="agent-dot"></span>
+                            <span class="agent-name">Coder</span>
+                            <span class="agent-status">Working</span>
+                        </div>
+                        <div class="agent-item idle">
+                            <span class="agent-dot"></span>
+                            <span class="agent-name">Research</span>
+                            <span class="agent-status">Idle</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h4>System Status</h4>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="status-label">Discord</span>
+                            <span class="status-value success">Connected</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Gateway</span>
+                            <span class="status-value success">Running</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Context</span>
+                            <span class="status-value">47k/256k</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Cache</span>
+                            <span class="status-value">88%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h4>Recent Activity</h4>
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <span class="activity-time">11:56</span>
+                            <span class="activity-text">War Room initialized</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-time">11:55</span>
+                            <span class="activity-text">Agent session started</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-time">11:50</span>
+                            <span class="activity-text">System check complete</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

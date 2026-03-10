@@ -1,9 +1,23 @@
 [
   {
-    "id": "digest_20260305190744",
+    "id": "digest_20260308234015",
+    "type": "system_update",
+    "date": "2026-03-08",
+    "timestamp": "2026-03-08T23:40:15.000000",
+    "source_paths": [
+      "/Users/daytrons/.openclaw/workspace/MEMORY.md",
+      "/Users/daytrons/.openclaw/workspace/memory.json",
+      "/Users/daytrons/.openclaw/workspace/memory/"
+    ],
+    "summary": "Database Engineer optimizations applied: log rotation, backup automation, and memory index refresh.",
+    "updated_by": "database-engineer",
+    "digest_path": "/Users/daytrons/.openclaw/workspace/MEMORY_SUMMARY.json"
+  },
+  {
+    "id": "digest_20260305191156",
     "type": "summary_digest",
     "date": "2026-03-05",
-    "timestamp": "2026-03-05T19:07:44.221766",
+    "timestamp": "2026-03-05T19:11:56.802744",
     "source_paths": [
       "/Users/daytrons/.openclaw/workspace/MEMORY.md"
     ],
@@ -12,10 +26,10 @@
     "digest_path": "/Users/daytrons/.openclaw/workspace/MEMORY_SUMMARY.json"
   },
   {
-    "id": "digest_20260305191156",
+    "id": "digest_20260305190744",
     "type": "summary_digest",
     "date": "2026-03-05",
-    "timestamp": "2026-03-05T19:11:56.802744",
+    "timestamp": "2026-03-05T19:07:44.221766",
     "source_paths": [
       "/Users/daytrons/.openclaw/workspace/MEMORY.md"
     ],

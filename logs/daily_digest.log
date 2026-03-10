@@ -34,3 +34,15 @@
   "generated_at": "2026-03-08T17:00:07.956482",
   "model": "llama3.2:latest"
 }
+{
+  "date": "2026-03-09",
+  "digest": "Here is the daily trading digest:\n\n**Daily Trading Digest**\n\n**Market Update**\nThe markets closed with a positive tone, with the S&P 500 up 1.2% and the Nasdaq Composite up 0.8%.\n\n**Key Events**\n\u2022 Tech stocks led the rally, with many indices reaching new highs.\n\u2022 The Federal Reserve Chairman's speech tomorrow is expected to shape market sentiment.\n\n**Action Items**\nReview your portfolio's tech exposure and consider adjusting your position size to take advantage of the trend.",
+  "data": {
+    "spy_change": "+1.2%",
+    "qqq_change": "+0.8%",
+    "notable": "Tech rally, Fed speech tomorrow",
+    "portfolio_change": "+1.5%"
+  },
+  "generated_at": "2026-03-09T17:00:06.026234",
+  "model": "llama3.2:latest"
+}
