@@ -2325,3 +2325,26 @@ Cost report: Here is a brief 2-line summary:
 Alert format: "S&P 500 futures surge, hitting $450.25, up 2.50% from previous close."
 Handlers ready.
 Monitor cycle complete.
+[06:30] Checking SPY...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here's a 2-line summary:
+
+"Total: $0.14 | Model: $0.07 (kimi) / $0.06 (minimax)" 
+or 
+"Total: $0.14 | Model: $0.07/kimi, $0.06/minimax"
+Alert format: "SPY Alert: S&P 500 futures (SPY) break through $450 resistance, now trading at $450.25 (+2.50%)".
+Handlers ready.
+[06:30] Checking QQQ...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 ($0.07/$0.14 = 50%)"
+Alert format: "SPY: Bullish alert, price reached $450.25, up 2.50% from previous close."
+Handlers ready.
+[06:30] Checking SPX...
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: "Total: $0.14 | Model: $0.07 (kimi $0.08, minimax $0.06) | Efficiency: 57.1%"
+Alert format: SPY alert: Long position recommended at $450.25, 2.50% gain.
+Handlers ready.
+Monitor cycle complete.

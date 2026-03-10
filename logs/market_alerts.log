@@ -383,3 +383,10 @@ Cost report: Here is the 2-line summary:
 "Total: $0.14 | Model: $0.07 ($0.07)"
 Alert format: Alert: S&P 500 Futures (SPY) at $450.25, up 2.50% from previous close.
 Handlers ready.
+Testing Ollama handlers...
+Threshold check: {'alert': True, 'message': 'Price $150.5 above threshold $150.0'}
+Cost report: Here is a 2-line summary of the token usage data:
+
+"Total: $0.14 | Model: $0.14 ($0.08/kimi + $0.06/minimax) | Efficiency: 100%"
+Alert format: "S&P 500 Index (SPY) surges 2.5% to $450.25, breaching key resistance levels."
+Handlers ready.
