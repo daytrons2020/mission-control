@@ -1,0 +1,72 @@
+/* Glass Card Component */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-lg);
+  border-color: var(--glass-border-light);
+}
+
+.glass-card-sm {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+.glass-card-lg {
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+}
+
+/* Variants */
+.glass-card-solid {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.glass-card-dark {
+  background: var(--glass-bg-dark);
+}
+
+.glass-card-subtle {
+  box-shadow: var(--glass-shadow-sm);
+  border-color: var(--glass-border-light);
+}
+
+/* Interactive Card */
+.glass-card-interactive {
+  cursor: pointer;
+}
+
+.glass-card-interactive:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* Card with shimmer effect */
+.glass-card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: glassShimmer 3s infinite;
+}

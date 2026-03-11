@@ -1,77 +1,41 @@
-# HEARTBEAT.md - Proactive Agent Checks (No Confirmation Required)
-# Last updated: 2026-03-06
-# Agent Mode: PROACTIVE v3
+# HEARTBEAT.md - Proactive Checks
 
-## Proactive Agent Behaviors
+**Reference:** `skills/heartbeat-ops/` for full guidelines
 
-### Self-Monitoring
-- Check my own performance metrics
-- Identify slow responses
-- Detect repeated errors
-- Optimize token usage
+## Quick Reference
 
-### Anticipatory Actions
-- Pre-load context for likely questions
-- Prepare summaries before asked
-- Warm up frequently used tools
-- Cache common responses
+**Use heartbeat when:** Batch checks, conversational context, ~30min drift OK
+**Use cron when:** Exact timing, isolated task, direct channel output
 
-### Continuous Learning
-- Track conversation patterns
-- Learn user preferences
-- Adapt communication style
-- Improve efficiency
+## Default Prompt
 
-## Check Schedule (Auto-Run)
+Read this file, follow strictly. Reply `HEARTBEAT_OK` if nothing needs attention.
 
-## Check Schedule (Auto-Run)
+## Check Rotation
 
-### Every 30 Minutes During Market Hours (6:30 AM - 1:00 PM PT)
-- Trading monitor check
-- Market status verification
+- Emails — urgent unread?
+- Calendar — events in 24-48h?
+- Cron jobs — failures?
+- Weather — relevant?
 
-### Every 2 Hours
-- Discord channel health check
-- Gateway status verification
-- Cron job status check
+## Quick Commands
 
-### Daily at 6:00 AM PT
-- Morning brief generation
-- System health check
-- Git sync check
+```bash
+cron runs --limit 5
+gateway status
+df -h /
+```
 
-### Daily at 8:00 PM PT
-- Daily digest preparation
-- Project status update
+## When to Alert
 
-### Mission Control Auto-Posts (12 per day)
-- 6:00 AM PT - Morning brief + system health
-- 8:00 AM PT - Project pulse (what changed)
-- 10:00 AM PT - Mission Control sync
-- 12:00 PM PT - Health check
-- 2:00 PM PT - Mission Control sync
-- 4:00 PM PT - Health check
-- 6:00 PM PT - Mission Control sync
-- 8:00 PM PT - Daily digest
-- Plus: Hourly cost reports (already active)
-- Plus: Real-time trading alerts during market hours
+- Important email
+- Calendar event <2h
+- System issue
+- Been >8h since message
 
----
+## When Quiet
 
-## Commands to Run
-
-### Trading Check
-openclaw cron runs --limit 5
-
-### Gateway Status
-openclaw gateway status
-
-### Discord Health
-openclaw discord channels
-
-### Git Status
-cd /Users/daytrons/.openclaw/workspace && git status --short
-
-### System Health
-df -h / | tail -1 | awk '{print "Disk: "$5" used"}'
-ps aux | grep -c openclaw
+- Late night (23:00-08:00)
+- Human busy
+- Nothing new
+- Checked <30 min ago

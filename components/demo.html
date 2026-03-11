@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism UI Components</title>
+  <link rel="stylesheet" href="glass.css">
+  <style>
+    /* Demo page specific styles */
+    .demo-section {
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .demo-section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+    }
+  </style>
+</head>
+<body class="glass-demo-bg">
+  <div class="glass-container">
+    <h1 class="glass-text-3xl glass-font-bold glass-text-center" style="margin-bottom: var(--space-2xl);">
+      Glassmorphism UI Components
+    </h1>
+
+    <!-- Cards Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Cards</h2>
+      <div class="demo-grid">
+        <div class="glass-card">
+          <h3 class="glass-text-xl glass-font-semibold">Default Card</h3>
+          <p class="glass-text-base" style="color: var(--text-secondary);">
+            A beautiful glassmorphism card with backdrop blur and subtle borders.
+          </p>
+        </div>
+        
+        <div class="glass-card glass-card-interactive">
+          <h3 class="glass-text-xl glass-font-semibold">Interactive Card</h3>
+          <p class="glass-text-base" style="color: var(--text-secondary);">
+            Hover and click this card to see the interaction effects.
+          </p>
+        </div>
+        
+        <div class="glass-card glass-card-shimmer">
+          <h3 class="glass-text-xl glass-font-semibold">Shimmer Card</h3>
+          <p class="glass-text-base" style="color: var(--text-secondary);">
+            This card features an elegant shimmer animation effect.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Buttons</h2>
+      <div class="glass-card">
+        <div class="glass-flex glass-flex-wrap glass-gap-md" style="margin-bottom: var(--space-md);">
+          <button class="glass-button">Default</button>
+          <button class="glass-button glass-button-primary">Primary</button>
+          <button class="glass-button glass-button-secondary">Secondary</button>
+          <button class="glass-button glass-button-accent">Accent</button>
+          <button class="glass-button glass-button-ghost">Ghost</button>
+          <button class="glass-button glass-button-outline">Outline</button>
+        </div>
+        <div class="glass-flex glass-flex-wrap glass-gap-md" style="margin-bottom: var(--space-md);">
+          <button class="glass-button glass-button-sm">Small</button>
+          <button class="glass-button">Medium</button>
+          <button class="glass-button glass-button-lg">Large</button>
+        </div>
+        <div class="glass-flex glass-flex-wrap glass-gap-md">
+          <button class="glass-button glass-button-glow">Glowing</button>
+          <button class="glass-button glass-button-loading">Loading</button>
+          <button class="glass-button" disabled>Disabled</button>
+          <button class="glass-button glass-button-icon">★</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inputs Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Inputs</h2>
+      <div class="glass-card">
+        <div class="glass-grid glass-grid-2">
+          <div>
+            <label class="glass-label">Default Input</label>
+            <input type="text" class="glass-input" placeholder="Enter text...">
+          </div>
+          <div>
+            <label class="glass-label">Filled Input</label>
+            <input type="text" class="glass-input glass-input-filled" placeholder="Enter text...">
+          </div>
+          <div>
+            <label class="glass-label">Small Input</label>
+            <input type="text" class="glass-input glass-input-sm" placeholder="Small...">
+          </div>
+          <div>
+            <label class="glass-label">Large Input</label>
+            <input type="text" class="glass-input glass-input-lg" placeholder="Large...">
+          </div>
+          <div>
+            <label class="glass-label">Select</label>
+            <select class="glass-input glass-select">
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
+          <div>
+            <label class="glass-label">Input Group</label>
+            <div class="glass-input-group">
+              <input type="text" class="glass-input" placeholder="Search...">
+              <button class="glass-button">Go</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: var(--space-md);">
+          <label class="glass-label">Textarea</label>
+          <textarea class="glass-input glass-textarea" placeholder="Enter longer text..."></textarea>
+        </div>
+        <div class="glass-flex glass-gap-md" style="margin-top: var(--space-md);">
+          <label class="glass-flex glass-items-center">
+            <input type="checkbox" class="glass-checkbox" checked>
+            <span class="glass-text-sm">Checkbox</span>
+          </label>
+          <label class="glass-flex glass-items-center">
+            <input type="radio" name="radio" class="glass-radio" checked>
+            <span class="glass-text-sm">Radio 1</span>
+          </label>
+          <label class="glass-flex glass-items-center">
+            <input type="radio" name="radio" class="glass-radio">
+            <span class="glass-text-sm">Radio 2</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Navigation</h2>
+      <div class="glass-card">
+        <div style="margin-bottom: var(--space-lg);">
+          <div class="glass-tabs">
+            <button class="glass-tab active">Tab 1</button>
+            <button class="glass-tab">Tab 2</button>
+            <button class="glass-tab">Tab 3</button>
+          </div>
+        </div>
+        <div style="margin-bottom: var(--space-lg);">
+          <ul class="glass-breadcrumbs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li>Category</li>
+          </ul>
+        </div>
+        <div>
+          <nav class="glass-pagination">
+            <a href="#" class="glass-page-item disabled">←</a>
+            <a href="#" class="glass-page-item active">1</a>
+            <a href="#" class="glass-page-item">2</a>
+            <a href="#" class="glass-page-item">3</a>
+            <span class="glass-page-item" style="cursor: default;">...</span>
+            <a href="#" class="glass-page-item">10</a>
+            <a href="#" class="glass-page-item">→</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges & Alerts Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Badges & Alerts</h2>
+      <div class="glass-card">
+        <div class="glass-flex glass-flex-wrap glass-gap-md" style="margin-bottom: var(--space-lg);">
+          <span class="glass-badge">Default</span>
+          <span class="glass-badge glass-badge-primary">Primary</span>
+          <span class="glass-badge glass-badge-secondary">Secondary</span>
+          <span class="glass-badge glass-badge-success">Success</span>
+          <span class="glass-badge glass-badge-warning">Warning</span>
+          <span class="glass-badge glass-badge-error">Error</span>
+        </div>
+        <div class="glass-grid glass-grid-1 glass-gap-md">
+          <div class="glass-alert glass-alert-info">
+            <div class="glass-alert-content">
+              <h4 class="glass-alert-title">Info Alert</h4>
+              <p class="glass-alert-message">This is an informational message.</p>
+            </div>
+          </div>
+          <div class="glass-alert glass-alert-success">
+            <div class="glass-alert-content">
+              <h4 class="glass-alert-title">Success Alert</h4>
+              <p class="glass-alert-message">Your action was completed successfully!</p>
+            </div>
+          </div>
+          <div class="glass-alert glass-alert-warning">
+            <div class="glass-alert-content">
+              <h4 class="glass-alert-title">Warning Alert</h4>
+              <p class="glass-alert-message">Please review your input before continuing.</p>
+            </div>
+          </div>
+          <div class="glass-alert glass-alert-error">
+            <div class="glass-alert-content">
+              <h4 class="glass-alert-title">Error Alert</h4>
+              <p class="glass-alert-message">Something went wrong. Please try again.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lists & Tables Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Lists & Tables</h2>
+      <div class="demo-grid">
+        <ul class="glass-list">
+          <li class="glass-list-item">
+            <div class="glass-list-icon">📧</div>
+            <div class="glass-list-content">
+              <p class="glass-list-title">New Message</p>
+              <p class="glass-list-subtitle">From: John Doe</p>
+            </div>
+            <span class="glass-badge glass-badge-primary">New</span>
+          </li>
+          <li class="glass-list-item">
+            <div class="glass-list-icon">🔔</div>
+            <div class="glass-list-content">
+              <p class="glass-list-title">Notification</p>
+              <p class="glass-list-subtitle">Your report is ready</p>
+            </div>
+          </li>
+          <li class="glass-list-item">
+            <div class="glass-list-icon">✅</div>
+            <div class="glass-list-content">
+              <p class="glass-list-title">Task Completed</p>
+              <p class="glass-list-subtitle">Project setup done</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="glass-table-container">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alice Johnson</td>
+                <td>Developer</td>
+                <td><span class="glass-badge glass-badge-success">Active</span></td>
+              </tr>
+              <tr>
+                <td>Bob Smith</td>
+                <td>Designer</td>
+                <td><span class="glass-badge glass-badge-warning">Away</span></td>
+              </tr>
+              <tr>
+                <td>Carol White</td>
+                <td>Manager</td>
+                <td><span class="glass-badge glass-badge-success">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Progress</h2>
+      <div class="glass-card">
+        <div style="margin-bottom: var(--space-md);">
+          <div class="glass-progress">
+            <div class="glass-progress-bar" style="width: 75%;"></div>
+          </div>
+        </div>
+        <div style="margin-bottom: var(--space-md);">
+          <div class="glass-progress glass-progress-success">
+            <div class="glass-progress-bar" style="width: 100%;"></div>
+          </div>
+        </div>
+        <div style="margin-bottom: var(--space-md);">
+          <div class="glass-progress glass-progress-warning">
+            <div class="glass-progress-bar" style="width: 45%;"></div>
+          </div>
+        </div>
+        <div>
+          <div class="glass-progress glass-progress-error">
+            <div class="glass-progress-bar" style="width: 20%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section-title">Modal</h2>
+      <div class="glass-card">
+        <button class="glass-button glass-button-primary" onclick="document.getElementById('demo-modal').classList.add('active')">
+          Open Modal
+        </button>
+      </div>
+    </section>
+
+    <!-- Modal Overlay -->
+    <div id="demo-modal" class="glass-modal-overlay" onclick="if(event.target === this) this.classList.remove('active')">
+      <div class="glass-modal">
+        <div class="glass-modal-header">
+          <h3 class="glass-modal-title">Modal Title</h3>
+          <button class="glass-modal-close" onclick="document.getElementById('demo-modal').classList.remove('active')">✕</button>
+        </div>
+        <div class="glass-modal-body">
+          <p style="color: var(--text-secondary);">
+            This is a glassmorphism modal with a beautiful blur effect. 
+            Click outside or the X button to close it.
+          </p>
+        </div>
+        <div class="glass-modal-footer">
+          <button class="glass-button glass-button-ghost" onclick="document.getElementById('demo-modal').classList.remove('active')">Cancel</button>
+          <button class="glass-button glass-button-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

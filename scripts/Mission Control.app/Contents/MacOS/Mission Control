@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# Mission Control Launcher
+# Opens the Mission Control dashboard with style
+
+WORKSPACE_DIR="/Users/daytrons/.openclaw/workspace"
+DASHBOARD_FILE="$WORKSPACE_DIR/dashboard.html"
+DASHBOARD_V2_FILE="$WORKSPACE_DIR/dashboard-v2.html"
+
+# ANSI colors for terminal fallback
+PURPLE='\033[38;5;141m'
+CYAN='\033[38;5;51m'
+GREEN='\033[38;5;84m'
+YELLOW='\033[38;5;220m'
+RED='\033[38;5;203m'
+RESET='\033[0m'
+BOLD='\033[1m'
+
+# Show nice loading dialog using AppleScript
+show_loading() {
+    osascript <<EOF 2>/dev/null &
+        tell application "System Events"
+            set theApp to name of first application process whose frontmost is true
+        end tell
+        
+        tell application "System Events"
+            display dialog "🚀 Launching Mission Control..." with title "Mission Control" buttons {"Cancel", "Open Dashboard"} default button "Open Dashboard" giving up after 3
+        end tell
+EOF
+}
+
+# Function to print styled output
+print_header() {
+    echo ""
+    echo -e "${PURPLE}╭────────────────────────────────────────────────────────────╮${RESET}"
+    echo -e "${PURPLE}│${RESET}  ${BOLD}${CYAN}🚀 MISSION CONTROL${RESET} ${PURPLE}NANO v2.0${RESET}                        ${PURPLE}│${RESET}"
+    echo -e "${PURPLE}╰────────────────────────────────────────────────────────────╯${RESET}"
+    echo ""
+}
+
+print_success() {
+    echo -e "${GREEN}✓${RESET} $1"
+}
+
+print_info() {
+    echo -e "${CYAN}ℹ${RESET} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠${RESET} $1"
+}
+
+# Check if dashboard exists
+if [ ! -f "$DASHBOARD_FILE" ]; then
+    echo -e "${RED}Error: Dashboard not found at $DASHBOARD_FILE${RESET}"
+    exit 1
+fi
+
+# Print header
+print_header
+
+# Check which dashboard to open
+if [ -f "$DASHBOARD_V2_FILE" ]; then
+    print_info "Found dashboard-v2.html"
+    DASHBOARD_TO_OPEN="$DASHBOARD_V2_FILE"
+else
+    DASHBOARD_TO_OPEN="$DASHBOARD_FILE"
+fi
+
+print_info "Opening dashboard..."
+
+# Get absolute path
+DASHBOARD_PATH="file://$(cd "$(dirname "$DASHBOARD_TO_OPEN")" && pwd)/$(basename "$DASHBOARD_TO_OPEN")"
+
+# Try to open with a nice browser experience
+# Prefer Chrome or Edge for the best dashboard experience, fallback to Safari
+if command -v /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null; then
+    print_success "Launching with Google Chrome..."
+    open -a "Google Chrome" "$DASHBOARD_PATH" --args --app="$DASHBOARD_PATH" 2>/dev/null || \
+    open -a "Google Chrome" "$DASHBOARD_PATH"
+elif command -v /Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge &>/dev/null; then
+    print_success "Launching with Microsoft Edge..."
+    open -a "Microsoft Edge" "$DASHBOARD_PATH"
+elif command -v /Applications/Arc.app/Contents/MacOS/Arc &>/dev/null; then
+    print_success "Launching with Arc..."
+    open -a "Arc" "$DASHBOARD_PATH"
+else
+    print_success "Launching with default browser..."
+    open "$DASHBOARD_PATH"
+fi
+
+# Show notification
+osascript -e 'display notification "Mission Control is now running" with title "🚀 Mission Control"' 2>/dev/null
+
+echo ""
+print_success "Dashboard opened successfully!"
+print_info "Dashboard: $DASHBOARD_PATH"
+echo ""
+echo -e "${PURPLE}────────────────────────────────────────────────────────────${RESET}"
+print_info "Quick Tips:"
+echo "  • Press ${BOLD}B${RESET} to toggle sidebar"
+echo "  • Use the sidebar to navigate between views"
+echo "  • Dashboard auto-refreshes every 30 seconds"
+echo -e "${PURPLE}────────────────────────────────────────────────────────────${RESET}"
+echo ""
+
+exit 0
