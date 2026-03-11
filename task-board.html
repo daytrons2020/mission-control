@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Task Board</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+    }
+    .btn-secondary {
+      background: var(--glass-bg-light);
+      color: white;
+      border: 1px solid var(--glass-border);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    .board-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .board-column {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .column-title {
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .column-count {
+      background: var(--glass-bg-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+    .task-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: grab;
+      transition: all 0.2s;
+    }
+    .task-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .task-title {
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .task-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .task-assignee {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .assignee-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    .task-priority {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .priority-high { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+    .priority-medium { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
+    .priority-low { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .column-todo .column-title { color: var(--accent-cyan); }
+    .column-progress .column-title { color: var(--accent-yellow); }
+    .column-review .column-title { color: var(--accent-purple); }
+    .column-done .column-title { color: var(--accent-green); }
+    @media (max-width: 1200px) {
+      .board-container { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .board-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>📋 Task Board</h1>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="filterTasks('all')">All Tasks</button>
+      <button class="btn btn-secondary" onclick="filterTasks('mine')">My Tasks</button>
+      <button class="btn btn-secondary" onclick="filterTasks('nano')">Nano's Tasks</button>
+      <button class="btn btn-primary" onclick="addTask()">+ New Task</button>
+    </div>
+  </div>
+
+  <div class="board-container">
+    <div class="board-column column-todo">
+      <div class="column-header">
+        <span class="column-title">To Do</span>
+        <span class="column-count" id="count-todo">3</span>
+      </div>
+      <div id="todo-tasks">
+        <div class="task-card" data-task-id="1">
+          <div class="task-title">Build Content Pipeline Tool</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+        <div class="task-card" data-task-id="2">
+          <div class="task-title">Create Calendar View</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+        <div class="task-card" data-task-id="3">
+          <div class="task-title">Design Digital Office</div>
+          <div class="task-meta">
+            <span class="task-priority priority-medium">Medium</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board-column column-progress">
+      <div class="column-header">
+        <span class="column-title">In Progress</span>
+        <span class="column-count" id="count-progress">2</span>
+      </div>
+      <div id="progress-tasks">
+        <div class="task-card" data-task-id="4">
+          <div class="task-title">Link Mission Control to Binary Command</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+        <div class="task-card" data-task-id="5">
+          <div class="task-title">Build Memory Screen with Search</div>
+          <div class="task-meta">
+            <span class="task-priority priority-medium">Medium</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board-column column-review">
+      <div class="column-header">
+        <span class="column-title">Review</span>
+        <span class="column-count" id="count-review">1</span>
+      </div>
+      <div id="review-tasks">
+        <div class="task-card" data-task-id="6">
+          <div class="task-title">Deploy Mission Control Updates</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">D</span>
+              Dayton
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board-column column-done">
+      <div class="column-header">
+        <span class="column-title">Done</span>
+        <span class="column-count" id="count-done">8</span>
+      </div>
+      <div id="done-tasks">
+        <div class="task-card" data-task-id="7">
+          <div class="task-title">Create 9 Specialist Agents</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+        <div class="task-card" data-task-id="8">
+          <div class="task-title">Build 2nd Brain Module</div>
+          <div class="task-meta">
+            <span class="task-priority priority-high">High</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+        <div class="task-card" data-task-id="9">
+          <div class="task-title">Implement Shared Memory</div>
+          <div class="task-meta">
+            <span class="task-priority priority-medium">Medium</span>
+            <span class="task-assignee">
+              <span class="assignee-avatar">N</span>
+              Nano
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Task Board Logic
+    let tasks = JSON.parse(localStorage.getItem('mc-tasks') || '[]');
+    
+    function addTask() {
+      const title = prompt('Task title:');
+      if (!title) return;
+      
+      const assignee = prompt('Assign to (Dayton or Nano):') || 'Nano';
+      const priority = prompt('Priority (high/medium/low):') || 'medium';
+      
+      const task = {
+        id: Date.now(),
+        title,
+        assignee: assignee.toLowerCase(),
+        priority,
+        status: 'todo',
+        createdAt: new Date().toISOString()
+      };
+      
+      tasks.push(task);
+      saveTasks();
+      renderTasks();
+    }
+    
+    function saveTasks() {
+      localStorage.setItem('mc-tasks', JSON.stringify(tasks));
+    }
+    
+    function renderTasks() {
+      // Clear all columns
+      document.getElementById('todo-tasks').innerHTML = '';
+      document.getElementById('progress-tasks').innerHTML = '';
+      document.getElementById('review-tasks').innerHTML = '';
+      document.getElementById('done-tasks').innerHTML = '';
+      
+      // Render tasks
+      tasks.forEach(task => {
+        const card = createTaskCard(task);
+        document.getElementById(`${task.status}-tasks`).appendChild(card);
+      });
+      
+      // Update counts
+      updateCounts();
+    }
+    
+    function createTaskCard(task) {
+      const div = document.createElement('div');
+      div.className = 'task-card';
+      div.dataset.taskId = task.id;
+      div.innerHTML = `
+        <div class="task-title">${task.title}</div>
+        <div class="task-meta">
+          <span class="task-priority priority-${task.priority}">${task.priority}</span>
+          <span class="task-assignee">
+            <span class="assignee-avatar">${task.assignee === 'dayton' ? 'D' : 'N'}</span>
+            ${task.assignee === 'dayton' ? 'Dayton' : 'Nano'}
+          </span>
+        </div>
+      `;
+      div.onclick = () => moveTask(task.id);
+      return div;
+    }
+    
+    function moveTask(taskId) {
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) return;
+      
+      const statuses = ['todo', 'progress', 'review', 'done'];
+      const currentIndex = statuses.indexOf(task.status);
+      const nextIndex = (currentIndex + 1) % statuses.length;
+      task.status = statuses[nextIndex];
+      
+      saveTasks();
+      renderTasks();
+    }
+    
+    function updateCounts() {
+      document.getElementById('count-todo').textContent = tasks.filter(t => t.status === 'todo').length;
+      document.getElementById('count-progress').textContent = tasks.filter(t => t.status === 'progress').length;
+      document.getElementById('count-review').textContent = tasks.filter(t => t.status === 'review').length;
+      document.getElementById('count-done').textContent = tasks.filter(t => t.status === 'done').length;
+    }
+    
+    function filterTasks(filter) {
+      const allCards = document.querySelectorAll('.task-card');
+      allCards.forEach(card => {
+        const taskId = parseInt(card.dataset.taskId);
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+        
+        if (filter === 'all') {
+          card.style.display = 'block';
+        } else if (filter === 'mine') {
+          card.style.display = task.assignee === 'dayton' ? 'block' : 'none';
+        } else if (filter === 'nano') {
+          card.style.display = task.assignee === 'nano' ? 'block' : 'none';
+        }
+      });
+    }
+    
+    // Initialize
+    renderTasks();
+  </script>
+</body>
+</html>

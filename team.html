@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Team Structure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .team-stats {
+      display: flex;
+      gap: 16px;
+    }
+    .stat-badge {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+    .level {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .agent-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      width: 280px;
+      transition: all 0.3s;
+    }
+    .agent-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+    }
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .agent-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    }
+    .agent-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .agent-role {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .agent-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .status-online { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .status-busy { background: var(--accent-yellow); box-shadow: 0 0 8px var(--accent-yellow); }
+    .status-offline { background: rgba(255,255,255,0.3); }
+    .agent-meta {
+      display: flex;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+    .meta-value {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .agent-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .btn-small {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-small:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+      margin: 32px 0 16px;
+      text-align: center;
+    }
+    .subagents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .subagent-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .subagent-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .subagent-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .subagent-specialty {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .connector {
+      width: 2px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--accent-purple), transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>👥 Team Structure</h1>
+    <div class="team-stats">
+      <div class="stat-badge">
+        <div class="stat-value">9</div>
+        <div class="stat-label">Core Agents</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Sub-Agents</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-value">7</div>
+        <div class="stat-label">Online Now</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="org-chart">
+    <!-- Level 1: Coordinator -->
+    <div class="level">
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar">🎯</div>
+          <div class="agent-info">
+            <h3>Nano</h3>
+            <div class="agent-role">Coordinator / Orchestrator</div>
+            <div class="agent-status">
+              <span class="status-dot status-online"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Online</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">Kimi K2.5</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">24 Active</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="viewAgent('nano')">View</button>
+          <button class="btn-small" onclick="assignTask('nano')">Assign</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- Level 2: Specialist Agents -->
+    <div class="level">
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">🔌</div>
+          <div class="agent-info">
+            <h3>Integration Specialist</h3>
+            <div class="agent-role">APIs, Webhooks, External Services</div>
+            <div class="agent-status">
+              <span class="status-dot status-online"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Active</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">Kimi K2.5</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">3 Pending</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="spawnAgent('integration')">Spawn</button>
+          <button class="btn-small" onclick="viewStatus('integration')">Status</button>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🎨</div>
+          <div class="agent-info">
+            <h3>Frontend Developer</h3>
+            <div class="agent-role">UI/UX, React, Components</div>
+            <div class="agent-status">
+              <span class="status-dot status-busy"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Working</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">Ollama/qwen3:8b</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">1 Active</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="spawnAgent('frontend')">Spawn</button>
+          <button class="btn-small" onclick="viewStatus('frontend')">Status</button>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">🗄️</div>
+          <div class="agent-info">
+            <h3>Database Engineer</h3>
+            <div class="agent-role">Data, Schema, Queries</div>
+            <div class="agent-status">
+              <span class="status-dot status-online"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Active</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">Kimi K2.5</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">2 Pending</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="spawnAgent('database')">Spawn</button>
+          <button class="btn-small" onclick="viewStatus('database')">Status</button>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⚙️</div>
+          <div class="agent-info">
+            <h3>Backend Developer</h3>
+            <div class="agent-role">API Logic, Services, Orchestration</div>
+            <div class="agent-status">
+              <span class="status-dot status-online"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Active</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">Kimi K2.5</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">1 Active</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="spawnAgent('backend')">Spawn</button>
+          <button class="btn-small" onclick="viewStatus('backend')">Status</button>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #ec4899, #be185d);">🤖</div>
+          <div class="agent-info">
+            <h3>AI Engineer</h3>
+            <div class="agent-role">Models, Prompts, Optimization</div>
+            <div class="agent-status">
+              <span class="status-dot status-busy"></span>
+              <span style="font-size: 12px; color: rgba(255,255,255,0.6);">Working</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <span class="meta-value">MiniMax M2.5</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tasks</span>
+            <span class="meta-value">2 Active</span>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button class="btn-small" onclick="spawnAgent('ai')">Spawn</button>
+          <button class="btn-small" onclick="viewStatus('ai')">Status</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Support Agents</div>
+
+    <!-- Level 3: Support Agents -->
+    <div class="level">
+      <div class="agent-card" style="width: 200px;">
+        <div class="agent-header" style="flex-direction: column; text-align: center;">
+          <div class="agent-avatar" style="width: 48px; height: 48px; font-size: 24px; background: linear-gradient(135deg, #6366f1, #4f46e5);">💻</div>
+          <div class="agent-info">
+            <h3 style="font-size: 14px;">Coder</h3>
+            <div class="agent-role" style="font-size: 12px;">General coding</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="width: 200px;">
+        <div class="agent-header" style="flex-direction: column; text-align: center;">
+          <div class="agent-avatar" style="width: 48px; height: 48px; font-size: 24px; background: linear-gradient(135deg, #06b6d4, #0891b2);">🔍</div>
+          <div class="agent-info">
+            <h3 style="font-size: 14px;">Researcher</h3>
+            <div class="agent-role" style="font-size: 12px;">Investigation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="width: 200px;">
+        <div class="agent-header" style="flex-direction: column; text-align: center;">
+          <div class="agent-avatar" style="width: 48px; height: 48px; font-size: 24px; background: linear-gradient(135deg, #84cc16, #65a30d);">✅</div>
+          <div class="agent-info">
+            <h3 style="font-size: 14px;">Reviewer</h3>
+            <div class="agent-role" style="font-size: 12px;">Code review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Sub-Agent Pool (On-Demand)</div>
+
+    <!-- Sub-agents -->
+    <div class="subagents-grid">
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">📝</div>
+        <div class="subagent-name">Content Writer</div>
+        <div class="subagent-specialty">Articles, blogs, copy</div>
+      </div>
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">🎬</div>
+        <div class="subagent-name">Video Producer</div>
+        <div class="subagent-specialty">Scripts, editing</div>
+      </div>
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #ec4899, #be185d);">🎨</div>
+        <div class="subagent-name">Designer</div>
+        <div class="subagent-specialty">UI/UX, graphics</div>
+      </div>
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">📚</div>
+        <div class="subagent-name">Education Specialist</div>
+        <div class="subagent-specialty">RT content, workshops</div>
+      </div>
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📊</div>
+        <div class="subagent-name">Trading Analyst</div>
+        <div class="subagent-specialty">Market analysis, patterns</div>
+      </div>
+      <div class="subagent-card">
+        <div class="subagent-avatar" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💻</div>
+        <div class="subagent-name">Code Specialist</div>
+        <div class="subagent-specialty">React, TypeScript, APIs</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function spawnAgent(type) {
+      alert(`Spawning ${type} agent... (would connect to OpenClaw API)`);
+    }
+    
+    function viewStatus(agent) {
+      alert(`Viewing status for ${agent}...`);
+    }
+    
+    function viewAgent(agent) {
+      alert(`Viewing details for ${agent}...`);
+    }
+    
+    function assignTask(agent) {
+      const task = prompt(`Assign task to ${agent}:`);
+      if (task) {
+        alert(`Task assigned: ${task}`);
+      }
+    }
+  </script>
+</body>
+</html>
