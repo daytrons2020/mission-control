@@ -658,6 +658,49 @@
     </main>
   </div>
 
+  <!-- Task Sync Module -->
+  <script>
+    // Task Management - Shared with task-board.html
+    const TASKS_STORAGE_KEY = 'mc-tasks';
+    
+    function getTasks() {
+      return JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY) || '[]');
+    }
+    
+    function saveTasks(tasks) {
+      localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+      updateTaskUI();
+    }
+    
+    function updateTaskUI() {
+      const tasks = getTasks();
+      const activeCount = tasks.filter(t => t.status !== 'done').length;
+      
+      // Update sidebar badge
+      const badge = document.querySelector('.nav-item[href="#"] .nav-badge');
+      if (badge) {
+        badge.textContent = activeCount;
+        badge.style.display = activeCount > 0 ? 'flex' : 'none';
+      }
+      
+      // Update Active Tasks stat
+      const activeTasksStat = document.querySelector('.stat-card .stat-value');
+      if (activeTasksStat && activeTasksStat.parentElement.querySelector('.stat-label')?.textContent === 'Active Tasks') {
+        activeTasksStat.textContent = activeCount;
+      }
+    }
+    
+    // Listen for storage changes from other pages
+    window.addEventListener('storage', (e) => {
+      if (e.key === TASKS_STORAGE_KEY) {
+        updateTaskUI();
+      }
+    });
+    
+    // Initialize task UI on load
+    document.addEventListener('DOMContentLoaded', updateTaskUI);
+  </script>
+
   <script>
     // Sidebar Toggle
     const sidebar = document.getElementById('sidebar');

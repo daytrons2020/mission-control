@@ -304,8 +304,14 @@
   </div>
 
   <script>
-    // Task Board Logic
-    let tasks = JSON.parse(localStorage.getItem('mc-tasks') || '[]');
+    // Task Board Logic - Shared with dashboard
+    const TASKS_STORAGE_KEY = 'mc-tasks';
+    let tasks = [];
+    
+    function loadTasks() {
+      tasks = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY) || '[]');
+      return tasks;
+    }
     
     function addTask() {
       const title = prompt('Task title:');
@@ -329,7 +335,7 @@
     }
     
     function saveTasks() {
-      localStorage.setItem('mc-tasks', JSON.stringify(tasks));
+      localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
     }
     
     function renderTasks() {
@@ -342,7 +348,10 @@
       // Render tasks
       tasks.forEach(task => {
         const card = createTaskCard(task);
-        document.getElementById(`${task.status}-tasks`).appendChild(card);
+        const column = document.getElementById(`${task.status}-tasks`);
+        if (column) {
+          column.appendChild(card);
+        }
       });
       
       // Update counts
@@ -404,7 +413,16 @@
       });
     }
     
+    // Listen for storage changes from other pages (dashboard)
+    window.addEventListener('storage', (e) => {
+      if (e.key === TASKS_STORAGE_KEY) {
+        loadTasks();
+        renderTasks();
+      }
+    });
+    
     // Initialize
+    loadTasks();
     renderTasks();
   </script>
 </body>
