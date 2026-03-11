@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Digital Office</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+      overflow-x: hidden;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .office-status {
+      display: flex;
+      gap: 16px;
+    }
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot-online { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .dot-busy { background: var(--accent-yellow); box-shadow: 0 0 8px var(--accent-yellow); }
+    .dot-offline { background: rgba(255,255,255,0.3); }
+    .office-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .workspace {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      transition: all 0.3s;
+    }
+    .workspace:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-4px);
+    }
+    .workspace.working {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+    }
+    .workspace-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .agent-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .agent-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .agent-avatar.working::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 23px;
+      border: 2px solid var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .agent-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .agent-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-online {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-busy {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .badge-offline {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+    }
+    .computer-screen {
+      background: #000;
+      border: 2px solid var(--glass-border);
+      border-radius: 12px;
+      aspect-ratio: 16/10;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .screen-content {
+      position: absolute;
+      inset: 8px;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), rgba(0, 0, 0, 0.8));
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+      overflow: hidden;
+    }
+    .code-line {
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+    .typing-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: var(--accent-cyan);
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+    .workspace-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat-box {
+      background: var(--glass-bg-light);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+    .stat-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .current-task {
+      background: var(--glass-bg-light);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    .task-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .task-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .workspace-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .desk-items {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+    }
+    .desk-item {
+      width: 32px;
+      height: 32px;
+      background: var(--glass-bg-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .floor-plan {
+      margin-top: 32px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+    }
+    .floor-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .office-map {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .map-station {
+      aspect-ratio: 1;
+      background: var(--glass-bg-light);
+      border: 2px solid var(--glass-border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .map-station:hover {
+      border-color: var(--accent-purple);
+      transform: scale(1.05);
+    }
+    .map-station.occupied {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .map-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .map-name {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .map-status {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>🏢 Digital Office</h1>
+    <div class="office-status">
+      <div class="status-pill">
+        <span class="status-dot dot-online"></span>
+        <span>7 Working</span>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot dot-busy"></span>
+        <span>3 Busy</span>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot dot-offline"></span>
+        <span>2 Offline</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="office-container">
+    <!-- Nano's Workspace -->
+    <div class="workspace working">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar working" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));">🎯</div>
+          <div class="agent-info">
+            <h3>Nano</h3>
+            <div class="agent-role">Coordinator</div>
+          </div>
+        </div>
+        <span class="status-badge badge-online">Working</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">> Deploying Mission Control v2...</div>
+          <div class="code-line">> Building Digital Office...</div>
+          <div class="code-line">> Task: Create workspace layouts<span class="typing-cursor"></span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Tasks Today</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">4.2h</div>
+          <div class="stat-label">Work Time</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Efficiency</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Current Task</div>
+        <div class="task-name">Building Digital Office Interface</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('nano')">View Details</button>
+        <button class="btn" onclick="assignTask('nano')">Assign Task</button>
+      </div>
+      
+      <div class="desk-items">
+        <div class="desk-item">☕</div>
+        <div class="desk-item">📱</div>
+        <div class="desk-item">📝</div>
+      </div>
+    </div>
+
+    <!-- Frontend Developer -->
+    <div class="workspace working">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar working" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🎨</div>
+          <div class="agent-info">
+            <h3>Frontend Developer</h3>
+            <div class="agent-role">UI/UX Specialist</div>
+          </div>
+        </div>
+        <span class="status-badge badge-online">Coding</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">.workspace {</div>
+          <div class="code-line">  display: grid;</div>
+          <div class="code-line">  gap: 24px;<span class="typing-cursor"></span></div>
+          <div class="code-line">}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Components</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">2.5h</div>
+          <div class="stat-label">Coding</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Bugs</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Current Task</div>
+        <div class="task-name">Styling Digital Office CSS</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('frontend')">View Details</button>
+        <button class="btn" onclick="assignTask('frontend')">Assign Task</button>
+      </div>
+    </div>
+
+    <!-- AI Engineer -->
+    <div class="workspace working">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar working" style="background: linear-gradient(135deg, #ec4899, #be185d);">🤖</div>
+          <div class="agent-info">
+            <h3>AI Engineer</h3>
+            <div class="agent-role">Model Optimization</div>
+          </div>
+        </div>
+        <span class="status-badge badge-busy">Training</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">Epoch 47/100</div>
+          <div class="code-line">Loss: 0.0234 | Acc: 94.2%</div>
+          <div class="code-line">Optimizing...<span class="typing-cursor"></span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 47%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">47</div>
+          <div class="stat-label">Epochs</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">94%</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">0.02</div>
+          <div class="stat-label">Loss</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Current Task</div>
+        <div class="task-name">Training Cost Optimization Model</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('ai')">View Details</button>
+        <button class="btn" onclick="assignTask('ai')">Assign Task</button>
+      </div>
+    </div>
+
+    <!-- Integration Specialist -->
+    <div class="workspace">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">🔌</div>
+          <div class="agent-info">
+            <h3>Integration Specialist</h3>
+            <div class="agent-role">APIs & Webhooks</div>
+          </div>
+        </div>
+        <span class="status-badge badge-offline">Standby</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">Waiting for tasks...</div>
+          <div class="code-line">System ready</div>
+          <div class="code-line">Last: Discord webhook<span class="typing-cursor"></span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">99%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Status</div>
+        <div class="task-name">On Standby - Ready for Assignment</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('integration')">View Details</button>
+        <button class="btn" onclick="spawnAgent('integration')">Spawn Now</button>
+      </div>
+    </div>
+
+    <!-- Database Engineer -->
+    <div class="workspace working">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar working" style="background: linear-gradient(135deg, #10b981, #059669);">🗄️</div>
+          <div class="agent-info">
+            <h3>Database Engineer</h3>
+            <div class="agent-role">Data & Schema</div>
+          </div>
+        </div>
+        <span class="status-badge badge-online">Optimizing</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">VACUUM ANALYZE...</div>
+          <div class="code-line">Indexing memories...</div>
+          <div class="code-line">Progress: 89%<span class="typing-cursor"></span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 89%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">47</div>
+          <div class="stat-label">Files</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">2.1GB</div>
+          <div class="stat-label">Storage</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">12ms</div>
+          <div class="stat-label">Query</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Current Task</div>
+        <div class="task-name">Optimizing Memory Search Index</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('database')">View Details</button>
+        <button class="btn" onclick="assignTask('database')">Assign Task</button>
+      </div>
+    </div>
+
+    <!-- Backend Developer -->
+    <div class="workspace">
+      <div class="workspace-header">
+        <div class="agent-profile">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⚙️</div>
+          <div class="agent-info">
+            <h3>Backend Developer</h3>
+            <div class="agent-role">API & Services</div>
+          </div>
+        </div>
+        <span class="status-badge badge-offline">Standby</span>
+      </div>
+      
+      <div class="computer-screen">
+        <div class="screen-content">
+          <div class="code-line">Server: Online</div>
+          <div class="code-line">API: Ready</div>
+          <div class="code-line">Last deploy: 2h ago<span class="typing-cursor"></span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="workspace-stats">
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Endpoints</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Health</div>
+        </div>
+      </div>
+      
+      <div class="current-task">
+        <div class="task-label">Status</div>
+        <div class="task-name">On Standby - Ready for Assignment</div>
+      </div>
+      
+      <div class="workspace-actions">
+        <button class="btn" onclick="viewDetails('backend')">View Details</button>
+        <button class="btn" onclick="spawnAgent('backend')">Spawn Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floor Plan Overview -->
+  <div class="floor-plan">
+    <div class="floor-title">Office Floor Plan - Live Status</div>
+    <div class="office-map">
+      <div class="map-station occupied" onclick="focusWorkspace('nano')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));">🎯</div>
+        <div class="map-name">Nano</div>
+        <div class="map-status">Working</div>
+      </div>
+      <div class="map-station occupied" onclick="focusWorkspace('frontend')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🎨</div>
+        <div class="map-name">Frontend</div>
+        <div class="map-status">Coding</div>
+      </div>
+      <div class="map-station occupied" onclick="focusWorkspace('ai')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #ec4899, #be185d);">🤖</div>
+        <div class="map-name">AI Eng</div>
+        <div class="map-status">Training</div>
+      </div>
+      <div class="map-station" onclick="focusWorkspace('integration')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">🔌</div>
+        <div class="map-name">Integration</div>
+        <div class="map-status">Standby</div>
+      </div>
+      <div class="map-station occupied" onclick="focusWorkspace('database')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">🗄️</div>
+        <div class="map-name">Database</div>
+        <div class="map-status">Optimizing</div>
+      </div>
+      <div class="map-station" onclick="focusWorkspace('backend')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⚙️</div>
+        <div class="map-name">Backend</div>
+        <div class="map-status">Standby</div>
+      </div>
+      <div class="map-station" onclick="focusWorkspace('coder')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">💻</div>
+        <div class="map-name">Coder</div>
+        <div class="map-status">Offline</div>
+      </div>
+      <div class="map-station" onclick="focusWorkspace('researcher')">
+        <div class="map-avatar" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">🔍</div>
+        <div class="map-name">Researcher</div>
+        <div class="map-status">Offline</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function viewDetails(agent) {
+      alert(`Viewing detailed status for ${agent}...`);
+    }
+    
+    function assignTask(agent) {
+      const task = prompt(`Assign task to ${agent}:`);
+      if (task) {
+        alert(`Task assigned to ${agent}: ${task}`);
+      }
+    }
+    
+    function spawnAgent(agent) {
+      alert(`Spawning ${agent} agent...`);
+    }
+    
+    function focusWorkspace(agent) {
+      alert(`Focusing on ${agent}'s workspace...`);
+    }
+    
+    // Simulate live updates
+    setInterval(() => {
+      // Randomly update progress bars
+      document.querySelectorAll('.progress-fill').forEach(bar => {
+        if (Math.random() > 0.7) {
+          const currentWidth = parseInt(bar.style.width);
+          if (currentWidth < 100) {
+            bar.style.width = Math.min(currentWidth + Math.random() * 5, 100) + '%';
+          }
+        }
+      });
+    }, 2000);
+  </script>
+</body>
+</html>

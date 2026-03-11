@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Content Pipeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    .pipeline-container {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+      height: calc(100vh - 140px);
+    }
+    .sidebar {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .pipeline-stages {
+      margin-bottom: 24px;
+    }
+    .stage-header {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .stage-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .stage-item {
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stage-item:hover, .stage-item.active {
+      background: var(--glass-bg-light);
+    }
+    .stage-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .stage-info {
+      flex: 1;
+    }
+    .stage-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .stage-count {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .content-area {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .content-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .content-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .content-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .content-type {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .type-powerpoint { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .type-workshop { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
+    .type-video { background: rgba(236, 72, 153, 0.2); color: var(--accent-pink); }
+    .type-article { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .content-card-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .content-card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 12px;
+    }
+    .content-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .editor-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .editor-modal.active {
+      display: flex;
+    }
+    .editor-container {
+      background: #0f0f14;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 900px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .editor-title-input {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      width: 100%;
+      outline: none;
+    }
+    .editor-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .editor-textarea {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 15px;
+      line-height: 1.6;
+      resize: none;
+      outline: none;
+    }
+    .editor-sidebar {
+      display: flex;
+      gap: 12px;
+      padding: 20px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .attachment-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .stage-idea .stage-icon { background: rgba(139, 92, 246, 0.2); }
+    .stage-outline .stage-icon { background: rgba(0, 245, 255, 0.2); }
+    .stage-script .stage-icon { background: rgba(245, 158, 11, 0.2); }
+    .stage-design .stage-icon { background: rgba(236, 72, 153, 0.2); }
+    .stage-review .stage-icon { background: rgba(16, 185, 129, 0.2); }
+    .stage-publish .stage-icon { background: rgba(239, 68, 68, 0.2); }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>🎨 Content Pipeline</h1>
+    <button class="btn" onclick="createNewContent()">+ New Content</button>
+  </div>
+
+  <div class="pipeline-container">
+    <div class="sidebar">
+      <div class="pipeline-stages">
+        <div class="stage-header">Pipeline Stages</div>
+        <div class="stage-list">
+          <div class="stage-item stage-idea active" onclick="filterStage('idea')">
+            <div class="stage-icon">💡</div>
+            <div class="stage-info">
+              <div class="stage-name">Ideas</div>
+              <div class="stage-count">3 items</div>
+            </div>
+          </div>
+          <div class="stage-item stage-outline" onclick="filterStage('outline')">
+            <div class="stage-icon">📝</div>
+            <div class="stage-info">
+              <div class="stage-name">Outline</div>
+              <div class="stage-count">2 items</div>
+            </div>
+          </div>
+          <div class="stage-item stage-script" onclick="filterStage('script')">
+            <div class="stage-icon">📄</div>
+            <div class="stage-info">
+              <div class="stage-name">Script/Content</div>
+              <div class="stage-count">1 item</div>
+            </div>
+          </div>
+          <div class="stage-item stage-design" onclick="filterStage('design')">
+            <div class="stage-icon">🎨</div>
+            <div class="stage-info">
+              <div class="stage-name">Design/Visuals</div>
+              <div class="stage-count">0 items</div>
+            </div>
+          </div>
+          <div class="stage-item stage-review" onclick="filterStage('review')">
+            <div class="stage-icon">👀</div>
+            <div class="stage-info">
+              <div class="stage-name">Review</div>
+              <div class="stage-count">1 item</div>
+            </div>
+          </div>
+          <div class="stage-item stage-publish" onclick="filterStage('publish')">
+            <div class="stage-icon">🚀</div>
+            <div class="stage-info">
+              <div class="stage-name">Published</div>
+              <div class="stage-count">5 items</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="content-header">
+        <div class="content-title">Ideas</div>
+      </div>
+      <div class="content-grid" id="content-grid">
+        <!-- Content cards will be rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor Modal -->
+  <div class="editor-modal" id="editor-modal">
+    <div class="editor-container">
+      <div class="editor-header">
+        <input type="text" class="editor-title-input" id="editor-title" placeholder="Content Title">
+        <button class="btn" onclick="closeEditor()">Close</button>
+      </div>
+      <div class="editor-body">
+        <textarea class="editor-textarea" id="editor-content" placeholder="Start writing your content here..."></textarea>
+      </div>
+      <div class="editor-sidebar">
+        <button class="attachment-btn" onclick="attachImage()">📎 Attach Image</button>
+        <button class="attachment-btn" onclick="attachFile()">📄 Attach File</button>
+        <button class="attachment-btn" onclick="saveContent()">💾 Save</button>
+        <button class="attachment-btn" onclick="moveStage()">➡ Move to Next Stage</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Content Pipeline Data
+    let contentItems = JSON.parse(localStorage.getItem('mc-content') || '[]');
+    let currentStage = 'idea';
+    let editingId = null;
+
+    // Sample data if empty
+    if (contentItems.length === 0) {
+      contentItems = [
+        { id: 1, title: 'Respiratory Therapy Basics Workshop', type: 'workshop', stage: 'idea', desc: 'Interactive workshop covering fundamental RT concepts for new students', created: '2026-03-09' },
+        { id: 2, title: 'Mechanical Ventilation Mastery', type: 'powerpoint', stage: 'outline', desc: 'Comprehensive PowerPoint on ventilator modes and settings', created: '2026-03-08' },
+        { id: 3, title: 'Arterial Blood Gas Analysis', type: 'video', stage: 'script', desc: 'Video tutorial on ABG interpretation with case studies', created: '2026-03-07' },
+        { id: 4, title: 'Non-Invasive Ventilation Guide', type: 'article', stage: 'idea', desc: 'Written guide on NIV setup and troubleshooting', created: '2026-03-06' },
+        { id: 5, title: 'RT Management Best Practices', type: 'powerpoint', stage: 'review', desc: 'Leadership presentation for RT managers', created: '2026-03-05' }
+      ];
+      saveContent();
+    }
+
+    function saveContent() {
+      localStorage.setItem('mc-content', JSON.stringify(contentItems));
+    }
+
+    function renderContent() {
+      const grid = document.getElementById('content-grid');
+      grid.innerHTML = '';
+      
+      const filtered = contentItems.filter(item => item.stage === currentStage);
+      
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'content-card';
+        card.onclick = () => openEditor(item.id);
+        card.innerHTML = `
+          <span class="content-type type-${item.type}">${item.type}</span>
+          <div class="content-card-title">${item.title}</div>
+          <div class="content-card-desc">${item.desc}</div>
+          <div class="content-meta">
+            <span>📅 ${item.created}</span>
+            <span>✏️ Click to edit</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterStage(stage) {
+      currentStage = stage;
+      document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.querySelector('.content-title').textContent = stage.charAt(0).toUpperCase() + stage.slice(1);
+      renderContent();
+    }
+
+    function createNewContent() {
+      editingId = null;
+      document.getElementById('editor-title').value = '';
+      document.getElementById('editor-content').value = '';
+      document.getElementById('editor-modal').classList.add('active');
+    }
+
+    function openEditor(id) {
+      editingId = id;
+      const item = contentItems.find(i => i.id === id);
+      if (item) {
+        document.getElementById('editor-title').value = item.title;
+        document.getElementById('editor-content').value = item.desc;
+        document.getElementById('editor-modal').classList.add('active');
+      }
+    }
+
+    function closeEditor() {
+      document.getElementById('editor-modal').classList.remove('active');
+    }
+
+    function saveContent() {
+      const title = document.getElementById('editor-title').value;
+      const desc = document.getElementById('editor-content').value;
+      
+      if (editingId) {
+        const item = contentItems.find(i => i.id === editingId);
+        if (item) {
+          item.title = title;
+          item.desc = desc;
+        }
+      } else {
+        contentItems.push({
+          id: Date.now(),
+          title,
+          desc,
+          type: 'article',
+          stage: currentStage,
+          created: new Date().toISOString().split('T')[0]
+        });
+      }
+      
+      saveContent();
+      renderContent();
+      closeEditor();
+    }
+
+    function attachImage() {
+      alert('Image attachment - would open file picker');
+    }
+
+    function attachFile() {
+      alert('File attachment - would open file picker');
+    }
+
+    function moveStage() {
+      const stages = ['idea', 'outline', 'script', 'design', 'review', 'publish'];
+      const currentIndex = stages.indexOf(currentStage);
+      if (currentIndex < stages.length - 1) {
+        const item = contentItems.find(i => i.id === editingId);
+        if (item) {
+          item.stage = stages[currentIndex + 1];
+          saveContent();
+          renderContent();
+          closeEditor();
+        }
+      }
+    }
+
+    // Initialize
+    renderContent();
+  </script>
+</body>
+</html>

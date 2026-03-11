@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Kanban Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+      color: white;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    .btn-secondary {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+    }
+    .week-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .nav-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-arrow:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .week-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    /* Kanban Board Style Calendar */
+    .kanban-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 16px;
+      height: calc(100vh - 200px);
+    }
+    .day-column {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .day-column.today {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+    .day-column.drag-over {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: var(--accent-purple);
+    }
+    .day-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--glass-border);
+      text-align: center;
+    }
+    .day-name {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 4px;
+    }
+    .day-number {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .day-number.today {
+      color: var(--accent-purple);
+    }
+    .day-tasks {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+    }
+    .task-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      cursor: grab;
+      transition: all 0.2s;
+    }
+    .task-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .task-card.dragging {
+      opacity: 0.5;
+      transform: rotate(5deg);
+    }
+    .task-time {
+      font-size: 11px;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+    }
+    .task-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .task-type {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .type-cron { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
+    .type-agent { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .type-meeting { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
+    .type-deadline { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+    .task-assignee {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .add-task-btn {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px dashed var(--glass-border);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .add-task-btn:hover {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.1);
+    }
+    /* Quick Stats */
+    .stats-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .stat-dot.cron { background: var(--accent-cyan); }
+    .stat-dot.agent { background: var(--accent-purple); }
+    .stat-dot.meeting { background: var(--accent-yellow); }
+    .stat-dot.deadline { background: var(--accent-red); }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    @media (max-width: 1200px) {
+      .kanban-calendar { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .kanban-calendar { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>📅 Kanban Calendar</h1>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="calendarApp.changeView('week')">Week</button>
+      <button class="btn btn-secondary" onclick="calendarApp.changeView('month')">Month</button>
+      <button class="btn" onclick="calendarApp.addEvent()">+ Add Event</button>
+    </div>
+  </div>
+
+  <div class="week-nav">
+    <button class="nav-arrow" onclick="calendarApp.prevWeek()">←</button>
+    <div class="week-title">March 10 - March 16, 2026</div>
+    <button class="nav-arrow" onclick="calendarApp.nextWeek()">→</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-dot cron"></span>
+      <span class="stat-label">6 Cron Jobs</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-dot agent"></span>
+      <span class="stat-label">4 Agent Tasks</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-dot meeting"></span>
+      <span class="stat-label">2 Meetings</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-dot deadline"></span>
+      <span class="stat-label">1 Deadline</span>
+    </div>
+  </div>
+
+  <div class="kanban-calendar">
+    <!-- Monday -->
+    <div class="day-column" data-day="monday">
+      <div class="day-header">
+        <div class="day-name">Monday</div>
+        <div class="day-number">10</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'monday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 1)" data-task-id="1">
+          <div class="task-time">6:00 AM</div>
+          <div class="task-title">Morning Brief</div>
+          <div class="task-meta">
+            <span class="task-type type-cron">Cron</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 2)" data-task-id="2">
+          <div class="task-time">2:00 PM</div>
+          <div class="task-title">Afternoon Check</div>
+          <div class="task-meta">
+            <span class="task-type type-cron">Cron</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('monday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Tuesday -->
+    <div class="day-column today" data-day="tuesday">
+      <div class="day-header">
+        <div class="day-name">Tuesday</div>
+        <div class="day-number today">11</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'tuesday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 3)" data-task-id="3">
+          <div class="task-time">10:00 AM</div>
+          <div class="task-title">Team Standup</div>
+          <div class="task-meta">
+            <span class="task-type type-meeting">Meeting</span>
+            <span class="task-assignee">D</span>
+          </div>
+        </div>
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 4)" data-task-id="4">
+          <div class="task-time">2:00 PM</div>
+          <div class="task-title">Agent Training</div>
+          <div class="task-meta">
+            <span class="task-type type-agent">Agent</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 5)" data-task-id="5">
+          <div class="task-time">8:00 PM</div>
+          <div class="task-title">Evening Work Block</div>
+          <div class="task-meta">
+            <span class="task-type type-cron">Cron</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('tuesday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Wednesday -->
+    <div class="day-column" data-day="wednesday">
+      <div class="day-header">
+        <div class="day-name">Wednesday</div>
+        <div class="day-number">12</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'wednesday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 6)" data-task-id="6">
+          <div class="task-time">9:00 AM</div>
+          <div class="task-title">Code Review</div>
+          <div class="task-meta">
+            <span class="task-type type-agent">Agent</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('wednesday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Thursday -->
+    <div class="day-column" data-day="thursday">
+      <div class="day-header">
+        <div class="day-name">Thursday</div>
+        <div class="day-number">13</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'thursday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 7)" data-task-id="7">
+          <div class="task-time">3:00 PM</div>
+          <div class="task-title">Project Deadline</div>
+          <div class="task-meta">
+            <span class="task-type type-deadline">Deadline</span>
+            <span class="task-assignee">D</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('thursday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Friday -->
+    <div class="day-column" data-day="friday">
+      <div class="day-header">
+        <div class="day-name">Friday</div>
+        <div class="day-number">14</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'friday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 8)" data-task-id="8">
+          <div class="task-time">4:00 PM</div>
+          <div class="task-title">Weekly Review</div>
+          <div class="task-meta">
+            <span class="task-type type-meeting">Meeting</span>
+            <span class="task-assignee">D</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('friday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="day-column" data-day="saturday">
+      <div class="day-header">
+        <div class="day-name">Saturday</div>
+        <div class="day-number">15</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'saturday')" ondragover="calendarApp.allowDrop(event)">
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('saturday')">+ Add Task</button>
+      </div>
+    </div>
+
+    <!-- Sunday -->
+    <div class="day-column" data-day="sunday">
+      <div class="day-header">
+        <div class="day-name">Sunday</div>
+        <div class="day-number">16</div>
+      </div>
+      <div class="day-tasks" ondrop="calendarApp.drop(event, 'sunday')" ondragover="calendarApp.allowDrop(event)">
+        <div class="task-card" draggable="true" ondragstart="calendarApp.drag(event, 9)" data-task-id="9">
+          <div class="task-time">9:00 AM</div>
+          <div class="task-title">Weekly Report</div>
+          <div class="task-meta">
+            <span class="task-type type-cron">Cron</span>
+            <span class="task-assignee">N</span>
+          </div>
+        </div>
+        <button class="add-task-btn" onclick="calendarApp.addTaskToDay('sunday')">+ Add Task</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    class CalendarApp {
+      constructor() {
+        this.events = JSON.parse(localStorage.getItem('calendar-events') || '[]');
+        this.init();
+      }
+
+      init() {
+        this.setupDragAndDrop();
+      }
+
+      // Drag and Drop
+      drag(ev, taskId) {
+        ev.dataTransfer.setData("taskId", taskId);
+        ev.target.classList.add('dragging');
+      }
+
+      allowDrop(ev) {
+        ev.preventDefault();
+        const column = ev.currentTarget.closest('.day-column');
+        if (column) column.classList.add('drag-over');
+      }
+
+      drop(ev, day) {
+        ev.preventDefault();
+        const taskId = ev.dataTransfer.getData("taskId");
+        const draggingCard = document.querySelector('.task-card.dragging');
+        
+        // Remove drag styles
+        document.querySelectorAll('.day-column').forEach(col => col.classList.remove('drag-over'));
+        if (draggingCard) draggingCard.classList.remove('dragging');
+        
+        // Move card to new day
+        const dayTasks = ev.currentTarget;
+        const addButton = dayTasks.querySelector('.add-task-btn');
+        if (draggingCard && addButton) {
+          dayTasks.insertBefore(draggingCard, addButton);
+        }
+        
+        // Save to localStorage
+        this.saveEvent(taskId, day);
+        
+        // Visual feedback
+        const column = ev.currentTarget.closest('.day-column');
+        column.style.animation = 'pulse 0.5s';
+        setTimeout(() => column.style.animation = '', 500);
+      }
+
+      setupDragAndDrop() {
+        document.querySelectorAll('.day-tasks').forEach(tasks => {
+          tasks.addEventListener('dragleave', (e) => {
+            const column = e.currentTarget.closest('.day-column');
+            if (column) column.classList.remove('drag-over');
+          });
+        });
+      }
+
+      saveEvent(taskId, day) {
+        const event = this.events.find(e => e.id === parseInt(taskId));
+        if (event) {
+          event.day = day;
+        } else {
+          this.events.push({ id: parseInt(taskId), day });
+        }
+        localStorage.setItem('calendar-events', JSON.stringify(this.events));
+      }
+
+      // Actions
+      addEvent() {
+        const title = prompt('Event title:');
+        if (!title) return;
+        
+        const time = prompt('Time (e.g., 2:00 PM):', '12:00 PM');
+        const type = prompt('Type (cron/agent/meeting/deadline):', 'agent');
+        const day = prompt('Day (monday/tuesday/etc.):', 'monday');
+        
+        alert(`Event "${title}" added to ${day} at ${time}`);
+      }
+
+      addTaskToDay(day) {
+        const title = prompt(`Add task to ${day}:`);
+        if (!title) return;
+        
+        const time = prompt('Time:', '12:00 PM');
+        const type = prompt('Type (cron/agent/meeting/deadline):', 'agent');
+        
+        // Create new task card
+        const dayColumn = document.querySelector(`[data-day="${day}"] .day-tasks`);
+        const addButton = dayColumn.querySelector('.add-task-btn');
+        
+        const newTask = document.createElement('div');
+        newTask.className = 'task-card';
+        newTask.draggable = true;
+        newTask.innerHTML = `
+          <div class="task-time">${time}</div>
+          <div class="task-title">${title}</div>
+          <div class="task-meta">
+            <span class="task-type type-${type}">${type}</span>
+            <span class="task-assignee">D</span>
+          </div>
+        `;
+        
+        newTask.addEventListener('dragstart', (e) => this.drag(e, Date.now()));
+        dayColumn.insertBefore(newTask, addButton);
+      }
+
+      changeView(view) {
+        alert(`Switching to ${view} view... (coming soon)`);
+      }
+
+      prevWeek() {
+        alert('Previous week... (coming soon)');
+      }
+
+      nextWeek() {
+        alert('Next week... (coming soon)');
+      }
+    }
+
+    const calendarApp = new CalendarApp();
+  </script>
+</body>
+</html>

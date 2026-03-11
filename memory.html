@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Memory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 80px 24px 24px;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .search-container {
+      position: relative;
+      max-width: 600px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 48px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+    .search-input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+    .memory-stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px 24px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-purple);
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .memory-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .memory-sidebar {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .memory-category {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .memory-category:hover, .memory-category.active {
+      background: var(--glass-bg-light);
+    }
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .category-info {
+      flex: 1;
+    }
+    .category-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .category-count {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .memory-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .memory-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .memory-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .memory-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .memory-type {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .type-conversation { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .type-document { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
+    .type-daily { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+    .memory-date {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .memory-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .memory-preview {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .memory-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .memory-tag {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6);
+    }
+    .viewer-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      padding: 40px;
+    }
+    .viewer-modal.active {
+      display: block;
+    }
+    .viewer-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #0f0f14;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .viewer-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .viewer-body {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      line-height: 1.8;
+    }
+    .viewer-body h2 {
+      color: var(--accent-purple);
+      margin: 24px 0 12px;
+    }
+    .viewer-body p {
+      margin-bottom: 16px;
+      color: rgba(255,255,255,0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="header">
+    <h1>🧠 Memory & Documents</h1>
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="search-input" placeholder="Search memories, documents, conversations...">
+    </div>
+    <div class="memory-stats">
+      <div class="stat-card">
+        <div class="stat-value">47</div>
+        <div class="stat-label">Total Memories</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Daily Notes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">8</div>
+        <div class="stat-label">Documents</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">156</div>
+        <div class="stat-label">Conversations</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memory-container">
+    <div class="memory-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Categories</div>
+        <div class="memory-category active" onclick="filterCategory('all')">
+          <div class="category-icon" style="background: rgba(139, 92, 246, 0.2);">📁</div>
+          <div class="category-info">
+            <div class="category-name">All Memories</div>
+            <div class="category-count">47 items</div>
+          </div>
+        </div>
+        <div class="memory-category" onclick="filterCategory('conversations')">
+          <div class="category-icon" style="background: rgba(0, 245, 255, 0.2);">💬</div>
+          <div class="category-info">
+            <div class="category-name">Conversations</div>
+            <div class="category-count">156 items</div>
+          </div>
+        </div>
+        <div class="memory-category" onclick="filterCategory('daily')">
+          <div class="category-icon" style="background: rgba(16, 185, 129, 0.2);">📅</div>
+          <div class="category-info">
+            <div class="category-name">Daily Notes</div>
+            <div class="category-count">12 items</div>
+          </div>
+        </div>
+        <div class="memory-category" onclick="filterCategory('documents')">
+          <div class="category-icon" style="background: rgba(245, 158, 11, 0.2);">📄</div>
+          <div class="category-info">
+            <div class="category-name">Documents</div>
+            <div class="category-count">8 items</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="memory-content">
+      <div class="memory-grid" id="memory-grid">
+        <!-- Memory cards will be rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Viewer Modal -->
+  <div class="viewer-modal" id="viewer-modal">
+    <div class="viewer-container">
+      <div class="viewer-header">
+        <div class="viewer-title" id="viewer-title">Memory Title</div>
+        <button class="btn" onclick="closeViewer()">Close</button>
+      </div>
+      <div class="viewer-body" id="viewer-body">
+        <!-- Content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample memory data
+    const memories = [
+      {
+        id: 1,
+        title: 'Mission Control v2 Planning',
+        type: 'conversation',
+        date: '2026-03-09',
+        preview: 'Discussed the full feature set for Mission Control v2 including agent spawning, cost tracking, War Room chat, and autonomous work scheduling...',
+        tags: ['planning', 'mission-control', 'v2'],
+        content: '<h2>Mission Control v2 Planning Session</h2><p>We discussed building a comprehensive command center with the following features:</p><ul><li>Agent spawning and management</li><li>Real-time cost tracking</li><li>War Room chat interface</li><li>Autonomous work scheduling</li><li>Cross-platform integration</li></ul>'
+      },
+      {
+        id: 2,
+        title: 'Daily Notes - March 9, 2026',
+        type: 'daily',
+        date: '2026-03-09',
+        preview: 'Today we built the 2nd Brain system, created 9 specialist agents, implemented shared memory across channels, and made significant progress on Mission Control...',
+        tags: ['daily', 'progress', 'agents'],
+        content: '<h2>March 9, 2026 - Daily Notes</h2><p>Major accomplishments today:</p><ul><li>Built 2nd Brain module with memory browser</li><li>Created 9 specialist agents</li><li>Implemented shared memory system</li><li>Linked Mission Control to Binary Command Center</li></ul>'
+      },
+      {
+        id: 3,
+        title: 'Dayton Goals & Brain Dump',
+        type: 'document',
+        date: '2026-03-09',
+        preview: 'Complete profile including respiratory therapy background, trading goals, reselling business plans, and software development ambitions...',
+        tags: ['goals', 'profile', 'planning'],
+        content: '<h2>Dayton Complete Profile</h2><p>Background: Respiratory Therapist in management and education...</p><h2>Goals</h2><ol><li>Respiratory Education Empire</li><li>Autonomous Trading System</li><li>24/7 Reselling Business</li><li>Polymarket Crypto Bot</li><li>Life-Improving Programs</li></ol>'
+      },
+      {
+        id: 4,
+        title: '2nd Brain Architecture',
+        type: 'document',
+        date: '2026-03-09',
+        preview: 'Technical documentation for the 2nd Brain system including data models, storage structure, and integration points with Mission Control...',
+        tags: ['2nd-brain', 'architecture', 'technical'],
+        content: '<h2>2nd Brain System Architecture</h2><p>The 2nd Brain is a comprehensive knowledge management system...</p>'
+      },
+      {
+        id: 5,
+        title: 'Agent Coordination Protocol',
+        type: 'conversation',
+        date: '2026-03-09',
+        preview: 'Established communication patterns between agents using requests.md files and progress tracking system...',
+        tags: ['agents', 'coordination', 'protocol'],
+        content: '<h2>Agent Coordination Protocol</h2><p>Communication patterns:</p><ul><li>Progress tracking via progress.md</li><li>Inter-agent requests via requests.md</li><li>Status updates every 30 minutes</li></ul>'
+      }
+    ];
+
+    function renderMemories(filter = 'all', search = '') {
+      const grid = document.getElementById('memory-grid');
+      grid.innerHTML = '';
+      
+      let filtered = memories;
+      
+      if (filter !== 'all') {
+        filtered = filtered.filter(m => m.type === filter);
+      }
+      
+      if (search) {
+        filtered = filtered.filter(m => 
+          m.title.toLowerCase().includes(search.toLowerCase()) ||
+          m.preview.toLowerCase().includes(search.toLowerCase()) ||
+          m.tags.some(t => t.toLowerCase().includes(search.toLowerCase()))
+        );
+      }
+      
+      filtered.forEach(memory => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.onclick = () => openViewer(memory);
+        card.innerHTML = `
+          <div class="memory-card-header">
+            <span class="memory-type type-${memory.type}">${memory.type}</span>
+            <span class="memory-date">${memory.date}</span>
+          </div>
+          <div class="memory-title">${memory.title}</div>
+          <div class="memory-preview">${memory.preview}</div>
+          <div class="memory-tags">
+            ${memory.tags.map(tag => `<span class="memory-tag">#${tag}</span>`).join('')}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openViewer(memory) {
+      document.getElementById('viewer-title').textContent = memory.title;
+      document.getElementById('viewer-body').innerHTML = memory.content;
+      document.getElementById('viewer-modal').classList.add('active');
+    }
+
+    function closeViewer() {
+      document.getElementById('viewer-modal').classList.remove('active');
+    }
+
+    function filterCategory(category) {
+      document.querySelectorAll('.memory-category').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      renderMemories(category, document.getElementById('search-input').value);
+    }
+
+    // Search functionality
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      renderMemories('all', e.target.value);
+    });
+
+    // Initialize
+    renderMemories();
+  </script>
+</body>
+</html>
