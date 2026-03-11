@@ -515,3 +515,74 @@ Or, formatted as requested:
 
 "Total: $7.00 | Model: $0.35 | Efficiency: 4.29%"
 Cost report complete.
+[2026-03-10 07:00] Generating cost report...
+Here's the concise 2-line summary:
+
+"Total: $0.07 | Model: $0.04 (kimi) / $0.03 (minimax)"
+Cost report complete.
+[2026-03-10 08:00] Generating cost report...
+Here is a concise 2-line summary:
+
+"Total: $0.07 | Model: $0.04 (kimi) / $0.03 (minimax)"
+
+To make it more readable, we can format it as:
+
+"Total: $0.07 | Model: kimi ($0.04) & minimax ($0.03)"
+Cost report complete.
+[2026-03-10 09:00] Generating cost report...
+Here is a 2-line summary:
+
+"Total: $0.07 | Model: $0.03/$0.04 (75%)"
+Cost report complete.
+[2026-03-10 10:00] Generating cost report...
+Here is a 2-line summary:
+
+"Total: $0.07 | Model: $0.04 ($0.03 Minimax, $0.01 Kimi)"
+Cost report complete.
+[2026-03-10 11:00] Generating cost report...
+Here is a 2-line summary:
+
+"Total: $0.07 | Model: $0.03/$0.04 (0.75%)"
+Cost report complete.
+[2026-03-10 12:00] Generating cost report...
+Here is the 2-line summary:
+
+"Total: $0.07 | Model: $0.03/$0.04"
+Cost report complete.
+[2026-03-10 13:00] Generating cost report...
+"Total: $0.07 | Model: $0.03 (kimi) / $0.04 (minimax) | Efficiency: 43.8%"
+Cost report complete.
+[2026-03-10 14:00] Generating cost report...
+Here is the summary:
+
+"Total: $0.07 | Model: $0.03 ($0.04 / $0.07 = 57.14%)"
+Cost report complete.
+[2026-03-10 15:00] Generating cost report...
+"Total: $0.07 | Model: $0.05 (minimax) | Efficiency: 33.33%"
+Cost report complete.
+[2026-03-10 16:00] Generating cost report...
+"Total: $0.07 | Model: $0.05 (kimi: 0.04, minimax: 0.01) | Efficiency: 57.14%"
+Cost report complete.
+[2026-03-10 17:00] Generating cost report...
+Here is a brief 2-line summary:
+
+"Total: $0.07 | Model: $0.03/$0.04 (0.75%)"
+Cost report complete.
+[2026-03-10 18:00] Generating cost report...
+"Total: $0.07 | Model: $0.03 ($0.04 kimi, $0.03 minimax)"
+Cost report complete.
+[2026-03-10 19:00] Generating cost report...
+Here is a brief 2-line summary:
+
+"Total: $0.07 | Model: $0.04 (kimi) + $0.03 (minimax) = $0.07 | Efficiency: 57.14% (avg)"
+Cost report complete.
+[2026-03-10 20:00] Generating cost report...
+"Total: $0.07 | Model: $0.04 ($0.03/minimax, $0.01/kimi)"
+
+Alternatively, if you want to include efficiency:
+
+"Total: $0.07 | Model: $0.04/kimi | Efficiency: 3.33% (minimax)"
+Cost report complete.
+[2026-03-10 21:00] Generating cost report...
+"Total: $0.07 | Model: $0.03-$0.04 | Efficiency: 80.0% (kimi: 80.0%, minimax: 60.0%)"
+Cost report complete.
