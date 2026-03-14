@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mission Control - Memory</title>
+  <title>Mission Control - Memory Archive</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -12,6 +12,9 @@
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent-purple: #8b5cf6;
       --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,7 +22,6 @@
       background: #0a0a0e;
       color: #fff;
       min-height: 100vh;
-      padding: 80px 24px 24px;
     }
     .bg-gradient {
       position: fixed;
@@ -30,429 +32,830 @@
       pointer-events: none;
       z-index: -1;
     }
-    .header {
-      margin-bottom: 32px;
+    
+    /* Navigation */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
     }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 16px;
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 18px;
     }
-    .search-container {
-      position: relative;
-      max-width: 600px;
+    .nav-links {
+      display: flex;
+      gap: 8px;
     }
-    .search-input {
-      width: 100%;
-      padding: 16px 20px 16px 48px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
+    .nav-link {
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .nav-link.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      padding-top: 60px;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
-      color: white;
-      font-size: 16px;
-      outline: none;
+      border-right: 1px solid var(--glass-border);
+      padding: 24px;
+      position: fixed;
+      top: 60px;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
     }
-    .search-input::placeholder {
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .filter-group {
+      margin-bottom: 24px;
+    }
+    .filter-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+    }
+    .filter-option:hover {
+      background: var(--glass-bg-light);
+    }
+    .filter-option.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    .filter-count {
+      margin-left: auto;
+      font-size: 12px;
       color: rgba(255,255,255,0.4);
+      background: var(--glass-bg-light);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    
+    /* Content Area */
+    .content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 32px;
+    }
+    
+    /* Header */
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+    
+    /* Search Bar */
+    .search-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .search-input-wrapper {
+      flex: 1;
+      position: relative;
     }
     .search-icon {
       position: absolute;
       left: 16px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 20px;
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
     }
-    .memory-stats {
-      display: flex;
-      gap: 16px;
-      margin-top: 24px;
-    }
-    .stat-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 48px;
+      background: var(--glass-bg-light);
       border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 16px 24px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s;
     }
-    .stat-value {
-      font-size: 28px;
-      font-weight: 700;
+    .search-input:focus {
+      border-color: var(--accent-purple);
+    }
+    .search-input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+    }
+    .view-btn {
+      padding: 10px 16px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .view-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
       color: var(--accent-purple);
     }
-    .stat-label {
-      font-size: 13px;
+    .view-btn.active {
+      background: rgba(139, 92, 246, 0.3);
+      color: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    
+    /* Results Info */
+    .results-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
       color: rgba(255,255,255,0.6);
-    }
-    .memory-container {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
-      margin-top: 24px;
-    }
-    .memory-sidebar {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 20px;
-      height: fit-content;
-    }
-    .sidebar-section {
-      margin-bottom: 24px;
-    }
-    .sidebar-title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 12px;
-    }
-    .memory-category {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .memory-category:hover, .memory-category.active {
-      background: var(--glass-bg-light);
-    }
-    .category-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    .category-info {
-      flex: 1;
-    }
-    .category-name {
-      font-weight: 500;
       font-size: 14px;
     }
-    .category-count {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-    }
-    .memory-content {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 24px;
-    }
-    .memory-grid {
+    
+    /* Document Grid */
+    .documents-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 16px;
     }
-    .memory-card {
-      background: var(--glass-bg-light);
+    .documents-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    /* Document Card */
+    .doc-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: 12px;
       padding: 20px;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .memory-card:hover {
+    .doc-card:hover {
       border-color: var(--accent-purple);
       transform: translateY(-2px);
     }
-    .memory-card-header {
+    .doc-header {
       display: flex;
       justify-content: space-between;
-      align-items: start;
+      align-items: flex-start;
       margin-bottom: 12px;
     }
-    .memory-type {
+    .doc-title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .doc-category {
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+      margin-left: 12px;
     }
-    .type-conversation { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
-    .type-document { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
-    .type-daily { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-    .memory-date {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-    }
-    .memory-title {
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .memory-preview {
-      font-size: 13px;
+    .doc-preview {
       color: rgba(255,255,255,0.6);
+      font-size: 14px;
       line-height: 1.5;
+      margin-bottom: 16px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .memory-tags {
+    .doc-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .doc-tags {
       display: flex;
       gap: 6px;
-      margin-top: 12px;
-      flex-wrap: wrap;
     }
-    .memory-tag {
-      padding: 4px 8px;
+    .doc-tag {
+      background: var(--glass-bg-light);
+      padding: 3px 8px;
       border-radius: 4px;
       font-size: 11px;
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.6);
     }
-    .viewer-modal {
-      display: none;
+    mark {
+      background: rgba(139, 92, 246, 0.4);
+      color: #fff;
+      padding: 1px 3px;
+      border-radius: 3px;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: rgba(255,255,255,0.5);
+    }
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .empty-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    
+    /* Document Modal */
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.9);
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
       padding: 40px;
     }
-    .viewer-modal.active {
-      display: block;
+    .modal-overlay.active {
+      display: flex;
     }
-    .viewer-container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #0f0f14;
+    .modal-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
-      height: 90vh;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
-    .viewer-header {
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 24px;
       border-bottom: 1px solid var(--glass-border);
     }
-    .viewer-title {
+    .modal-title {
       font-size: 20px;
       font-weight: 600;
     }
-    .viewer-body {
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+    }
+    .modal-body {
       flex: 1;
-      padding: 24px;
       overflow-y: auto;
-      line-height: 1.8;
+      padding: 24px;
     }
-    .viewer-body h2 {
-      color: var(--accent-purple);
-      margin: 24px 0 12px;
+    .modal-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-top: 1px solid var(--glass-border);
     }
-    .viewer-body p {
+    .modal-nav-btn {
+      padding: 10px 20px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .modal-nav-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .modal-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    /* Markdown Styles */
+    .markdown-content h1 {
+      font-size: 28px;
+      font-weight: 700;
       margin-bottom: 16px;
+      color: var(--accent-cyan);
+    }
+    .markdown-content h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: var(--accent-purple);
+    }
+    .markdown-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+    }
+    .markdown-content p {
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    .markdown-content ul, .markdown-content ol {
+      margin-bottom: 12px;
+      padding-left: 24px;
+    }
+    .markdown-content li {
+      margin-bottom: 6px;
+    }
+    .markdown-content code {
+      background: rgba(139, 92, 246, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 14px;
+    }
+    .markdown-content pre {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+    .markdown-content pre code {
+      background: none;
+      padding: 0;
+    }
+    .markdown-content blockquote {
+      border-left: 3px solid var(--accent-purple);
+      padding-left: 16px;
+      margin: 16px 0;
       color: rgba(255,255,255,0.8);
+    }
+    .markdown-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+    .markdown-content th, .markdown-content td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .markdown-content th {
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+    
+    /* Loading State */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+    }
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--glass-border);
+      border-top-color: var(--accent-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      .documents-grid {
+        grid-template-columns: 1fr;
+      }
+      .search-container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   
-  <div class="header">
-    <h1>🧠 Memory & Documents</h1>
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="search-input" placeholder="Search memories, documents, conversations...">
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-brand">
+      <span>🧠</span>
+      <span>Memory Archive</span>
     </div>
-    <div class="memory-stats">
-      <div class="stat-card">
-        <div class="stat-value">47</div>
-        <div class="stat-label">Total Memories</div>
+    <div class="nav-links">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="memory.html" class="nav-link active">Memory</a>
+      <a href="task-board.html" class="nav-link">Tasks</a>
+      <a href="team.html" class="nav-link">Team</a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Filters</div>
+      
+      <div class="filter-group">
+        <span class="filter-label">Category</span>
+        <div class="filter-option active" data-category="all">
+          <span>📁</span> All Documents
+          <span class="filter-count" id="count-all">0</span>
+        </div>
+        <div class="filter-option" data-category="curated">
+          <span>⭐</span> Curated
+          <span class="filter-count" id="count-curated">0</span>
+        </div>
+        <div class="filter-option" data-category="daily">
+          <span>📅</span> Daily Logs
+          <span class="filter-count" id="count-daily">0</span>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">12</div>
-        <div class="stat-label">Daily Notes</div>
+      
+      <div class="filter-group">
+        <span class="filter-label">Tags</span>
+        <div id="tags-list">
+          <!-- Populated by JS -->
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">8</div>
-        <div class="stat-label">Documents</div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="page-header">
+        <h1 class="page-title">Memory Archive</h1>
+        <p class="page-subtitle">Search through all memories, daily logs, and curated knowledge</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">156</div>
-        <div class="stat-label">Conversations</div>
+
+      <!-- Search -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="search-input" placeholder="Search memories...">
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="grid">⊞ Grid</button>
+          <button class="view-btn" data-view="list">☰ List</button>
+        </div>
+      </div>
+
+      <!-- Results Info -->
+      <div class="results-info">
+        <span id="results-count">Loading memories...</span>
+        <span id="last-updated"></span>
+      </div>
+
+      <!-- Documents Container -->
+      <div id="documents-container">
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Loading memories from GitHub...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Document Modal -->
+  <div class="modal-overlay" id="document-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">Document Title</h2>
+        <button class="modal-close" onclick="memoryApp.closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="markdown-content" id="modal-content">
+          <!-- Content loaded here -->
+        </div>
+      </div>
+      <div class="modal-nav">
+        <button class="modal-nav-btn" id="modal-prev" onclick="memoryApp.prevDocument()">← Previous</button>
+        <button class="modal-nav-btn" id="modal-next" onclick="memoryApp.nextDocument()">Next →</button>
       </div>
     </div>
   </div>
 
-  <div class="memory-container">
-    <div class="memory-sidebar">
-      <div class="sidebar-section">
-        <div class="sidebar-title">Categories</div>
-        <div class="memory-category active" onclick="filterCategory('all')">
-          <div class="category-icon" style="background: rgba(139, 92, 246, 0.2);">📁</div>
-          <div class="category-info">
-            <div class="category-name">All Memories</div>
-            <div class="category-count">47 items</div>
-          </div>
-        </div>
-        <div class="memory-category" onclick="filterCategory('conversations')">
-          <div class="category-icon" style="background: rgba(0, 245, 255, 0.2);">💬</div>
-          <div class="category-info">
-            <div class="category-name">Conversations</div>
-            <div class="category-count">156 items</div>
-          </div>
-        </div>
-        <div class="memory-category" onclick="filterCategory('daily')">
-          <div class="category-icon" style="background: rgba(16, 185, 129, 0.2);">📅</div>
-          <div class="category-info">
-            <div class="category-name">Daily Notes</div>
-            <div class="category-count">12 items</div>
-          </div>
-        </div>
-        <div class="memory-category" onclick="filterCategory('documents')">
-          <div class="category-icon" style="background: rgba(245, 158, 11, 0.2);">📄</div>
-          <div class="category-info">
-            <div class="category-name">Documents</div>
-            <div class="category-count">8 items</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="memory-content">
-      <div class="memory-grid" id="memory-grid">
-        <!-- Memory cards will be rendered here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Viewer Modal -->
-  <div class="viewer-modal" id="viewer-modal">
-    <div class="viewer-container">
-      <div class="viewer-header">
-        <div class="viewer-title" id="viewer-title">Memory Title</div>
-        <button class="btn" onclick="closeViewer()">Close</button>
-      </div>
-      <div class="viewer-body" id="viewer-body">
-        <!-- Content will be loaded here -->
-      </div>
-    </div>
-  </div>
-
+  <!-- Scripts -->
+  <script src="services/memoryService.js"></script>
   <script>
-    // Sample memory data
-    const memories = [
-      {
-        id: 1,
-        title: 'Mission Control v2 Planning',
-        type: 'conversation',
-        date: '2026-03-09',
-        preview: 'Discussed the full feature set for Mission Control v2 including agent spawning, cost tracking, War Room chat, and autonomous work scheduling...',
-        tags: ['planning', 'mission-control', 'v2'],
-        content: '<h2>Mission Control v2 Planning Session</h2><p>We discussed building a comprehensive command center with the following features:</p><ul><li>Agent spawning and management</li><li>Real-time cost tracking</li><li>War Room chat interface</li><li>Autonomous work scheduling</li><li>Cross-platform integration</li></ul>'
-      },
-      {
-        id: 2,
-        title: 'Daily Notes - March 9, 2026',
-        type: 'daily',
-        date: '2026-03-09',
-        preview: 'Today we built the 2nd Brain system, created 9 specialist agents, implemented shared memory across channels, and made significant progress on Mission Control...',
-        tags: ['daily', 'progress', 'agents'],
-        content: '<h2>March 9, 2026 - Daily Notes</h2><p>Major accomplishments today:</p><ul><li>Built 2nd Brain module with memory browser</li><li>Created 9 specialist agents</li><li>Implemented shared memory system</li><li>Linked Mission Control to Binary Command Center</li></ul>'
-      },
-      {
-        id: 3,
-        title: 'Dayton Goals & Brain Dump',
-        type: 'document',
-        date: '2026-03-09',
-        preview: 'Complete profile including respiratory therapy background, trading goals, reselling business plans, and software development ambitions...',
-        tags: ['goals', 'profile', 'planning'],
-        content: '<h2>Dayton Complete Profile</h2><p>Background: Respiratory Therapist in management and education...</p><h2>Goals</h2><ol><li>Respiratory Education Empire</li><li>Autonomous Trading System</li><li>24/7 Reselling Business</li><li>Polymarket Crypto Bot</li><li>Life-Improving Programs</li></ol>'
-      },
-      {
-        id: 4,
-        title: '2nd Brain Architecture',
-        type: 'document',
-        date: '2026-03-09',
-        preview: 'Technical documentation for the 2nd Brain system including data models, storage structure, and integration points with Mission Control...',
-        tags: ['2nd-brain', 'architecture', 'technical'],
-        content: '<h2>2nd Brain System Architecture</h2><p>The 2nd Brain is a comprehensive knowledge management system...</p>'
-      },
-      {
-        id: 5,
-        title: 'Agent Coordination Protocol',
-        type: 'conversation',
-        date: '2026-03-09',
-        preview: 'Established communication patterns between agents using requests.md files and progress tracking system...',
-        tags: ['agents', 'coordination', 'protocol'],
-        content: '<h2>Agent Coordination Protocol</h2><p>Communication patterns:</p><ul><li>Progress tracking via progress.md</li><li>Inter-agent requests via requests.md</li><li>Status updates every 30 minutes</li></ul>'
+    class MemoryApp {
+      constructor() {
+        this.currentView = 'grid';
+        this.currentCategory = 'all';
+        this.currentSearch = '';
+        this.filteredDocs = [];
+        this.currentDocIndex = 0;
+        this.init();
       }
-    ];
 
-    function renderMemories(filter = 'all', search = '') {
-      const grid = document.getElementById('memory-grid');
-      grid.innerHTML = '';
-      
-      let filtered = memories;
-      
-      if (filter !== 'all') {
-        filtered = filtered.filter(m => m.type === filter);
+      async init() {
+        this.setupEventListeners();
+        await this.loadDocuments();
       }
-      
-      if (search) {
-        filtered = filtered.filter(m => 
-          m.title.toLowerCase().includes(search.toLowerCase()) ||
-          m.preview.toLowerCase().includes(search.toLowerCase()) ||
-          m.tags.some(t => t.toLowerCase().includes(search.toLowerCase()))
-        );
+
+      setupEventListeners() {
+        // Search
+        document.getElementById('search-input').addEventListener('input', (e) => {
+          this.currentSearch = e.target.value;
+          this.filterAndRender();
+        });
+
+        // View toggle
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.currentView = btn.dataset.view;
+            this.renderDocuments();
+          });
+        });
+
+        // Category filters
+        document.querySelectorAll('.filter-option[data-category]').forEach(option => {
+          option.addEventListener('click', () => {
+            document.querySelectorAll('.filter-option[data-category]').forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            this.currentCategory = option.dataset.category;
+            this.filterAndRender();
+          });
+        });
+
+        // Close modal on overlay click
+        document.getElementById('document-modal').addEventListener('click', (e) => {
+          if (e.target.id === 'document-modal') this.closeModal();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') this.closeModal();
+          if (e.key === 'ArrowLeft' && document.getElementById('document-modal').classList.contains('active')) {
+            this.prevDocument();
+          }
+          if (e.key === 'ArrowRight' && document.getElementById('document-modal').classList.contains('active')) {
+            this.nextDocument();
+          }
+        });
       }
-      
-      filtered.forEach(memory => {
-        const card = document.createElement('div');
-        card.className = 'memory-card';
-        card.onclick = () => openViewer(memory);
-        card.innerHTML = `
-          <div class="memory-card-header">
-            <span class="memory-type type-${memory.type}">${memory.type}</span>
-            <span class="memory-date">${memory.date}</span>
+
+      async loadDocuments() {
+        await window.memoryService.init();
+        this.filterAndRender();
+        this.updateFilterCounts();
+        this.renderTags();
+      }
+
+      filterAndRender() {
+        let docs = window.memoryService.documents;
+
+        // Filter by category
+        if (this.currentCategory !== 'all') {
+          docs = docs.filter(doc => doc.category === this.currentCategory);
+        }
+
+        // Filter by search
+        if (this.currentSearch) {
+          docs = window.memoryService.search(this.currentSearch);
+        }
+
+        // Sort by date (newest first)
+        docs = window.memoryService.sort(docs, 'date-desc');
+
+        this.filteredDocs = docs;
+        this.renderDocuments();
+        this.updateResultsInfo();
+      }
+
+      renderDocuments() {
+        const container = document.getElementById('documents-container');
+        
+        if (this.filteredDocs.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">🔍</div>
+              <div class="empty-title">No memories found</div>
+              <p>Try adjusting your search or filters</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.className = this.currentView === 'grid' ? 'documents-grid' : 'documents-list';
+        
+        container.innerHTML = this.filteredDocs.map((doc, index) => `
+          <div class="doc-card" onclick="memoryApp.openDocument(${index})">
+            <div class="doc-header">
+              <div class="doc-title">${doc.title}</div>
+              <span class="doc-category">${doc.category}</span>
+            </div>
+            <div class="doc-preview">${doc.highlightedPreview || doc.preview}</div>
+            <div class="doc-meta">
+              <span>📅 ${this.formatDate(doc.date)}</span>
+              <div class="doc-tags">
+                ${doc.tags.slice(0, 3).map(tag => `<span class="doc-tag">${tag}</span>`).join('')}
+              </div>
+            </div>
           </div>
-          <div class="memory-title">${memory.title}</div>
-          <div class="memory-preview">${memory.preview}</div>
-          <div class="memory-tags">
-            ${memory.tags.map(tag => `<span class="memory-tag">#${tag}</span>`).join('')}
+        `).join('');
+      }
+
+      renderTags() {
+        const tags = window.memoryService.getAllTags();
+        const container = document.getElementById('tags-list');
+        
+        container.innerHTML = tags.map(tag => `
+          <div class="filter-option" data-tag="${tag}">
+            <span>🏷️</span> ${tag}
           </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
+        `).join('');
 
-    function openViewer(memory) {
-      document.getElementById('viewer-title').textContent = memory.title;
-      document.getElementById('viewer-body').innerHTML = memory.content;
-      document.getElementById('viewer-modal').classList.add('active');
-    }
+        // Add tag click handlers
+        container.querySelectorAll('.filter-option').forEach(option => {
+          option.addEventListener('click', () => {
+            document.getElementById('search-input').value = option.dataset.tag;
+            this.currentSearch = option.dataset.tag;
+            this.filterAndRender();
+          });
+        });
+      }
 
-    function closeViewer() {
-      document.getElementById('viewer-modal').classList.remove('active');
-    }
+      updateFilterCounts() {
+        const docs = window.memoryService.documents;
+        document.getElementById('count-all').textContent = docs.length;
+        document.getElementById('count-curated').textContent = docs.filter(d => d.category === 'curated').length;
+        document.getElementById('count-daily').textContent = docs.filter(d => d.category === 'daily').length;
+      }
 
-    function filterCategory(category) {
-      document.querySelectorAll('.memory-category').forEach(c => c.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      renderMemories(category, document.getElementById('search-input').value);
-    }
+      updateResultsInfo() {
+        const total = window.memoryService.documents.length;
+        const showing = this.filteredDocs.length;
+        
+        document.getElementById('results-count').textContent = 
+          showing === total ? `Showing all ${total} memories` : `Showing ${showing} of ${total} memories`;
+        
+        const lastUpdated = window.memoryService.getCachedData() ? 
+          new Date().toLocaleDateString() : 'Not cached';
+        document.getElementById('last-updated').textContent = `Updated: ${lastUpdated}`;
+      }
 
-    // Search functionality
-    document.getElementById('search-input').addEventListener('input', (e) => {
-      renderMemories('all', e.target.value);
-    });
+      openDocument(index) {
+        this.currentDocIndex = index;
+        const doc = this.filteredDocs[index];
+        
+        document.getElementById('modal-title').textContent = doc.title;
+        document.getElementById('modal-content').innerHTML = this.renderMarkdown(doc.content);
+        document.getElementById('document-modal').classList.add('active');
+        
+        this.updateModalNav();
+      }
+
+      closeModal() {
+        document.getElementById('document-modal').classList.remove('active');
+      }
+
+      prevDocument() {
+        if (this.currentDocIndex > 0) {
+          this.openDocument(this.currentDocIndex - 1);
+        }
+      }
+
+      nextDocument() {
+        if (this.currentDocIndex < this.filteredDocs.length - 1) {
+          this.openDocument(this.currentDocIndex + 1);
+        }
+      }
+
+      updateModalNav() {
+        document.getElementById('modal-prev').disabled = this.currentDocIndex === 0;
+        document.getElementById('modal-next').disabled = this.currentDocIndex === this.filteredDocs.length - 1;
+      }
+
+      renderMarkdown(content) {
+        // Simple markdown to HTML conversion
+        return content
+          .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+          .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+          .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/`{3}[\s\S]*?`{3}/g, match => `<pre><code>${match.slice(3, -3)}</code></pre>`)
+          .replace(/`([^`]+)`/g, '<code>$1</code>')
+          .replace(/^- (.+)$/gm, '<li>$1</li>')
+          .replace(/(<li>.+<\/li>\n?)+/g, '<ul>$&</ul>')
+          .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+          .replace(/(<li>.+<\/li>\n?)+/g, '<ol>$&</ol>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+          .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+          .replace(/\n\n/g, '</p><p>')
+          .replace(/^(.+)$/gm, '<p>$1</p>')
+          .replace(/<p><\/p>/g, '');
+      }
+
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          year: 'numeric' 
+        });
+      }
+    }
 
     // Initialize
-    renderMemories();
+    window.memoryApp = new MemoryApp();
   </script>
 </body>
 </html>
