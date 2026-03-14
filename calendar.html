@@ -500,21 +500,48 @@
       }
 
       loadEvents() {
-        // Default scheduled events
-        this.events = [
-          // Cron Jobs
-          { title: 'Morning Brief', time: '06:00', type: 'cron', desc: 'Daily system status check' },
-          { title: 'Afternoon Check', time: '14:00', type: 'cron', desc: 'Review progress and blockers' },
-          { title: 'Evening Work Block', time: '20:00', type: 'cron', desc: 'Execute autonomous tasks' },
-          
-          // Tasks
-          { title: 'Test Trading System', time: '10:00', type: 'task', desc: 'Test with real data' },
-          { title: 'Deploy Backend', time: '15:00', type: 'task', desc: 'Deploy to production' },
-          
-          // Agent Work
-          { title: 'Frontend Dev: Mobile Nav', time: '16:00', type: 'agent', desc: 'Build hamburger menu' },
-          { title: 'AI Engineer: Error Analysis', time: '17:00', type: 'agent', desc: 'Analyze error patterns' }
-        ];
+        // Load from localStorage if available
+        const saved = localStorage.getItem('mc_calendar_events');
+        if (saved) {
+          this.events = JSON.parse(saved);
+        } else {
+          // Default scheduled events synced with Task Tracker
+          this.events = [
+            // Cron Jobs - Daily recurring
+            { id: 'cron-1', title: 'Morning Brief', date: '2026-03-14', time: '06:00', type: 'cron', desc: 'Daily system status check', recurring: 'daily', agent: 'System' },
+            { id: 'cron-2', title: 'Afternoon Check', date: '2026-03-14', time: '14:00', type: 'cron', desc: 'Review progress and blockers', recurring: 'daily', agent: 'System' },
+            { id: 'cron-3', title: 'Evening Work Block', date: '2026-03-14', time: '20:00', type: 'cron', desc: 'Execute autonomous tasks', recurring: 'daily', agent: 'System' },
+            
+            // In Progress Tasks from Task Tracker
+            { id: 'task-1', title: 'Build Health Check Dashboard', date: '2026-03-14', time: '09:00', type: 'task', desc: 'Frontend Developer working on health monitoring', recurring: 'none', agent: 'Frontend Developer' },
+            { id: 'task-2', title: 'Build Auto-Recovery System', date: '2026-03-14', time: '10:30', type: 'task', desc: 'Backend Developer implementing auto-recovery', recurring: 'none', agent: 'Backend Developer' },
+            { id: 'task-3', title: 'Build Weekly Reports', date: '2026-03-14', time: '13:00', type: 'task', desc: 'Integration Specialist building reports', recurring: 'none', agent: 'Integration Specialist' },
+            { id: 'task-4', title: 'Build Smart Scheduling', date: '2026-03-14', time: '15:00', type: 'task', desc: 'AI Engineer working on load balancing', recurring: 'none', agent: 'AI Engineer' },
+            
+            // Tomorrow's tasks
+            { id: 'task-5', title: 'Test Trading System', date: '2026-03-15', time: '10:00', type: 'task', desc: 'Test with real data', recurring: 'none', agent: 'Integration Specialist' },
+            { id: 'task-6', title: 'Deploy Backend', date: '2026-03-15', time: '14:00', type: 'task', desc: 'Deploy to production', recurring: 'none', agent: 'Backend Developer' }
+          ];
+          this.saveEvents();
+        }
+      }
+      
+      saveEvents() {
+        localStorage.setItem('mc_calendar_events', JSON.stringify(this.events));
+      }
+      
+      // Get events for a specific date
+      getEventsForDate(dateStr) {
+        return this.events.filter(e => {
+          if (e.date === dateStr) return true;
+          // Handle recurring events
+          if (e.recurring === 'daily') {
+            const eventDate = new Date(e.date);
+            const checkDate = new Date(dateStr);
+            return checkDate >= eventDate;
+          }
+          return false;
+        });
       }
 
       renderCalendar() {
@@ -526,6 +553,10 @@
         
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
         
         let html = '';
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -538,16 +569,18 @@
         }
         
         for (let day = 1; day <= daysInMonth; day++) {
-          const isToday = day === 14; // March 14
+          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isToday = day === currentDay && month === currentMonth && year === currentYear;
+          const dayEvents = this.getEventsForDate(dateStr);
+          
           html += `
-            <div class="calendar-day ${isToday ? 'today' : ''}">
+            <div class="calendar-day ${isToday ? 'today' : ''}" onclick="calendarApp.showDayDetails('${dateStr}')" style="cursor: pointer;">
               <div class="day-number">${day}</div>
               <div class="day-events">
-                ${day === 14 ? `
-                  <div class="day-event cron">Morning Brief</div>
-                  <div class="day-event task">Test Trading</div>
-                  <div class="day-event agent">Frontend Dev</div>
-                ` : ''}
+                ${dayEvents.slice(0, 3).map(e => `
+                  <div class="day-event ${e.type}">${e.title}</div>
+                `).join('')}
+                ${dayEvents.length > 3 ? `<div style="font-size: 10px; color: rgba(255,255,255,0.5); text-align: center;">+${dayEvents.length - 3} more</div>` : ''}
               </div>
             </div>
           `;
@@ -555,19 +588,113 @@
         
         document.getElementById('calendar-grid').innerHTML = html;
       }
+      
+      showDayDetails(dateStr) {
+        const events = this.getEventsForDate(dateStr);
+        const date = new Date(dateStr);
+        const dateLabel = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+        modal.innerHTML = `
+          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow:auto;padding:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+              <h2 style="font-size:20px;font-weight:700;">${dateLabel}</h2>
+              <button onclick="this.closest('.modal').remove()" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              ${events.length === 0 ? '<p style="color:rgba(255,255,255,0.5);text-align:center;padding:20px;">No events scheduled</p>' : events.map(e => `
+                <div style="display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                  <div style="font-weight:600;color:var(--accent-cyan);min-width:50px;">${e.time}</div>
+                  <div style="width:8px;height:8px;border-radius:50%;background:${e.type === 'cron' ? 'var(--accent-green)' : e.type === 'task' ? 'var(--accent-purple)' : 'var(--accent-cyan)'};"></div>
+                  <div style="flex:1;">
+                    <div style="font-weight:500;">${e.title}</div>
+                    <div style="font-size:12px;color:rgba(255,255,255,0.6);">${e.desc}</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;">👤 ${e.agent}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <button onclick="calendarApp.addEventForDate('${dateStr}')" style="width:100%;margin-top:16px;padding:12px;background:rgba(139,92,246,0.2);border:1px solid var(--accent-purple);border-radius:10px;color:white;cursor:pointer;">+ Add Event</button>
+          </div>
+        `;
+        modal.className = 'modal';
+        document.body.appendChild(modal);
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+      }
+      
+      addEventForDate(dateStr) {
+        document.querySelector('.modal')?.remove();
+        this.currentDate = new Date(dateStr);
+        this.addEvent();
+      }
 
       renderTodayEvents() {
+        const today = new Date();
+        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        const todaysEvents = this.getEventsForDate(dateStr).sort((a, b) => a.time.localeCompare(b.time));
+        
         const container = document.getElementById('today-events');
-        container.innerHTML = this.events.map(e => `
-          <div class="event-item">
+        
+        if (todaysEvents.length === 0) {
+          container.innerHTML = '<p style="color:rgba(255,255,255,0.5);padding:20px;text-align:center;">No events scheduled for today</p>';
+          return;
+        }
+        
+        // Group by status
+        const inProgress = todaysEvents.filter(e => this.isEventInProgress(e));
+        const upcoming = todaysEvents.filter(e => !this.isEventInProgress(e) && !this.isEventCompleted(e));
+        const completed = todaysEvents.filter(e => this.isEventCompleted(e));
+        
+        let html = '';
+        
+        if (inProgress.length > 0) {
+          html += `<div style="margin-bottom:16px;"><h3 style="font-size:14px;color:var(--accent-yellow);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">🔥 In Progress</h3>${inProgress.map(e => this.renderEventItem(e, 'in-progress')).join('')}</div>`;
+        }
+        
+        if (upcoming.length > 0) {
+          html += `<div style="margin-bottom:16px;"><h3 style="font-size:14px;color:var(--accent-cyan);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">⏳ Upcoming</h3>${upcoming.map(e => this.renderEventItem(e, 'upcoming')).join('')}</div>`;
+        }
+        
+        if (completed.length > 0) {
+          html += `<div><h3 style="font-size:14px;color:var(--accent-green);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">✓ Completed</h3>${completed.map(e => this.renderEventItem(e, 'completed')).join('')}</div>`;
+        }
+        
+        container.innerHTML = html;
+      }
+      
+      renderEventItem(e, status) {
+        const statusColors = {
+          'in-progress': 'var(--accent-yellow)',
+          'upcoming': 'var(--accent-cyan)',
+          'completed': 'var(--accent-green)'
+        };
+        
+        return `
+          <div class="event-item" style="border-left: 3px solid ${statusColors[status]};">
             <div class="event-time">${e.time}</div>
             <span class="event-type ${e.type}">${e.type}</span>
             <div class="event-content">
               <div class="event-title">${e.title}</div>
               <div class="event-desc">${e.desc}</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;">👤 ${e.agent}</div>
             </div>
           </div>
-        `).join('');
+        `;
+      }
+      
+      isEventInProgress(e) {
+        const now = new Date();
+        const eventTime = new Date(`${e.date}T${e.time}`);
+        const endTime = new Date(eventTime.getTime() + 60 * 60 * 1000); // 1 hour duration
+        return now >= eventTime && now < endTime;
+      }
+      
+      isEventCompleted(e) {
+        const now = new Date();
+        const eventTime = new Date(`${e.date}T${e.time}`);
+        const endTime = new Date(eventTime.getTime() + 60 * 60 * 1000);
+        return now >= endTime;
       }
 
       prevMonth() {
@@ -590,14 +717,26 @@
         if (title) {
           const time = prompt('Time (HH:MM):', '12:00');
           const type = prompt('Type (cron/task/agent):', 'task');
+          const agent = prompt('Assigned agent:', 'Nano');
+          const desc = prompt('Description:', 'Scheduled task');
+          
+          const dateStr = `${this.currentDate.getFullYear()}-${String(this.currentDate.getMonth() + 1).padStart(2, '0')}-${String(this.currentDate.getDate()).padStart(2, '0')}`;
+          
           this.events.push({
+            id: 'event-' + Date.now(),
             title,
+            date: dateStr,
             time,
             type,
-            desc: 'User scheduled event'
+            agent,
+            desc,
+            recurring: 'none'
           });
+          
+          this.saveEvents();
+          this.renderCalendar();
           this.renderTodayEvents();
-          alert('Event added!');
+          alert('Event added to ' + dateStr + '!');
         }
       }
       
