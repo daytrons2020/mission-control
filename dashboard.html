@@ -1,10 +1,10 @@
-<!-- Mission Control Dashboard - Fixed Navigation & Refresh -->
+<!-- Mission Control Dashboard - With Real OpenClaw Integration -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mission Control v2 - Dashboard</title>
+  <title>Mission Control v2 - Live Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -34,7 +34,44 @@
       z-index: -1;
     }
     
-    /* Navigation - FIXED: Always visible tabs */
+    /* Connection Status */
+    .connection-status {
+      position: fixed;
+      top: 70px;
+      right: 24px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .connection-status.online {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+    }
+    .connection-status.offline {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .online .status-dot { background: var(--accent-green); }
+    .offline .status-dot { background: var(--accent-red); animation: none; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    /* Navigation */
     .nav-bar {
       position: fixed;
       top: 0;
@@ -158,81 +195,87 @@
       font-size: 13px;
       color: rgba(255,255,255,0.6);
     }
+    .health-score {
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .health-score.good { color: var(--accent-green); }
+    .health-score.warning { color: var(--accent-yellow); }
+    .health-score.bad { color: var(--accent-red); }
     
-    /* Projects Section */
-    .section {
+    /* Agent Cards */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .agent-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .section-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    
-    /* Project Cards */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-    .project-card {
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 20px;
+      transition: all 0.2s;
     }
-    .project-header {
+    .agent-card:hover {
+      border-color: var(--accent-purple);
+    }
+    .agent-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 12px;
       margin-bottom: 12px;
     }
-    .project-name {
+    .agent-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .agent-info {
+      flex: 1;
+    }
+    .agent-name {
       font-weight: 600;
       font-size: 16px;
     }
-    .project-status {
+    .agent-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .agent-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
-      text-transform: uppercase;
     }
-    .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-    .status-planning { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
-    .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
-    
-    .progress-bar {
-      height: 8px;
-      background: var(--glass-bg-light);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 8px;
+    .agent-status.online {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
     }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
-      border-radius: 4px;
-      transition: width 0.5s ease;
+    .agent-status.busy {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-yellow);
+    }
+    .agent-status.offline {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
     }
     
-    /* Tasks Tab */
-    .task-list {
+    /* Cron Jobs */
+    .cron-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    .task-item {
+    .cron-item {
       display: flex;
       align-items: center;
       gap: 16px;
@@ -241,118 +284,46 @@
       border: 1px solid var(--glass-border);
       border-radius: 10px;
     }
-    .task-content {
+    .cron-status {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .cron-status.success { background: var(--accent-green); }
+    .cron-status.error { background: var(--accent-red); }
+    .cron-status.pending { background: var(--accent-yellow); }
+    .cron-info {
       flex: 1;
     }
-    .task-title {
+    .cron-name {
       font-weight: 500;
       margin-bottom: 4px;
     }
-    .task-priority {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .priority-high { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
-    .priority-medium { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
-    .priority-low { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-    
-    /* Calendar Tab */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-    }
-    .calendar-day {
-      aspect-ratio: 1;
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .calendar-day.today {
-      background: rgba(139, 92, 246, 0.2);
-      border-color: var(--accent-purple);
-    }
-    .day-number {
-      font-weight: 600;
-      font-size: 14px;
-    }
-    
-    /* Team Tab */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 16px;
-    }
-    .team-card {
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-    .team-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin: 0 auto 12px;
-    }
-    .team-name {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-    .team-role {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 12px;
-    }
-    .team-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 20px;
+    .cron-schedule {
       font-size: 12px;
-      font-weight: 500;
+      color: rgba(255,255,255,0.5);
     }
-    .team-status.online {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--accent-green);
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+    .cron-last-run {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
     }
     
     @media (max-width: 768px) {
       .stats-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .agents-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   
-  <!-- Navigation - FIXED: Single page with working tabs -->
+  <!-- Connection Status -->
+  <div class="connection-status offline" id="connection-status">
+    <span class="status-dot"></span>
+    <span id="connection-text">Connecting to OpenClaw...</span>
+  </div>
+  
+  <!-- Navigation -->
   <nav class="nav-bar">
     <div class="nav-brand">
       <span>🎯</span>
@@ -360,10 +331,9 @@
     </div>
     <div class="nav-links">
       <button class="nav-link active" onclick="mcApp.switchTab('dashboard')">Dashboard</button>
-      <button class="nav-link" onclick="mcApp.switchTab('tasks')">Tasks</button>
-      <button class="nav-link" onclick="mcApp.switchTab('calendar')">Calendar</button>
-      <button class="nav-link" onclick="mcApp.switchTab('team')">Team</button>
-      <a class="nav-link" href="memory.html">Memory</a>
+      <button class="nav-link" onclick="mcApp.switchTab('agents')">Agents</button>
+      <button class="nav-link" onclick="mcApp.switchTab('cron')">Cron Jobs</button>
+      <a href="memory.html" class="nav-link">Memory</a>
     </div>
   </nav>
 
@@ -381,261 +351,201 @@
     <div class="tab-content active" id="tab-dashboard">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value" id="stat-total">-</div>
-          <div class="stat-label">Total Projects</div>
+          <div class="stat-value" id="stat-agents">-</div>
+          <div class="stat-label">Active Agents</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="stat-progress">-</div>
-          <div class="stat-label">Avg Progress</div>
+          <div class="stat-value" id="stat-sessions">-</div>
+          <div class="stat-label">Active Sessions</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="stat-high">-</div>
-          <div class="stat-label">High Priority</div>
+          <div class="stat-value" id="stat-cron">-</div>
+          <div class="stat-label">Cron Jobs</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="stat-agents">7</div>
-          <div class="stat-label">Agents Online</div>
+          <div class="health-score" id="health-score">-</div>
+          <div class="stat-label">Health Score</div>
         </div>
-      </div>
-
-      <div class="section">
-        <div class="section-header">
-          <h2 class="section-title">Active Projects</h2>
-        </div>
-        <div class="projects-grid" id="projects-grid"></div>
       </div>
     </div>
 
-    <!-- Tasks Tab -->
-    <div class="tab-content" id="tab-tasks">
-      <div class="section">
-        <div class="section-header">
-          <h2 class="section-title">Active Tasks</h2>
-        </div>
-        <div class="task-list" id="task-list"></div>
+    <!-- Agents Tab -->
+    <div class="tab-content" id="tab-agents">
+      <div class="agents-grid" id="agents-grid">
+        <p style="color: rgba(255,255,255,0.5);">Loading agents...</p>
       </div>
     </div>
 
-    <!-- Calendar Tab -->
-    <div class="tab-content" id="tab-calendar">
-      <div class="section">
-        <div class="section-header">
-          <h2 class="section-title">Calendar</h2>
-        </div>
-        <div class="calendar-grid" id="calendar-grid"></div>
-      </div>
-    </div>
-
-    <!-- Team Tab -->
-    <div class="tab-content" id="tab-team">
-      <div class="section">
-        <div class="section-header">
-          <h2 class="section-title">Team Members</h2>
-        </div>
-        <div class="team-grid" id="team-grid"></div>
+    <!-- Cron Jobs Tab -->
+    <div class="tab-content" id="tab-cron">
+      <div class="cron-list" id="cron-list">
+        <p style="color: rgba(255,255,255,0.5);">Loading cron jobs...</p>
       </div>
     </div>
   </main>
 
   <!-- Scripts -->
-  <script src="api/github.js"></script>
-  <script src="services/dataService.js"></script>
+  <script src="services/openclawService.js"></script>
   <script>
-    // Main Application - FIXED
+    // Main Application with Real OpenClaw Integration
     class MissionControlApp {
       constructor() {
         this.currentTab = 'dashboard';
+        this.openClawData = null;
         this.init();
       }
       
       async init() {
         await this.loadData();
-        this.loadTasks();
-        this.loadCalendar();
-        this.loadTeam();
+        // Auto-refresh every 30 seconds
+        setInterval(() => this.loadData(), 30000);
       }
       
       async loadData() {
         try {
-          const data = await window.mcDataService.getDashboardData();
+          // Try to get real data from OpenClaw
+          const data = await window.openClawService.getDashboardData();
+          this.openClawData = data;
           this.renderDashboard(data);
+          this.updateConnectionStatus(data.connected);
         } catch (error) {
-          console.error('Error loading data:', error);
-          // Load fallback data
+          console.error('Error loading OpenClaw data:', error);
+          this.updateConnectionStatus(false);
           this.renderFallback();
         }
       }
       
-      // FIXED: Tab switching without page reload
+      updateConnectionStatus(connected) {
+        const statusEl = document.getElementById('connection-status');
+        const textEl = document.getElementById('connection-text');
+        
+        if (connected) {
+          statusEl.className = 'connection-status online';
+          textEl.textContent = 'OpenClaw Connected';
+        } else {
+          statusEl.className = 'connection-status offline';
+          textEl.textContent = 'OpenClaw Offline';
+        }
+      }
+      
       switchTab(tabName) {
-        // Update nav active state
         document.querySelectorAll('.nav-link').forEach(link => {
           link.classList.remove('active');
         });
         event.target.classList.add('active');
         
-        // Hide all tab content
         document.querySelectorAll('.tab-content').forEach(content => {
           content.classList.remove('active');
         });
-        
-        // Show selected tab
         document.getElementById(`tab-${tabName}`).classList.add('active');
         
-        // Update page title
         const titles = {
           dashboard: 'Dashboard',
-          tasks: 'Tasks',
-          calendar: 'Calendar',
-          team: 'Team'
+          agents: 'Agents',
+          cron: 'Cron Jobs'
         };
         document.getElementById('page-title').textContent = titles[tabName];
         
         this.currentTab = tabName;
       }
       
-      // FIXED: Refresh button actually works
       async refreshData() {
         const btn = document.getElementById('refresh-btn');
         btn.disabled = true;
         btn.textContent = '🔄 Refreshing...';
         
-        try {
-          // Clear cache and fetch fresh
-          if (window.mcDataService.clearCache) {
-            window.mcDataService.clearCache();
-          }
-          
-          const data = await window.mcDataService.refresh();
-          this.renderDashboard(data);
-          
-          // Update timestamp
-          document.getElementById('last-updated').textContent = 
-            `Last updated: ${new Date().toLocaleString()}`;
-          
-          btn.textContent = '✅ Refreshed';
-          setTimeout(() => {
-            btn.textContent = '🔄 Refresh';
-            btn.disabled = false;
-          }, 1500);
-          
-        } catch (error) {
-          console.error('Refresh failed:', error);
-          btn.textContent = '❌ Failed';
-          setTimeout(() => {
-            btn.textContent = '🔄 Refresh';
-            btn.disabled = false;
-          }, 2000);
-        }
+        await this.loadData();
+        
+        btn.textContent = '✅ Refreshed';
+        setTimeout(() => {
+          btn.textContent = '🔄 Refresh';
+          btn.disabled = false;
+        }, 1500);
       }
       
       renderDashboard(data) {
-        const stats = data.stats || {};
-        document.getElementById('stat-total').textContent = stats.totalProjects || 7;
-        document.getElementById('stat-progress').textContent = (stats.avgProgress || 35) + '%';
-        document.getElementById('stat-high').textContent = stats.highPriority || 4;
+        // Update stats
+        document.getElementById('stat-agents').textContent = data.agents?.length || 0;
+        document.getElementById('stat-sessions').textContent = data.activeSessions || 0;
+        document.getElementById('stat-cron').textContent = data.cronJobs?.length || 0;
         
-        // Render projects
-        const projects = data.projects || [
-          { name: 'Trading System', status: 'active', progress: 35, priority: 'high' },
-          { name: 'RT Scheduling', status: 'active', progress: 35, priority: 'high' },
-          { name: 'Respiratory Education', status: 'active', progress: 45, priority: 'high' },
-          { name: 'Respiratory Tools', status: 'active', progress: 25, priority: 'high' }
-        ];
+        // Health score
+        const healthEl = document.getElementById('health-score');
+        healthEl.textContent = data.healthScore || 0;
+        healthEl.className = 'health-score ' + (data.healthScore > 80 ? 'good' : data.healthScore > 50 ? 'warning' : 'bad');
         
-        const grid = document.getElementById('projects-grid');
-        grid.innerHTML = projects.map(p => `
-          <div class="project-card">
-            <div class="project-header">
-              <span class="project-name">${p.name}</span>
-              <span class="project-status status-${p.status}">${p.status}</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${p.progress}%"></div>
-            </div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: right;">
-              ${p.progress}% complete
-            </div>
-          </div>
-        `).join('');
-        
+        // Update timestamp
         document.getElementById('last-updated').textContent = 
           `Last updated: ${new Date().toLocaleString()}`;
+        
+        // Render agents
+        this.renderAgents(data.agents || []);
+        
+        // Render cron jobs
+        this.renderCronJobs(data.cronJobs || []);
+      }
+      
+      renderAgents(agents) {
+        const grid = document.getElementById('agents-grid');
+        if (!agents.length) {
+          grid.innerHTML = '<p style="color: rgba(255,255,255,0.5);">No active agents</p>';
+          return;
+        }
+        
+        grid.innerHTML = agents.map(agent => `
+          <div class="agent-card">
+            <div class="agent-header">
+              <div class="agent-avatar">🤖</div>
+              <div class="agent-info">
+                <div class="agent-name">${agent.name}</div>
+                <div class="agent-role">${agent.sessions?.length || 0} active sessions</div>
+              </div>
+            </div>
+            <span class="agent-status ${agent.status}">
+              <span class="status-dot"></span>
+              ${agent.status}
+            </span>
+          </div>
+        `).join('');
+      }
+      
+      renderCronJobs(jobs) {
+        const list = document.getElementById('cron-list');
+        if (!jobs.length) {
+          list.innerHTML = '<p style="color: rgba(255,255,255,0.5);">No cron jobs found</p>';
+          return;
+        }
+        
+        list.innerHTML = jobs.map(job => `
+          <div class="cron-item">
+            <div class="cron-status ${job.lastRunStatus || 'pending'}"></div>
+            <div class="cron-info">
+              <div class="cron-name">${job.name}</div>
+              <div class="cron-schedule">${job.schedule}</div>
+            </div>
+            <div class="cron-last-run">${job.lastRunAt ? new Date(job.lastRunAt).toLocaleString() : 'Never'}</div>
+          </div>
+        `).join('');
       }
       
       renderFallback() {
+        // Show sample data when OpenClaw is offline
         this.renderDashboard({
-          stats: { totalProjects: 7, avgProgress: 35, highPriority: 4 },
-          projects: [
-            { name: 'Trading System', status: 'active', progress: 35, priority: 'high' },
-            { name: 'RT Scheduling', status: 'active', progress: 35, priority: 'high' },
-            { name: 'Respiratory Education', status: 'active', progress: 45, priority: 'high' },
-            { name: 'Respiratory Tools', status: 'active', progress: 25, priority: 'high' },
-            { name: 'Reselling Business', status: 'planning', progress: 15, priority: 'medium' },
-            { name: 'YouTube Empire', status: 'planning', progress: 10, priority: 'low' },
-            { name: 'Kids App', status: 'planning', progress: 10, priority: 'low' }
-          ]
+          agents: [
+            { name: 'Nano (Coordinator)', status: 'online', sessions: [] },
+            { name: 'Frontend Developer', status: 'online', sessions: [] },
+            { name: 'Backend Developer', status: 'busy', sessions: [] },
+            { name: 'AI Engineer', status: 'online', sessions: [] }
+          ],
+          activeSessions: 4,
+          cronJobs: [
+            { name: 'Morning Brief', schedule: 'Daily 6:00 AM', lastRunStatus: 'success' },
+            { name: 'Afternoon Check', schedule: 'Daily 2:00 PM', lastRunStatus: 'success' },
+            { name: 'Evening Work Block', schedule: 'Daily 8:00 PM', lastRunStatus: 'pending' }
+          ],
+          healthScore: 85,
+          connected: false
         });
-      }
-      
-      loadTasks() {
-        const tasks = [
-          { title: 'Test Trading System with real data', priority: 'high', status: 'in-progress' },
-          { title: 'Deploy backend server', priority: 'high', status: 'todo' },
-          { title: 'Continue RT Scheduling UI', priority: 'high', status: 'in-progress' },
-          { title: 'Create Discord slash commands', priority: 'medium', status: 'done' },
-          { title: 'Build mobile navigation', priority: 'medium', status: 'done' }
-        ];
-        
-        const list = document.getElementById('task-list');
-        list.innerHTML = tasks.map(t => `
-          <div class="task-item">
-            <div class="task-content">
-              <div class="task-title">${t.title}</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">${t.status}</div>
-            </div>
-            <span class="task-priority priority-${t.priority}">${t.priority}</span>
-          </div>
-        `).join('');
-      }
-      
-      loadCalendar() {
-        const grid = document.getElementById('calendar-grid');
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        
-        grid.innerHTML = days.map((day, i) => `
-          <div class="calendar-day ${i === 5 ? 'today' : ''}">
-            <div class="day-name">${day}</div>
-            <div class="day-number">${i + 8}</div>
-          </div>
-        `).join('');
-      }
-      
-      loadTeam() {
-        const team = [
-          { name: 'Integration Specialist', role: 'APIs & Connections', status: 'online', emoji: '🔌' },
-          { name: 'Frontend Developer', role: 'UI/UX', status: 'online', emoji: '🎨' },
-          { name: 'Backend Developer', role: 'Server-side', status: 'online', emoji: '⚙️' },
-          { name: 'AI Engineer', role: 'ML & Automation', status: 'online', emoji: '🤖' },
-          { name: 'Database Engineer', role: 'Data & Storage', status: 'online', emoji: '🗄️' },
-          { name: 'Researcher', role: 'Investigation', status: 'online', emoji: '🔍' },
-          { name: 'Reviewer', role: 'Code Review', status: 'online', emoji: '👁️' },
-          { name: 'Coder', role: 'General Coding', status: 'online', emoji: '💻' },
-          { name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬' }
-        ];
-        
-        const grid = document.getElementById('team-grid');
-        grid.innerHTML = team.map(member => `
-          <div class="team-card">
-            <div class="team-avatar">${member.emoji}</div>
-            <div class="team-name">${member.name}</div>
-            <div class="team-role">${member.role}</div>
-            <div class="team-status ${member.status}">
-              <span class="status-dot"></span>
-              ${member.status}
-            </div>
-          </div>
-        `).join('');
       }
     }
     
