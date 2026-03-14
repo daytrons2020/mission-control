@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LayoutDashboard, Users, Calendar, FileUp, FileDown, Menu, X } from 'lucide-react';
 import { Dashboard } from './components/Dashboard';
 import { StaffList } from './components/StaffList';
 import { ScheduleBuilder } from './components/ScheduleBuilder';
+import { NotificationCenter } from './components/NotificationCenter';
+import { NotificationDemoPanel } from './components/NotificationDemoPanel';
 import { useStaffManagement, useScheduleManagement, useAvailabilityImport, useMetrics } from './hooks/useLocalStorage';
+import { notificationService } from './services/notificationService';
 import type { ScheduleImport } from './types';
 import './App.css';
 
@@ -31,6 +34,15 @@ function App() {
   const { calculateMetrics } = useMetrics(staff, schedule);
 
   const metrics = calculateMetrics();
+
+  // Initialize notification service on mount
+  useEffect(() => {
+    // Polling is started automatically in the service constructor
+    // Cleanup on unmount
+    return () => {
+      notificationService.stopPolling();
+    };
+  }, []);
 
   const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -275,6 +287,10 @@ function App() {
                   <span>{item.label}</span>
                 </button>
               ))}
+              {/* Notification Center */}
+              <div className="ml-2 pl-2 border-l border-blue-500">
+                <NotificationCenter />
+              </div>
             </nav>
           </div>
         </div>
@@ -300,6 +316,12 @@ function App() {
                   <span>{item.label}</span>
                 </button>
               ))}
+              {/* Mobile Notification Center */}
+              <div className="border-t border-blue-500 mt-2 pt-2">
+                <div className="px-4 py-2">
+                  <NotificationCenter />
+                </div>
+              </div>
             </div>
           </nav>
         )}
@@ -309,6 +331,9 @@ function App() {
       <main className="max-w-6xl mx-auto px-4 py-6">
         {renderContent()}
       </main>
+
+      {/* Notification Demo Panel (Development Only) */}
+      {import.meta.env.DEV && <NotificationDemoPanel />}
     </div>
   );
 }

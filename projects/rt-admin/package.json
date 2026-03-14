@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "date-fns": "^3.6.0",
     "exceljs": "^4.4.0",
     "lucide-react": "^0.460.0",

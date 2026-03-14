@@ -1,0 +1,870 @@
+<!-- Mission Control Dashboard - Original Design Restored -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control v2 - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* App Container */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Left Sidebar */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sidebar-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .sidebar-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+    .nav-section {
+      margin-bottom: 24px;
+    }
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item:hover {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .nav-item.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    .nav-item-icon {
+      width: 20px;
+      text-align: center;
+    }
+    .nav-item-badge {
+      margin-left: auto;
+      background: var(--accent-red);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 10px;
+      min-width: 18px;
+      text-align: center;
+    }
+    
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .user-info {
+      flex: 1;
+    }
+    .user-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .user-status {
+      font-size: 12px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .user-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent-green);
+      border-radius: 50%;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      min-height: 100vh;
+    }
+    
+    /* Top Header */
+    .top-header {
+      height: 70px;
+      background: rgba(15, 15, 20, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      min-width: 400px;
+    }
+    .search-bar input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+    .search-bar input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .header-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .header-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .header-btn-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      background: var(--accent-red);
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    
+    /* Dashboard Content */
+    .dashboard-content {
+      padding: 24px;
+    }
+    
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    
+    /* Calendar Widget */
+    .calendar-widget {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .widget-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .widget-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .widget-nav {
+      display: flex;
+      gap: 8px;
+    }
+    .widget-nav button {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .mini-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .mini-calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .mini-calendar-day:hover {
+      background: var(--glass-bg-light);
+    }
+    .mini-calendar-day.today {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      font-weight: 600;
+    }
+    .mini-calendar-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+    }
+    
+    /* War Room Widget */
+    .war-room-widget {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .war-room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .view-all-btn {
+      font-size: 12px;
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .stat-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-sublabel {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .stat-card.warning {
+      border-color: var(--accent-yellow);
+    }
+    .stat-card.warning .stat-status {
+      background: var(--accent-yellow);
+    }
+    
+    /* Recent Activity */
+    .activity-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .activity-item:hover {
+      border-color: var(--accent-purple);
+    }
+    .activity-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--glass-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .activity-content {
+      flex: 1;
+    }
+    .activity-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .activity-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .activity-time {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    
+    @media (max-width: 1200px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">🎯</div>
+          <div>
+            <div class="sidebar-title">Mission Control</div>
+            <div class="sidebar-subtitle">Unified Dashboard</div>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Overview</div>
+          <button class="nav-item active" onclick="app.switchTab('dashboard')">
+            <span class="nav-item-icon">⊞</span>
+            Dashboard
+          </button>
+          <button class="nav-item" onclick="app.switchTab('tasks')">
+            <span class="nav-item-icon">☑</span>
+            Tasks
+            <span class="nav-item-badge">3</span>
+          </button>
+          <button class="nav-item" onclick="app.switchTab('agents')">
+            <span class="nav-item-icon">🤖</span>
+            Agents
+          </button>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Projects</div>
+          <a href="dashboard.html#trading" class="nav-item" onclick="app.showProject('trading')">
+            <span class="nav-item-icon">$</span>
+            Trading System
+          </a>
+          <a href="dashboard.html#research" class="nav-item" onclick="app.showProject('research')">
+            <span class="nav-item-icon">🔍</span>
+            Research
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">System</div>
+          <a href="memory.html" class="nav-item">
+            <span class="nav-item-icon">🧠</span>
+            Memory
+          </a>
+          <a href="calendar.html" class="nav-item">
+            <span class="nav-item-icon">📅</span>
+            Calendar
+          </a>
+          <a href="cost-tracker.html" class="nav-item">
+            <span class="nav-item-icon">💰</span>
+            Cost Tracker
+          </a>
+          <button class="nav-item" onclick="app.openSettings()">
+            <span class="nav-item-icon">⚙</span>
+            Settings
+          </button>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">D</div>
+          <div class="user-info">
+            <div class="user-name">Dayton</div>
+            <div class="user-status">Online</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <h1 class="header-title" id="page-title">Dashboard</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" placeholder="Ask anything... (e.g., 'Show me trading system status')">
+            <span style="color: rgba(255,255,255,0.4); font-size: 12px;">⌘K</span>
+          </div>
+          <button class="header-btn" onclick="app.showNotifications()" title="Notifications">
+            🔔
+            <span class="header-btn-badge">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="tab-dashboard">
+          <div class="dashboard-grid">
+            <!-- Calendar Widget -->
+            <div class="calendar-widget">
+              <div class="widget-header">
+                <div class="widget-title">
+                  <div class="widget-icon">📅</div>
+                  March 2026
+                </div>
+                <div class="widget-nav">
+                  <button onclick="app.prevMonth()">‹</button>
+                  <button onclick="app.nextMonth()">›</button>
+                </div>
+              </div>
+              <div class="mini-calendar" id="mini-calendar">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+
+            <!-- War Room Widget -->
+            <div class="war-room-widget">
+              <div class="war-room-header">
+                <div class="widget-title">
+                  <div class="widget-icon" style="background: rgba(239, 68, 68, 0.2);">🎯</div>
+                  War Room
+                </div>
+                <a href="#" class="view-all-btn">View All</a>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Gateway Status</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-green);">98.9%</div>
+                  <div class="stat-sublabel">Uptime last 24h</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Discord</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-cyan);">21</div>
+                  <div class="stat-sublabel">Channels active</div>
+                </div>
+                <div class="stat-card warning">
+                  <div class="stat-header">
+                    <span class="stat-label">Cron Jobs</span>
+                    <span class="stat-status" style="background: var(--accent-yellow);"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-yellow);">11/13</div>
+                  <div class="stat-sublabel">2 jobs need attention</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Memory</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-purple);">4.2GB</div>
+                  <div class="stat-sublabel">67% available</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="activity-section">
+            <div class="widget-header">
+              <div class="widget-title">
+                <div class="widget-icon">📊</div>
+                Recent Activity
+              </div>
+              <a href="#" class="view-all-btn">View All</a>
+            </div>
+            <div class="activity-list" id="activity-list">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div class="tab-content" id="tab-tasks">
+          <div class="activity-section">
+            <div class="widget-header">
+              <div class="widget-title">Active Tasks</div>
+              <button class="header-btn" onclick="app.addTask()" style="width: auto; padding: 8px 16px; font-size: 14px;">+ Add Task</button>
+            </div>
+            <div class="activity-list" id="task-list">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Agents Tab -->
+        <div class="tab-content" id="tab-agents">
+          <div class="activity-section">
+            <div class="widget-title" style="margin-bottom: 16px;">Agent Status</div>
+            <div class="stats-grid" id="agents-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    class MissionControlApp {
+      constructor() {
+        this.currentTab = 'dashboard';
+        this.currentDate = new Date(2026, 2, 14); // March 14, 2026
+        this.init();
+      }
+
+      init() {
+        this.renderCalendar();
+        this.renderActivity();
+        this.renderTasks();
+        this.renderAgents();
+      }
+
+      switchTab(tabName) {
+        // Update sidebar
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        event.target.closest('.nav-item').classList.add('active');
+
+        // Update content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(`tab-${tabName}`).classList.add('active');
+
+        // Update header title
+        const titles = {
+          dashboard: 'Dashboard',
+          tasks: 'Tasks',
+          agents: 'Agents'
+        };
+        document.getElementById('page-title').textContent = titles[tabName];
+
+        this.currentTab = tabName;
+      }
+
+      renderCalendar() {
+        const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let html = '';
+        days.forEach(day => {
+          html += `<div style="font-size: 11px; color: rgba(255,255,255,0.5); padding: 8px;">${day}</div>`;
+        });
+
+        for (let i = 0; i < firstDay; i++) {
+          html += `<div class="mini-calendar-day"></div>`;
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const isToday = day === 14;
+          const hasEvent = [9, 14, 16, 20].includes(day);
+          html += `
+            <div class="mini-calendar-day ${isToday ? 'today' : ''}" style="position: relative;">
+              ${day}
+              ${hasEvent ? '<span style="position: absolute; bottom: 2px; width: 4px; height: 4px; background: var(--accent-cyan); border-radius: 50%;"></span>' : ''}
+            </div>
+          `;
+        }
+
+        document.getElementById('mini-calendar').innerHTML = html;
+      }
+
+      renderActivity() {
+        const activities = [
+          { icon: '🚀', title: 'Mission Control v2 deployed', desc: 'Glassmorphism UI • 7-Model Selector • War Room', time: 'Just now', color: 'var(--accent-purple)' },
+          { icon: '💰', title: 'Cost report generated', desc: 'Daily usage: $2.45 • 12% decrease', time: '2m ago', color: 'var(--accent-green)' },
+          { icon: '📈', title: 'Trading pattern detected', desc: 'RUG PULL on SPY • Confidence: 87%', time: '15m ago', color: 'var(--accent-yellow)' },
+          { icon: '🔄', title: 'Git sync completed', desc: '42 files synced • No conflicts', time: '1h ago', color: 'var(--accent-cyan)' }
+        ];
+
+        document.getElementById('activity-list').innerHTML = activities.map(a => `
+          <div class="activity-item">
+            <div class="activity-icon" style="background: ${a.color}20;">${a.icon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${a.title}</div>
+              <div class="activity-desc">${a.desc}</div>
+            </div>
+            <div class="activity-time">${a.time}</div>
+          </div>
+        `).join('');
+      }
+
+      renderTasks() {
+        const tasks = [
+          { icon: '☑', title: 'Test Trading System with real data', desc: 'In Progress • High Priority', time: 'Due today', color: 'var(--accent-yellow)' },
+          { icon: '☑', title: 'Deploy backend server', desc: 'Todo • High Priority', time: 'Due tomorrow', color: 'var(--accent-purple)' },
+          { icon: '☑', title: 'Continue RT Scheduling UI', desc: 'In Progress • Medium Priority', time: 'Due in 2 days', color: 'var(--accent-cyan)' }
+        ];
+
+        document.getElementById('task-list').innerHTML = tasks.map(t => `
+          <div class="activity-item">
+            <div class="activity-icon" style="background: ${t.color}20;">${t.icon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${t.title}</div>
+              <div class="activity-desc">${t.desc}</div>
+            </div>
+            <div class="activity-time">${t.time}</div>
+          </div>
+        `).join('');
+      }
+
+      renderAgents() {
+        const agents = [
+          { name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬' },
+          { name: 'Frontend Dev', role: 'UI/UX', status: 'online', emoji: '🎨' },
+          { name: 'Backend Dev', role: 'APIs', status: 'busy', emoji: '⚙️' },
+          { name: 'AI Engineer', role: 'ML/AI', status: 'online', emoji: '🤖' },
+          { name: 'Database Eng', role: 'Data', status: 'online', emoji: '🗄️' },
+          { name: 'Integration Spec', role: 'APIs', status: 'online', emoji: '🔌' }
+        ];
+
+        document.getElementById('agents-grid').innerHTML = agents.map(a => `
+          <div class="stat-card">
+            <div style="font-size: 32px; margin-bottom: 8px;">${a.emoji}</div>
+            <div style="font-weight: 600; margin-bottom: 4px;">${a.name}</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">${a.role}</div>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: ${a.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'};">
+              <span style="width: 8px; height: 8px; background: ${a.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'}; border-radius: 50%;"></span>
+              ${a.status}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      prevMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+        this.renderCalendar();
+      }
+
+      nextMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+        this.renderCalendar();
+      }
+
+      showNotifications() {
+        alert('Notifications panel coming soon!');
+      }
+
+      openSettings() {
+        alert('Settings panel coming soon!');
+      }
+
+      addTask() {
+        const title = prompt('Task title:');
+        if (title) {
+          alert('Task added: ' + title);
+        }
+      }
+
+      showProject(project) {
+        alert('Showing project: ' + project);
+      }
+    }
+
+    window.app = new MissionControlApp();
+  </script>
+</body>
+</html>

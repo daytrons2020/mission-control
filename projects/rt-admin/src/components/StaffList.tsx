@@ -31,7 +31,7 @@ export function StaffList({ staff, onAddStaff, onUpdateStaff, onDeleteStaff, onT
       department: formData.get('department') as string,
       hireDate: formData.get('hireDate') as string,
       maxHoursPerWeek: parseInt(formData.get('maxHoursPerWeek') as string, 10),
-      preferredShifts: (formData.getAll('preferredShifts') as string[]),
+      preferredShifts: (formData.getAll('preferredShifts') as string[]) as StaffMember['preferredShifts'],
       unavailableDays: [],
       isActive: true
     };
@@ -157,7 +157,7 @@ export function StaffList({ staff, onAddStaff, onUpdateStaff, onDeleteStaff, onT
                       type="checkbox"
                       name="preferredShifts"
                       value={shift}
-                      defaultChecked={editingStaff?.preferredShifts.includes(shift)}
+                      defaultChecked={editingStaff?.preferredShifts.includes(shift as any)}
                       className="rounded text-blue-600 focus:ring-blue-500"
                     />
                     <span className="text-sm capitalize">{shift}</span>
