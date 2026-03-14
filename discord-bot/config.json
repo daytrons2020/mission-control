@@ -1,0 +1,21 @@
+{
+  "token": "YOUR_BOT_TOKEN_HERE",
+  "clientId": "YOUR_CLIENT_ID_HERE",
+  "guildId": "YOUR_GUILD_ID_HERE",
+  "github": {
+    "owner": "daytrons2020",
+    "repo": "mission-control",
+    "tasksPath": "TASKS.md"
+  },
+  "openclaw": {
+    "gatewayUrl": "http://localhost:8080",
+    "enabled": false
+  },
+  "colors": {
+    "primary": "#5865F2",
+    "success": "#57F287",
+    "warning": "#FEE75C",
+    "danger": "#ED4245",
+    "info": "#5865F2"
+  }
+}
