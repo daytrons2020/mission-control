@@ -1,4 +1,4 @@
-<!-- Mission Control Dashboard - Complete with All Tabs -->
+<!-- Mission Control Dashboard - Original Design Restored -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +16,8 @@
       --accent-green: #10b981;
       --accent-yellow: #f59e0b;
       --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -34,90 +36,522 @@
       z-index: -1;
     }
     
-    /* Navigation - FIXED: All 5 tabs visible */
-    .nav-bar {
+    /* App Container */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Left Sidebar */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
       position: fixed;
       top: 0;
+      bottom: 0;
       left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(15, 15, 20, 0.95);
+      z-index: 1000;
+    }
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sidebar-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .sidebar-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+    .nav-section {
+      margin-bottom: 24px;
+    }
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item:hover {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .nav-item.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    .nav-item-icon {
+      width: 20px;
+      text-align: center;
+    }
+    .nav-item-badge {
+      margin-left: auto;
+      background: var(--accent-red);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 10px;
+      min-width: 18px;
+      text-align: center;
+    }
+    
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .user-info {
+      flex: 1;
+    }
+    .user-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .user-status {
+      font-size: 12px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .user-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent-green);
+      border-radius: 50%;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      min-height: 100vh;
+    }
+    
+    /* Top Header */
+    .top-header {
+      height: 70px;
+      background: rgba(15, 15, 20, 0.8);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
-      z-index: 1000;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .nav-brand {
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .search-bar {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 600;
-      font-size: 18px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 8px;
-    }
-    .nav-link {
-      padding: 10px 16px;
-      border-radius: 8px;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-    }
-    .nav-link:hover, .nav-link.active {
       background: var(--glass-bg-light);
-      color: #fff;
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      min-width: 400px;
     }
-    .nav-link.active {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--accent-purple);
+    .search-bar input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+    .search-bar input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .header-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .header-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .header-btn-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      background: var(--accent-red);
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
     }
     
-    /* Main Content */
-    .main-content {
-      padding: 80px 24px 24px;
+    /* Dashboard Content */
+    .dashboard-content {
+      padding: 24px;
     }
-    .header {
+    
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    
+    /* Calendar Widget */
+    .calendar-widget {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .widget-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
     }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
+    .widget-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 16px;
     }
-    .last-updated {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 4px;
+    .widget-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .btn {
-      padding: 12px 24px;
-      border-radius: 10px;
-      border: none;
+    .widget-nav {
+      display: flex;
+      gap: 8px;
+    }
+    .widget-nav button {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: white;
       cursor: pointer;
-      font-weight: 500;
+      font-size: 12px;
+    }
+    .mini-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .mini-calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .mini-calendar-day:hover {
+      background: var(--glass-bg-light);
+    }
+    .mini-calendar-day.today {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      font-weight: 600;
+    }
+    .mini-calendar-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+    }
+    
+    /* War Room Widget */
+    .war-room-widget {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .war-room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .view-all-btn {
+      font-size: 12px;
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .stat-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-sublabel {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .stat-card.warning {
+      border-color: var(--accent-yellow);
+    }
+    .stat-card.warning .stat-status {
+      background: var(--accent-yellow);
+    }
+    
+    /* Task Tracking */
+    .task-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .task-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .task-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 14px;
       transition: all 0.2s;
-      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+    }
+    .task-tab:hover {
+      background: var(--glass-bg);
+    }
+    .task-tab.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
       color: white;
     }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .task-item:hover {
+      border-color: var(--accent-purple);
+    }
+    .task-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .task-status.in-progress { background: var(--accent-yellow); animation: pulse 2s infinite; }
+    .task-status.completed { background: var(--accent-green); }
+    .task-status.pending { background: var(--accent-cyan); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .task-content {
+      flex: 1;
+    }
+    .task-title {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .task-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      gap: 12px;
+    }
+    .task-time {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    
+    /* Recent Activity */
+    .activity-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .activity-item:hover {
+      border-color: var(--accent-purple);
+    }
+    .activity-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--glass-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .activity-content {
+      flex: 1;
+    }
+    .activity-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .activity-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .activity-time {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
     }
     
     /* Tab Content */
@@ -126,569 +560,464 @@
     }
     .tab-content.active {
       display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .stat-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-    }
-    .stat-value {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      margin-bottom: 4px;
-    }
-    .stat-label {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-    }
-    
-    /* Project Cards */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-    .project-card {
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .project-name {
-      font-weight: 600;
-      font-size: 16px;
-    }
-    .project-status {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-    .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-    .status-planning { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
-    .progress-bar {
-      height: 8px;
-      background: var(--glass-bg-light);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-    
-    /* Task List */
-    .task-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .task-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px;
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-    }
-    .task-content { flex: 1; }
-    .task-title { font-weight: 500; margin-bottom: 4px; }
-    .task-priority {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .priority-high { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
-    .priority-medium { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
-    .priority-low { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-    
-    /* Calendar */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-    }
-    .calendar-day {
-      aspect-ratio: 1;
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .calendar-day.today {
-      background: rgba(139, 92, 246, 0.2);
-      border-color: var(--accent-purple);
-    }
-    .day-number { font-weight: 600; font-size: 14px; }
-    .day-name { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
-    
-    /* Team */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 16px;
-    }
-    .team-card {
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-    .team-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin: 0 auto 12px;
-    }
-    .team-name { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
-    .team-role { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
-    .team-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .team-status.online {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--accent-green);
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    /* Agents Section */
-    .agents-section {
-      margin-top: 32px;
-    }
-    .agents-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
-    .agent-card {
-      background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
-    .agent-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin: 0 auto 8px;
-    }
-    .agent-name { font-weight: 600; font-size: 14px; }
-    .agent-status {
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
-    }
-    
-    @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
+    @media (max-width: 1200px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   
-  <!-- Navigation - FIXED: All 5 tabs -->
-  <nav class="nav-bar">
-    <div class="nav-brand">
-      <span>🎯</span>
-      <span>Mission Control v2</span>
-    </div>
-    <div class="nav-links">
-      <button class="nav-link active" onclick="mcApp.switchTab('dashboard')">Dashboard</button>
-      <button class="nav-link" onclick="mcApp.switchTab('tasks')">Tasks</button>
-      <button class="nav-link" onclick="mcApp.switchTab('calendar')">Calendar</button>
-      <button class="nav-link" onclick="mcApp.switchTab('team')">Team</button>
-      <a class="nav-link" href="memory.html">Memory</a>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="header">
-      <div>
-        <h1 id="page-title">Dashboard</h1>
-        <div class="last-updated" id="last-updated">Loading...</div>
-      </div>
-      <button class="btn" id="refresh-btn" onclick="mcApp.refreshData()">🔄 Refresh</button>
-    </div>
-
-    <!-- Dashboard Tab -->
-    <div class="tab-content active" id="tab-dashboard">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="stat-total">7</div>
-          <div class="stat-label">Total Projects</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-progress">35%</div>
-          <div class="stat-label">Avg Progress</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-high">4</div>
-          <div class="stat-label">High Priority</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-agents">9</div>
-          <div class="stat-label">Agents</div>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">🎯</div>
+          <div>
+            <div class="sidebar-title">Mission Control</div>
+            <div class="sidebar-subtitle">Unified Dashboard</div>
+          </div>
         </div>
       </div>
-
-      <!-- Projects -->
-      <div style="background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2 style="font-size: 20px; font-weight: 600;">Active Projects</h2>
-          <span style="color: rgba(255,255,255,0.5); font-size: 14px;">From TASKS.md</span>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Overview</div>
+          <button class="nav-item active" onclick="app.switchTab('dashboard')">
+            <span class="nav-item-icon">⊞</span>
+            Dashboard
+          </button>
+          <button class="nav-item" onclick="app.switchTab('tasks')">
+            <span class="nav-item-icon">☑</span>
+            Tasks
+            <span class="nav-item-badge">3</span>
+          </button>
+          <button class="nav-item" onclick="app.switchTab('agents')">
+            <span class="nav-item-icon">🤖</span>
+            Agents
+          </button>
         </div>
-        <div class="projects-grid" id="projects-grid"></div>
-      </div>
-
-      <!-- Agents Section -->
-      <div class="agents-section" style="background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2 style="font-size: 20px; font-weight: 600;">Agent Status</h2>
-          <span style="color: rgba(255,255,255,0.5); font-size: 14px;">Live from OpenClaw</span>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Projects</div>
+          <a href="dashboard.html#trading" class="nav-item" onclick="app.showProject('trading')">
+            <span class="nav-item-icon">$</span>
+            Trading System
+          </a>
+          <a href="dashboard.html#research" class="nav-item" onclick="app.showProject('research')">
+            <span class="nav-item-icon">🔍</span>
+            Research
+          </a>
         </div>
-        <div class="agents-grid" id="agents-grid"></div>
-      </div>
-    </div>
-
-    <!-- Tasks Tab -->
-    <div class="tab-content" id="tab-tasks">
-      <div style="background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2 style="font-size: 20px; font-weight: 600;">Active Tasks</h2>
-          <button class="btn" onclick="alert('Add task feature coming soon')">+ Add Task</button>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">System</div>
+          <a href="memory.html" class="nav-item">
+            <span class="nav-item-icon">🧠</span>
+            Memory
+          </a>
+          <a href="calendar.html" class="nav-item">
+            <span class="nav-item-icon">📅</span>
+            Calendar
+          </a>
+          <a href="cost-tracker.html" class="nav-item">
+            <span class="nav-item-icon">💰</span>
+            Cost Tracker
+          </a>
+          <button class="nav-item" onclick="app.openSettings()">
+            <span class="nav-item-icon">⚙</span>
+            Settings
+          </button>
         </div>
-        <div class="task-list" id="task-list"></div>
-      </div>
-    </div>
-
-    <!-- Calendar Tab -->
-    <div class="tab-content" id="tab-calendar">
-      <div style="background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2 style="font-size: 20px; font-weight: 600;">Calendar</h2>
-          <span style="color: rgba(255,255,255,0.5); font-size: 14px;">March 2026</span>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">D</div>
+          <div class="user-info">
+            <div class="user-name">Dayton</div>
+            <div class="user-status">Online</div>
+          </div>
         </div>
-        <div class="calendar-grid" id="calendar-grid"></div>
       </div>
-    </div>
+    </aside>
 
-    <!-- Team Tab -->
-    <div class="tab-content" id="tab-team">
-      <div style="background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2 style="font-size: 20px; font-weight: 600;">Team Members</h2>
-          <span style="color: rgba(255,255,255,0.5); font-size: 14px;">9 Specialist Agents</span>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <h1 class="header-title" id="page-title">Dashboard</h1>
+        <div class="header-actions">
+          <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" placeholder="Ask anything... (e.g., 'Show me trading system status')">
+            <span style="color: rgba(255,255,255,0.4); font-size: 12px;">⌘K</span>
+          </div>
+          <button class="header-btn" onclick="app.showNotifications()" title="Notifications">
+            🔔
+            <span class="header-btn-badge">3</span>
+          </button>
         </div>
-        <div class="team-grid" id="team-grid"></div>
-      </div>
-    </div>
-  </main>
+      </header>
 
-  <!-- Scripts -->
-  <script src="api/github.js"></script>
-  <script src="services/dataService.js"></script>
-  <script src="services/openclawService.js"></script>
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="tab-dashboard">
+          <div class="dashboard-grid">
+            <!-- Calendar Widget -->
+            <div class="calendar-widget">
+              <div class="widget-header">
+                <div class="widget-title">
+                  <div class="widget-icon">📅</div>
+                  March 2026
+                </div>
+                <div class="widget-nav">
+                  <button onclick="app.prevMonth()">‹</button>
+                  <button onclick="app.nextMonth()">›</button>
+                </div>
+              </div>
+              <div class="mini-calendar" id="mini-calendar">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+
+            <!-- War Room Widget -->
+            <div class="war-room-widget">
+              <div class="war-room-header">
+                <div class="widget-title">
+                  <div class="widget-icon" style="background: rgba(239, 68, 68, 0.2);">🎯</div>
+                  War Room
+                </div>
+                <a href="#" class="view-all-btn">View All</a>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Gateway Status</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-green);">98.9%</div>
+                  <div class="stat-sublabel">Uptime last 24h</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Discord</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-cyan);">21</div>
+                  <div class="stat-sublabel">Channels active</div>
+                </div>
+                <div class="stat-card warning">
+                  <div class="stat-header">
+                    <span class="stat-label">Cron Jobs</span>
+                    <span class="stat-status" style="background: var(--accent-yellow);"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-yellow);">11/13</div>
+                  <div class="stat-sublabel">2 jobs need attention</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">Memory</span>
+                    <span class="stat-status"></span>
+                  </div>
+                  <div class="stat-value" style="color: var(--accent-purple);">4.2GB</div>
+                  <div class="stat-sublabel">67% available</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task Tracking -->
+          <div class="task-section">
+            <div class="widget-header">
+              <div class="widget-title">
+                <div class="widget-icon">☑</div>
+                Task Tracker
+              </div>
+              <a href="#" class="view-all-btn" onclick="app.showAllTasks()">View All</a>
+            </div>
+            <div class="task-tabs">
+              <button class="task-tab active" onclick="app.switchTaskTab('in-progress')">In Progress</button>
+              <button class="task-tab" onclick="app.switchTaskTab('completed')">Completed</button>
+            </div>
+            <div class="task-list" id="task-tracker-list">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="activity-section">
+            <div class="widget-header">
+              <div class="widget-title">
+                <div class="widget-icon">📊</div>
+                Recent Activity
+              </div>
+              <a href="#" class="view-all-btn">View All</a>
+            </div>
+            <div class="activity-list" id="activity-list">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div class="tab-content" id="tab-tasks">
+          <div class="activity-section">
+            <div class="widget-header">
+              <div class="widget-title">Active Tasks</div>
+              <button class="header-btn" onclick="app.addTask()" style="width: auto; padding: 8px 16px; font-size: 14px;">+ Add Task</button>
+            </div>
+            <div class="activity-list" id="task-list">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Agents Tab -->
+        <div class="tab-content" id="tab-agents">
+          <div class="activity-section">
+            <div class="widget-title" style="margin-bottom: 16px;">Agent Status</div>
+            <div class="stats-grid" id="agents-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
   <script>
-    // Main Application - FIXED: All tabs working
     class MissionControlApp {
       constructor() {
         this.currentTab = 'dashboard';
+        this.currentDate = new Date(2026, 2, 14); // March 14, 2026
         this.init();
       }
-      
-      async init() {
-        await this.loadData();
-        this.loadTasks();
-        this.loadCalendar();
-        this.loadTeam();
-        this.loadAgents();
+
+      init() {
+        this.renderCalendar();
+        this.renderActivity();
+        this.renderTasks();
+        this.renderAgents();
+        this.renderTaskTracker();
       }
-      
-      async loadData() {
-        try {
-          const data = await window.mcDataService.getDashboardData();
-          this.renderProjects(data.projects || []);
-          document.getElementById('last-updated').textContent = 
-            `Last updated: ${new Date().toLocaleString()}`;
-        } catch (error) {
-          console.error('Error loading data:', error);
-          this.renderFallback();
-        }
-      }
-      
-      // FIXED: Proper tab switching
+
       switchTab(tabName) {
-        // Update nav active state
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.classList.remove('active');
+        // Update sidebar
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
         });
-        event.target.classList.add('active');
-        
-        // Hide all tab content
+        event.target.closest('.nav-item').classList.add('active');
+
+        // Update content
         document.querySelectorAll('.tab-content').forEach(content => {
           content.classList.remove('active');
         });
-        
-        // Show selected tab
         document.getElementById(`tab-${tabName}`).classList.add('active');
-        
-        // Update page title
+
+        // Update header title
         const titles = {
           dashboard: 'Dashboard',
           tasks: 'Tasks',
-          calendar: 'Calendar',
-          team: 'Team'
+          agents: 'Agents'
         };
         document.getElementById('page-title').textContent = titles[tabName];
-        
+
         this.currentTab = tabName;
       }
-      
-      // FIXED: Working refresh button
-      async refreshData() {
-        const btn = document.getElementById('refresh-btn');
-        btn.disabled = true;
-        btn.textContent = '🔄 Refreshing...';
-        
-        try {
-          if (window.mcDataService.clearCache) {
-            window.mcDataService.clearCache();
-          }
-          
-          await this.loadData();
-          await this.loadAgents();
-          
-          btn.textContent = '✅ Refreshed';
-          setTimeout(() => {
-            btn.textContent = '🔄 Refresh';
-            btn.disabled = false;
-          }, 1500);
-        } catch (error) {
-          btn.textContent = '❌ Failed';
-          setTimeout(() => {
-            btn.textContent = '🔄 Refresh';
-            btn.disabled = false;
-          }, 2000);
+
+      renderCalendar() {
+        const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let html = '';
+        days.forEach(day => {
+          html += `<div style="font-size: 11px; color: rgba(255,255,255,0.5); padding: 8px;">${day}</div>`;
+        });
+
+        for (let i = 0; i < firstDay; i++) {
+          html += `<div class="mini-calendar-day"></div>`;
         }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const isToday = day === 14;
+          const hasEvent = [9, 14, 16, 20].includes(day);
+          html += `
+            <div class="mini-calendar-day ${isToday ? 'today' : ''}" style="position: relative;">
+              ${day}
+              ${hasEvent ? '<span style="position: absolute; bottom: 2px; width: 4px; height: 4px; background: var(--accent-cyan); border-radius: 50%;"></span>' : ''}
+            </div>
+          `;
+        }
+
+        document.getElementById('mini-calendar').innerHTML = html;
       }
-      
-      renderProjects(projects) {
-        const grid = document.getElementById('projects-grid');
-        const defaultProjects = [
-          { name: 'Trading System', status: 'active', progress: 35 },
-          { name: 'RT Scheduling', status: 'active', progress: 35 },
-          { name: 'Respiratory Education', status: 'active', progress: 45 },
-          { name: 'Respiratory Tools', status: 'active', progress: 25 },
-          { name: 'Reselling Business', status: 'planning', progress: 15 },
-          { name: 'YouTube Empire', status: 'planning', progress: 10 },
-          { name: 'Kids App', status: 'planning', progress: 10 }
+
+      renderActivity() {
+        const activities = [
+          { icon: '🚀', title: 'Mission Control v2 deployed', desc: 'Glassmorphism UI • 7-Model Selector • War Room', time: 'Just now', color: 'var(--accent-purple)' },
+          { icon: '💰', title: 'Cost report generated', desc: 'Daily usage: $2.45 • 12% decrease', time: '2m ago', color: 'var(--accent-green)' },
+          { icon: '📈', title: 'Trading pattern detected', desc: 'RUG PULL on SPY • Confidence: 87%', time: '15m ago', color: 'var(--accent-yellow)' },
+          { icon: '🔄', title: 'Git sync completed', desc: '42 files synced • No conflicts', time: '1h ago', color: 'var(--accent-cyan)' }
         ];
-        
-        const displayProjects = projects.length ? projects : defaultProjects;
-        
-        grid.innerHTML = displayProjects.map(p => `
-          <div class="project-card">
-            <div class="project-header">
-              <span class="project-name">${p.name}</span>
-              <span class="project-status status-${p.status}">${p.status}</span>
+
+        document.getElementById('activity-list').innerHTML = activities.map(a => `
+          <div class="activity-item">
+            <div class="activity-icon" style="background: ${a.color}20;">${a.icon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${a.title}</div>
+              <div class="activity-desc">${a.desc}</div>
             </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${p.progress}%"></div>
-            </div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: right;">
-              ${p.progress}% complete
-            </div>
+            <div class="activity-time">${a.time}</div>
           </div>
         `).join('');
       }
-      
-      async loadAgents() {
-        const grid = document.getElementById('agents-grid');
-        
-        // Try to get real data from OpenClaw
-        try {
-          if (window.openClawService) {
-            const data = await window.openClawService.getDashboardData();
-            if (data.agents && data.agents.length) {
-              grid.innerHTML = data.agents.map(agent => `
-                <div class="agent-card">
-                  <div class="agent-avatar">🤖</div>
-                  <div class="agent-name">${agent.name}</div>
-                  <div class="agent-status">${agent.status}</div>
-                </div>
-              `).join('');
-              return;
-            }
-          }
-        } catch (e) {
-          console.log('OpenClaw not available, using fallback');
-        }
-        
-        // Fallback to static data
-        const agents = [
-          { name: 'Nano', status: 'online', emoji: '🔬' },
-          { name: 'Frontend Dev', status: 'online', emoji: '🎨' },
-          { name: 'Backend Dev', status: 'online', emoji: '⚙️' },
-          { name: 'AI Engineer', status: 'busy', emoji: '🤖' },
-          { name: 'Database Eng', status: 'online', emoji: '🗄️' },
-          { name: 'Integration Spec', status: 'online', emoji: '🔌' },
-          { name: 'Researcher', status: 'online', emoji: '🔍' },
-          { name: 'Reviewer', status: 'online', emoji: '👁️' },
-          { name: 'Coder', status: 'online', emoji: '💻' }
-        ];
-        
-        grid.innerHTML = agents.map(a => `
-          <div class="agent-card">
-            <div class="agent-avatar">${a.emoji}</div>
-            <div class="agent-name">${a.name}</div>
-            <div class="agent-status">${a.status}</div>
-          </div>
-        `).join('');
-      }
-      
-      loadTasks() {
+
+      renderTasks() {
         const tasks = [
-          { title: 'Test Trading System with real data', priority: 'high', status: 'in-progress' },
-          { title: 'Deploy backend server', priority: 'high', status: 'todo' },
-          { title: 'Continue RT Scheduling UI', priority: 'high', status: 'in-progress' },
-          { title: 'Create Discord slash commands', priority: 'medium', status: 'done' },
-          { title: 'Build mobile navigation', priority: 'medium', status: 'done' },
-          { title: 'Add Memory Archive screen', priority: 'medium', status: 'done' }
+          { icon: '☑', title: 'Test Trading System with real data', desc: 'In Progress • High Priority', time: 'Due today', color: 'var(--accent-yellow)' },
+          { icon: '☑', title: 'Deploy backend server', desc: 'Todo • High Priority', time: 'Due tomorrow', color: 'var(--accent-purple)' },
+          { icon: '☑', title: 'Continue RT Scheduling UI', desc: 'In Progress • Medium Priority', time: 'Due in 2 days', color: 'var(--accent-cyan)' }
         ];
+
+        document.getElementById('task-list').innerHTML = tasks.map(t => `
+          <div class="activity-item">
+            <div class="activity-icon" style="background: ${t.color}20;">${t.icon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${t.title}</div>
+              <div class="activity-desc">${t.desc}</div>
+            </div>
+            <div class="activity-time">${t.time}</div>
+          </div>
+        `).join('');
+      }
+
+      renderAgents() {
+        const agents = [
+          { name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬' },
+          { name: 'Frontend Dev', role: 'UI/UX', status: 'online', emoji: '🎨' },
+          { name: 'Backend Dev', role: 'APIs', status: 'busy', emoji: '⚙️' },
+          { name: 'AI Engineer', role: 'ML/AI', status: 'online', emoji: '🤖' },
+          { name: 'Database Eng', role: 'Data', status: 'online', emoji: '🗄️' },
+          { name: 'Integration Spec', role: 'APIs', status: 'online', emoji: '🔌' }
+        ];
+
+        document.getElementById('agents-grid').innerHTML = agents.map(a => `
+          <div class="stat-card">
+            <div style="font-size: 32px; margin-bottom: 8px;">${a.emoji}</div>
+            <div style="font-weight: 600; margin-bottom: 4px;">${a.name}</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">${a.role}</div>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: ${a.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'};">
+              <span style="width: 8px; height: 8px; background: ${a.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'}; border-radius: 50%;"></span>
+              ${a.status}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Task Tracker
+      tasks = {
+        inProgress: [
+          { title: 'Build Health Check Dashboard', agent: 'Frontend Developer', started: '2026-03-14 11:20', status: 'in-progress' },
+          { title: 'Build Auto-Recovery System', agent: 'Backend Developer', started: '2026-03-14 11:20', status: 'in-progress' },
+          { title: 'Build Weekly Reports', agent: 'Integration Specialist', started: '2026-03-14 11:20', status: 'in-progress' },
+          { title: 'Build Smart Scheduling', agent: 'AI Engineer', started: '2026-03-14 11:20', status: 'in-progress' }
+        ],
+        completed: [
+          { title: 'Restore Original Dashboard Design', agent: 'Nano', completed: '2026-03-14 02:00', status: 'completed' },
+          { title: 'Add Cost Tracker', agent: 'Nano', completed: '2026-03-14 01:45', status: 'completed' },
+          { title: 'Add Calendar', agent: 'Nano', completed: '2026-03-14 01:30', status: 'completed' },
+          { title: 'Fix Memory Page Loading', agent: 'Nano', completed: '2026-03-14 02:15', status: 'completed' },
+          { title: 'Fix Navigation Consistency', agent: 'Nano', completed: '2026-03-14 02:20', status: 'completed' },
+          { title: 'Add Mobile Menu', agent: 'Nano', completed: '2026-03-14 02:25', status: 'completed' },
+          { title: 'Configure Brave API Key', agent: 'Nano', completed: '2026-03-14 01:50', status: 'completed' },
+          { title: 'Install Antfarm', agent: 'Nano', completed: '2026-03-14 11:39', status: 'completed' },
+          { title: 'Install Clawsec-suite', agent: 'Nano', completed: '2026-03-14 11:36', status: 'completed' },
+          { title: 'Clone Memory LanceDB Pro', agent: 'Nano', completed: '2026-03-14 11:39', status: 'completed' }
+        ]
+      };
+
+      currentTaskTab = 'in-progress';
+
+      renderTaskTracker() {
+        const container = document.getElementById('task-tracker-list');
+        const tasks = this.currentTaskTab === 'in-progress' ? this.tasks.inProgress : this.tasks.completed;
         
-        const list = document.getElementById('task-list');
-        list.innerHTML = tasks.map(t => `
+        container.innerHTML = tasks.map(t => `
           <div class="task-item">
+            <div class="task-status ${t.status}"></div>
             <div class="task-content">
               <div class="task-title">${t.title}</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">${t.status}</div>
+              <div class="task-meta">
+                <span>👤 ${t.agent}</span>
+                <span>⏱️ ${t.status === 'in-progress' ? 'Started: ' + t.started : 'Completed: ' + t.completed}</span>
+              </div>
             </div>
-            <span class="task-priority priority-${t.priority}">${t.priority}</span>
           </div>
         `).join('');
       }
-      
-      loadCalendar() {
-        const grid = document.getElementById('calendar-grid');
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        
-        // Generate calendar days
-        let html = '';
-        for (let week = 0; week < 5; week++) {
-          for (let day = 0; day < 7; day++) {
-            const dayNum = week * 7 + day + 1;
-            const isToday = dayNum === 14; // March 14
-            if (dayNum <= 31) {
-              html += `
-                <div class="calendar-day ${isToday ? 'today' : ''}">
-                  <div class="day-name">${week === 0 ? days[day] : ''}</div>
-                  <div class="day-number">${dayNum}</div>
-                </div>
-              `;
-            }
-          }
+
+      switchTaskTab(tab) {
+        this.currentTaskTab = tab;
+        document.querySelectorAll('.task-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        this.renderTaskTracker();
+      }
+
+      showAllTasks() {
+        alert('Full task management coming soon!');
+      }
+
+      prevMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+        this.renderCalendar();
+      }
+
+      nextMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+        this.renderCalendar();
+      }
+
+      showNotifications() {
+        alert('Notifications panel coming soon!');
+      }
+
+      openSettings() {
+        alert('Settings panel coming soon!');
+      }
+
+      addTask() {
+        const title = prompt('Task title:');
+        if (title) {
+          alert('Task added: ' + title);
         }
-        grid.innerHTML = html;
       }
-      
-      loadTeam() {
-        const team = [
-          { name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬' },
-          { name: 'Frontend Developer', role: 'UI/UX', status: 'online', emoji: '🎨' },
-          { name: 'Backend Developer', role: 'Server-side', status: 'online', emoji: '⚙️' },
-          { name: 'AI Engineer', role: 'ML & Automation', status: 'online', emoji: '🤖' },
-          { name: 'Database Engineer', role: 'Data & Storage', status: 'online', emoji: '🗄️' },
-          { name: 'Integration Specialist', role: 'APIs & Connections', status: 'online', emoji: '🔌' },
-          { name: 'Researcher', role: 'Investigation', status: 'online', emoji: '🔍' },
-          { name: 'Reviewer', role: 'Code Review', status: 'online', emoji: '👁️' },
-          { name: 'Coder', role: 'General Coding', status: 'online', emoji: '💻' }
-        ];
-        
-        const grid = document.getElementById('team-grid');
-        grid.innerHTML = team.map(member => `
-          <div class="team-card">
-            <div class="team-avatar">${member.emoji}</div>
-            <div class="team-name">${member.name}</div>
-            <div class="team-role">${member.role}</div>
-            <div class="team-status online">
-              <span class="status-dot"></span>
-              ${member.status}
-            </div>
-          </div>
-        `).join('');
-      }
-      
-      renderFallback() {
-        this.renderProjects([]);
+
+      showProject(project) {
+        alert('Showing project: ' + project);
       }
     }
-    
-    // Initialize
-    window.mcApp = new MissionControlApp();
+
+    window.app = new MissionControlApp();
   </script>
 </body>
 </html>
