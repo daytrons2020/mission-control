@@ -733,6 +733,32 @@
         this.renderTodayEvents();
       }
 
+      refreshData() {
+        // Reload events from localStorage
+        this.loadEvents();
+        this.renderCalendar();
+        this.renderTodayEvents();
+        
+        // Show notification
+        this.showNotification('Calendar refreshed', 'Event data has been updated');
+      }
+      
+      showNotification(title, message) {
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position:fixed;top:80px;right:20px;background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;z-index:10000;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+        notification.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">✓</span>
+            <div>
+              <div style="font-weight:600;">${title}</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.7);">${message}</div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+      }
+
       addEvent() {
         const title = prompt('Event title:');
         if (title) {
@@ -757,7 +783,7 @@
           this.saveEvents();
           this.renderCalendar();
           this.renderTodayEvents();
-          alert('Event added to ' + dateStr + '!');
+          this.showNotification('Event added', 'Event added to ' + dateStr);
         }
       }
       

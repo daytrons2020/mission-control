@@ -517,10 +517,10 @@
   
   <!-- Navigation - Consistent with dashboard -->
   <nav class="nav-bar">
-    <div class="nav-brand">
+    <a href="dashboard.html" class="nav-brand" style="text-decoration: none; color: inherit;">
       <span>🎯</span>
       <span>Mission Control v2</span>
-    </div>
+    </a>
     <div class="nav-links">
       <a href="dashboard.html" class="nav-link">Dashboard</a>
       <a href="memory.html" class="nav-link">Memory</a>
@@ -545,7 +545,10 @@
         <h1>Cost Tracker</h1>
         <p style="color: rgba(255,255,255,0.6); margin-top: 4px;">Monitor token usage and budget</p>
       </div>
-      <button class="nav-link" onclick="costApp.refreshData()" style="background: var(--accent-purple); color: white; border: none; cursor: pointer;">🔄 Refresh</button>
+      <div style="display: flex; gap: 12px;">
+        <button class="btn" onclick="costApp.refreshData()" style="background: var(--glass-bg-light); border: 1px solid var(--glass-border);">🔄 Refresh</button>
+        <button class="btn" onclick="costApp.exportReport()">📊 Export</button>
+      </div>
     </div>
 
     <!-- Budget Alert -->
@@ -762,11 +765,28 @@
       }
 
       refreshData() {
-        // Would fetch fresh data from costService
-        alert('Refreshing cost data...');
+        // Reload data
         this.loadData();
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position:fixed;top:80px;right:20px;background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;z-index:10000;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+        notification.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">✓</span>
+            <div>
+              <div style="font-weight:600;">Data refreshed</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.7);">Cost data has been updated</div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
       }
-    }
+      
+      exportReport() {
+        alert('Export feature coming soon!');
+      }
 
     // Notification and Settings functions
     function showNotifications() {

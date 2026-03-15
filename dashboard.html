@@ -1149,6 +1149,43 @@
         this.renderTaskTracker();
       }
 
+      refreshAllData() {
+        const btn = document.querySelector('.header-btn[title="Refresh Data"]');
+        if (btn) {
+          btn.style.animation = 'spin 1s linear';
+          setTimeout(() => btn.style.animation = '', 1000);
+        }
+        
+        // Simulate data refresh
+        this.renderMiniCalendar();
+        this.renderActivity();
+        this.renderTasks();
+        this.renderAgents();
+        this.renderTaskTracker();
+        
+        // Show notification
+        this.showNotification('Data refreshed', 'All dashboard data has been updated', 'success');
+      }
+      
+      showNotification(title, message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position:fixed;top:80px;right:20px;background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;z-index:10000;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,0.5);animation:slideIn 0.3s ease;';
+        notification.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+            <div>
+              <div style="font-weight:600;">${title}</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.7);">${message}</div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease';
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+      
       showAllTasks() {
         // Show full task modal
         const modal = document.createElement('div');
