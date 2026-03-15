@@ -943,16 +943,16 @@
 
       renderAgents() {
         const agents = [
-          { name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬' },
-          { name: 'Frontend Dev', role: 'UI/UX', status: 'online', emoji: '🎨' },
-          { name: 'Backend Dev', role: 'APIs', status: 'busy', emoji: '⚙️' },
-          { name: 'AI Engineer', role: 'ML/AI', status: 'online', emoji: '🤖' },
-          { name: 'Database Eng', role: 'Data', status: 'online', emoji: '🗄️' },
-          { name: 'Integration Spec', role: 'APIs', status: 'online', emoji: '🔌' }
+          { id: 'nano', name: 'Nano', role: 'Coordinator', status: 'online', emoji: '🔬', tasksCompleted: 45, efficiency: 92, currentTasks: 3, costPerTask: '$0.12' },
+          { id: 'frontend', name: 'Frontend Dev', role: 'UI/UX', status: 'online', emoji: '🎨', tasksCompleted: 38, efficiency: 88, currentTasks: 2, costPerTask: '$0.15' },
+          { id: 'backend', name: 'Backend Dev', role: 'APIs', status: 'busy', emoji: '⚙️', tasksCompleted: 42, efficiency: 85, currentTasks: 4, costPerTask: '$0.14' },
+          { id: 'ai', name: 'AI Engineer', role: 'ML/AI', status: 'online', emoji: '🤖', tasksCompleted: 35, efficiency: 90, currentTasks: 2, costPerTask: '$0.18' },
+          { id: 'database', name: 'Database Eng', role: 'Data', status: 'online', emoji: '🗄️', tasksCompleted: 40, efficiency: 87, currentTasks: 1, costPerTask: '$0.13' },
+          { id: 'integration', name: 'Integration Spec', role: 'APIs', status: 'online', emoji: '🔌', tasksCompleted: 36, efficiency: 89, currentTasks: 2, costPerTask: '$0.16' }
         ];
 
         document.getElementById('agents-grid').innerHTML = agents.map(a => `
-          <div class="stat-card">
+          <div class="stat-card" onclick="app.showAgentDetails('${a.id}')" style="cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='var(--accent-purple)'" onmouseout="this.style.transform='';this.style.borderColor=''">
             <div style="font-size: 32px; margin-bottom: 8px;">${a.emoji}</div>
             <div style="font-weight: 600; margin-bottom: 4px;">${a.name}</div>
             <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">${a.role}</div>
@@ -960,8 +960,115 @@
               <span style="width: 8px; height: 8px; background: ${a.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'}; border-radius: 50%;"></span>
               ${a.status}
             </div>
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.5);">
+              ${a.currentTasks} active • ${a.efficiency}% efficient
+            </div>
           </div>
         `).join('');
+        
+        this.agentsData = agents;
+      }
+
+      showAgentDetails(agentId) {
+        const agent = this.agentsData.find(a => a.id === agentId);
+        if (!agent) return;
+
+        // Get current tasks for this agent
+        const currentTasks = [
+          { title: 'Build Health Check Dashboard', progress: 75, timeSpent: '2h 15m', status: 'in-progress' },
+          { title: 'Fix mobile responsiveness', progress: 30, timeSpent: '45m', status: 'in-progress' }
+        ].filter((t, i) => i < agent.currentTasks);
+
+        const recentTasks = [
+          { title: 'Create Cost Tracker', completed: '2 hours ago', duration: '3h 20m', success: true },
+          { title: 'Build Calendar', completed: '5 hours ago', duration: '2h 45m', success: true },
+          { title: 'Fix navigation bug', completed: 'Yesterday', duration: '1h 10m', success: true }
+        ];
+
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+        modal.innerHTML = `
+          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:600px;max-height:90vh;overflow:auto;padding:24px;position:relative;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:16px;">
+                <div style="font-size:48px;">${agent.emoji}</div>
+                <div>
+                  <h2 style="font-size:24px;font-weight:700;">${agent.name}</h2>
+                  <div style="color:rgba(255,255,255,0.6);">${agent.role}</div>
+                </div>
+              </div>
+              <button onclick="document.querySelectorAll('.modal').forEach(m => m.remove())" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
+            </div>
+
+            <!-- Status Badge -->
+            <div style="display:flex;gap:12px;margin-bottom:24px;">
+              <span style="padding:8px 16px;border-radius:20px;font-size:14px;font-weight:600;background:${agent.status === 'online' ? 'rgba(16,185,129,0.2)' : 'rgba(245,158,11,0.2)'};color:${agent.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'};display:flex;align-items:center;gap:8px;">
+                <span style="width:8px;height:8px;background:${agent.status === 'online' ? 'var(--accent-green)' : 'var(--accent-yellow)'};border-radius:50%;"></span>
+                ${agent.status === 'online' ? 'Online' : 'Busy'}
+              </span>
+              <span style="padding:8px 16px;border-radius:20px;font-size:14px;background:rgba(139,92,246,0.2);color:var(--accent-purple);">
+                ${agent.efficiency}% Efficient
+              </span>
+            </div>
+
+            <!-- Stats Grid -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;color:var(--accent-cyan);">${agent.tasksCompleted}</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Tasks Completed</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;color:var(--accent-purple);">${agent.currentTasks}</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Active Tasks</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;color:var(--accent-green);">${agent.costPerTask}</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Cost Per Task</div>
+              </div>
+            </div>
+
+            <!-- Current Tasks -->
+            <div style="margin-bottom:24px;">
+              <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;">🔥 Current Work</h3>
+              ${currentTasks.length === 0 ? '<p style="color:rgba(255,255,255,0.5);padding:12px;">No active tasks</p>' : currentTasks.map(t => `
+                <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:10px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span style="font-weight:500;">${t.title}</span>
+                    <span style="font-size:12px;color:rgba(255,255,255,0.5);">${t.timeSpent}</span>
+                  </div>
+                  <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;margin-bottom:6px;">
+                    <div style="width:${t.progress}%;height:100%;background:linear-gradient(90deg,var(--accent-purple),var(--accent-cyan));border-radius:3px;"></div>
+                  </div>
+                  <div style="font-size:12px;color:rgba(255,255,255,0.5);">${t.progress}% complete</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Recent Activity -->
+            <div style="margin-bottom:24px;">
+              <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;">📋 Recent Activity</h3>
+              ${recentTasks.map(t => `
+                <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin-bottom:8px;">
+                  <span style="color:${t.success ? 'var(--accent-green)' : 'var(--accent-red)'};font-size:20px;">${t.success ? '✓' : '✗'}</span>
+                  <div style="flex:1;">
+                    <div style="font-weight:500;">${t.title}</div>
+                    <div style="font-size:12px;color:rgba(255,255,255,0.5);">${t.completed} • ${t.duration}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Actions -->
+            <div style="display:flex;gap:12px;">
+              <button onclick="alert('Viewing logs for ${agent.name}...')" style="flex:1;padding:12px;background:rgba(139,92,246,0.2);border:1px solid var(--accent-purple);border-radius:10px;color:white;cursor:pointer;font-weight:500;">📄 View Logs</button>
+              <button onclick="if(confirm('Are you sure you want to restart ${agent.name}?')) alert('${agent.name} restarted!');" style="flex:1;padding:12px;background:rgba(245,158,11,0.2);border:1px solid var(--accent-yellow);border-radius:10px;color:white;cursor:pointer;font-weight:500;">🔄 Restart</button>
+              <button onclick="if(confirm('Are you sure you want to kill ${agent.name}?')) alert('${agent.name} killed!');" style="flex:1;padding:12px;background:rgba(239,68,68,0.2);border:1px solid var(--accent-red);border-radius:10px;color:white;cursor:pointer;font-weight:500;">⏹ Kill</button>
+            </div>
+          </div>
+        `;
+        modal.className = 'modal';
+        document.body.appendChild(modal);
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
       }
 
       // Task Tracker
