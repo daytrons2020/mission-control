@@ -1084,6 +1084,9 @@
       }
 
       showNotifications() {
+        // Remove any existing modals first
+        document.querySelectorAll('.modal').forEach(m => m.remove());
+        
         const notifications = [
           { id: 1, title: 'Health Check Dashboard Complete', message: 'Frontend Developer finished the health monitoring system', time: '11:24 AM', type: 'success', read: false },
           { id: 2, title: 'Smart Scheduling Deployed', message: 'AI Engineer completed the load balancing system', time: '11:25 AM', type: 'success', read: false },
@@ -1097,10 +1100,10 @@
         const modal = document.createElement('div');
         modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
         modal.innerHTML = `
-          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow:auto;padding:24px;">
+          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow:auto;padding:24px;position:relative;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
               <h2 style="font-size:24px;font-weight:700;">Notifications ${unreadCount > 0 ? `<span style="background:var(--accent-red);color:white;padding:2px 8px;border-radius:12px;font-size:14px;margin-left:8px;">${unreadCount}</span>` : ''}</h2>
-              <button onclick="this.closest('.modal').remove()" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
+              <button onclick="document.querySelectorAll('.modal').forEach(m => m.remove())" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:12px;">
               ${notifications.map(n => `
@@ -1115,7 +1118,7 @@
                 </div>
               `).join('')}
             </div>
-            <button onclick="this.closest('.modal').remove()" style="width:100%;margin-top:20px;padding:12px;background:var(--glass-bg-light);border:1px solid var(--glass-border);border-radius:10px;color:white;cursor:pointer;">Mark All as Read</button>
+            <button onclick="document.querySelectorAll('.modal').forEach(m => m.remove()); alert('All notifications marked as read');" style="width:100%;margin-top:20px;padding:12px;background:var(--glass-bg-light);border:1px solid var(--glass-border);border-radius:10px;color:white;cursor:pointer;">Mark All as Read</button>
           </div>
         `;
         modal.className = 'modal';
@@ -1124,13 +1127,16 @@
       }
 
       openSettings() {
+        // Remove any existing modals first
+        document.querySelectorAll('.modal').forEach(m => m.remove());
+        
         const modal = document.createElement('div');
         modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
         modal.innerHTML = `
-          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:600px;max-height:90vh;overflow:auto;padding:24px;">
+          <div style="background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:100%;max-width:600px;max-height:90vh;overflow:auto;padding:24px;position:relative;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
               <h2 style="font-size:24px;font-weight:700;">⚙️ Settings</h2>
-              <button onclick="this.closest('.modal').remove()" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
+              <button onclick="document.querySelectorAll('.modal').forEach(m => m.remove())" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">×</button>
             </div>
             
             <div style="display:flex;flex-direction:column;gap:20px;">
@@ -1194,7 +1200,7 @@
               </div>
             </div>
 
-            <button onclick="this.closest('.modal').remove(); alert('Settings saved!');" style="width:100%;margin-top:24px;padding:14px;background:linear-gradient(135deg,var(--accent-purple),var(--accent-pink));border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;">Save Changes</button>
+            <button onclick="document.querySelectorAll('.modal').forEach(m => m.remove()); alert('Settings saved!');" style="width:100%;margin-top:24px;padding:14px;background:linear-gradient(135deg,var(--accent-purple),var(--accent-pink));border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;">Save Changes</button>
           </div>
         `;
         modal.className = 'modal';
