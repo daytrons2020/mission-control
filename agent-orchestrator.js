@@ -11,6 +11,27 @@ const fs = require('fs');
 const path = require('path');
 const { execSync, spawn } = require('child_process');
 const fetch = require('node-fetch');
+const net = require('net');
+
+// Check if port is open (synchronous)
+function isPortOpen(port, host = '127.0.0.1', timeout = 500) {
+  return new Promise((resolve) => {
+    const socket = new net.Socket();
+    socket.setTimeout(timeout);
+    socket.on('connect', () => {
+      socket.destroy();
+      resolve(true);
+    });
+    socket.on('timeout', () => {
+      socket.destroy();
+      resolve(false);
+    });
+    socket.on('error', () => {
+      resolve(false);
+    });
+    socket.connect(port, host);
+  });
+}
 
 // Configuration
 const CONFIG = {
@@ -364,17 +385,9 @@ Format as JSON array:
       return '[]';
     }
 
-    // Quick check if MLX is available (1s timeout using Promise.race)
-    try {
-      const healthCheck = await Promise.race([
-        fetch('http://127.0.0.1:18888/v1/models'),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1000))
-      ]);
-      if (!healthCheck.ok) {
-        return this.getMockResponse(prompt);
-      }
-    } catch {
-      // MLX not available, use mock
+    // Quick synchronous check if MLX port is open
+    const mlxAvailable = await isPortOpen(18888);
+    if (!mlxAvailable) {
       return this.getMockResponse(prompt);
     }
 
