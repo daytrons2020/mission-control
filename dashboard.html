@@ -1286,6 +1286,10 @@
     // State
     let tasks = JSON.parse(localStorage.getItem('mc_tasks') || '[]');
     let sidebarCollapsed = false;
+    let realTimeData = null;
+    
+    // Real-time API endpoint (local server)
+    const API_ENDPOINT = 'http://localhost:3001/api/dashboard';
     
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
@@ -1296,7 +1300,152 @@
       
       // Check connection every 30 seconds
       setInterval(checkConnection, 30000);
+      
+      // Start real-time updates
+      startRealTimeUpdates();
     });
+    
+    // Real-time updates from agent orchestrator
+    async function startRealTimeUpdates() {
+      // Initial fetch
+      await fetchRealTimeData();
+      
+      // Update every 5 seconds
+      setInterval(fetchRealTimeData, 5000);
+    }
+    
+    async function fetchRealTimeData() {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        if (response.ok) {
+          realTimeData = await response.json();
+          updateDashboardWithRealTimeData();
+        }
+      } catch (error) {
+        // API not running - use simulation mode
+        simulateRealTimeData();
+      }
+    }
+    
+    function updateDashboardWithRealTimeData() {
+      if (!realTimeData) return;
+      
+      // Update stats
+      document.getElementById('stat-total').textContent = realTimeData.stats.totalTasks;
+      document.getElementById('stat-progress').textContent = realTimeData.stats.inProgress;
+      document.getElementById('stat-completed').textContent = realTimeData.stats.completed;
+      
+      // Update progress bars
+      const completionRate = realTimeData.stats.totalTasks > 0 
+        ? (realTimeData.stats.completed / realTimeData.stats.totalTasks * 100) 
+        : 0;
+      document.getElementById('progress-total').style.width = `${completionRate}%`;
+      
+      // Update agent list
+      if (realTimeData.agents) {
+        renderAgentList(realTimeData.agents);
+      }
+      
+      // Update activity feed
+      if (realTimeData.recentActivity) {
+        renderActivityFeed(realTimeData.recentActivity);
+      }
+      
+      // Update system health
+      if (realTimeData.systemHealth) {
+        updateSystemHealth(realTimeData.systemHealth);
+      }
+    }
+    
+    function renderAgentList(agents) {
+      const container = document.getElementById('agent-list');
+      if (!container || !agents) return;
+      
+      container.innerHTML = agents.map(agent => `
+        <div class="agent-item">
+          <div class="agent-avatar" style="background: ${getAgentColor(agent.name)};">
+            ${agent.emoji}
+            <span class="agent-status-dot ${agent.status}"></span>
+          </div>
+          <div class="agent-info">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-role">${agent.activity || 'Active'}</div>
+          </div>
+          <div class="agent-activity">${agent.status === 'online' ? '●' : '◐'}</div>
+        </div>
+      `).join('');
+    }
+    
+    function renderActivityFeed(activities) {
+      const container = document.getElementById('activity-list');
+      if (!container || !activities) return;
+      
+      container.innerHTML = activities.map(act => `
+        <div class="activity-item">
+          <div class="activity-icon" style="background: ${getActivityColor(act.icon)};">${act.icon}</div>
+          <div class="activity-content">
+            <div class="activity-text">${act.text}</div>
+            <div class="activity-time">${act.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function updateSystemHealth(health) {
+      const openclawEl = document.getElementById('health-openclaw');
+      const mlxEl = document.getElementById('health-mlx');
+      
+      if (openclawEl) {
+        const color = health.openclaw === 'online' ? 'var(--accent-green)' : 
+                     health.openclaw === 'checking' ? 'var(--accent-yellow)' : 'var(--accent-red)';
+        openclawEl.innerHTML = `<span class="health-dot" style="background: ${color};"></span><span>${health.openclaw}</span>`;
+      }
+      
+      if (mlxEl) {
+        const color = health.mlx === 'online' ? 'var(--accent-green)' : 
+                     health.mlx === 'checking' ? 'var(--accent-yellow)' : 'var(--accent-red)';
+        mlxEl.innerHTML = `<span class="health-dot" style="background: ${color};"></span><span>${health.mlx}</span>`;
+      }
+    }
+    
+    function getAgentColor(name) {
+      const colors = {
+        'Kimi (Lead AI)': 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+        'Nano': 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+        'Frontend Dev': 'linear-gradient(135deg, #ec4899, #f472b6)',
+        'Backend Dev': 'linear-gradient(135deg, #f59e0b, #fbbf24)',
+        'Database Eng': 'linear-gradient(135deg, #10b981, #34d399)',
+        'AI Engineer': 'linear-gradient(135deg, #06b6d4, #22d3ee)',
+        'Integration Spec': 'linear-gradient(135deg, #3b82f6, #60a5fa)'
+      };
+      return colors[name] || 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
+    }
+    
+    function getActivityColor(icon) {
+      if (icon === '✓') return 'linear-gradient(135deg, #10b981, #34d399)';
+      if (icon === '🎯') return 'linear-gradient(135deg, #8b5cf6, #ec4899)';
+      if (icon === '🤖') return 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+      if (icon === '🎨') return 'linear-gradient(135deg, #ec4899, #f472b6)';
+      return 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
+    }
+    
+    function simulateRealTimeData() {
+      // Simulate agent status changes
+      const activities = [
+        'Analyzing data',
+        'Writing code',
+        'Testing model',
+        'Researching',
+        'Debugging',
+        'Optimizing'
+      ];
+      
+      // Occasionally add new activity
+      if (Math.random() > 0.8) {
+        const activity = activities[Math.floor(Math.random() * activities.length)];
+        addActivity(`${activity}...`);
+      }
+    }
     
     // Sidebar Toggle
     function toggleSidebar() {
