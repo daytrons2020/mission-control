@@ -27,7 +27,19 @@ if command -v mlx_lm.server &> /dev/null; then
     exit 0
 fi
 
-# Option 2: Check if python-mlx is available
+# Option 2: Check if venv with mlx_lm exists
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$SCRIPT_DIR/venv/bin/python3" ] && "$SCRIPT_DIR/venv/bin/python3" -c "import mlx_lm" 2>/dev/null; then
+    echo "✓ Found mlx_lm in venv"
+    echo ""
+    echo "Starting MLX server with DeepSeek-R1-Distill-Qwen-14B-4bit..."
+    echo "(This will download the model if not present - ~7GB)"
+    echo ""
+    "$SCRIPT_DIR/venv/bin/python3" -m mlx_lm.server --model mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit --port 18888
+    exit 0
+fi
+
+# Option 3: Check if python-mlx is available globally
 if python3 -c "import mlx_lm" 2>/dev/null; then
     echo "✓ Found mlx_lm Python module"
     echo ""

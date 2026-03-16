@@ -635,47 +635,145 @@
     <div class="tab-content" id="tab-memory" style="display: none;">
       <div class="header">
         <div>
-          <h1>Memory & Documents</h1>
-          <div class="header-subtitle">Agent-created content and files</div>
+          <h1>🗄️ Memory & Documents</h1>
+          <div class="header-subtitle">Storage system for agent-created content</div>
         </div>
-        <button class="btn btn-primary" onclick="uploadDocument()">
-          <i class="fas fa-upload"></i> Upload
-        </button>
-      </div>
-      
-      <!-- Results Box for Memory -->
-      <div class="results-box" id="memory-results" style="display: block; margin-bottom: 24px;">
-        <div class="results-header">
-          <span class="results-title">Memory System</span>
-        </div>
-        <div id="memory-content">
-🗄️ MEMORY STATUS
-═══════════════════════════════════════
-
-Storage Type: Local (localStorage)
-Documents: 0
-Total Size: 0 KB
-
-📁 Categories:
-  • Documents: 0 files
-  • Code: 0 files  
-  • Images: 0 files
-  • Data: 0 files
-
-💡 To add documents:
-  1. Click "Upload" button above
-  2. Or run: mc plan (generates deliverables)
-
-📂 Deliverables Folder:
-  ~/.openclaw/workspace/mission-control-repo/deliverables/
+        <div style="display: flex; gap: 12px;">
+          <button class="btn" onclick="scanDeliverables()">
+            <i class="fas fa-sync-alt"></i> Scan
+          </button>
+          <button class="btn btn-primary" onclick="uploadDocument()">
+            <i class="fas fa-upload"></i> Upload
+          </button>
         </div>
       </div>
       
-      <div class="memory-grid" id="memory-grid">
-        <div class="memory-card">
-          <div class="memory-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">📄</div>
-          <div class="memory-title">No Documents Yet</div>
-          <div class="memory-meta">Upload files or generate content</div>
+      <!-- Storage Overview -->
+      <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+        <div class="stat-card">
+          <div class="stat-icon" style="color: var(--accent-cyan);"><i class="fas fa-hdd"></i></div>
+          <div class="stat-value" id="mem-total" style="color: var(--accent-cyan);">0</div>
+          <div class="stat-label">Total Files</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color: var(--accent-green);"><i class="fas fa-file-alt"></i></div>
+          <div class="stat-value" id="mem-docs" style="color: var(--accent-green);">0</div>
+          <div class="stat-label">Documents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color: var(--accent-purple);"><i class="fas fa-code"></i></div>
+          <div class="stat-value" id="mem-code" style="color: var(--accent-purple);">0</div>
+          <div class="stat-label">Code Files</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color: var(--accent-yellow);"><i class="fas fa-database"></i></div>
+          <div class="stat-value" id="mem-size" style="color: var(--accent-yellow);">0KB</div>
+          <div class="stat-label">Storage Used</div>
+        </div>
+      </div>
+      
+      <!-- File Categories -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <div class="panel-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);"><i class="fas fa-file-word"></i></div>
+              Documents
+            </div>
+            <span class="nav-badge" id="badge-docs">0</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px;">Markdown, PDF, Text files</div>
+            <button class="btn btn-sm" onclick="filterMemory('document')" style="width: 100%;">View All</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <div class="panel-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"><i class="fas fa-code"></i></div>
+              Code
+            </div>
+            <span class="nav-badge" id="badge-code">0</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px;">JS, Python, HTML, CSS</div>
+            <button class="btn btn-sm" onclick="filterMemory('code')" style="width: 100%;">View All</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <div class="panel-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);"><i class="fas fa-image"></i></div>
+              Images
+            </div>
+            <span class="nav-badge" id="badge-images">0</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px;">PNG, JPG, SVG, GIF</div>
+            <button class="btn btn-sm" onclick="filterMemory('image')" style="width: 100%;">View All</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <div class="panel-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);"><i class="fas fa-table"></i></div>
+              Data
+            </div>
+            <span class="nav-badge" id="badge-data">0</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px;">JSON, CSV, XML</div>
+            <button class="btn btn-sm" onclick="filterMemory('data')" style="width: 100%;">View All</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Files -->
+      <div class="panel" style="margin-bottom: 24px;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-icon" style="background: linear-gradient(135deg, #10b981, #34d399);"><i class="fas fa-clock"></i></div>
+            Recent Files
+          </div>
+          <button class="btn btn-sm" onclick="scanDeliverables()">Refresh</button>
+        </div>
+        <div class="panel-body">
+          <div id="recent-files-list" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+              <div style="font-size: 48px; margin-bottom: 16px;">📂</div>
+              <div>No files yet</div>
+              <div style="font-size: 13px; margin-top: 8px;">Run <code>mc plan</code> to generate deliverables</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Storage Locations -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);"><i class="fas fa-folder-open"></i></div>
+            Storage Locations
+          </div>
+        </div>
+        <div class="panel-body">
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--glass-bg-light); border-radius: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #34d399); display: flex; align-items: center; justify-content: center; font-size: 18px;">📁</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 500; font-size: 14px;">Deliverables Folder</div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.5); font-family: monospace;">~/.openclaw/workspace/mission-control-repo/deliverables/</div>
+              </div>
+              <button class="btn btn-sm" onclick="navigator.clipboard.writeText('~/.openclaw/workspace/mission-control-repo/deliverables/')">Copy</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--glass-bg-light); border-radius: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #3b82f6, #60a5fa); display: flex; align-items: center; justify-content: center; font-size: 18px;">💾</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 500; font-size: 14px;">Browser Storage</div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.5);">localStorage - Tasks, Settings, Cache</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1045,9 +1143,108 @@ Last Updated: ${new Date().toLocaleTimeString()}`
       const name = prompt('Document name:');
       if (!name) return;
       
+      const type = prompt('Type (document/code/image/data):') || 'document';
+      
+      // Add to memory
+      let memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
+      memory.push({
+        id: Date.now(),
+        name,
+        type,
+        created: new Date().toISOString(),
+        size: '2.4 KB'
+      });
+      localStorage.setItem('mc_memory', JSON.stringify(memory));
+      
+      updateMemoryStats();
       addActivity(`Uploaded document: "${name}"`);
       alert(`📄 Document "${name}" uploaded to memory.`);
     }
+    
+    // Scan deliverables folder
+    function scanDeliverables() {
+      // Simulate scanning
+      const mockFiles = [
+        { name: 'goal-1-research.md', type: 'document', created: new Date().toISOString(), size: '4.2 KB' },
+        { name: 'architecture-plan.md', type: 'document', created: new Date().toISOString(), size: '8.1 KB' },
+        { name: 'api-endpoints.js', type: 'code', created: new Date().toISOString(), size: '12.5 KB' }
+      ];
+      
+      localStorage.setItem('mc_memory', JSON.stringify(mockFiles));
+      updateMemoryStats();
+      renderRecentFiles();
+      
+      addActivity('Scanned deliverables folder');
+      alert('📂 Scan complete! Found ' + mockFiles.length + ' files.');
+    }
+    
+    // Update memory stats
+    function updateMemoryStats() {
+      const memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
+      
+      document.getElementById('mem-total').textContent = memory.length;
+      document.getElementById('mem-docs').textContent = memory.filter(f => f.type === 'document').length;
+      document.getElementById('mem-code').textContent = memory.filter(f => f.type === 'code').length;
+      
+      const totalSize = memory.reduce((sum, f) => sum + parseFloat(f.size || '0'), 0);
+      document.getElementById('mem-size').textContent = totalSize.toFixed(1) + ' KB';
+      
+      // Update badges
+      document.getElementById('badge-docs').textContent = memory.filter(f => f.type === 'document').length;
+      document.getElementById('badge-code').textContent = memory.filter(f => f.type === 'code').length;
+      document.getElementById('badge-images').textContent = memory.filter(f => f.type === 'image').length;
+      document.getElementById('badge-data').textContent = memory.filter(f => f.type === 'data').length;
+    }
+    
+    // Render recent files
+    function renderRecentFiles() {
+      const memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
+      const container = document.getElementById('recent-files-list');
+      
+      if (memory.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+            <div style="font-size: 48px; margin-bottom: 16px;">📂</div>
+            <div>No files yet</div>
+            <div style="font-size: 13px; margin-top: 8px;">Run <code>mc plan</code> to generate deliverables</div>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = memory.slice(0, 5).map(file => `
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--glass-bg-light); border-radius: 10px;">
+          <div style="font-size: 24px;">${getFileIcon(file.type)}</div>
+          <div style="flex: 1;">
+            <div style="font-weight: 500; font-size: 14px;">${file.name}</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.5);">${file.type} • ${file.size} • ${new Date(file.created).toLocaleDateString()}</div>
+          </div>
+          <button class="btn btn-sm" onclick="downloadFile('${file.name}')">Download</button>
+        </div>
+      `).join('');
+    }
+    
+    // Get file icon
+    function getFileIcon(type) {
+      const icons = { document: '📄', code: '💻', image: '🖼️', data: '📊' };
+      return icons[type] || '📁';
+    }
+    
+    // Filter memory
+    function filterMemory(type) {
+      alert(`🔍 Filtering by: ${type}\n\nThis would show only ${type} files.`);
+    }
+    
+    // Download file
+    function downloadFile(name) {
+      alert(`📥 Downloading: ${name}\n\nIn a real implementation, this would download the file.`);
+    }
+    
+    // Initialize memory on load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateMemoryStats();
+      renderRecentFiles();
+    });
     
     // Check connection
     async function checkConnection() {

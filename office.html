@@ -14,9 +14,8 @@
       --accent-purple: #8b5cf6;
       --accent-cyan: #00f5ff;
       --accent-green: #10b981;
-      --accent-yellow: #f59e0b;
-      --accent-red: #ef4444;
-      --accent-pink: #ec4899;
+      --sidebar-width: 260px;
+      --sidebar-collapsed: 70px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -24,20 +23,124 @@
       background: linear-gradient(135deg, #0a0a0e 0%, #1a1a2e 50%, #0a0a0e 100%);
       color: #fff;
       min-height: 100vh;
-      padding: 80px 24px 24px;
       overflow-x: hidden;
     }
     .bg-gradient {
       position: fixed;
       inset: 0;
-      background: 
-        radial-gradient(ellipse at 10% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+      background: radial-gradient(ellipse at 10% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
         radial-gradient(ellipse at 90% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
     }
-    
-    /* Header */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+    .nav-left { display: flex; align-items: center; gap: 16px; }
+    .menu-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    .menu-toggle:hover { background: var(--accent-purple); border-color: var(--accent-purple); }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 18px;
+      text-decoration: none;
+      color: white;
+    }
+    .nav-brand:hover { color: var(--accent-cyan); }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: var(--glass-bg-light);
+      color: white;
+      border: 1px solid var(--glass-border);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--accent-purple); border-color: var(--accent-purple); }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 60px;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      transition: width 0.3s;
+      z-index: 999;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .sidebar.collapsed { width: var(--sidebar-collapsed); }
+    .sidebar-section { padding: 16px 12px; border-bottom: 1px solid var(--glass-border); }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      padding: 0 12px;
+    }
+    .sidebar.collapsed .sidebar-title { display: none; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      margin-bottom: 4px;
+    }
+    .nav-item:hover, .nav-item.active { background: var(--glass-bg-light); color: #fff; }
+    .nav-item.active { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .nav-item i { width: 24px; text-align: center; font-size: 18px; }
+    .sidebar.collapsed .nav-item span { display: none; }
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      transition: margin-left 0.3s;
+      padding: 24px;
+    }
+    .main-wrapper.expanded { margin-left: var(--sidebar-collapsed); }
     .header {
       display: flex;
       justify-content: space-between;
@@ -46,39 +149,7 @@
     }
     .header h1 { font-size: 28px; font-weight: 700; }
     .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-    
-    /* Status Bar */
-    .status-bar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .status-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      font-size: 13px;
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .dot-online { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
-    .dot-busy { background: var(--accent-yellow); box-shadow: 0 0 8px var(--accent-yellow); }
-    
-    /* Workstations Grid */
-    .workstations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-    
+    .workstations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
     .workspace {
       background: linear-gradient(145deg, rgba(20,20,30,0.8), rgba(15,15,25,0.9));
       border: 1px solid var(--glass-border);
@@ -86,149 +157,15 @@
       padding: 24px;
       transition: all 0.3s;
     }
-    .workspace:hover {
-      border-color: var(--accent-purple);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    .workspace.active {
-      border-color: var(--accent-green);
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
-    }
-    
-    /* Agent Profile */
-    .workspace-profile {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .agent-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-    .agent-status {
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 3px solid #0a0a0e;
-    }
+    .workspace:hover { border-color: var(--accent-purple); transform: translateY(-4px); }
+    .agent-avatar { width: 72px; height: 72px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; position: relative; }
+    .agent-status { position: absolute; bottom: -4px; right: -4px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid #0a0a0e; }
     .agent-status.online { background: var(--accent-green); }
-    .agent-status.busy { background: var(--accent-yellow); }
-    
-    .agent-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .agent-role { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
-    .agent-status-text {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-green);
-    }
-    
-    /* Computer Screen */
-    .computer-setup {
-      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-    .monitor {
-      background: #000;
-      border: 2px solid #2a2a3e;
-      border-radius: 12px;
-      aspect-ratio: 16/10;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-    .screen-content {
-      position: absolute;
-      inset: 8px;
-      background: linear-gradient(180deg, rgba(139, 92, 246, 0.05), rgba(0,0,0,0.9));
-      border-radius: 8px;
-      padding: 12px;
-      font-family: monospace;
-      font-size: 11px;
-      color: rgba(255,255,255,0.8);
-      display: flex;
-      flex-direction: column;
-    }
-    .code-line { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
-    .code-line .prompt { color: var(--accent-green); }
-    .code-line .command { color: var(--accent-cyan); }
-    .typing-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 14px;
-      background: var(--accent-cyan);
-      animation: blink 1s infinite;
-      vertical-align: middle;
-    }
-    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-    
-    .progress-section { margin-top: auto; }
-    .progress-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .progress-bar {
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
-      border-radius: 2px;
-      transition: width 0.5s;
-    }
-    
-    /* Stats */
-    .workspace-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .stat-item {
-      background: var(--glass-bg-light);
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-    }
-    .stat-value { font-size: 18px; font-weight: 700; color: var(--accent-cyan); }
-    .stat-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-top: 4px; }
-    
-    /* Current Task */
-    .current-task {
-      background: var(--glass-bg-light);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 16px;
-      border-left: 3px solid var(--accent-green);
-    }
-    .task-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 4px; }
-    .task-name { font-size: 13px; font-weight: 500; }
-    
+    .monitor { background: #000; border: 2px solid #2a2a3e; border-radius: 12px; aspect-ratio: 16/10; position: relative; overflow: hidden; margin-bottom: 12px; }
     @media (max-width: 768px) {
+      .sidebar { width: var(--sidebar-collapsed); }
+      .sidebar .sidebar-title, .sidebar .nav-item span { display: none; }
+      .main-wrapper { margin-left: var(--sidebar-collapsed); }
       .workstations-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -236,216 +173,126 @@
 <body>
   <div class="bg-gradient"></div>
   
-  <div class="header">
-    <div>
-      <h1>🏢 Digital Office</h1>
-      <div class="header-subtitle">Real-time view of all team members at work</div>
+  <nav class="top-nav">
+    <div class="nav-left">
+      <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="dashboard.html" class="nav-brand">
+        <span style="font-size: 24px;">🎯</span>
+        <span>Mission Control</span>
+      </a>
     </div>
-  </div>
+    <div class="nav-right">
+      <a href="dashboard.html" class="btn">
+        <i class="fas fa-th-large"></i> Dashboard
+      </a>
+    </div>
+  </nav>
   
-  <div class="status-bar">
-    <div class="status-pill">
-      <span class="status-dot dot-online"></span>
-      <span id="working-count">7 Working</span>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Main</div>
+      <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="dashboard.html#tasks" class="nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>Tasks</span>
+      </a>
+      <a href="dashboard.html#memory" class="nav-item">
+        <i class="fas fa-database"></i>
+        <span>Memory</span>
+      </a>
     </div>
-    <div class="status-pill">
-      <span class="status-dot dot-busy"></span>
-      <span id="busy-count">3 Busy</span>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Tools</div>
+      <a href="content-pipeline.html" class="nav-item">
+        <i class="fas fa-stream"></i>
+        <span>Pipeline</span>
+      </a>
+      <a href="calendar.html" class="nav-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Calendar</span>
+      </a>
+      <a href="team.html" class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+      </a>
+      <a href="office.html" class="nav-item active">
+        <i class="fas fa-building"></i>
+        <span>Office</span>
+      </a>
     </div>
-    <div class="status-pill">
-      <span class="status-dot" style="background: rgba(255,255,255,0.3);"></span>
-      <span id="standby-count">4 Standby</span>
-    </div>
-  </div>
+  </aside>
   
-  <div class="workstations-grid" id="workstations">
-    <!-- Workstations will be populated by JavaScript -->
+  <div class="main-wrapper" id="main-wrapper">
+    <div class="header">
+      <div>
+        <h1>Digital Office</h1>
+        <div class="header-subtitle">Real-time view of all team members at work</div>
+      </div>
+    </div>
+    
+    <div class="workstations-grid" id="workstations"></div>
   </div>
 
   <script>
-    // Agent Data
     const agents = [
-      {
-        name: 'Kimi (Lead AI)',
-        role: 'Lead AI Orchestrator',
-        avatar: '🎯',
-        gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-        status: 'online',
-        statusText: 'Managing Team',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'orchestrate --all' },
-          { text: 'Coordinating 14 active agents...' },
-          { text: 'Task queue: 24 pending' }
-        ],
-        progress: 78,
-        progressLabel: 'System Load',
-        stats: { tasks: 156, hours: '6.2h', efficiency: '98%' },
-        task: 'Managing Mission Control Operations'
-      },
-      {
-        name: 'Nano',
-        role: 'Mission Control Coordinator',
-        avatar: '🤖',
-        gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-        status: 'online',
-        statusText: 'Coordinating Tasks',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'task list --priority=high' },
-          { text: 'Analyzing task dependencies...' },
-          { text: 'Assigning to appropriate agents...' }
-        ],
-        progress: 65,
-        progressLabel: 'Queue Processing',
-        stats: { tasks: 24, hours: '4.1h', efficiency: '96%' },
-        task: 'Prioritizing and routing tasks'
-      },
-      {
-        name: 'Frontend Developer',
-        role: 'UI/UX Specialist',
-        avatar: '🎨',
-        gradient: 'linear-gradient(135deg, #ec4899, #f472b6)',
-        status: 'busy',
-        statusText: 'Coding Interface',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'npm run dev' },
-          { text: 'Building workspace components...' },
-          { text: 'Compiling tailwind styles...' }
-        ],
-        progress: 82,
-        progressLabel: 'Build Progress',
-        stats: { tasks: 12, hours: '3.5h', efficiency: '94%' },
-        task: 'Building Digital Office interface'
-      },
-      {
-        name: 'Backend Developer',
-        role: 'API Architect',
-        avatar: '⚙️',
-        gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)',
-        status: 'busy',
-        statusText: 'Optimizing APIs',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'python manage.py migrate' },
-          { text: 'Applying database migrations...' },
-          { text: 'Optimizing query performance...' }
-        ],
-        progress: 45,
-        progressLabel: 'Migration Progress',
-        stats: { tasks: 8, hours: '2.8h', efficiency: '92%' },
-        task: 'Database optimization'
-      },
-      {
-        name: 'Database Engineer',
-        role: 'Data Specialist',
-        avatar: '🗄️',
-        gradient: 'linear-gradient(135deg, #10b981, #34d399)',
-        status: 'online',
-        statusText: 'Indexing Data',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'VACUUM ANALYZE' },
-          { text: 'Indexing memory vectors...' },
-          { text: 'Rows processed: 47,832' }
-        ],
-        progress: 91,
-        progressLabel: 'Indexing',
-        stats: { tasks: 15, hours: '5.2h', efficiency: '97%' },
-        task: 'Memory search optimization'
-      },
-      {
-        name: 'AI Engineer',
-        role: 'Model Optimization',
-        avatar: '🧠',
-        gradient: 'linear-gradient(135deg, #06b6d4, #22d3ee)',
-        status: 'busy',
-        statusText: 'Training Model',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'train --model=cost-optimizer' },
-          { text: 'Epoch 47/100' },
-          { text: 'Loss: 0.0234 | Accuracy: 94.2%' }
-        ],
-        progress: 47,
-        progressLabel: 'Training Epoch',
-        stats: { tasks: 6, hours: '4.5h', efficiency: '95%' },
-        task: 'Training cost optimization model'
-      }
+      { name: 'Kimi (Lead AI)', role: 'Lead AI Orchestrator', avatar: '🎯', gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)', status: 'online', task: 'Managing Mission Control Operations' },
+      { name: 'Nano', role: 'Mission Control Coordinator', avatar: '🤖', gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)', status: 'online', task: 'Prioritizing and routing tasks' },
+      { name: 'Frontend Developer', role: 'UI/UX Specialist', avatar: '🎨', gradient: 'linear-gradient(135deg, #ec4899, #f472b6)', status: 'busy', task: 'Building Digital Office interface' },
+      { name: 'Backend Developer', role: 'API Architect', avatar: '⚙️', gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)', status: 'busy', task: 'Database optimization' },
+      { name: 'Database Engineer', role: 'Data Specialist', avatar: '🗄️', gradient: 'linear-gradient(135deg, #10b981, #34d399)', status: 'online', task: 'Memory search optimization' },
+      { name: 'AI Engineer', role: 'Model Optimization', avatar: '🧠', gradient: 'linear-gradient(135deg, #06b6d4, #22d3ee)', status: 'busy', task: 'Training cost optimization model' }
     ];
 
     function renderWorkstations() {
       const container = document.getElementById('workstations');
       container.innerHTML = agents.map(agent => `
-        <div class="workspace ${agent.status === 'working' || agent.status === 'busy' ? 'active' : ''}">
-          <div class="workspace-profile">
+        <div class="workspace">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
             <div class="agent-avatar" style="background: ${agent.gradient};">
               ${agent.avatar}
               <span class="agent-status ${agent.status}"></span>
             </div>
-            <div class="agent-info">
-              <h3>${agent.name}</h3>
-              <div class="agent-role">${agent.role}</div>
-              <div class="agent-status-text">
+            <div>
+              <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">${agent.name}</h3>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px;">${agent.role}</div>
+              <div style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(16, 185, 129, 0.15); color: var(--accent-green); display: inline-flex; align-items: center; gap: 6px;">
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: ${agent.status === 'online' ? '#10b981' : '#f59e0b'};"></span>
-                ${agent.statusText}
+                ${agent.status === 'online' ? 'Online' : 'Busy'}
               </div>
             </div>
           </div>
-          
-          <div class="computer-setup">
-            <div class="monitor">
-              <div class="screen-content">
-                ${agent.screen.map(line => `
-                  <div class="code-line">
-                    ${line.type === 'prompt' ? '<span class="prompt">' + line.text + '</span>' : 
-                      line.type === 'command' ? '<span class="prompt">></span> <span class="command">' + line.text + '</span>' : 
-                      line.text}
-                    ${line === agent.screen[agent.screen.length - 1] ? '<span class="typing-cursor"></span>' : ''}
-                  </div>
-                `).join('')}
-                <div class="progress-section">
-                  <div class="progress-label">
-                    <span>${agent.progressLabel}</span>
-                    <span>${agent.progress}%</span>
-                  </div>
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${agent.progress}%;"></div>
-                  </div>
+          <div class="monitor">
+            <div style="position: absolute; inset: 8px; background: linear-gradient(180deg, rgba(139, 92, 246, 0.05), rgba(0,0,0,0.9)); border-radius: 8px; padding: 12px; font-family: monospace; font-size: 11px; color: rgba(255,255,255,0.8);">
+              <div style="margin-bottom: 4px;"><span style="color: var(--accent-green);">></span> <span style="color: var(--accent-cyan);">working</span></div>
+              <div style="margin-bottom: 4px;">${agent.task}</div>
+              <div style="margin-top: auto; padding-top: 10px;">
+                <div style="font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 6px;">Progress: 75%</div>
+                <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                  <div style="height: 100%; width: 75%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); border-radius: 2px;"></div>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div class="workspace-stats">
-            <div class="stat-item">
-              <div class="stat-value">${agent.stats.tasks}</div>
-              <div class="stat-label">Tasks</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">${agent.stats.hours}</div>
-              <div class="stat-label">Active</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">${agent.stats.efficiency}</div>
-              <div class="stat-label">Efficiency</div>
-            </div>
-          </div>
-          
-          <div class="current-task">
-            <div class="task-label">Current Task</div>
-            <div class="task-name">${agent.task}</div>
+          <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 14px; border-left: 3px solid var(--accent-green);">
+            <div style="font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 4px;">Current Task</div>
+            <div style="font-size: 13px; font-weight: 500;">${agent.task}</div>
           </div>
         </div>
       `).join('');
     }
 
-    // Initialize
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+      document.getElementById('main-wrapper').classList.toggle('expanded');
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('[Digital Office] Loading...');
       renderWorkstations();
-      console.log('[Digital Office] Loaded with ' + agents.length + ' workstations');
     });
   </script>
 </body>
