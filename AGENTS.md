@@ -24,6 +24,41 @@
 5. **Connection Status** - Shows OpenClaw connection indicator
 6. **Notifications** - Working notification system
 7. **localStorage** - All data persists
+8. **Content Pipeline** - Full 6-stage pipeline with editor
+9. **Team Structure** - Complete agent hierarchy visualization
+10. **Digital Office** - Live workstations with animated screens
+
+### 📄 New Pages (March 15, 2026)
+
+#### Content Pipeline (`content-pipeline.html`)
+- **Stages:** Ideas → Outline → Script → Design → Review → Publish
+- **Features:**
+  - Stage navigation sidebar
+  - Rich text editor for each stage
+  - localStorage persistence
+  - Progress tracking
+  - Assign to agents
+
+#### Team Structure (`team.html`)
+- **Hierarchy:** Kimi (Lead) → Nano (Coordinator) → Departments → Sub-agents
+- **4 Departments:**
+  - Development (Frontend, Backend, Database, Integration)
+  - Writers (Content, Script, Copywriter, Researcher)
+  - Designers (UI/UX, Graphic, Presentation)
+  - Education (RT Educator, Course Creator, Training)
+- **Sub-agents Pool:** 8 specialized on-demand agents
+- **Stats:** 28 total agents, real-time status indicators
+
+#### Digital Office (`office.html`)
+- **10 Workstations:** Each with unique agent, computer, desk items
+- **Features:**
+  - Animated keyboards (keys light up when "typing")
+  - Live progress bars with shimmer effects
+  - Typing cursors and code screens
+  - Floor plan mini-map with quick navigation
+  - Activity sidebar with real-time feed
+  - Status counts (Working, Busy, Standby)
+- **Auto-animations:** Keys animate, progress updates, status changes
 
 ### 🔌 OpenClaw Integration
 - Connects to: `http://127.0.0.1:18789`
