@@ -364,6 +364,21 @@ Format as JSON array:
       return '[]';
     }
 
+    // Quick check if MLX is available
+    try {
+      const healthCheck = await fetch('http://127.0.0.1:18888/v1/models', {
+        method: 'GET',
+        timeout: 1000
+      });
+      if (!healthCheck.ok) {
+        return this.getMockResponse(prompt);
+      }
+    } catch {
+      // MLX not available, use mock
+      return this.getMockResponse(prompt);
+    }
+
+    // MLX is available, make real request
     try {
       console.log(`[MLX Query] Sending request...`);
       const response = await fetch(CONFIG.mlxEndpoint, {
@@ -377,11 +392,11 @@ Format as JSON array:
           ],
           max_tokens: 500,
           temperature: 0.3
-        })
+        }),
+        timeout: 30000
       });
 
       if (!response.ok) {
-        console.log(`[MLX] Server returned ${response.status}, using mock data`);
         return this.getMockResponse(prompt);
       }
       
@@ -392,7 +407,6 @@ Format as JSON array:
       const jsonMatch = content.match(/\[[\s\S]*\]/);
       return jsonMatch ? jsonMatch[0] : '[]';
     } catch (error) {
-      logError('MLX query failed (using mock)', error.message);
       return this.getMockResponse(prompt);
     }
   }
