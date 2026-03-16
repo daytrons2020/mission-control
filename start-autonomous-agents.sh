@@ -3,6 +3,9 @@
 # Start Autonomous Agent System
 # This script launches the agent orchestrator and real-time dashboard updater
 
+# Change to script directory
+cd "$(dirname "$0")"
+
 echo "🚀 Starting Autonomous Agent System..."
 echo "========================================"
 

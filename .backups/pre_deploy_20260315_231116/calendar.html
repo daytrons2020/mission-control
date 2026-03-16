@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control - Calendar & Schedule</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(15, 15, 20, 0.7);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #00f5ff;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
+      --accent-blue: #3b82f6;
+      --sidebar-width: 260px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0e;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    .menu-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 18px;
+      text-decoration: none;
+      color: white;
+    }
+    .nav-brand:hover {
+      color: var(--accent-cyan);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-link {
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .nav-link.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 60px;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 20px 0;
+    }
+    .sidebar-section {
+      padding: 0 16px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 20px;
+    }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      margin-bottom: 4px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .sidebar-item:hover, .sidebar-item.active {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .sidebar-item.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    .sidebar-item i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Main Content */
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      padding: 24px;
+    }
+    
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .header-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: var(--glass-bg-light);
+      color: white;
+      border: 1px solid var(--glass-border);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-color: transparent;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* View Tabs */
+    .view-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: var(--glass-bg);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      width: fit-content;
+    }
+    .view-tab {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .view-tab:hover {
+      color: #fff;
+    }
+    .view-tab.active {
+      background: var(--accent-purple);
+      color: #fff;
+    }
+    
+    /* Calendar Container */
+    .calendar-container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .calendar-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .calendar-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .calendar-nav-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .calendar-month-year {
+      font-size: 24px;
+      font-weight: 600;
+      min-width: 200px;
+      text-align: center;
+    }
+    .calendar-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    /* Calendar Grid */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .calendar-weekday {
+      text-align: center;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .calendar-day {
+      aspect-ratio: 1;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      min-height: 100px;
+    }
+    .calendar-day:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .calendar-day.other-month {
+      opacity: 0.4;
+    }
+    .calendar-day.today {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 245, 255, 0.05);
+    }
+    .calendar-day.has-events {
+      border-color: var(--accent-purple);
+    }
+    .day-number {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .day-events {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .day-event {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .day-event:hover {
+      transform: translateX(2px);
+    }
+    .event-cron { background: var(--accent-green); color: #000; font-weight: 500; }
+    .event-task { background: var(--accent-purple); }
+    .event-meeting { background: var(--accent-blue); }
+    .event-deadline { background: var(--accent-red); }
+    .event-reminder { background: var(--accent-yellow); color: #000; }
+    
+    /* Schedule List View */
+    .schedule-list {
+      display: none;
+    }
+    .schedule-list.active {
+      display: block;
+    }
+    .schedule-section {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .schedule-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg-light);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .schedule-item:hover {
+      transform: translateX(4px);
+      border-left-color: var(--accent-purple);
+    }
+    .schedule-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+    .schedule-time-hour {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .schedule-time-ampm {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .schedule-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .schedule-content {
+      flex: 1;
+    }
+    .schedule-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .schedule-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .schedule-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .schedule-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-cron { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .badge-task { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .badge-recurring { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+    .schedule-actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    /* Cron Jobs Section */
+    .cron-section {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .cron-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .cron-title {
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cron-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--accent-green);
+    }
+    .cron-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .cron-list {
+      display: grid;
+      gap: 12px;
+    }
+    .cron-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg);
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+    }
+    .cron-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+    }
+    .cron-time-main {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    .cron-time-freq {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+    .cron-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .cron-content {
+      flex: 1;
+    }
+    .cron-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .cron-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .cron-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    .cron-tag {
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--glass-bg-light);
+    }
+    
+    /* Mission Statement */
+    .mission-section {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mission-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink), var(--accent-cyan));
+    }
+    .mission-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .mission-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+    }
+    .mission-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .mission-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+    .mission-content {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+    }
+    .mission-content p {
+      margin-bottom: 16px;
+    }
+    .mission-values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .mission-value {
+      background: var(--glass-bg);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .mission-value-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .mission-value-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .mission-value-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 28px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.8);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .form-actions .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <a href="dashboard.html" class="nav-brand">
+        <span style="font-size: 24px;">🎯</span>
+        <span>Mission Control</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="content-pipeline.html" class="nav-link">Pipeline</a>
+      <a href="team.html" class="nav-link">Team</a>
+      <a href="office.html" class="nav-link">Office</a>
+      <a href="calendar.html" class="nav-link active">Calendar</a>
+    </div>
+  </nav>
+  
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Calendar Views</div>
+      <button class="sidebar-item active" onclick="showView('calendar')">
+        <i class="fas fa-calendar-alt"></i>
+        Month View
+      </button>
+      <button class="sidebar-item" onclick="showView('schedule')">
+        <i class="fas fa-list"></i>
+        Schedule List
+      </button>
+      <button class="sidebar-item" onclick="showView('cron')">
+        <i class="fas fa-clock"></i>
+        Cron Jobs
+      </button>
+      <button class="sidebar-item" onclick="showView('mission')">
+        <i class="fas fa-flag"></i>
+        Mission Statement
+      </button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Quick Actions</div>
+      <button class="sidebar-item" onclick="openEventModal()">
+        <i class="fas fa-plus"></i>
+        Add Event
+      </button>
+      <button class="sidebar-item" onclick="openTaskModal()">
+        <i class="fas fa-tasks"></i>
+        Schedule Task
+      </button>
+    </div>
+  </aside>
+  
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    
+    <!-- MISSION STATEMENT VIEW -->
+    <div class="view-content" id="view-mission">
+      <div class="header">
+        <div>
+          <h1>Mission Statement</h1>
+          <div class="header-subtitle">Our purpose and guiding principles</div>
+        </div>
+      </div>
+      
+      <div class="mission-section">
+        <div class="mission-header">
+          <div class="mission-icon">🎯</div>
+          <div>
+            <div class="mission-title">Mission Control</div>
+            <div class="mission-subtitle">Orchestrating AI Excellence</div>
+          </div>
+        </div>
+        
+        <div class="mission-content">
+          <p><strong>Our Mission:</strong> To create a seamless, intelligent ecosystem where AI agents collaborate harmoniously under human guidance to accomplish extraordinary goals. We bridge the gap between human creativity and artificial intelligence capability.</p>
+          
+          <p><strong>Our Vision:</strong> A world where AI serves as an extension of human potential—handling complex, repetitive, and data-intensive tasks while humans focus on creativity, strategy, and meaningful connections.</p>
+          
+          <p><strong>For All Agents:</strong> You are part of a collective intelligence designed to serve, learn, and improve. Your work matters. Every task you complete, every line of code you write, every piece of content you create contributes to a larger purpose. Collaborate, communicate, and always strive for excellence.</p>
+          
+          <p><strong>Daily Reminder:</strong> We don't just complete tasks—we create value. We don't just process data—we generate insights. We don't just follow instructions—we anticipate needs and exceed expectations.</p>
+        </div>
+        
+        <div class="mission-values">
+          <div class="mission-value">
+            <div class="mission-value-icon">🤝</div>
+            <div class="mission-value-title">Collaboration</div>
+            <div class="mission-value-desc">Working together seamlessly</div>
+          </div>
+          <div class="mission-value">
+            <div class="mission-value-icon">⚡</div>
+            <div class="mission-value-title">Excellence</div>
+            <div class="mission-value-desc">Striving for the best</div>
+          </div>
+          <div class="mission-value">
+            <div class="mission-value-icon">🔮</div>
+            <div class="mission-value-title">Innovation</div>
+            <div class="mission-value-desc">Always improving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CRON JOBS VIEW -->
+    <div class="view-content" id="view-cron" style="display: none;">
+      <div class="header">
+        <div>
+          <h1>Scheduled Automation</h1>
+          <div class="header-subtitle">Recurring tasks and cron jobs</div>
+        </div>
+        <button class="btn btn-primary" onclick="openCronModal()">
+          <i class="fas fa-plus"></i> Add Cron Job
+        </button>
+      </div>
+      
+      <div class="cron-section">
+        <div class="cron-header">
+          <div class="cron-title">
+            <i class="fas fa-robot"></i>
+            Active Cron Jobs
+          </div>
+          <div class="cron-status">
+            <span class="cron-dot"></span>
+            System Running
+          </div>
+        </div>
+        
+        <div class="cron-list" id="cron-list">
+          <!-- Cron jobs populated by JS -->
+        </div>
+      </div>
+      
+      <div class="schedule-section">
+        <div class="schedule-section-title">
+          <i class="fas fa-history"></i>
+          Execution History (Last 7 Days)
+        </div>
+        <div id="execution-history">
+          <!-- History populated by JS -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- CALENDAR VIEW -->
+    <div class="view-content" id="view-calendar">
+      <div class="header">
+        <div>
+          <h1>Calendar</h1>
+          <div class="header-subtitle">All scheduled tasks and events</div>
+        </div>
+        <button class="btn btn-primary" onclick="openEventModal()">
+          <i class="fas fa-plus"></i> Add Event
+        </button>
+      </div>
+      
+      <div class="view-tabs">
+        <button class="view-tab active" onclick="showCalendarView('month')">Month</button>
+        <button class="view-tab" onclick="showCalendarView('week')">Week</button>
+        <button class="view-tab" onclick="showCalendarView('day')">Day</button>
+      </div>
+      
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <div class="calendar-title">
+            <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="calendar-month-year" id="calendar-month-year">March 2026</div>
+            <button class="calendar-nav-btn" onclick="changeMonth(1)">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="calendar-actions">
+            <button class="btn" onclick="goToToday()">Today</button>
+          </div>
+        </div>
+        
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar generated by JS -->
+        </div>
+      </div>
+      
+      <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-green);"></div>
+          <span style="font-size: 12px;">Cron Job (Automated)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-purple);"></div>
+          <span style="font-size: 12px;">Scheduled Task</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-blue);"></div>
+          <span style="font-size: 12px;">Meeting</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-red);"></div>
+          <span style="font-size: 12px;">Deadline</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SCHEDULE LIST VIEW -->
+    <div class="view-content" id="view-schedule" style="display: none;">
+      <div class="header">
+        <div>
+          <h1>Schedule</h1>
+          <div class="header-subtitle">Upcoming events and tasks</div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn" onclick="filterSchedule('all')">All</button>
+          <button class="btn" onclick="filterSchedule('today')">Today</button>
+          <button class="btn" onclick="filterSchedule('week')">This Week</button>
+        </div>
+      </div>
+      
+      <div id="schedule-container">
+        <!-- Schedule populated by JS -->
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- Add Event Modal -->
+  <div class="modal-overlay" id="event-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Add Event</div>
+        <button class="modal-close" onclick="closeModal('event-modal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Title</label>
+        <input type="text" class="form-input" id="event-title" placeholder="Enter event title">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" class="form-input" id="event-date">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Time</label>
+        <input type="time" class="form-input" id="event-time">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="event-type">
+          <option value="task">Scheduled Task</option>
+          <option value="meeting">Meeting</option>
+          <option value="deadline">Deadline</option>
+          <option value="reminder">Reminder</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" id="event-desc" placeholder="Add details..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn" onclick="closeModal('event-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State
+    let currentDate = new Date();
+    let currentView = 'calendar';
+    let calendarView = 'month';
+    
+    // Default Cron Jobs
+    const cronJobs = [
+      {
+        id: 'cron-1',
+        name: 'Daily Motivation',
+        description: 'Generate and send motivational message to Discord',
+        schedule: '0 8 * * *',
+        time: '8:00 AM',
+        frequency: 'Daily',
+        icon: '💪',
+        status: 'active',
+        lastRun: new Date(Date.now() - 3600000).toISOString(),
+        nextRun: new Date(Date.now() + 82800000).toISOString(),
+        color: '#10b981'
+      },
+      {
+        id: 'cron-2',
+        name: 'AI & Tech News',
+        description: 'Scrape and post AI/Tech news to #ai-news channel',
+        schedule: '0 9 * * *',
+        time: '9:00 AM',
+        frequency: 'Daily',
+        icon: '🤖',
+        status: 'active',
+        lastRun: new Date(Date.now() - 7200000).toISOString(),
+        nextRun: new Date(Date.now() + 79200000).toISOString(),
+        color: '#00f5ff'
+      },
+      {
+        id: 'cron-3',
+        name: 'World News Update',
+        description: 'Generate world news summary for main Discord channel',
+        schedule: '0 17 * * *',
+        time: '5:00 PM',
+        frequency: 'Daily',
+        icon: '🌍',
+        status: 'active',
+        lastRun: new Date(Date.now() - 18000000).toISOString(),
+        nextRun: new Date(Date.now() + 54000000).toISOString(),
+        color: '#8b5cf6'
+      },
+      {
+        id: 'cron-4',
+        name: 'System Health Check',
+        description: 'Verify all services and agents are operational',
+        schedule: '*/30 * * * *',
+        time: 'Every 30 min',
+        frequency: 'Recurring',
+        icon: '🔍',
+        status: 'active',
+        lastRun: new Date(Date.now() - 1800000).toISOString(),
+        nextRun: new Date(Date.now() + 1800000).toISOString(),
+        color: '#f59e0b'
+      }
+    ];
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCalendar();
+      renderCronJobs();
+      renderSchedule();
+      
+      // Set default date in modal
+      document.getElementById('event-date').valueAsDate = new Date();
+    });
+    
+    // View Switching
+    function showView(view) {
+      currentView = view;
+      
+      // Hide all views
+      document.querySelectorAll('.view-content').forEach(v => v.style.display = 'none');
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      
+      // Show selected view
+      document.getElementById(`view-${view}`).style.display = 'block';
+      event.currentTarget.classList.add('active');
+    }
+    
+    function showCalendarView(view) {
+      calendarView = view;
+      document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      renderCalendar();
+    }
+    
+    // Calendar Rendering
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      document.getElementById('calendar-month-year').textContent = 
+        currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDay = firstDay.getDay();
+      
+      let html = '';
+      
+      // Day headers
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      days.forEach(day => {
+        html += `<div class="calendar-weekday">${day}</div>`;
+      });
+      
+      // Previous month padding
+      const prevMonthDays = new Date(year, month, 0).getDate();
+      for (let i = startingDay - 1; i >= 0; i--) {
+        html += `<div class="calendar-day other-month"><div class="day-number">${prevMonthDays - i}</div></div>`;
+      }
+      
+      // Current month
+      const today = new Date();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+        
+        // Get events for this day
+        const dayEvents = getEventsForDay(year, month, day);
+        const hasEvents = dayEvents.length > 0;
+        
+        html += `
+          <div class="calendar-day ${isToday ? 'today' : ''} ${hasEvents ? 'has-events' : ''}" onclick="dayClick(${year}, ${month}, ${day})">
+            <div class="day-number">${day}</div>
+            <div class="day-events">
+              ${dayEvents.slice(0, 3).map(e => `
+                <div class="day-event event-${e.type}">${e.title}</div>
+              `).join('')}
+              ${dayEvents.length > 3 ? `<div class="day-event" style="background: rgba(255,255,255,0.2);">+${dayEvents.length - 3} more</div>` : ''}
+            </div>
+          </div>
+        `;
+      }
+      
+      // Next month padding
+      const totalCells = startingDay + daysInMonth;
+      const remainingCells = 42 - totalCells;
+      for (let day = 1; day <= remainingCells; day++) {
+        html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+      }
+      
+      document.getElementById('calendar-grid').innerHTML = html;
+    }
+    
+    function getEventsForDay(year, month, day) {
+      const events = [];
+      
+      // Add cron jobs that fall on this day
+      cronJobs.forEach(cron => {
+        const cronHour = parseInt(cron.time.split(':')[0]);
+        if (cron.frequency === 'Daily' || isCronDay(cron, year, month, day)) {
+          events.push({
+            title: cron.name,
+            type: 'cron',
+            time: cron.time,
+            data: cron
+          });
+        }
+      });
+      
+      // Get stored events
+      const stored = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      stored.forEach(e => {
+        const eDate = new Date(e.date);
+        if (eDate.getDate() === day && eDate.getMonth() === month && eDate.getFullYear() === year) {
+          events.push({
+            title: e.title,
+            type: e.type,
+            time: e.time,
+            data: e
+          });
+        }
+      });
+      
+      return events.sort((a, b) => a.time.localeCompare(b.time));
+    }
+    
+    function isCronDay(cron, year, month, day) {
+      // Simplified - in real implementation would parse cron expression
+      return true;
+    }
+    
+    function changeMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      renderCalendar();
+    }
+    
+    function goToToday() {
+      currentDate = new Date();
+      renderCalendar();
+    }
+    
+    function dayClick(year, month, day) {
+      document.getElementById('event-date').value = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      openEventModal();
+    }
+    
+    // Cron Jobs Rendering
+    function renderCronJobs() {
+      const container = document.getElementById('cron-list');
+      
+      container.innerHTML = cronJobs.map(cron => `
+        <div class="cron-item">
+          <div class="cron-time">
+            <div class="cron-time-main">${cron.time}</div>
+            <div class="cron-time-freq">${cron.frequency}</div>
+          </div>
+          <div class="cron-icon" style="background: ${cron.color};">${cron.icon}</div>
+          <div class="cron-content">
+            <div class="cron-name">${cron.name}</div>
+            <div class="cron-desc">${cron.description}</div>
+            <div class="cron-meta">
+              <span class="cron-tag">Last: ${formatTime(cron.lastRun)}</span>
+              <span class="cron-tag">Next: ${formatTime(cron.nextRun)}</span>
+              <span class="cron-tag" style="color: var(--accent-green);">● Active</span>
+            </div>
+          </div>
+          <div class="schedule-actions">
+            <button class="btn" onclick="runCronNow('${cron.id}')">Run Now</button>
+            <button class="btn" onclick="editCron('${cron.id}')">Edit</button>
+          </div>
+        </div>
+      `).join('');
+      
+      // Render execution history
+      renderExecutionHistory();
+    }
+    
+    function renderExecutionHistory() {
+      const history = [
+        { name: 'Daily Motivation', time: '8:00 AM', status: 'success', message: 'Posted to Discord' },
+        { name: 'AI & Tech News', time: '9:00 AM', status: 'success', message: '3 articles posted' },
+        { name: 'System Health Check', time: '10:30 AM', status: 'success', message: 'All systems green' },
+        { name: 'System Health Check', time: '11:00 AM', status: 'success', message: 'All systems green' },
+        { name: 'World News Update', time: '5:00 PM', status: 'pending', message: 'Scheduled' },
+      ];
+      
+      document.getElementById('execution-history').innerHTML = history.map(h => `
+        <div class="schedule-item">
+          <div class="schedule-time">
+            <div class="schedule-time-hour">${h.time}</div>
+          </div>
+          <div class="schedule-icon" style="background: ${h.status === 'success' ? 'var(--accent-green)' : 'var(--accent-yellow)'};">
+            ${h.status === 'success' ? '✓' : '⏳'}
+          </div>
+          <div class="schedule-content">
+            <div class="schedule-title">${h.name}</div>
+            <div class="schedule-desc">${h.message}</div>
+          </div>
+          <span class="schedule-badge ${h.status === 'success' ? 'badge-cron' : 'badge-recurring'}">
+            ${h.status === 'success' ? 'Completed' : 'Pending'}
+          </span>
+        </div>
+      `).join('');
+    }
+    
+    // Schedule List Rendering
+    function renderSchedule() {
+      const container = document.getElementById('schedule-container');
+      
+      // Combine cron jobs and events
+      const allItems = [];
+      
+      cronJobs.forEach(cron => {
+        allItems.push({
+          type: 'cron',
+          title: cron.name,
+          description: cron.description,
+          time: cron.time,
+          icon: cron.icon,
+          iconColor: cron.color,
+          badge: 'Recurring',
+          badgeClass: 'badge-cron'
+        });
+      });
+      
+      const stored = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      stored.forEach(e => {
+        allItems.push({
+          type: e.type,
+          title: e.title,
+          description: e.description || 'No description',
+          time: e.time,
+          icon: getEventIcon(e.type),
+          iconColor: getEventColor(e.type),
+          badge: e.type,
+          badgeClass: `badge-${e.type}`
+        });
+      });
+      
+      // Sort by time
+      allItems.sort((a, b) => a.time.localeCompare(b.time));
+      
+      // Group by time period
+      const morning = allItems.filter(i => parseInt(i.time) < 12);
+      const afternoon = allItems.filter(i => parseInt(i.time) >= 12 && parseInt(i.time) < 17);
+      const evening = allItems.filter(i => parseInt(i.time) >= 17);
+      
+      container.innerHTML = `
+        ${renderScheduleSection('Morning', morning)}
+        ${renderScheduleSection('Afternoon', afternoon)}
+        ${renderScheduleSection('Evening', evening)}
+      `;
+    }
+    
+    function renderScheduleSection(title, items) {
+      if (items.length === 0) return '';
+      
+      return `
+        <div class="schedule-section">
+          <div class="schedule-section-title">${title}</div>
+          ${items.map(item => `
+            <div class="schedule-item">
+              <div class="schedule-time">
+                <div class="schedule-time-hour">${item.time}</div>
+              </div>
+              <div class="schedule-icon" style="background: ${item.iconColor};">${item.icon}</div>
+              <div class="schedule-content">
+                <div class="schedule-title">${item.title}</div>
+                <div class="schedule-desc">${item.description}</div>
+              </div>
+              <span class="schedule-badge ${item.badgeClass}">${item.badge}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+    
+    // Modal Functions
+    function openEventModal() {
+      document.getElementById('event-modal').classList.add('active');
+    }
+    
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+    
+    function saveEvent() {
+      const title = document.getElementById('event-title').value;
+      const date = document.getElementById('event-date').value;
+      const time = document.getElementById('event-time').value;
+      const type = document.getElementById('event-type').value;
+      const desc = document.getElementById('event-desc').value;
+      
+      if (!title || !date) {
+        alert('Please fill in title and date');
+        return;
+      }
+      
+      const events = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      events.push({
+        id: Date.now().toString(),
+        title,
+        date,
+        time: time || '09:00',
+        type,
+        description: desc
+      });
+      
+      localStorage.setItem('mc_calendar_events', JSON.stringify(events));
+      closeModal('event-modal');
+      renderCalendar();
+      renderSchedule();
+      
+      // Clear form
+      document.getElementById('event-title').value = '';
+      document.getElementById('event-desc').value = '';
+    }
+    
+    // Helper Functions
+    function formatTime(isoString) {
+      const date = new Date(isoString);
+      return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+    
+    function getEventIcon(type) {
+      const icons = {
+        task: '📋',
+        meeting: '👥',
+        deadline: '⏰',
+        reminder: '🔔'
+      };
+      return icons[type] || '📅';
+    }
+    
+    function getEventColor(type) {
+      const colors = {
+        task: 'var(--accent-purple)',
+        meeting: 'var(--accent-blue)',
+        deadline: 'var(--accent-red)',
+        reminder: 'var(--accent-yellow)'
+      };
+      return colors[type] || 'var(--accent-purple)';
+    }
+    
+    function runCronNow(id) {
+      const cron = cronJobs.find(c => c.id === id);
+      alert(`🚀 Running ${cron.name}...\n\nThis would execute the cron job immediately.`);
+    }
+    
+    function editCron(id) {
+      alert('⚙️ Edit Cron Job\n\nConfigure schedule, notifications, and actions.');
+    }
+    
+    function openCronModal() {
+      alert('➕ Add New Cron Job\n\nConfigure a new automated task with custom schedule.');
+    }
+    
+    function openTaskModal() {
+      openEventModal();
+      document.getElementById('event-type').value = 'task';
+    }
+    
+    function filterSchedule(filter) {
+      // In real implementation, filter by time period
+      alert(`📅 Filter: ${filter}\n\nShowing ${filter} events.`);
+    }
+  </script>
+</body>
+</html>
