@@ -1239,6 +1239,15 @@
       </div>
     </div>
     
+    <!-- Command Notice -->
+    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05)); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-size: 13px;">
+      <i class="fas fa-info-circle" style="color: var(--accent-yellow); font-size: 18px;"></i>
+      <div>
+        <strong>How to use commands:</strong> Type below for preview, then run <code style="background: var(--glass-bg-light); padding: 2px 6px; border-radius: 4px;">mc &lt;command&gt;</code> in your terminal for real execution.
+        <a href="#" onclick="showHelp(); return false;" style="color: var(--accent-cyan); margin-left: 8px;">Learn more →</a>
+      </div>
+    </div>
+
     <!-- Command Output Panel -->
     <div class="output-panel" id="output-panel">
       <div class="output-header">
@@ -1247,7 +1256,7 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div id="output-content">Type a command above and press Enter...</div>
+      <div id="output-content">Type a command above and press Enter to see preview...</div>
     </div>
     
     <!-- Header -->
@@ -1724,11 +1733,27 @@
     }
 
     function runTerminalCommand(cmd) {
-      showOutput(`Executing: mc ${cmd}\n\n[This would run the command in terminal]\n\nTo execute for real, open terminal and run:\n  mc ${cmd}`);
+      const outputs = {
+        'goals': `🎯 YOUR 5 GOALS\n═══════════════════════════════════════\n\n1. RESPIRATORY EDUCATION EMPIRE (Critical)\n   • 40 hours estimated\n   • 7 tasks defined\n   • Status: Ready to start\n\n2. AUTONOMOUS TRADING SYSTEM (High)\n   • 52 hours estimated\n   • 8 tasks defined\n   • Status: Partially started\n\n3. 24/7 RESELLING BUSINESS (Medium)\n   • 52 hours estimated\n   • 7 tasks defined\n   • Status: Not started\n\n4. POLYMARKET CRYPTO BOT (Medium)\n   • 56 hours estimated\n   • 6 tasks defined\n   • Status: Not started\n\n5. LIFE-IMPROVING PROGRAMS (Low)\n   • 52 hours estimated\n   • 7 tasks defined\n   • Status: Not started\n\n═══════════════════════════════════════\nTotal: ~340 hours of autonomous work`,
+
+        'plan': `📋 TODAY'S WORK PLAN\n═══════════════════════════════════════\n\nGenerated: ${new Date().toLocaleString()}\n\n🤖 Nano (Coordinator):\n  • Design architecture (1h) - High priority\n  • Research existing solutions (1h)\n\n✍️ Content Writer:\n  • Create documentation outline (1h)\n\n🔍 Researcher:\n  • Analyze requirements (1h)\n\n═══════════════════════════════════════\nTotal: 4 tasks, 4 hours estimated\n\n💡 To execute these tasks automatically:\n   Run: mc start`,
+
+        'run': `🚀 EXECUTING AUTONOMOUS CYCLE\n═══════════════════════════════════════\n\n⏳ This would execute one cycle:\n  1. Parse goals from build plan\n  2. Generate tasks using MLX AI\n  3. Assign to appropriate agents\n  4. Execute tasks\n  5. Save deliverables\n\n⚠️  To actually run this:\n   Open terminal and type: mc run\n\n📍 Deliverables saved to:\n   ~/.openclaw/workspace/mission-control-repo/deliverables/`,
+
+        'start': `🤖 STARTING CONTINUOUS MODE\n═══════════════════════════════════════\n\n⏳ This would start autonomous execution:\n  • Runs daily at 9:00 AM\n  • Generates tasks automatically\n  • Executes via MLX (FREE)\n  • Saves deliverables\n  • Updates dashboard\n\n⚠️  To actually start:\n   Open terminal and type: mc start\n\n🛑 To stop later: Press Ctrl+C`,
+
+        'status': `📊 SYSTEM STATUS\n═══════════════════════════════════════\n\n🎯 Goals: 5 active\n✅ Tasks Completed: 0\n⏱️  Hours Worked: 0\n🤖 Active Agents: 14\n\n🔌 System Health:\n  • OpenClaw: Checking...\n  • MLX Server: Checking...\n  • Discord: Online\n  • Memory: Healthy\n\n💾 Data Storage: localStorage`,
+
+        'dashboard': `🌐 OPENING DASHBOARD\n═══════════════════════════════════════\n\nOpening: https://mission-control-o52l.vercel.app/dashboard.html\n\nThe dashboard shows:\n  • Real-time agent status\n  • Task progress\n  • System health\n  • Recent activity\n\n✓ Dashboard loaded in new tab`
+      };
+
+      const output = outputs[cmd] || `Command: ${cmd}\n\n⚠️  To execute this command:\n   Open terminal and run: mc ${cmd}\n\n💡 Make sure you're in the right directory:\n   cd ~/.openclaw/workspace/mission-control-repo`;
+
+      showOutput(output);
       
       // Simulate async command
       setTimeout(() => {
-        addActivity(`Executed command: ${cmd}`);
+        addActivity(`Viewed ${cmd} in command center`);
       }, 500);
     }
 
