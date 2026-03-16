@@ -364,12 +364,12 @@ Format as JSON array:
       return '[]';
     }
 
-    // Quick check if MLX is available
+    // Quick check if MLX is available (1s timeout using Promise.race)
     try {
-      const healthCheck = await fetch('http://127.0.0.1:18888/v1/models', {
-        method: 'GET',
-        timeout: 1000
-      });
+      const healthCheck = await Promise.race([
+        fetch('http://127.0.0.1:18888/v1/models'),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1000))
+      ]);
       if (!healthCheck.ok) {
         return this.getMockResponse(prompt);
       }
@@ -381,20 +381,22 @@ Format as JSON array:
     // MLX is available, make real request
     try {
       console.log(`[MLX Query] Sending request...`);
-      const response = await fetch(CONFIG.mlxEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
-          messages: [
-            { role: 'system', content: 'You are a task planning assistant. Respond only with valid JSON arrays.' },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 500,
-          temperature: 0.3
+      const response = await Promise.race([
+        fetch(CONFIG.mlxEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
+            messages: [
+              { role: 'system', content: 'You are a task planning assistant. Respond only with valid JSON arrays.' },
+              { role: 'user', content: prompt }
+            ],
+            max_tokens: 500,
+            temperature: 0.3
+          })
         }),
-        timeout: 30000
-      });
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 30000))
+      ]);
 
       if (!response.ok) {
         return this.getMockResponse(prompt);
@@ -606,20 +608,22 @@ Respond with:
     console.log(`[Execute] ${agent.name} working on task via MLX...`);
     
     try {
-      const response = await fetch(CONFIG.mlxEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
-          messages: [
-            { role: 'system', content: `You are ${agent.name}, ${agent.role}. Respond professionally with complete deliverables.` },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 2000,
-          temperature: 0.7
+      const response = await Promise.race([
+        fetch(CONFIG.mlxEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
+            messages: [
+              { role: 'system', content: `You are ${agent.name}, ${agent.role}. Respond professionally with complete deliverables.` },
+              { role: 'user', content: prompt }
+            ],
+            max_tokens: 2000,
+            temperature: 0.7
+          })
         }),
-        timeout: 120000 // 2 minute timeout
-      });
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 120000))
+      ]);
 
       if (!response.ok) {
         console.log(`[MLX] Server returned ${response.status}, using simulation`);
