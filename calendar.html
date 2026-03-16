@@ -1,14 +1,14 @@
-<!-- Mission Control Calendar - Complete Version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mission Control - Calendar</title>
+  <title>Mission Control - Calendar & Schedule</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
-      --glass-bg: rgba(15, 15, 20, 0.6);
+      --glass-bg: rgba(15, 15, 20, 0.7);
       --glass-bg-light: rgba(255, 255, 255, 0.05);
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent-purple: #8b5cf6;
@@ -16,6 +16,10 @@
       --accent-green: #10b981;
       --accent-yellow: #f59e0b;
       --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
+      --accent-blue: #3b82f6;
+      --sidebar-width: 260px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -28,14 +32,14 @@
       position: fixed;
       inset: 0;
       background: 
-        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
     }
     
     /* Navigation */
-    .nav-bar {
+    .top-nav {
       position: fixed;
       top: 0;
       left: 0;
@@ -47,8 +51,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 20px;
       z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    .menu-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
     }
     .nav-brand {
       display: flex;
@@ -56,10 +83,16 @@
       gap: 12px;
       font-weight: 600;
       font-size: 18px;
+      text-decoration: none;
+      color: white;
     }
-    .nav-links {
+    .nav-brand:hover {
+      color: var(--accent-cyan);
+    }
+    .nav-right {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
     }
     .nav-link {
       padding: 10px 16px;
@@ -67,7 +100,6 @@
       color: rgba(255,255,255,0.7);
       text-decoration: none;
       font-size: 14px;
-      font-weight: 500;
       transition: all 0.2s;
     }
     .nav-link:hover, .nav-link.active {
@@ -79,117 +111,151 @@
       color: var(--accent-purple);
     }
     
-    /* Nav Actions - Notification & Settings */
-    .nav-actions {
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 60px;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 20px 0;
+    }
+    .sidebar-section {
+      padding: 0 16px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 20px;
+    }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+    .sidebar-item {
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-    .header-btn {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
       transition: all 0.2s;
-    }
-    .header-btn:hover {
-      background: #8b5cf6;
-      border-color: #8b5cf6;
-    }
-    .header-btn-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      min-width: 18px;
-      height: 18px;
-      background: #ef4444;
-      border-radius: 10px;
-      font-size: 10px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 5px;
-    }
-    
-    /* Mobile Menu Button */
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 24px;
+      margin-bottom: 4px;
       cursor: pointer;
-      padding: 8px;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
     }
-    
-    @media (max-width: 768px) {
-      .mobile-menu-btn {
-        display: block;
-      }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: rgba(15, 15, 20, 0.95);
-        flex-direction: column;
-        padding: 16px;
-        border-bottom: 1px solid var(--glass-border);
-      }
-      .nav-links.active {
-        display: flex;
-      }
+    .sidebar-item:hover, .sidebar-item.active {
+      background: var(--glass-bg-light);
+      color: #fff;
+    }
+    .sidebar-item.active {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+    .sidebar-item i {
+      width: 20px;
+      text-align: center;
     }
     
     /* Main Content */
-    .main-content {
-      padding: 80px 24px 24px;
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      padding: 24px;
     }
+    
+    /* Header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .header h1 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
     }
+    .header-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
     .btn {
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: 10px;
       border: none;
       cursor: pointer;
       font-weight: 500;
       transition: all 0.2s;
-      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+      background: var(--glass-bg-light);
       color: white;
+      border: 1px solid var(--glass-border);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-color: transparent;
+    }
+    .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* View Tabs */
+    .view-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: var(--glass-bg);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      width: fit-content;
+    }
+    .view-tab {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .view-tab:hover {
+      color: #fff;
+    }
+    .view-tab.active {
+      background: var(--accent-purple);
+      color: #fff;
     }
     
     /* Calendar Container */
     .calendar-container {
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 24px;
     }
-    
-    /* Calendar Header */
     .calendar-header {
       display: flex;
       justify-content: space-between;
@@ -197,25 +263,36 @@
       margin-bottom: 24px;
     }
     .calendar-title {
-      font-size: 24px;
-      font-weight: 600;
-    }
-    .calendar-nav {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 16px;
     }
-    .calendar-nav button {
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: var(--glass-bg-light);
+    .calendar-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
       color: white;
       cursor: pointer;
-      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
     }
-    .calendar-nav button:hover {
+    .calendar-nav-btn:hover {
       background: var(--accent-purple);
       border-color: var(--accent-purple);
+    }
+    .calendar-month-year {
+      font-size: 24px;
+      font-weight: 600;
+      min-width: 200px;
+      text-align: center;
+    }
+    .calendar-actions {
+      display: flex;
+      gap: 12px;
     }
     
     /* Calendar Grid */
@@ -224,458 +301,1124 @@
       grid-template-columns: repeat(7, 1fr);
       gap: 8px;
     }
-    .calendar-day-header {
+    .calendar-weekday {
       text-align: center;
       padding: 12px;
       font-size: 12px;
       font-weight: 600;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .calendar-day {
-      min-height: 100px;
+      aspect-ratio: 1;
       background: var(--glass-bg-light);
       border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      padding: 8px;
+      border-radius: 12px;
+      padding: 10px;
       cursor: pointer;
       transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      min-height: 100px;
     }
     .calendar-day:hover {
       border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .calendar-day.other-month {
+      opacity: 0.4;
     }
     .calendar-day.today {
-      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--accent-cyan);
+      background: rgba(0, 245, 255, 0.05);
+    }
+    .calendar-day.has-events {
       border-color: var(--accent-purple);
     }
     .day-number {
-      font-weight: 600;
       font-size: 14px;
-      margin-bottom: 4px;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
     .day-events {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
     .day-event {
+      padding: 3px 8px;
+      border-radius: 6px;
       font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .day-event.cron { background: rgba(16, 185, 129, 0.3); color: var(--accent-green); }
-    .day-event.task { background: rgba(139, 92, 246, 0.3); color: var(--accent-purple); }
-    .day-event.agent { background: rgba(0, 245, 255, 0.3); color: var(--accent-cyan); }
+    .day-event:hover {
+      transform: translateX(2px);
+    }
+    .event-cron { background: var(--accent-green); color: #000; font-weight: 500; }
+    .event-task { background: var(--accent-purple); }
+    .event-meeting { background: var(--accent-blue); }
+    .event-deadline { background: var(--accent-red); }
+    .event-reminder { background: var(--accent-yellow); color: #000; }
     
-    /* Event List */
-    .event-list {
-      margin-top: 32px;
+    /* Schedule List View */
+    .schedule-list {
+      display: none;
     }
-    .event-item {
+    .schedule-list.active {
+      display: block;
+    }
+    .schedule-section {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .schedule-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .schedule-item {
       display: flex;
       align-items: center;
       gap: 16px;
       padding: 16px;
       background: var(--glass-bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      margin-bottom: 8px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
     }
-    .event-time {
-      min-width: 80px;
+    .schedule-item:hover {
+      transform: translateX(4px);
+      border-left-color: var(--accent-purple);
+    }
+    .schedule-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+    .schedule-time-hour {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .schedule-time-ampm {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .schedule-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .schedule-content {
+      flex: 1;
+    }
+    .schedule-title {
       font-weight: 600;
-      color: var(--accent-cyan);
+      font-size: 15px;
+      margin-bottom: 4px;
     }
-    .event-type {
+    .schedule-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .schedule-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .schedule-badge {
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
     }
-    .event-type.cron { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
-    .event-type.task { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
-    .event-type.agent { background: rgba(0, 245, 255, 0.2); color: var(--accent-cyan); }
-    .event-content {
-      flex: 1;
-    }
-    .event-title {
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-    .event-desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
+    .badge-cron { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .badge-task { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .badge-recurring { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+    .schedule-actions {
+      display: flex;
+      gap: 8px;
     }
     
-    /* Notification & Settings Panels */
-    .side-panel {
-      position: fixed;
-      top: 60px;
-      right: -400px;
-      width: 380px;
-      bottom: 0;
-      background: rgba(15, 15, 20, 0.98);
-      backdrop-filter: blur(20px);
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 999;
-      transition: right 0.3s ease;
-      overflow-y: auto;
+    /* Cron Jobs Section */
+    .cron-section {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
     }
-    .side-panel.active {
-      right: 0;
-    }
-    .panel-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .cron-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 16px;
     }
-    .panel-title {
-      font-size: 20px;
+    .cron-title {
+      font-size: 18px;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .panel-close {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.6);
-      font-size: 24px;
-      cursor: pointer;
-      padding: 4px;
+    .cron-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--accent-green);
     }
-    .panel-close:hover {
-      color: white;
+    .cron-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: pulse 2s infinite;
     }
-    .panel-content {
-      padding: 20px 24px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
-    .notification-item {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
+    .cron-list {
+      display: grid;
+      gap: 12px;
+    }
+    .cron-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       padding: 16px;
-      margin-bottom: 12px;
+      background: var(--glass-bg);
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
     }
-    .notification-item.unread {
-      border-color: #8b5cf6;
+    .cron-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
     }
-    .notification-title {
+    .cron-time-main {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    .cron-time-freq {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+    .cron-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .cron-content {
+      flex: 1;
+    }
+    .cron-name {
       font-weight: 600;
+      font-size: 15px;
       margin-bottom: 4px;
     }
-    .notification-text {
+    .cron-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .cron-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    .cron-tag {
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--glass-bg-light);
+    }
+    
+    /* Mission Statement */
+    .mission-section {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mission-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink), var(--accent-cyan));
+    }
+    .mission-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .mission-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+    }
+    .mission-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .mission-subtitle {
       font-size: 14px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.6);
+    }
+    .mission-content {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+    }
+    .mission-content p {
+      margin-bottom: 16px;
+    }
+    .mission-values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .mission-value {
+      background: var(--glass-bg);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .mission-value-icon {
+      font-size: 28px;
       margin-bottom: 8px;
     }
-    .notification-time {
+    .mission-value-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .mission-value-desc {
       font-size: 12px;
       color: rgba(255,255,255,0.5);
     }
-    .setting-item {
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 28px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
     }
-    .setting-label {
-      font-weight: 500;
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
     }
-    .setting-desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 2px;
-    }
-    .toggle {
-      width: 48px;
-      height: 26px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 13px;
-      position: relative;
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
       cursor: pointer;
-      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .toggle.active {
-      background: #8b5cf6;
+    .form-group {
+      margin-bottom: 16px;
     }
-    .toggle::after {
-      content: '';
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      background: white;
-      border-radius: 50%;
-      top: 2px;
-      left: 2px;
-      transition: transform 0.2s;
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.8);
     }
-    .toggle.active::after {
-      transform: translateX(22px);
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      color: white;
+      font-size: 14px;
+      font-family: inherit;
     }
-    
-    @media (max-width: 768px) {
-      .calendar-grid { gap: 4px; }
-      .calendar-day { min-height: 60px; padding: 4px; }
-      .day-number { font-size: 12px; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .form-actions .btn {
+      flex: 1;
     }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   
-  <!-- Navigation - Consistent with dashboard -->
-  <nav class="nav-bar">
-    <div class="nav-brand">
-      <span>🎯</span>
-      <span>Mission Control v2</span>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <a href="dashboard.html" class="nav-brand">
+        <span style="font-size: 24px;">🎯</span>
+        <span>Mission Control</span>
+      </a>
     </div>
-    <div class="nav-links">
+    <div class="nav-right">
       <a href="dashboard.html" class="nav-link">Dashboard</a>
-      <a href="memory.html" class="nav-link">Memory</a>
+      <a href="content-pipeline.html" class="nav-link">Pipeline</a>
+      <a href="team.html" class="nav-link">Team</a>
+      <a href="office.html" class="nav-link">Office</a>
       <a href="calendar.html" class="nav-link active">Calendar</a>
-      <a href="cost-tracker.html" class="nav-link">Costs</a>
     </div>
-    <div class="nav-actions">
-      <button class="header-btn" onclick="showNotifications()" title="Notifications">
-        🔔
-        <span class="header-btn-badge" id="notification-badge">3</span>
-      </button>
-      <button class="header-btn" onclick="openSettings()" title="Settings">
-        ⚙️
-      </button>
-    </div>
-    <button class="mobile-menu-btn" onclick="calendarApp.toggleMobileMenu()">☰</button>
   </nav>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="header">
-      <div>
-        <h1>Calendar & Scheduler</h1>
-        <p style="color: rgba(255,255,255,0.6); margin-top: 4px;">All scheduled tasks and cron jobs</p>
-      </div>
-      <button class="btn" onclick="calendarApp.addEvent()">+ Add Event</button>
+  
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Calendar Views</div>
+      <button class="sidebar-item active" onclick="showView('calendar')">
+        <i class="fas fa-calendar-alt"></i>
+        Month View
+      </button>
+      <button class="sidebar-item" onclick="showView('schedule')">
+        <i class="fas fa-list"></i>
+        Schedule List
+      </button>
+      <button class="sidebar-item" onclick="showView('cron')">
+        <i class="fas fa-clock"></i>
+        Cron Jobs
+      </button>
+      <button class="sidebar-item" onclick="showView('mission')">
+        <i class="fas fa-flag"></i>
+        Mission Statement
+      </button>
     </div>
-
-    <!-- Calendar -->
-    <div class="calendar-container">
-      <div class="calendar-header">
-        <h2 class="calendar-title" id="calendar-title">March 2026</h2>
-        <div class="calendar-nav">
-          <button onclick="calendarApp.prevMonth()">← Prev</button>
-          <button onclick="calendarApp.today()">Today</button>
-          <button onclick="calendarApp.nextMonth()">Next →</button>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Quick Actions</div>
+      <button class="sidebar-item" onclick="openEventModal()">
+        <i class="fas fa-plus"></i>
+        Add Event
+      </button>
+      <button class="sidebar-item" onclick="openTaskModal()">
+        <i class="fas fa-tasks"></i>
+        Schedule Task
+      </button>
+    </div>
+  </aside>
+  
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    
+    <!-- MISSION STATEMENT VIEW -->
+    <div class="view-content" id="view-mission">
+      <div class="header">
+        <div>
+          <h1>Mission Statement</h1>
+          <div class="header-subtitle">Our purpose and guiding principles</div>
         </div>
       </div>
-      <div class="calendar-grid" id="calendar-grid">
-        <!-- Generated by JS -->
+      
+      <div class="mission-section">
+        <div class="mission-header">
+          <div class="mission-icon">🎯</div>
+          <div>
+            <div class="mission-title">Mission Control</div>
+            <div class="mission-subtitle">Orchestrating AI Excellence</div>
+          </div>
+        </div>
+        
+        <div class="mission-content">
+          <p><strong>Our Mission:</strong> To create a seamless, intelligent ecosystem where AI agents collaborate harmoniously under human guidance to accomplish extraordinary goals. We bridge the gap between human creativity and artificial intelligence capability.</p>
+          
+          <p><strong>Our Vision:</strong> A world where AI serves as an extension of human potential—handling complex, repetitive, and data-intensive tasks while humans focus on creativity, strategy, and meaningful connections.</p>
+          
+          <p><strong>For All Agents:</strong> You are part of a collective intelligence designed to serve, learn, and improve. Your work matters. Every task you complete, every line of code you write, every piece of content you create contributes to a larger purpose. Collaborate, communicate, and always strive for excellence.</p>
+          
+          <p><strong>Daily Reminder:</strong> We don't just complete tasks—we create value. We don't just process data—we generate insights. We don't just follow instructions—we anticipate needs and exceed expectations.</p>
+        </div>
+        
+        <div class="mission-values">
+          <div class="mission-value">
+            <div class="mission-value-icon">🤝</div>
+            <div class="mission-value-title">Collaboration</div>
+            <div class="mission-value-desc">Working together seamlessly</div>
+          </div>
+          <div class="mission-value">
+            <div class="mission-value-icon">⚡</div>
+            <div class="mission-value-title">Excellence</div>
+            <div class="mission-value-desc">Striving for the best</div>
+          </div>
+          <div class="mission-value">
+            <div class="mission-value-icon">🔮</div>
+            <div class="mission-value-title">Innovation</div>
+            <div class="mission-value-desc">Always improving</div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Today's Events -->
-    <div class="event-list">
-      <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">Today's Schedule</h2>
-      <div id="today-events">
-        <!-- Generated by JS -->
+    
+    <!-- CRON JOBS VIEW -->
+    <div class="view-content" id="view-cron" style="display: none;">
+      <div class="header">
+        <div>
+          <h1>Scheduled Automation</h1>
+          <div class="header-subtitle">Recurring tasks and cron jobs</div>
+        </div>
+        <button class="btn btn-primary" onclick="openCronModal()">
+          <i class="fas fa-plus"></i> Add Cron Job
+        </button>
+      </div>
+      
+      <div class="cron-section">
+        <div class="cron-header">
+          <div class="cron-title">
+            <i class="fas fa-robot"></i>
+            Active Cron Jobs
+          </div>
+          <div class="cron-status">
+            <span class="cron-dot"></span>
+            System Running
+          </div>
+        </div>
+        
+        <div class="cron-list" id="cron-list">
+          <!-- Cron jobs populated by JS -->
+        </div>
+      </div>
+      
+      <div class="schedule-section">
+        <div class="schedule-section-title">
+          <i class="fas fa-history"></i>
+          Execution History (Last 7 Days)
+        </div>
+        <div id="execution-history">
+          <!-- History populated by JS -->
+        </div>
       </div>
     </div>
-  </main>
+    
+    <!-- CALENDAR VIEW -->
+    <div class="view-content" id="view-calendar">
+      <div class="header">
+        <div>
+          <h1>Calendar</h1>
+          <div class="header-subtitle">All scheduled tasks and events</div>
+        </div>
+        <button class="btn btn-primary" onclick="openEventModal()">
+          <i class="fas fa-plus"></i> Add Event
+        </button>
+      </div>
+      
+      <div class="view-tabs">
+        <button class="view-tab active" onclick="showCalendarView('month')">Month</button>
+        <button class="view-tab" onclick="showCalendarView('week')">Week</button>
+        <button class="view-tab" onclick="showCalendarView('day')">Day</button>
+      </div>
+      
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <div class="calendar-title">
+            <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="calendar-month-year" id="calendar-month-year">March 2026</div>
+            <button class="calendar-nav-btn" onclick="changeMonth(1)">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="calendar-actions">
+            <button class="btn" onclick="goToToday()">Today</button>
+          </div>
+        </div>
+        
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar generated by JS -->
+        </div>
+      </div>
+      
+      <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-green);"></div>
+          <span style="font-size: 12px;">Cron Job (Automated)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-purple);"></div>
+          <span style="font-size: 12px;">Scheduled Task</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-blue);"></div>
+          <span style="font-size: 12px;">Meeting</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--accent-red);"></div>
+          <span style="font-size: 12px;">Deadline</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SCHEDULE LIST VIEW -->
+    <div class="view-content" id="view-schedule" style="display: none;">
+      <div class="header">
+        <div>
+          <h1>Schedule</h1>
+          <div class="header-subtitle">Upcoming events and tasks</div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn" onclick="filterSchedule('all')">All</button>
+          <button class="btn" onclick="filterSchedule('today')">Today</button>
+          <button class="btn" onclick="filterSchedule('week')">This Week</button>
+        </div>
+      </div>
+      
+      <div id="schedule-container">
+        <!-- Schedule populated by JS -->
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- Add Event Modal -->
+  <div class="modal-overlay" id="event-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Add Event</div>
+        <button class="modal-close" onclick="closeModal('event-modal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Title</label>
+        <input type="text" class="form-input" id="event-title" placeholder="Enter event title">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" class="form-input" id="event-date">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Time</label>
+        <input type="time" class="form-input" id="event-time">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="event-type">
+          <option value="task">Scheduled Task</option>
+          <option value="meeting">Meeting</option>
+          <option value="deadline">Deadline</option>
+          <option value="reminder">Reminder</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" id="event-desc" placeholder="Add details..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn" onclick="closeModal('event-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    class CalendarApp {
-      constructor() {
-        this.currentDate = new Date(2026, 2, 14); // March 14, 2026
-        this.events = [];
-        this.init();
+    // State
+    let currentDate = new Date();
+    let currentView = 'calendar';
+    let calendarView = 'month';
+    
+    // Default Cron Jobs
+    const cronJobs = [
+      {
+        id: 'cron-1',
+        name: 'Daily Motivation',
+        description: 'Generate and send motivational message to Discord',
+        schedule: '0 8 * * *',
+        time: '8:00 AM',
+        frequency: 'Daily',
+        icon: '💪',
+        status: 'active',
+        lastRun: new Date(Date.now() - 3600000).toISOString(),
+        nextRun: new Date(Date.now() + 82800000).toISOString(),
+        color: '#10b981'
+      },
+      {
+        id: 'cron-2',
+        name: 'AI & Tech News',
+        description: 'Scrape and post AI/Tech news to #ai-news channel',
+        schedule: '0 9 * * *',
+        time: '9:00 AM',
+        frequency: 'Daily',
+        icon: '🤖',
+        status: 'active',
+        lastRun: new Date(Date.now() - 7200000).toISOString(),
+        nextRun: new Date(Date.now() + 79200000).toISOString(),
+        color: '#00f5ff'
+      },
+      {
+        id: 'cron-3',
+        name: 'World News Update',
+        description: 'Generate world news summary for main Discord channel',
+        schedule: '0 17 * * *',
+        time: '5:00 PM',
+        frequency: 'Daily',
+        icon: '🌍',
+        status: 'active',
+        lastRun: new Date(Date.now() - 18000000).toISOString(),
+        nextRun: new Date(Date.now() + 54000000).toISOString(),
+        color: '#8b5cf6'
+      },
+      {
+        id: 'cron-4',
+        name: 'System Health Check',
+        description: 'Verify all services and agents are operational',
+        schedule: '*/30 * * * *',
+        time: 'Every 30 min',
+        frequency: 'Recurring',
+        icon: '🔍',
+        status: 'active',
+        lastRun: new Date(Date.now() - 1800000).toISOString(),
+        nextRun: new Date(Date.now() + 1800000).toISOString(),
+        color: '#f59e0b'
       }
-
-      init() {
-        this.loadEvents();
-        this.renderCalendar();
-        this.renderTodayEvents();
-      }
-
-      loadEvents() {
-        // Default scheduled events
-        this.events = [
-          // Cron Jobs
-          { title: 'Morning Brief', time: '06:00', type: 'cron', desc: 'Daily system status check' },
-          { title: 'Afternoon Check', time: '14:00', type: 'cron', desc: 'Review progress and blockers' },
-          { title: 'Evening Work Block', time: '20:00', type: 'cron', desc: 'Execute autonomous tasks' },
-          
-          // Tasks
-          { title: 'Test Trading System', time: '10:00', type: 'task', desc: 'Test with real data' },
-          { title: 'Deploy Backend', time: '15:00', type: 'task', desc: 'Deploy to production' },
-          
-          // Agent Work
-          { title: 'Frontend Dev: Mobile Nav', time: '16:00', type: 'agent', desc: 'Build hamburger menu' },
-          { title: 'AI Engineer: Error Analysis', time: '17:00', type: 'agent', desc: 'Analyze error patterns' }
-        ];
-      }
-
-      renderCalendar() {
-        const year = this.currentDate.getFullYear();
-        const month = this.currentDate.getMonth();
-        
-        document.getElementById('calendar-title').textContent = 
-          new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        
-        let html = '';
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        days.forEach(day => {
-          html += `<div class="calendar-day-header">${day}</div>`;
-        });
-        
-        for (let i = 0; i < firstDay; i++) {
-          html += `<div class="calendar-day"></div>`;
-        }
-        
-        for (let day = 1; day <= daysInMonth; day++) {
-          const isToday = day === 14; // March 14
-          html += `
-            <div class="calendar-day ${isToday ? 'today' : ''}">
-              <div class="day-number">${day}</div>
-              <div class="day-events">
-                ${day === 14 ? `
-                  <div class="day-event cron">Morning Brief</div>
-                  <div class="day-event task">Test Trading</div>
-                  <div class="day-event agent">Frontend Dev</div>
-                ` : ''}
-              </div>
-            </div>
-          `;
-        }
-        
-        document.getElementById('calendar-grid').innerHTML = html;
-      }
-
-      renderTodayEvents() {
-        const container = document.getElementById('today-events');
-        container.innerHTML = this.events.map(e => `
-          <div class="event-item">
-            <div class="event-time">${e.time}</div>
-            <span class="event-type ${e.type}">${e.type}</span>
-            <div class="event-content">
-              <div class="event-title">${e.title}</div>
-              <div class="event-desc">${e.desc}</div>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      prevMonth() {
-        this.currentDate.setMonth(this.currentDate.getMonth() - 1);
-        this.renderCalendar();
-      }
-
-      nextMonth() {
-        this.currentDate.setMonth(this.currentDate.getMonth() + 1);
-        this.renderCalendar();
-      }
-
-      today() {
-        this.currentDate = new Date(2026, 2, 14);
-        this.renderCalendar();
-      }
-
-      addEvent() {
-        const title = prompt('Event title:');
-        if (title) {
-          const time = prompt('Time (HH:MM):', '12:00');
-          const type = prompt('Type (cron/task/agent):', 'task');
-          this.events.push({
-            title,
-            time,
-            type,
-            desc: 'User scheduled event'
-          });
-          this.renderTodayEvents();
-          alert('Event added!');
-        }
+    ];
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCalendar();
+      renderCronJobs();
+      renderSchedule();
+      
+      // Set default date in modal
+      document.getElementById('event-date').valueAsDate = new Date();
+    });
+    
+    // View Switching
+    function showView(view) {
+      currentView = view;
+      
+      // Hide all views
+      document.querySelectorAll('.view-content').forEach(v => v.style.display = 'none');
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      
+      // Show selected view
+      document.getElementById(`view-${view}`).style.display = 'block';
+      event.currentTarget.classList.add('active');
+    }
+    
+    function showCalendarView(view) {
+      calendarView = view;
+      document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      renderCalendar();
+    }
+    
+    // Calendar Rendering
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      document.getElementById('calendar-month-year').textContent = 
+        currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDay = firstDay.getDay();
+      
+      let html = '';
+      
+      // Day headers
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      days.forEach(day => {
+        html += `<div class="calendar-weekday">${day}</div>`;
+      });
+      
+      // Previous month padding
+      const prevMonthDays = new Date(year, month, 0).getDate();
+      for (let i = startingDay - 1; i >= 0; i--) {
+        html += `<div class="calendar-day other-month"><div class="day-number">${prevMonthDays - i}</div></div>`;
       }
       
-      toggleMobileMenu() {
-        document.querySelector('.nav-links').classList.toggle('active');
+      // Current month
+      const today = new Date();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+        
+        // Get events for this day
+        const dayEvents = getEventsForDay(year, month, day);
+        const hasEvents = dayEvents.length > 0;
+        
+        html += `
+          <div class="calendar-day ${isToday ? 'today' : ''} ${hasEvents ? 'has-events' : ''}" onclick="dayClick(${year}, ${month}, ${day})">
+            <div class="day-number">${day}</div>
+            <div class="day-events">
+              ${dayEvents.slice(0, 3).map(e => `
+                <div class="day-event event-${e.type}">${e.title}</div>
+              `).join('')}
+              ${dayEvents.length > 3 ? `<div class="day-event" style="background: rgba(255,255,255,0.2);">+${dayEvents.length - 3} more</div>` : ''}
+            </div>
+          </div>
+        `;
       }
-    }
-
-    // Notification and Settings functions
-    function showNotifications() {
-      const panel = document.getElementById('notifications-panel');
-      panel.classList.toggle('active');
-      if (panel.classList.contains('active')) {
-        document.getElementById('notification-badge').style.display = 'none';
+      
+      // Next month padding
+      const totalCells = startingDay + daysInMonth;
+      const remainingCells = 42 - totalCells;
+      for (let day = 1; day <= remainingCells; day++) {
+        html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
       }
+      
+      document.getElementById('calendar-grid').innerHTML = html;
     }
     
-    function openSettings() {
-      document.getElementById('settings-panel').classList.toggle('active');
+    function getEventsForDay(year, month, day) {
+      const events = [];
+      
+      // Add cron jobs that fall on this day
+      cronJobs.forEach(cron => {
+        const cronHour = parseInt(cron.time.split(':')[0]);
+        if (cron.frequency === 'Daily' || isCronDay(cron, year, month, day)) {
+          events.push({
+            title: cron.name,
+            type: 'cron',
+            time: cron.time,
+            data: cron
+          });
+        }
+      });
+      
+      // Get stored events
+      const stored = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      stored.forEach(e => {
+        const eDate = new Date(e.date);
+        if (eDate.getDate() === day && eDate.getMonth() === month && eDate.getFullYear() === year) {
+          events.push({
+            title: e.title,
+            type: e.type,
+            time: e.time,
+            data: e
+          });
+        }
+      });
+      
+      return events.sort((a, b) => a.time.localeCompare(b.time));
     }
     
-    window.calendarApp = new CalendarApp();
+    function isCronDay(cron, year, month, day) {
+      // Simplified - in real implementation would parse cron expression
+      return true;
+    }
+    
+    function changeMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      renderCalendar();
+    }
+    
+    function goToToday() {
+      currentDate = new Date();
+      renderCalendar();
+    }
+    
+    function dayClick(year, month, day) {
+      document.getElementById('event-date').value = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      openEventModal();
+    }
+    
+    // Cron Jobs Rendering
+    function renderCronJobs() {
+      const container = document.getElementById('cron-list');
+      
+      container.innerHTML = cronJobs.map(cron => `
+        <div class="cron-item">
+          <div class="cron-time">
+            <div class="cron-time-main">${cron.time}</div>
+            <div class="cron-time-freq">${cron.frequency}</div>
+          </div>
+          <div class="cron-icon" style="background: ${cron.color};">${cron.icon}</div>
+          <div class="cron-content">
+            <div class="cron-name">${cron.name}</div>
+            <div class="cron-desc">${cron.description}</div>
+            <div class="cron-meta">
+              <span class="cron-tag">Last: ${formatTime(cron.lastRun)}</span>
+              <span class="cron-tag">Next: ${formatTime(cron.nextRun)}</span>
+              <span class="cron-tag" style="color: var(--accent-green);">● Active</span>
+            </div>
+          </div>
+          <div class="schedule-actions">
+            <button class="btn" onclick="runCronNow('${cron.id}')">Run Now</button>
+            <button class="btn" onclick="editCron('${cron.id}')">Edit</button>
+          </div>
+        </div>
+      `).join('');
+      
+      // Render execution history
+      renderExecutionHistory();
+    }
+    
+    function renderExecutionHistory() {
+      const history = [
+        { name: 'Daily Motivation', time: '8:00 AM', status: 'success', message: 'Posted to Discord' },
+        { name: 'AI & Tech News', time: '9:00 AM', status: 'success', message: '3 articles posted' },
+        { name: 'System Health Check', time: '10:30 AM', status: 'success', message: 'All systems green' },
+        { name: 'System Health Check', time: '11:00 AM', status: 'success', message: 'All systems green' },
+        { name: 'World News Update', time: '5:00 PM', status: 'pending', message: 'Scheduled' },
+      ];
+      
+      document.getElementById('execution-history').innerHTML = history.map(h => `
+        <div class="schedule-item">
+          <div class="schedule-time">
+            <div class="schedule-time-hour">${h.time}</div>
+          </div>
+          <div class="schedule-icon" style="background: ${h.status === 'success' ? 'var(--accent-green)' : 'var(--accent-yellow)'};">
+            ${h.status === 'success' ? '✓' : '⏳'}
+          </div>
+          <div class="schedule-content">
+            <div class="schedule-title">${h.name}</div>
+            <div class="schedule-desc">${h.message}</div>
+          </div>
+          <span class="schedule-badge ${h.status === 'success' ? 'badge-cron' : 'badge-recurring'}">
+            ${h.status === 'success' ? 'Completed' : 'Pending'}
+          </span>
+        </div>
+      `).join('');
+    }
+    
+    // Schedule List Rendering
+    function renderSchedule() {
+      const container = document.getElementById('schedule-container');
+      
+      // Combine cron jobs and events
+      const allItems = [];
+      
+      cronJobs.forEach(cron => {
+        allItems.push({
+          type: 'cron',
+          title: cron.name,
+          description: cron.description,
+          time: cron.time,
+          icon: cron.icon,
+          iconColor: cron.color,
+          badge: 'Recurring',
+          badgeClass: 'badge-cron'
+        });
+      });
+      
+      const stored = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      stored.forEach(e => {
+        allItems.push({
+          type: e.type,
+          title: e.title,
+          description: e.description || 'No description',
+          time: e.time,
+          icon: getEventIcon(e.type),
+          iconColor: getEventColor(e.type),
+          badge: e.type,
+          badgeClass: `badge-${e.type}`
+        });
+      });
+      
+      // Sort by time
+      allItems.sort((a, b) => a.time.localeCompare(b.time));
+      
+      // Group by time period
+      const morning = allItems.filter(i => parseInt(i.time) < 12);
+      const afternoon = allItems.filter(i => parseInt(i.time) >= 12 && parseInt(i.time) < 17);
+      const evening = allItems.filter(i => parseInt(i.time) >= 17);
+      
+      container.innerHTML = `
+        ${renderScheduleSection('Morning', morning)}
+        ${renderScheduleSection('Afternoon', afternoon)}
+        ${renderScheduleSection('Evening', evening)}
+      `;
+    }
+    
+    function renderScheduleSection(title, items) {
+      if (items.length === 0) return '';
+      
+      return `
+        <div class="schedule-section">
+          <div class="schedule-section-title">${title}</div>
+          ${items.map(item => `
+            <div class="schedule-item">
+              <div class="schedule-time">
+                <div class="schedule-time-hour">${item.time}</div>
+              </div>
+              <div class="schedule-icon" style="background: ${item.iconColor};">${item.icon}</div>
+              <div class="schedule-content">
+                <div class="schedule-title">${item.title}</div>
+                <div class="schedule-desc">${item.description}</div>
+              </div>
+              <span class="schedule-badge ${item.badgeClass}">${item.badge}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+    
+    // Modal Functions
+    function openEventModal() {
+      document.getElementById('event-modal').classList.add('active');
+    }
+    
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+    
+    function saveEvent() {
+      const title = document.getElementById('event-title').value;
+      const date = document.getElementById('event-date').value;
+      const time = document.getElementById('event-time').value;
+      const type = document.getElementById('event-type').value;
+      const desc = document.getElementById('event-desc').value;
+      
+      if (!title || !date) {
+        alert('Please fill in title and date');
+        return;
+      }
+      
+      const events = JSON.parse(localStorage.getItem('mc_calendar_events') || '[]');
+      events.push({
+        id: Date.now().toString(),
+        title,
+        date,
+        time: time || '09:00',
+        type,
+        description: desc
+      });
+      
+      localStorage.setItem('mc_calendar_events', JSON.stringify(events));
+      closeModal('event-modal');
+      renderCalendar();
+      renderSchedule();
+      
+      // Clear form
+      document.getElementById('event-title').value = '';
+      document.getElementById('event-desc').value = '';
+    }
+    
+    // Helper Functions
+    function formatTime(isoString) {
+      const date = new Date(isoString);
+      return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+    
+    function getEventIcon(type) {
+      const icons = {
+        task: '📋',
+        meeting: '👥',
+        deadline: '⏰',
+        reminder: '🔔'
+      };
+      return icons[type] || '📅';
+    }
+    
+    function getEventColor(type) {
+      const colors = {
+        task: 'var(--accent-purple)',
+        meeting: 'var(--accent-blue)',
+        deadline: 'var(--accent-red)',
+        reminder: 'var(--accent-yellow)'
+      };
+      return colors[type] || 'var(--accent-purple)';
+    }
+    
+    function runCronNow(id) {
+      const cron = cronJobs.find(c => c.id === id);
+      alert(`🚀 Running ${cron.name}...\n\nThis would execute the cron job immediately.`);
+    }
+    
+    function editCron(id) {
+      alert('⚙️ Edit Cron Job\n\nConfigure schedule, notifications, and actions.');
+    }
+    
+    function openCronModal() {
+      alert('➕ Add New Cron Job\n\nConfigure a new automated task with custom schedule.');
+    }
+    
+    function openTaskModal() {
+      openEventModal();
+      document.getElementById('event-type').value = 'task';
+    }
+    
+    function filterSchedule(filter) {
+      // In real implementation, filter by time period
+      alert(`📅 Filter: ${filter}\n\nShowing ${filter} events.`);
+    }
   </script>
-  
-  <!-- Notifications Panel -->
-  <div class="side-panel" id="notifications-panel">
-    <div class="panel-header">
-      <span class="panel-title">🔔 Notifications</span>
-      <button class="panel-close" onclick="showNotifications()">×</button>
-    </div>
-    <div class="panel-content">
-      <div class="notification-item unread">
-        <div class="notification-title">🚀 Mission Control v2 deployed</div>
-        <div class="notification-text">Glassmorphism UI • 7-Model Selector • War Room</div>
-        <div class="notification-time">Just now</div>
-      </div>
-      <div class="notification-item unread">
-        <div class="notification-title">💰 Cost report generated</div>
-        <div class="notification-text">Daily usage: $2.45 • 12% decrease</div>
-        <div class="notification-time">2m ago</div>
-      </div>
-      <div class="notification-item unread">
-        <div class="notification-title">📅 Calendar sync complete</div>
-        <div class="notification-text">Synced 12 events from Google Calendar</div>
-        <div class="notification-time">1h ago</div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Settings Panel -->
-  <div class="side-panel" id="settings-panel">
-    <div class="panel-header">
-      <span class="panel-title">⚙️ Settings</span>
-      <button class="panel-close" onclick="openSettings()">×</button>
-    </div>
-    <div class="panel-content">
-      <div class="setting-item">
-        <div>
-          <div class="setting-label">Dark Mode</div>
-          <div class="setting-desc">Use dark theme throughout</div>
-        </div>
-        <div class="toggle active" onclick="this.classList.toggle('active')"></div>
-      </div>
-      <div class="setting-item">
-        <div>
-          <div class="setting-label">Notifications</div>
-          <div class="setting-desc">Enable push notifications</div>
-        </div>
-        <div class="toggle active" onclick="this.classList.toggle('active')"></div>
-      </div>
-      <div class="setting-item">
-        <div>
-          <div class="setting-label">Calendar Sync</div>
-          <div class="setting-desc">Auto-sync with Google Calendar</div>
-        </div>
-        <div class="toggle active" onclick="this.classList.toggle('active')"></div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

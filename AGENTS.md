@@ -31,6 +31,8 @@
 12. **Calendar** - Month navigation, events, today button
 13. **Memory** - Document storage with download capability
 14. **Mission Control Logo** - Click to return to dashboard
+15. **Full Calendar Page** - Complete calendar with cron jobs, scheduled tasks
+16. **Mission Statement** - Visible to all agents with daily reminder
 
 ### 📄 New Pages (March 15, 2026)
 
