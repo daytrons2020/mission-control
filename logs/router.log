@@ -1,0 +1,16 @@
+🧠 Intelligent Skip Router on port 11435
+   Strategy: Smart Escalation (Skip MiniMax when appropriate)
+
+Task Categories:
+  • Simple/Creative  → MLX → MiniMax → Kimi (if needed)
+  • Complex/Research → MLX → Kimi (skips MiniMax)
+
+Skip triggers:
+  • MLX says 'I cannot' / 'beyond my capabilities'
+  • Architecture/design tasks
+  • Research/analysis tasks
+  • ML/blockchain/security tasks
+
+Add to OpenClaw:
+  "baseUrl": "http://127.0.0.1:11435/v1"
+

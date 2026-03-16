@@ -408,6 +408,165 @@
     }
     .doc-actions .btn { flex: 1; }
     
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    @keyframes toastIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes toastOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+    .toast-icon { font-size: 20px; }
+    .toast-content { flex: 1; }
+    .toast-title { font-weight: 600; font-size: 14px; }
+    .toast-message { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+    .toast-success { border-left: 3px solid var(--accent-green); }
+    .toast-error { border-left: 3px solid var(--accent-red); }
+    .toast-info { border-left: 3px solid var(--accent-cyan); }
+    
+    /* Document Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 16px 24px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .modal-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .modal-meta-item { display: flex; align-items: center; gap: 6px; }
+    
+    /* Goal Progress Cards */
+    .goals-section {
+      margin-bottom: 24px;
+    }
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .goal-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+    .goal-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .goal-title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .goal-hours {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      background: var(--glass-bg-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .goal-progress-bar {
+      height: 8px;
+      background: var(--glass-bg-light);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .goal-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .goal-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    
     /* Responsive */
     @media (max-width: 1400px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .dashboard-grid { grid-template-columns: 1fr; } }
@@ -421,6 +580,53 @@
 </head>
 <body>
   <div class="bg-gradient"></div>
+  
+  <!-- Toast Notifications Container -->
+  <div class="toast-container" id="toast-container"></div>
+  
+  <!-- Document Modal -->
+  <div class="modal-overlay" id="doc-modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="modal-icon">📄</span>
+          <span id="modal-title-text">Document Title</span>
+        </div>
+        <button class="btn btn-icon" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <i class="fas fa-user"></i>
+            <span id="modal-author">Author</span>
+          </div>
+          <div class="modal-meta-item">
+            <i class="fas fa-calendar"></i>
+            <span id="modal-date">Date</span>
+          </div>
+          <div class="modal-meta-item">
+            <i class="fas fa-file"></i>
+            <span id="modal-size">Size</span>
+          </div>
+          <div class="modal-meta-item">
+            <i class="fas fa-tag"></i>
+            <span id="modal-tags">Tags</span>
+          </div>
+        </div>
+        <div id="modal-content">Content goes here...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="downloadCurrentDocument()">
+          <i class="fas fa-download"></i> Download
+        </button>
+        <button class="btn btn-primary" onclick="closeModal()">
+          <i class="fas fa-check"></i> Done
+        </button>
+      </div>
+    </div>
+  </div>
   
   <!-- Top Navigation -->
   <nav class="top-nav">
@@ -568,6 +774,19 @@
           <div class="stat-icon" style="color: var(--accent-purple);"><i class="fas fa-robot"></i></div>
           <div class="stat-value" style="color: var(--accent-purple);">14</div>
           <div class="stat-label">Active Agents</div>
+        </div>
+      </div>
+      
+      <!-- Goals Progress Section -->
+      <div class="goals-section">
+        <div class="header" style="margin-bottom: 16px;">
+          <div>
+            <h2 style="font-size: 18px; font-weight: 600;">🎯 Goal Progress</h2>
+            <div class="header-subtitle">5 goals • 340 hours total</div>
+          </div>
+        </div>
+        <div class="goals-grid" id="goals-grid">
+          <!-- Populated by JS -->
         </div>
       </div>
       
@@ -873,6 +1092,18 @@
       { name: 'Integration Spec', role: 'APIs', emoji: '🔌', color: 'linear-gradient(135deg, #06b6d4, #22d3ee)', status: 'online' }
     ];
     
+    // Goals data
+    const goals = [
+      { id: 1, name: 'Respiratory Education Empire', hours: 40, completed: 8, color: '#ef4444', icon: '🫁' },
+      { id: 2, name: 'Autonomous Trading System', hours: 52, completed: 15, color: '#f59e0b', icon: '📈' },
+      { id: 3, name: '24/7 Reselling Business', hours: 52, completed: 0, color: '#10b981', icon: '📦' },
+      { id: 4, name: 'Polymarket Crypto Bot', hours: 56, completed: 22, color: '#8b5cf6', icon: '🎲' },
+      { id: 5, name: 'Life-Improving Programs', hours: 52, completed: 5, color: '#06b6d4', icon: '✨' }
+    ];
+    
+    // Current document for modal
+    let currentModalDoc = null;
+    
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
       console.log('[Dashboard] Initializing...');
@@ -880,10 +1111,22 @@
       renderTasks();
       renderAgents();
       renderActivity();
+      renderGoals();
       loadMemoryDocuments();
       checkConnection();
       
+      // Auto-refresh stats every 30 seconds (FREE - just updates display from localStorage)
+      setInterval(() => {
+        updateStats();
+        renderTasks();
+      }, 30000);
+      
       setInterval(checkConnection, 30000);
+      
+      // Show welcome toast
+      setTimeout(() => {
+        showToast('Welcome to Mission Control', 'All systems operational', 'info');
+      }, 1000);
     });
     
     // Tab switching
@@ -1400,6 +1643,211 @@ Last Updated: ${new Date().toLocaleTimeString()}`
         text.textContent = 'Offline';
       }
     }
+    
+    // ==========================================
+    // TIER 1 UPGRADES - NEW FUNCTIONS
+    // ==========================================
+    
+    // Toast Notification System
+    function showToast(title, message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      
+      const icons = {
+        success: '✅',
+        error: '❌',
+        info: 'ℹ️'
+      };
+      
+      toast.innerHTML = `
+        <div class="toast-icon">${icons[type]}</div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>
+      `;
+      
+      container.appendChild(toast);
+      
+      // Remove after animation
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+    
+    // Render Goals with Progress Bars
+    function renderGoals() {
+      const container = document.getElementById('goals-grid');
+      if (!container) return;
+      
+      container.innerHTML = goals.map(goal => {
+        const percent = Math.round((goal.completed / goal.hours) * 100);
+        return `
+          <div class="goal-card">
+            <div class="goal-header">
+              <div class="goal-title">${goal.icon} ${goal.name}</div>
+              <div class="goal-hours">${goal.completed}/${goal.hours}h</div>
+            </div>
+            <div class="goal-progress-bar">
+              <div class="goal-progress-fill" style="width: ${percent}%; background: ${goal.color};"></div>
+            </div>
+            <div class="goal-stats">
+              <span>${percent}% complete</span>
+              <span>${goal.hours - goal.completed}h remaining</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Document Modal Functions
+    function openDocumentModal(docId) {
+      const doc = allDocuments.find(d => d.id === docId);
+      if (!doc) return;
+      
+      currentModalDoc = doc;
+      
+      document.getElementById('modal-icon').textContent = doc.icon;
+      document.getElementById('modal-title-text').textContent = doc.title;
+      document.getElementById('modal-author').textContent = doc.author;
+      document.getElementById('modal-date').textContent = doc.created;
+      document.getElementById('modal-size').textContent = doc.size;
+      document.getElementById('modal-tags').textContent = doc.tags.join(', ');
+      document.getElementById('modal-content').innerHTML = `
+        <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">${doc.preview}</p>
+        <div style="margin-top: 24px; padding: 20px; background: var(--glass-bg-light); border-radius: 10px;">
+          <h4 style="margin-bottom: 12px; color: var(--accent-cyan);">Full Content</h4>
+          <p style="color: rgba(255,255,255,0.6);">This is a preview of the document. In a full implementation, the complete document content would be displayed here.</p>
+        </div>
+      `;
+      
+      document.getElementById('doc-modal').classList.add('active');
+    }
+    
+    function closeModal(event) {
+      if (!event || event.target.id === 'doc-modal' || event.target.closest('button')) {
+        document.getElementById('doc-modal').classList.remove('active');
+        currentModalDoc = null;
+      }
+    }
+    
+    function downloadCurrentDocument() {
+      if (!currentModalDoc) return;
+      downloadDocument(currentModalDoc.id);
+    }
+    
+    // Update openDocument to use modal
+    function openDocument(id) {
+      openDocumentModal(id);
+    }
+    
+    // Override addTask with toast notification
+    const originalAddTask = addTask;
+    addTask = function() {
+      const title = prompt('Task title:');
+      if (!title) return;
+      
+      const assignee = prompt('Assign to (or leave blank):') || 'Unassigned';
+      const priority = prompt('Priority (low/medium/high):') || 'medium';
+      
+      const task = {
+        id: Date.now().toString(),
+        title,
+        assignee,
+        priority,
+        status: 'todo',
+        completed: false
+      };
+      
+      tasks.push(task);
+      localStorage.setItem('mc_tasks', JSON.stringify(tasks));
+      
+      updateStats();
+      renderTasks();
+      
+      // Show toast
+      showToast('Task Added', `"${title}" has been added to your tasks`, 'success');
+      
+      // Add activity
+      const activityList = document.getElementById('activity-list');
+      const newActivity = document.createElement('div');
+      newActivity.className = 'activity-item';
+      newActivity.innerHTML = `
+        <div class="activity-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">+</div>
+        <div class="activity-content">
+          <div class="activity-text">Task <strong>${title}</strong> added</div>
+          <div class="activity-time">Just now</div>
+        </div>
+      `;
+      activityList.insertBefore(newActivity, activityList.firstChild);
+    };
+    
+    // Override createDocument with toast
+    const originalCreateDocument = createDocument;
+    createDocument = function() {
+      const title = prompt('Document title:');
+      if (!title) return;
+      
+      const type = prompt('Type (document/code/research/plan):') || 'document';
+      const content = prompt('Content preview:') || 'New document content...';
+      
+      const newDoc = {
+        id: Date.now(),
+        title,
+        type,
+        icon: getIconForType(type),
+        created: new Date().toISOString().split('T')[0],
+        size: (Math.random() * 50 + 5).toFixed(1) + ' KB',
+        author: 'You',
+        tags: ['new', type],
+        preview: content
+      };
+      
+      allDocuments.unshift(newDoc);
+      localStorage.setItem('mc_documents', JSON.stringify(allDocuments));
+      
+      updateMemoryStats();
+      renderDocuments(allDocuments);
+      
+      showToast('Document Created', `"${title}" has been created`, 'success');
+      
+      // Switch to memory tab
+      document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+      document.getElementById('tab-memory').style.display = 'block';
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      document.querySelector('.nav-item[onclick="showTab(\'memory\')"]').classList.add('active');
+    };
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + number to switch tabs
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case '1':
+            e.preventDefault();
+            showTab('dashboard');
+            break;
+          case '2':
+            e.preventDefault();
+            showTab('tasks');
+            break;
+          case '3':
+            e.preventDefault();
+            showTab('memory');
+            break;
+          case '4':
+            e.preventDefault();
+            showTab('help');
+            break;
+        }
+      }
+      
+      // Escape to close modal
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
