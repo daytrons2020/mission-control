@@ -8,8 +8,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
-      --sidebar-width: 260px;
-      --sidebar-collapsed: 70px;
       --glass-bg: rgba(15, 15, 20, 0.7);
       --glass-bg-light: rgba(255, 255, 255, 0.05);
       --glass-border: rgba(255, 255, 255, 0.1);
@@ -19,9 +17,6 @@
       --accent-yellow: #f59e0b;
       --accent-red: #ef4444;
       --accent-pink: #ec4899;
-      --accent-orange: #f97316;
-      --accent-blue: #3b82f6;
-      --accent-indigo: #6366f1;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -29,169 +24,34 @@
       background: linear-gradient(135deg, #0a0a0e 0%, #1a1a2e 50%, #0a0a0e 100%);
       color: #fff;
       min-height: 100vh;
+      padding: 80px 24px 24px;
       overflow-x: hidden;
-    }
-    
-    /* Top Navigation */
-    .top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(15, 15, 20, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1000;
-    }
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .menu-toggle {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass-bg-light);
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: all 0.2s;
-    }
-    .menu-toggle:hover {
-      background: var(--accent-purple);
-      border-color: var(--accent-purple);
-    }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 18px;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-    }
-    .nav-brand:hover {
-      color: var(--accent-cyan);
-    }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    /* Nav Sidebar */
-    .nav-sidebar {
-      position: fixed;
-      left: 0;
-      top: 60px;
-      bottom: 0;
-      width: var(--sidebar-width);
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid var(--glass-border);
-      transition: width 0.3s;
-      z-index: 999;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    .nav-sidebar.collapsed {
-      width: var(--sidebar-collapsed);
-    }
-    .nav-sidebar-section {
-      padding: 16px 12px;
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .nav-sidebar-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 12px;
-      padding: 0 12px;
-    }
-    .nav-sidebar.collapsed .nav-sidebar-title {
-      display: none;
-    }
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.2s;
-      margin-bottom: 4px;
-    }
-    .nav-item:hover, .nav-item.active {
-      background: var(--glass-bg-light);
-      color: #fff;
-    }
-    .nav-item.active {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--accent-purple);
-    }
-    .nav-item i {
-      width: 24px;
-      text-align: center;
-      font-size: 18px;
-    }
-    .nav-sidebar.collapsed .nav-item span {
-      display: none;
-    }
-
-    /* Main Content */
-    .main-wrapper {
-      margin-left: var(--sidebar-width);
-      margin-top: 60px;
-      min-height: calc(100vh - 60px);
-      transition: margin-left 0.3s;
-      padding: 24px;
-    }
-    .main-wrapper.expanded {
-      margin-left: var(--sidebar-collapsed);
     }
     .bg-gradient {
       position: fixed;
       inset: 0;
       background: 
         radial-gradient(ellipse at 10% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+        radial-gradient(ellipse at 90% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
     }
+    
+    /* Header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
     }
-    .header h1 {
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .header-subtitle {
-      font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 4px;
-    }
-    .office-status-bar {
+    .header h1 { font-size: 28px; font-weight: 700; }
+    .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    
+    /* Status Bar */
+    .status-bar {
       display: flex;
       gap: 12px;
+      margin-bottom: 24px;
     }
     .status-pill {
       display: flex;
@@ -208,84 +68,26 @@
       height: 8px;
       border-radius: 50%;
     }
-    .dot-online { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); animation: pulse 2s infinite; }
+    .dot-online { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
     .dot-busy { background: var(--accent-yellow); box-shadow: 0 0 8px var(--accent-yellow); }
-    .dot-offline { background: rgba(255,255,255,0.3); }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    /* Office Floor Plan */
-    .office-floor {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 32px;
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-    .floor-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .floor-title h2 {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .live-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--accent-green);
-    }
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-green);
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
-
+    
     /* Workstations Grid */
     .workstations-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 24px;
+      margin-bottom: 24px;
     }
-
-    /* Individual Workspace */
+    
     .workspace {
       background: linear-gradient(145deg, rgba(20,20,30,0.8), rgba(15,15,25,0.9));
       border: 1px solid var(--glass-border);
       border-radius: 20px;
       padding: 24px;
-      position: relative;
       transition: all 0.3s;
-      overflow: hidden;
-    }
-    .workspace::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .workspace:hover::before {
-      opacity: 1;
     }
     .workspace:hover {
-      border-color: rgba(139, 92, 246, 0.3);
+      border-color: var(--accent-purple);
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
@@ -293,20 +95,13 @@
       border-color: var(--accent-green);
       box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
     }
-    .workspace.active::before {
-      opacity: 1;
-      background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
-    }
-
-    /* Agent Profile Area */
+    
+    /* Agent Profile */
     .workspace-profile {
       display: flex;
       align-items: center;
       gap: 16px;
       margin-bottom: 20px;
-    }
-    .avatar-container {
-      position: relative;
     }
     .agent-avatar {
       width: 72px;
@@ -317,57 +112,22 @@
       justify-content: center;
       font-size: 36px;
       position: relative;
-      overflow: hidden;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
-    .agent-avatar::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-    }
-    .avatar-glow {
-      position: absolute;
-      inset: -4px;
-      border-radius: 24px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .workspace.active .avatar-glow {
-      opacity: 1;
-      animation: glow 2s infinite;
-    }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px currentColor; }
-      50% { box-shadow: 0 0 40px currentColor; }
-    }
-    .status-ring {
+    .agent-status {
       position: absolute;
       bottom: -4px;
       right: -4px;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: 3px solid #0a0a0e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
     }
-    .status-ring.online { background: var(--accent-green); }
-    .status-ring.busy { background: var(--accent-yellow); }
-    .status-ring.offline { background: rgba(255,255,255,0.3); }
-
-    .agent-info h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .agent-role {
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 6px;
-    }
+    .agent-status.online { background: var(--accent-green); }
+    .agent-status.busy { background: var(--accent-yellow); }
+    
+    .agent-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .agent-role { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
     .agent-status-text {
       display: inline-flex;
       align-items: center;
@@ -375,24 +135,16 @@
       font-size: 11px;
       padding: 4px 10px;
       border-radius: 12px;
-      background: var(--glass-bg-light);
-    }
-    .agent-status-text.working {
       background: rgba(16, 185, 129, 0.15);
       color: var(--accent-green);
     }
-    .agent-status-text.idle {
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.5);
-    }
-
+    
     /* Computer Screen */
     .computer-setup {
       background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
-      border: 1px solid rgba(255,255,255,0.05);
     }
     .monitor {
       background: #000;
@@ -403,42 +155,21 @@
       overflow: hidden;
       margin-bottom: 12px;
     }
-    .monitor::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 30%;
-      background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), transparent);
-      pointer-events: none;
-    }
     .screen-content {
       position: absolute;
       inset: 8px;
       background: linear-gradient(180deg, rgba(139, 92, 246, 0.05), rgba(0,0,0,0.9));
       border-radius: 8px;
       padding: 12px;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: monospace;
       font-size: 11px;
       color: rgba(255,255,255,0.8);
-      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
-    .code-line {
-      margin-bottom: 4px;
-      opacity: 0.8;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .code-line .prompt {
-      color: var(--accent-green);
-    }
-    .code-line .command {
-      color: var(--accent-cyan);
-    }
+    .code-line { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .code-line .prompt { color: var(--accent-green); }
+    .code-line .command { color: var(--accent-cyan); }
     .typing-cursor {
       display: inline-block;
       width: 8px;
@@ -446,15 +177,10 @@
       background: var(--accent-cyan);
       animation: blink 1s infinite;
       vertical-align: middle;
-      margin-left: 4px;
     }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-    .progress-section {
-      margin-top: auto;
-    }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+    
+    .progress-section { margin-top: auto; }
     .progress-label {
       font-size: 10px;
       color: rgba(255,255,255,0.5);
@@ -473,66 +199,9 @@
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
       border-radius: 2px;
       transition: width 0.5s;
-      position: relative;
     }
-    .progress-fill::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 20px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
-      animation: shimmer 2s infinite;
-    }
-    @keyframes shimmer {
-      0% { transform: translateX(20px); }
-      100% { transform: translateX(-100%); }
-    }
-
-    /* Keyboard and Desk Items */
-    .desk-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .keyboard {
-      display: flex;
-      gap: 2px;
-      flex-wrap: wrap;
-      width: 60%;
-    }
-    .key {
-      width: 8px;
-      height: 8px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      transition: background 0.1s;
-    }
-    .key.active {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 4px var(--accent-cyan);
-    }
-    .desk-items {
-      display: flex;
-      gap: 8px;
-    }
-    .desk-item {
-      width: 32px;
-      height: 32px;
-      background: var(--glass-bg-light);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      transition: transform 0.2s;
-    }
-    .desk-item:hover {
-      transform: scale(1.1);
-    }
-
-    /* Workspace Stats */
+    
+    /* Stats */
     .workspace-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -545,402 +214,81 @@
       padding: 12px;
       text-align: center;
     }
-    .stat-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent-cyan);
-    }
-    .stat-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
+    .stat-value { font-size: 18px; font-weight: 700; color: var(--accent-cyan); }
+    .stat-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-top: 4px; }
+    
     /* Current Task */
     .current-task {
       background: var(--glass-bg-light);
       border-radius: 12px;
       padding: 14px;
       margin-bottom: 16px;
-      border-left: 3px solid var(--accent-purple);
+      border-left: 3px solid var(--accent-green);
     }
-    .current-task.working {
-      border-left-color: var(--accent-green);
-      animation: taskPulse 2s infinite;
-    }
-    @keyframes taskPulse {
-      0%, 100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
-      50% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
-    }
-    .task-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .task-name {
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    /* Action Buttons */
-    .workspace-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass-bg-light);
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .btn:hover {
-      background: var(--accent-purple);
-      border-color: var(--accent-purple);
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-      border-color: transparent;
-    }
-
-    /* Floor Plan Mini Map */
-    .floor-plan-section {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 24px;
-    }
-    .floor-plan-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .floor-plan-title {
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .legend {
-      display: flex;
-      gap: 16px;
-      font-size: 12px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .office-map {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 12px;
-    }
-    .map-station {
-      aspect-ratio: 1;
-      background: var(--glass-bg-light);
-      border: 2px solid var(--glass-border);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
-    .map-station:hover {
-      border-color: var(--accent-purple);
-      transform: scale(1.05);
-    }
-    .map-station.occupied {
-      border-color: var(--accent-green);
-      background: rgba(16, 185, 129, 0.1);
-    }
-    .map-station.busy {
-      border-color: var(--accent-yellow);
-      background: rgba(245, 158, 11, 0.1);
-    }
-    .map-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    .map-name {
-      font-size: 9px;
-      font-weight: 500;
-      text-align: center;
-    }
-    .map-status {
-      font-size: 8px;
-      color: rgba(255,255,255,0.5);
-    }
-    .activity-indicator {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      animation: pulse 1.5s infinite;
-    }
-
-    /* Activity Log */
-    .activity-sidebar {
-      position: fixed;
-      right: 24px;
-      top: 80px;
-      width: 280px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 20px;
-      max-height: calc(100vh - 100px);
-      overflow-y: auto;
-    }
-    .activity-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .activity-item {
-      display: flex;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .activity-item:last-child {
-      border-bottom: none;
-    }
-    .activity-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .activity-content {
-      flex: 1;
-    }
-    .activity-text {
-      font-size: 12px;
-      line-height: 1.4;
-      margin-bottom: 4px;
-    }
-    .activity-time {
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
-    }
-
-    @media (max-width: 1400px) {
-      .activity-sidebar {
-        display: none;
-      }
-    }
+    .task-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 4px; }
+    .task-name { font-size: 13px; font-weight: 500; }
+    
     @media (max-width: 768px) {
-      .workstations-grid {
-        grid-template-columns: 1fr;
-      }
-      .office-map {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      .workstations-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   
-  <nav class="top-nav">
-    <div class="nav-left">
-      <button class="menu-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-      </button>
-      <a href="dashboard.html" class="nav-brand">
-        <span style="font-size: 24px;">🎯</span>
-        <span>Mission Control</span>
-      </a>
-    </div>
-    <div class="nav-right">
-      <button class="btn" onclick="location.href='dashboard.html'">
-        <i class="fas fa-th-large"></i> Dashboard
-      </button>
-    </div>
-  </nav>
-  
-  <aside class="nav-sidebar" id="sidebar">
-    <div class="nav-sidebar-section">
-      <div class="nav-sidebar-title">Main</div>
-      <a href="dashboard.html" class="nav-item">
-        <i class="fas fa-th-large"></i>
-        <span>Dashboard</span>
-      </a>
-      <a href="dashboard.html#tasks" class="nav-item">
-        <i class="fas fa-tasks"></i>
-        <span>Tasks</span>
-      </a>
-      <a href="dashboard.html#calendar" class="nav-item">
-        <i class="fas fa-calendar-alt"></i>
-        <span>Calendar</span>
-      </a>
-      <a href="dashboard.html#memory" class="nav-item">
-        <i class="fas fa-database"></i>
-        <span>Memory</span>
-      </a>
-    </div>
-    <div class="nav-sidebar-section">
-      <div class="nav-sidebar-title">Tools</div>
-      <a href="content-pipeline.html" class="nav-item">
-        <i class="fas fa-stream"></i>
-        <span>Content Pipeline</span>
-      </a>
-      <a href="team.html" class="nav-item">
-        <i class="fas fa-users"></i>
-        <span>Team Structure</span>
-      </a>
-      <a href="office.html" class="nav-item active">
-        <i class="fas fa-building"></i>
-        <span>Digital Office</span>
-      </a>
-      <a href="csrc-modern.html" class="nav-item">
-        <i class="fas fa-lungs"></i>
-        <span>CSRC Website</span>
-      </a>
-    </div>
-  </aside>
-
-  <div class="main-wrapper">
   <div class="header">
     <div>
       <h1>🏢 Digital Office</h1>
       <div class="header-subtitle">Real-time view of all team members at work</div>
     </div>
-    <div class="office-status-bar">
-      <div class="status-pill">
-        <span class="status-dot dot-online"></span>
-        <span id="working-count">7 Working</span>
-      </div>
-      <div class="status-pill">
-        <span class="status-dot dot-busy"></span>
-        <span id="busy-count">3 Busy</span>
-      </div>
-      <div class="status-pill">
-        <span class="status-dot dot-offline"></span>
-        <span id="standby-count">4 Standby</span>
-      </div>
+  </div>
+  
+  <div class="status-bar">
+    <div class="status-pill">
+      <span class="status-dot dot-online"></span>
+      <span id="working-count">7 Working</span>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot dot-busy"></span>
+      <span id="busy-count">3 Busy</span>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot" style="background: rgba(255,255,255,0.3);"></span>
+      <span id="standby-count">4 Standby</span>
     </div>
   </div>
-
-  <!-- Main Office Floor -->
-  <div class="office-floor">
-    <div class="floor-title">
-      <h2>🖥️ Active Workstations</h2>
-      <div class="live-indicator">
-        <span class="live-dot"></span>
-        <span>LIVE</span>
-      </div>
-    </div>
-    
-    <div class="workstations-grid" id="workstations">
-      <!-- Workstations will be generated by JavaScript -->
-    </div>
-  </div>
-
-  <!-- Floor Plan Overview -->
-  <div class="floor-plan-section">
-    <div class="floor-plan-header">
-      <div class="floor-plan-title">🗺️ Office Floor Plan - Quick View</div>
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-dot" style="background: var(--accent-green);"></div>
-          <span>Working</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background: var(--accent-yellow);"></div>
-          <span>Busy</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background: rgba(255,255,255,0.3);"></div>
-          <span>Standby</span>
-        </div>
-      </div>
-    </div>
-    <div class="office-map" id="office-map">
-      <!-- Map stations generated by JavaScript -->
-    </div>
-  </div>
-
-  <!-- Activity Sidebar -->
-  <div class="activity-sidebar">
-    <div class="activity-title">
-      <i class="fas fa-stream"></i>
-      Live Activity Feed
-    </div>
-    <div id="activity-feed">
-      <!-- Activity items generated by JavaScript -->
-    </div>
-  </div>
+  
+  <div class="workstations-grid" id="workstations">
+    <!-- Workstations will be populated by JavaScript -->
   </div>
 
   <script>
-    // Agent Data with Creative Avatars and Work Areas
+    // Agent Data
     const agents = [
       {
-        id: 'kimi',
-        name: 'Kimi (Me)',
+        name: 'Kimi (Lead AI)',
         role: 'Lead AI Orchestrator',
         avatar: '🎯',
         gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-        status: 'working',
+        status: 'online',
         statusText: 'Managing Team',
         screen: [
           { type: 'prompt', text: '>' },
           { type: 'command', text: 'orchestrate --all' },
           { text: 'Coordinating 14 active agents...' },
-          { text: 'Task queue: 24 pending' },
-          { text: 'Monitoring system health...' }
+          { text: 'Task queue: 24 pending' }
         ],
         progress: 78,
         progressLabel: 'System Load',
         stats: { tasks: 156, hours: '6.2h', efficiency: '98%' },
-        task: 'Managing Mission Control Operations',
-        deskItems: ['☕', '📱', '🧠'],
-        color: '#8b5cf6'
+        task: 'Managing Mission Control Operations'
       },
       {
-        id: 'nano',
         name: 'Nano',
         role: 'Mission Control Coordinator',
         avatar: '🤖',
         gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-        status: 'working',
+        status: 'online',
         statusText: 'Coordinating Tasks',
         screen: [
           { type: 'prompt', text: '>' },
@@ -951,34 +299,27 @@
         progress: 65,
         progressLabel: 'Queue Processing',
         stats: { tasks: 24, hours: '4.1h', efficiency: '96%' },
-        task: 'Prioritizing and routing tasks',
-        deskItems: ['📋', '☕', '⏰'],
-        color: '#6366f1'
+        task: 'Prioritizing and routing tasks'
       },
       {
-        id: 'frontend',
         name: 'Frontend Developer',
         role: 'UI/UX Specialist',
         avatar: '🎨',
         gradient: 'linear-gradient(135deg, #ec4899, #f472b6)',
-        status: 'working',
+        status: 'busy',
         statusText: 'Coding Interface',
         screen: [
           { type: 'prompt', text: '>' },
           { type: 'command', text: 'npm run dev' },
           { text: 'Building workspace components...' },
-          { text: 'Compiling tailwind styles...' },
-          { text: 'Hot reload: 3 files updated' }
+          { text: 'Compiling tailwind styles...' }
         ],
         progress: 82,
         progressLabel: 'Build Progress',
         stats: { tasks: 12, hours: '3.5h', efficiency: '94%' },
-        task: 'Building Digital Office interface',
-        deskItems: ['🎨', '⌨️', '🖱️'],
-        color: '#ec4899'
+        task: 'Building Digital Office interface'
       },
       {
-        id: 'backend',
         name: 'Backend Developer',
         role: 'API Architect',
         avatar: '⚙️',
@@ -994,34 +335,27 @@
         progress: 45,
         progressLabel: 'Migration Progress',
         stats: { tasks: 8, hours: '2.8h', efficiency: '92%' },
-        task: 'Database optimization',
-        deskItems: ['🗄️', '☕', '🐍'],
-        color: '#f59e0b'
+        task: 'Database optimization'
       },
       {
-        id: 'database',
         name: 'Database Engineer',
         role: 'Data Specialist',
         avatar: '🗄️',
         gradient: 'linear-gradient(135deg, #10b981, #34d399)',
-        status: 'working',
+        status: 'online',
         statusText: 'Indexing Data',
         screen: [
           { type: 'prompt', text: '>' },
           { type: 'command', text: 'VACUUM ANALYZE' },
           { text: 'Indexing memory vectors...' },
-          { text: 'Optimizing search queries...' },
           { text: 'Rows processed: 47,832' }
         ],
         progress: 91,
         progressLabel: 'Indexing',
         stats: { tasks: 15, hours: '5.2h', efficiency: '97%' },
-        task: 'Memory search optimization',
-        deskItems: ['📊', '🗄️', '⚡'],
-        color: '#10b981'
+        task: 'Memory search optimization'
       },
       {
-        id: 'ai-engineer',
         name: 'AI Engineer',
         role: 'Model Optimization',
         avatar: '🧠',
@@ -1037,125 +371,24 @@
         progress: 47,
         progressLabel: 'Training Epoch',
         stats: { tasks: 6, hours: '4.5h', efficiency: '95%' },
-        task: 'Training cost optimization model',
-        deskItems: ['🧠', '📈', '💻'],
-        color: '#06b6d4'
-      },
-      {
-        id: 'content-writer',
-        name: 'Content Writer',
-        role: 'Documentation & Copy',
-        avatar: '✍️',
-        gradient: 'linear-gradient(135deg, #8b5cf6, #a78bfa)',
-        status: 'working',
-        statusText: 'Writing Article',
-        screen: [
-          { text: 'Writing: RT Workshop Series' },
-          { text: 'Words: 2,450 / 3,000' },
-          { text: 'Section: Clinical Applications' },
-          { text: 'Research sources: 12 cited' }
-        ],
-        progress: 82,
-        progressLabel: 'Article Progress',
-        stats: { tasks: 18, hours: '5.8h', efficiency: '93%' },
-        task: 'Creating RT workshop documentation',
-        deskItems: ['📚', '☕', '📝'],
-        color: '#8b5cf6'
-      },
-      {
-        id: 'designer',
-        name: 'UI/UX Designer',
-        role: 'Visual Design',
-        avatar: '🎨',
-        gradient: 'linear-gradient(135deg, #f97316, #fb923c)',
-        status: 'standby',
-        statusText: 'Reviewing Designs',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'figma export --all' },
-          { text: 'Ready for new assignments' },
-          { text: 'Last: Dashboard icons set' }
-        ],
-        progress: 0,
-        progressLabel: 'Standby',
-        stats: { tasks: 9, hours: '3.2h', efficiency: '95%' },
-        task: 'Available for design tasks',
-        deskItems: ['🎨', '🖼️', '✏️'],
-        color: '#f97316'
-      },
-      {
-        id: 'integration',
-        name: 'Integration Specialist',
-        role: 'APIs & Webhooks',
-        avatar: '🔌',
-        gradient: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-        status: 'standby',
-        statusText: 'Monitoring APIs',
-        screen: [
-          { type: 'prompt', text: '>' },
-          { type: 'command', text: 'curl -X GET /api/health' },
-          { text: 'All services: ONLINE ✓' },
-          { text: 'Discord webhook: Active' },
-          { text: 'Last ping: 2s ago' }
-        ],
-        progress: 100,
-        progressLabel: 'System Health',
-        stats: { tasks: 22, hours: '2.1h', efficiency: '99%' },
-        task: 'Monitoring integrations',
-        deskItems: ['🔌', '📡', '☕'],
-        color: '#3b82f6'
-      },
-      {
-        id: 'rt-educator',
-        name: 'RT Educator',
-        role: 'Respiratory Therapy Content',
-        avatar: '🫁',
-        gradient: 'linear-gradient(135deg, #14b8a6, #2dd4bf)',
-        status: 'working',
-        statusText: 'Creating Workshop',
-        screen: [
-          { text: 'Workshop: ABG Masterclass' },
-          { text: 'Module 3 of 6: Analysis' },
-          { text: 'Interactive elements: 12' },
-          { text: 'Assessment questions: 24' }
-        ],
-        progress: 58,
-        progressLabel: 'Workshop Build',
-        stats: { tasks: 11, hours: '4.2h', efficiency: '91%' },
-        task: 'Building ABG analysis workshop',
-        deskItems: ['🫁', '📚', '🎓'],
-        color: '#14b8a6'
+        task: 'Training cost optimization model'
       }
-    ];
-
-    // Activity Log Data
-    const activities = [
-      { agent: 'kimi', avatar: '🎯', gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)', text: 'Assigned task to Frontend Developer', time: 'Just now' },
-      { agent: 'frontend', avatar: '🎨', gradient: 'linear-gradient(135deg, #ec4899, #f472b6)', text: 'Completed workspace component', time: '2 min ago' },
-      { agent: 'database', avatar: '🗄️', gradient: 'linear-gradient(135deg, #10b981, #34d399)', text: 'Optimized memory search index', time: '5 min ago' },
-      { agent: 'ai-engineer', avatar: '🧠', gradient: 'linear-gradient(135deg, #06b6d4, #22d3ee)', text: 'Model accuracy reached 94.2%', time: '8 min ago' },
-      { agent: 'content-writer', avatar: '✍️', gradient: 'linear-gradient(135deg, #8b5cf6, #a78bfa)', text: 'Published RT workshop guide', time: '12 min ago' },
-      { agent: 'nano', avatar: 🤖, gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)', text: 'Rerouted 3 tasks to sub-agents', time: '15 min ago' },
     ];
 
     function renderWorkstations() {
       const container = document.getElementById('workstations');
       container.innerHTML = agents.map(agent => `
-        <div class="workspace ${agent.status === 'working' || agent.status === 'busy' ? 'active' : ''}" data-agent="${agent.id}">
-          <div class="avatar-glow" style="color: ${agent.color};"></div>
-          
+        <div class="workspace ${agent.status === 'working' || agent.status === 'busy' ? 'active' : ''}">
           <div class="workspace-profile">
-            <div class="avatar-container">
-              <div class="agent-avatar" style="background: ${agent.gradient};">
-                ${agent.avatar}
-              </div>
-              <div class="status-ring ${agent.status === 'working' ? 'online' : agent.status === 'busy' ? 'busy' : 'offline'}"></div>
+            <div class="agent-avatar" style="background: ${agent.gradient};">
+              ${agent.avatar}
+              <span class="agent-status ${agent.status}"></span>
             </div>
             <div class="agent-info">
               <h3>${agent.name}</h3>
               <div class="agent-role">${agent.role}</div>
-              <div class="agent-status-text ${agent.status}">
-                <span class="status-dot ${agent.status === 'working' ? 'dot-online' : agent.status === 'busy' ? 'dot-busy' : 'dot-offline'}"></span>
+              <div class="agent-status-text">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: ${agent.status === 'online' ? '#10b981' : '#f59e0b'};"></span>
                 ${agent.statusText}
               </div>
             </div>
@@ -1169,7 +402,7 @@
                     ${line.type === 'prompt' ? '<span class="prompt">' + line.text + '</span>' : 
                       line.type === 'command' ? '<span class="prompt">></span> <span class="command">' + line.text + '</span>' : 
                       line.text}
-                    ${line === agent.screen[agent.screen.length - 1] && (agent.status === 'working' || agent.status === 'busy') ? '<span class="typing-cursor"></span>' : ''}
+                    ${line === agent.screen[agent.screen.length - 1] ? '<span class="typing-cursor"></span>' : ''}
                   </div>
                 `).join('')}
                 <div class="progress-section">
@@ -1181,14 +414,6 @@
                     <div class="progress-fill" style="width: ${agent.progress}%;"></div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="desk-area">
-              <div class="keyboard" id="keyboard-${agent.id}">
-                ${Array(40).fill(0).map((_, i) => `<div class="key" id="key-${agent.id}-${i}"></div>`).join('')}
-              </div>
-              <div class="desk-items">
-                ${agent.deskItems.map(item => `<div class="desk-item">${item}</div>`).join('')}
               </div>
             </div>
           </div>
@@ -1208,150 +433,20 @@
             </div>
           </div>
           
-          <div class="current-task ${agent.status === 'working' || agent.status === 'busy' ? 'working' : ''}">
+          <div class="current-task">
             <div class="task-label">Current Task</div>
             <div class="task-name">${agent.task}</div>
           </div>
-          
-          <div class="workspace-actions">
-            <button class="btn" onclick="viewAgent('${agent.id}')">
-              <i class="fas fa-eye"></i> View
-            </button>
-            <button class="btn btn-primary" onclick="interactWithAgent('${agent.id}')">
-              <i class="fas fa-comments"></i> Interact
-            </button>
-          </div>
         </div>
       `).join('');
-    }
-
-    function renderFloorPlan() {
-      const container = document.getElementById('office-map');
-      container.innerHTML = agents.map(agent => `
-        <div class="map-station ${agent.status === 'working' ? 'occupied' : agent.status === 'busy' ? 'busy' : ''}" onclick="focusOnAgent('${agent.id}')">
-          ${agent.status === 'working' ? '<div class="activity-indicator"></div>' : ''}
-          <div class="map-avatar" style="background: ${agent.gradient};">${agent.avatar}</div>
-          <div class="map-name">${agent.name.split(' ')[0]}</div>
-          <div class="map-status">${agent.statusText}</div>
-        </div>
-      `).join('') + Array(6).fill(0).map(() => `
-        <div class="map-station" style="opacity: 0.3;">
-          <div class="map-avatar" style="background: var(--glass-bg-light);">🪑</div>
-          <div class="map-name">Empty</div>
-          <div class="map-status">Available</div>
-        </div>
-      `).join('');
-    }
-
-    function renderActivityFeed() {
-      const container = document.getElementById('activity-feed');
-      container.innerHTML = activities.map(activity => `
-        <div class="activity-item">
-          <div class="activity-avatar" style="background: ${activity.gradient};">${activity.avatar}</div>
-          <div class="activity-content">
-            <div class="activity-text"><strong>${activity.agent}</strong> ${activity.text}</div>
-            <div class="activity-time">${activity.time}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Keyboard typing animation
-    function animateKeyboards() {
-      agents.forEach(agent => {
-        if (agent.status === 'working' || agent.status === 'busy') {
-          const keys = document.querySelectorAll(`#keyboard-${agent.id} .key`);
-          // Randomly activate keys
-          keys.forEach(key => {
-            if (Math.random() > 0.95) {
-              key.classList.add('active');
-              setTimeout(() => key.classList.remove('active'), 100);
-            }
-          });
-        }
-      });
-    }
-
-    // Update progress bars
-    function updateProgress() {
-      agents.forEach(agent => {
-        if (agent.status === 'working' && agent.progress < 100) {
-          agent.progress = Math.min(agent.progress + Math.random() * 2, 100);
-        }
-      });
-      renderWorkstations();
-    }
-
-    // Simulate agent status changes
-    function simulateActivity() {
-      const randomAgent = agents[Math.floor(Math.random() * agents.length)];
-      if (Math.random() > 0.7) {
-        const statuses = ['working', 'busy', 'standby'];
-        randomAgent.status = statuses[Math.floor(Math.random() * statuses.length)];
-        
-        // Update status text based on new status
-        const statusTexts = {
-          'working': ['Processing data', 'Writing code', 'Analyzing', 'Creating content', 'Debugging'],
-          'busy': ['In meeting', 'Deep focus', 'Reviewing', 'Testing', 'Optimizing'],
-          'standby': ['Available', 'Waiting', 'Reviewing', 'Monitoring', 'Ready']
-        };
-        randomAgent.statusText = statusTexts[randomAgent.status][Math.floor(Math.random() * 5)];
-        
-        renderWorkstations();
-        renderFloorPlan();
-        updateStatusCounts();
-      }
-    }
-
-    function updateStatusCounts() {
-      const working = agents.filter(a => a.status === 'working').length;
-      const busy = agents.filter(a => a.status === 'busy').length;
-      const standby = agents.filter(a => a.status === 'standby').length;
-      
-      document.getElementById('working-count').textContent = `${working} Working`;
-      document.getElementById('busy-count').textContent = `${busy} Busy`;
-      document.getElementById('standby-count').textContent = `${standby} Standby`;
-    }
-
-    function viewAgent(id) {
-      const agent = agents.find(a => a.id === id);
-      alert(`👤 ${agent.name}\n\nRole: ${agent.role}\nStatus: ${agent.statusText}\nTasks Completed: ${agent.stats.tasks}\nEfficiency: ${agent.stats.efficiency}\n\nCurrent Task: ${agent.task}`);
-    }
-
-    function interactWithAgent(id) {
-      const agent = agents.find(a => a.id === id);
-      const message = prompt(`💬 Send message to ${agent.name}:`);
-      if (message) {
-        alert(`✅ Message sent to ${agent.name}!\n\nThey will respond when available.`);
-      }
-    }
-
-    function focusOnAgent(id) {
-      const element = document.querySelector(`[data-agent="${id}"]`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        element.style.animation = 'pulse 1s';
-        setTimeout(() => element.style.animation = '', 1000);
-      }
     }
 
     // Initialize
-    renderWorkstations();
-    renderFloorPlan();
-    renderActivityFeed();
-    updateStatusCounts();
-
-    // Start animations
-    setInterval(animateKeyboards, 100);
-    setInterval(updateProgress, 5000);
-    setInterval(simulateActivity, 8000);
-
-    console.log('[Digital Office] Loaded with 10 workstations');
-
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
-      document.querySelector('.main-wrapper').classList.toggle('expanded');
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[Digital Office] Loading...');
+      renderWorkstations();
+      console.log('[Digital Office] Loaded with ' + agents.length + ' workstations');
+    });
   </script>
 </body>
 </html>
