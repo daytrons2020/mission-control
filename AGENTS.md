@@ -27,6 +27,10 @@
 8. **Content Pipeline** - Full 6-stage pipeline with editor
 9. **Team Structure** - Complete agent hierarchy visualization
 10. **Digital Office** - Live workstations with animated screens
+11. **Sidebar Navigation** - Hamburger menu, collapsible sidebar
+12. **Calendar** - Month navigation, events, today button
+13. **Memory** - Document storage with download capability
+14. **Mission Control Logo** - Click to return to dashboard
 
 ### 📄 New Pages (March 15, 2026)
 
