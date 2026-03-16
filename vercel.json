@@ -1,75 +1,21 @@
 {
-  "version": 2,
   "name": "mission-control",
-  "framework": null,
-  "outputDirectory": ".",
-  "rewrites": [
-    {
-      "source": "/api/health",
-      "destination": "/api/health.js"
-    },
-    {
-      "source": "/api/status",
-      "destination": "/api/status.js"
-    },
-    {
-      "source": "/health",
-      "destination": "/api/health.js"
-    },
-    {
-      "source": "/status",
-      "destination": "/api/status.js"
-    },
-    {
-      "source": "/dashboard-v2",
-      "destination": "/dashboard-v2.html"
-    },
-    {
-      "source": "/mobile",
-      "destination": "/mobile-dashboard.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+  "version": 2,
+  "public": true,
+  "github": {
+    "deploymentEnabled": {
+      "main": true
     }
-  ],
+  },
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "s-maxage=300, stale-while-revalidate"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
         }
       ]
     }
-  ],
-  "github": {
-    "enabled": true,
-    "autoAlias": true,
-    "silent": false
-  },
-  "functions": {
-    "api/*.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
