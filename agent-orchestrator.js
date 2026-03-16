@@ -10,6 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync, spawn } = require('child_process');
+const fetch = require('node-fetch');
 
 // Configuration
 const CONFIG = {
@@ -363,13 +364,8 @@ Format as JSON array:
       return '[]';
     }
 
-    // For now, return mock data since fetch requires additional setup
-    // In production, you'd use node-fetch or axios
-    console.log(`[MLX Query] Would send: ${prompt.substring(0, 50)}...`);
-    return this.getMockResponse(prompt);
-    
-    /*
     try {
+      console.log(`[MLX Query] Sending request...`);
       const response = await fetch(CONFIG.mlxEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -384,7 +380,10 @@ Format as JSON array:
         })
       });
 
-      if (!response.ok) throw new Error('MLX request failed');
+      if (!response.ok) {
+        console.log(`[MLX] Server returned ${response.status}, using mock data`);
+        return this.getMockResponse(prompt);
+      }
       
       const data = await response.json();
       const content = data.choices[0].message.content;
@@ -393,10 +392,9 @@ Format as JSON array:
       const jsonMatch = content.match(/\[[\s\S]*\]/);
       return jsonMatch ? jsonMatch[0] : '[]';
     } catch (error) {
-      logError('MLX query failed', error);
-      throw error;
+      logError('MLX query failed (using mock)', error.message);
+      return this.getMockResponse(prompt);
     }
-    */
   }
 
   getMockResponse(prompt) {
@@ -591,14 +589,44 @@ Respond with:
       return { simulated: true, message: 'Auto-execution disabled' };
     }
 
-    // Simulate execution for now
-    console.log(`[Execute] ${agent.name} working on task...`);
+    console.log(`[Execute] ${agent.name} working on task via MLX...`);
     
-    // Simulate processing time
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    try {
+      const response = await fetch(CONFIG.mlxEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
+          messages: [
+            { role: 'system', content: `You are ${agent.name}, ${agent.role}. Respond professionally with complete deliverables.` },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 2000,
+          temperature: 0.7
+        }),
+        timeout: 120000 // 2 minute timeout
+      });
+
+      if (!response.ok) {
+        console.log(`[MLX] Server returned ${response.status}, using simulation`);
+        return this.getSimulatedResult(agent);
+      }
+      
+      const data = await response.json();
+      return {
+        content: data.choices[0].message.content,
+        tokens: data.usage?.total_tokens || 0,
+        source: 'mlx'
+      };
+    } catch (error) {
+      logError('MLX execution failed (using simulation)', error.message);
+      return this.getSimulatedResult(agent);
+    }
+  }
+
+  getSimulatedResult(agent) {
     return {
-      content: `Task completed by ${agent.name}.\n\nDeliverable created successfully.`,
+      content: `# Task Completed by ${agent.name}\n\n## Summary\nTask was processed using simulation mode because MLX server is not available.\n\n## Deliverable\n[This would contain the actual work product when MLX is connected]\n\n## Agent Notes\n- Agent: ${agent.name}\n- Role: ${agent.role}\n- Capabilities: ${agent.capabilities.join(', ')}\n- Status: Completed (simulated)`,
       tokens: 150,
       simulated: true
     };

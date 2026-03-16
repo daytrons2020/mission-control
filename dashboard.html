@@ -1289,7 +1289,8 @@
     let realTimeData = null;
     
     // Real-time API endpoint (local server)
-    const API_ENDPOINT = 'http://localhost:3001/api/dashboard';
+    const API_ENDPOINT = 'http://127.0.0.1:3001/api/dashboard';
+    let apiAvailable = false;
     
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
@@ -1316,13 +1317,23 @@
     
     async function fetchRealTimeData() {
       try {
-        const response = await fetch(API_ENDPOINT);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
+        
+        const response = await fetch(API_ENDPOINT, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
         if (response.ok) {
           realTimeData = await response.json();
+          apiAvailable = true;
           updateDashboardWithRealTimeData();
         }
       } catch (error) {
         // API not running - use simulation mode
+        if (apiAvailable) {
+          console.log('Real-time API disconnected, using simulation mode');
+          apiAvailable = false;
+        }
         simulateRealTimeData();
       }
     }

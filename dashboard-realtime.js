@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const fetch = require('node-fetch');
 
 const DATA_FILE = path.join(__dirname, 'dashboard-data.json');
 
@@ -98,7 +99,7 @@ async function checkSystemHealth() {
   try {
     const response = await fetch('http://127.0.0.1:18789/v1/status', {
       method: 'GET',
-      signal: AbortSignal.timeout(5000)
+      timeout: 5000
     });
     dashboardData.systemHealth.openclaw = response.ok ? 'online' : 'error';
   } catch {
@@ -109,7 +110,7 @@ async function checkSystemHealth() {
   try {
     const response = await fetch('http://127.0.0.1:18888/v1/models', {
       method: 'GET',
-      signal: AbortSignal.timeout(5000)
+      timeout: 5000
     });
     dashboardData.systemHealth.mlx = response.ok ? 'online' : 'error';
   } catch {

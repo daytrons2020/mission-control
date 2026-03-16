@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-03-16T04:43:21.145Z",
+  "stats": {
+    "totalTasks": 3,
+    "inProgress": 0,
+    "completed": 3,
+    "activeAgents": 14
+  },
+  "recentActivity": [
+    {
+      "time": "9:43:21 PM",
+      "text": "Completed 3/20 tasks (20h)",
+      "icon": "✓"
+    }
+  ],
+  "goals": 5,
+  "hoursWorked": 20
+}
