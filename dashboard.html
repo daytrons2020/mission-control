@@ -283,14 +283,89 @@
     
     /* Task List */
     .task-list-compact { display: flex; flex-direction: column; gap: 10px; }
-    .task-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--glass-bg-light); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
-    .task-item:hover { background: rgba(255,255,255,0.1); }
-    .task-checkbox { width: 20px; height: 20px; border: 2px solid var(--glass-border); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-    .task-checkbox.checked { background: var(--accent-green); border-color: var(--accent-green); }
+    .task-list-detailed { display: flex; flex-direction: column; gap: 12px; }
+    .task-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 16px; 
+      padding: 16px; 
+      background: var(--glass-bg-light); 
+      border-radius: 12px; 
+      cursor: pointer; 
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .task-item:hover { 
+      background: rgba(255,255,255,0.08); 
+      border-color: var(--glass-border);
+    }
+    .task-item.completed { opacity: 0.6; }
+    .task-checkbox { 
+      width: 24px; 
+      height: 24px; 
+      border: 2px solid var(--glass-border); 
+      border-radius: 8px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .task-checkbox:hover { border-color: var(--accent-green); }
+    .task-checkbox.checked { 
+      background: var(--accent-green); 
+      border-color: var(--accent-green);
+    }
     .task-content { flex: 1; }
-    .task-title { font-size: 14px; font-weight: 500; }
+    .task-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
     .task-title.completed { text-decoration: line-through; opacity: 0.5; }
-    .task-meta { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .task-meta { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      font-size: 13px; 
+      color: rgba(255,255,255,0.6);
+      flex-wrap: wrap;
+    }
+    .task-assignee { 
+      display: flex; 
+      align-items: center; 
+      gap: 6px;
+      background: var(--glass-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+    .task-assignee::before {
+      content: '👤';
+      font-size: 10px;
+    }
+    .task-priority {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .task-priority.high { 
+      background: rgba(239, 68, 68, 0.2); 
+      color: #ef4444; 
+    }
+    .task-priority.medium { 
+      background: rgba(245, 158, 11, 0.2); 
+      color: #f59e0b; 
+    }
+    .task-priority.low { 
+      background: rgba(16, 185, 129, 0.2); 
+      color: #10b981; 
+    }
+    .task-date {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
     
     /* Agent List */
     .agent-list { display: flex; flex-direction: column; gap: 12px; }
@@ -849,17 +924,58 @@
     <div class="tab-content" id="tab-tasks" style="display: none;">
       <div class="header">
         <div>
-          <h1>All Tasks</h1>
-          <div class="header-subtitle">Manage your task list</div>
+          <h1>📝 Task Management</h1>
+          <div class="header-subtitle" id="task-summary">0 active • 0 completed</div>
         </div>
-        <button class="btn btn-primary" onclick="addTask()">
-          <i class="fas fa-plus"></i> Add Task
-        </button>
+        <div style="display: flex; gap: 12px;">
+          <select class="btn" id="task-filter" onchange="filterTasks()" style="border: none; background: var(--glass-bg-light);">
+            <option value="all">All Tasks</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+            <option value="high">High Priority</option>
+          </select>
+          <button class="btn btn-primary" onclick="addTask()">
+            <i class="fas fa-plus"></i> Add Task
+          </button>
+        </div>
       </div>
-      <div class="panel">
+      
+      <!-- Active Tasks Section -->
+      <div class="panel" style="margin-bottom: 20px;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"><i class="fas fa-tasks"></i></div>
+            Active Tasks
+            <span class="nav-badge" id="active-task-count">0</span>
+          </div>
+        </div>
         <div class="panel-body">
-          <div class="task-list-compact" id="all-tasks-list">
-            <!-- All tasks shown here -->
+          <div class="task-list-detailed" id="active-tasks-list">
+            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+              <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
+              <div>No active tasks</div>
+              <div style="font-size: 13px; margin-top: 8px;">Click "Add Task" to create one</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Completed Tasks Section -->
+      <div class="panel" style="opacity: 0.8;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-icon" style="background: linear-gradient(135deg, #10b981, #34d399);"><i class="fas fa-check-circle"></i></div>
+            Completed Tasks
+            <span class="nav-badge" id="completed-task-count" style="background: var(--accent-green);">0</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="task-list-detailed" id="completed-tasks-list">
+            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+              <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+              <div>No completed tasks yet</div>
+              <div style="font-size: 13px; margin-top: 8px;">Complete tasks to see them here</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1082,14 +1198,14 @@
       }
     ];
     
-    // Agent data
+    // AI Models / Agents
     const agents = [
-      { name: 'Nano', role: 'Coordinator', emoji: '🔬', color: 'linear-gradient(135deg, #8b5cf6, #ec4899)', status: 'online' },
-      { name: 'Frontend Dev', role: 'UI/UX', emoji: '🎨', color: 'linear-gradient(135deg, #ec4899, #f472b6)', status: 'online' },
-      { name: 'AI Engineer', role: 'ML/AI', emoji: '🤖', color: 'linear-gradient(135deg, #3b82f6, #60a5fa)', status: 'online' },
-      { name: 'Backend Dev', role: 'APIs', emoji: '⚙️', color: 'linear-gradient(135deg, #10b981, #34d399)', status: 'online' },
-      { name: 'Database Eng', role: 'Data', emoji: '🗄️', color: 'linear-gradient(135deg, #f59e0b, #fbbf24)', status: 'online' },
-      { name: 'Integration Spec', role: 'APIs', emoji: '🔌', color: 'linear-gradient(135deg, #06b6d4, #22d3ee)', status: 'online' }
+      { name: 'MLX (Local)', role: 'Primary AI - Free', emoji: '🍎', color: 'linear-gradient(135deg, #8b5cf6, #ec4899)', status: 'online', model: 'mlx-community/Llama-3.2-3B-Instruct', cost: 'FREE' },
+      { name: 'Minimax', role: 'API - Text/Image', emoji: '🎭', color: 'linear-gradient(135deg, #ec4899, #f472b6)', status: 'standby', model: 'MiniMax-Text-01', cost: 'Pay-per-use' },
+      { name: 'Kimi (Me)', role: 'You / Lead AI', emoji: '🎯', color: 'linear-gradient(135deg, #3b82f6, #60a5fa)', status: 'online', model: 'Human-in-the-loop', cost: 'N/A' },
+      { name: 'Nano', role: 'Coordinator', emoji: '🔬', color: 'linear-gradient(135deg, #10b981, #34d399)', status: 'online', model: 'Task Router', cost: 'FREE' },
+      { name: 'AI Engineer', role: 'MLX Specialist', emoji: '🤖', color: 'linear-gradient(135deg, #f59e0b, #fbbf24)', status: 'online', model: 'MLX Pipeline', cost: 'FREE' },
+      { name: 'Researcher', role: 'Data Analysis', emoji: '🔍', color: 'linear-gradient(135deg, #06b6d4, #22d3ee)', status: 'standby', model: 'Varies by task', cost: 'As needed' }
     ];
     
     // Goals data
@@ -1160,49 +1276,115 @@
     // Render tasks
     function renderTasks() {
       const container = document.getElementById('task-list');
-      const allContainer = document.getElementById('all-tasks-list');
+      const activeContainer = document.getElementById('active-tasks-list');
+      const completedContainer = document.getElementById('completed-tasks-list');
+      const filter = document.getElementById('task-filter')?.value || 'all';
       
-      if (tasks.length === 0) {
-        const emptyHTML = `
-          <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
-            <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
-            <div>No tasks yet</div>
-            <button class="btn btn-sm" style="margin-top: 12px;" onclick="addTask()">Add First Task</button>
+      // Separate active and completed
+      const activeTasks = tasks.filter(t => !t.completed);
+      const completedTasks = tasks.filter(t => t.completed);
+      
+      // Update counts
+      document.getElementById('active-task-count').textContent = activeTasks.length;
+      document.getElementById('completed-task-count').textContent = completedTasks.length;
+      document.getElementById('task-summary').textContent = `${activeTasks.length} active • ${completedTasks.length} completed`;
+      
+      // Render function for a single task
+      const renderTaskItem = (task) => {
+        const priorityClass = (task.priority || 'medium').toLowerCase();
+        const dateStr = task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'Today';
+        return `
+          <div class="task-item ${task.completed ? 'completed' : ''}" onclick="toggleTask('${task.id}')">
+            <div class="task-checkbox ${task.completed ? 'checked' : ''}">
+              ${task.completed ? '<i class="fas fa-check" style="color: white; font-size: 12px;"></i>' : ''}
+            </div>
+            <div class="task-content">
+              <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
+              <div class="task-meta">
+                <span class="task-priority ${priorityClass}">${task.priority || 'MEDIUM'}</span>
+                <span class="task-assignee">${task.assignee || 'Unassigned'}</span>
+                <span class="task-date">
+                  <i class="far fa-calendar" style="font-size: 11px;"></i>
+                  ${dateStr}
+                </span>
+              </div>
+            </div>
           </div>
         `;
-        container.innerHTML = emptyHTML;
-        if (allContainer) allContainer.innerHTML = emptyHTML;
-        return;
+      };
+      
+      // Apply filter
+      let displayActive = activeTasks;
+      let displayCompleted = completedTasks;
+      
+      if (filter === 'high') {
+        displayActive = activeTasks.filter(t => t.priority === 'high');
+        displayCompleted = [];
+      } else if (filter === 'active') {
+        displayCompleted = [];
+      } else if (filter === 'completed') {
+        displayActive = [];
       }
       
-      const taskHTML = tasks.slice(0, 5).map(task => `
-        <div class="task-item" onclick="toggleTask('${task.id}')">
-          <div class="task-checkbox ${task.completed ? 'checked' : ''}">
-            ${task.completed ? '<i class="fas fa-check" style="color: white; font-size: 10px;"></i>' : ''}
-          </div>
-          <div class="task-content">
-            <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
-            <div class="task-meta">${task.assignee || 'Unassigned'} • ${task.priority || 'medium'}</div>
-          </div>
-        </div>
-      `).join('');
+      // Render active tasks
+      if (activeContainer) {
+        if (displayActive.length === 0) {
+          activeContainer.innerHTML = filter === 'high' ? 
+            `<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);"><div style="font-size: 48px; margin-bottom: 16px;">🎯</div><div>No high priority tasks</div></div>` :
+            `<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);"><div style="font-size: 48px; margin-bottom: 16px;">📋</div><div>No active tasks</div><div style="font-size: 13px; margin-top: 8px;">Click "Add Task" to create one</div></div>`;
+        } else {
+          activeContainer.innerHTML = displayActive.map(renderTaskItem).join('');
+        }
+      }
       
-      container.innerHTML = taskHTML;
-      if (allContainer) allContainer.innerHTML = taskHTML;
+      // Render completed tasks
+      if (completedContainer) {
+        if (displayCompleted.length === 0) {
+          completedContainer.innerHTML = filter === 'completed' ?
+            `<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);"><div style="font-size: 48px; margin-bottom: 16px;">✨</div><div>No completed tasks in this view</div></div>` :
+            `<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);"><div style="font-size: 48px; margin-bottom: 16px;">✨</div><div>No completed tasks yet</div><div style="font-size: 13px; margin-top: 8px;">Complete tasks to see them here</div></div>`;
+        } else {
+          completedContainer.innerHTML = displayCompleted.map(renderTaskItem).join('');
+        }
+      }
+      
+      // Dashboard widget (compact view - first 5 tasks)
+      if (container) {
+        if (tasks.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+              <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
+              <div>No tasks yet</div>
+              <button class="btn btn-sm" style="margin-top: 12px;" onclick="addTask()">Add First Task</button>
+            </div>
+          `;
+        } else {
+          container.innerHTML = tasks.slice(0, 5).map(renderTaskItem).join('');
+        }
+      }
+    }
+    
+    // Filter tasks
+    function filterTasks() {
+      renderTasks();
     }
     
     // Render agents
     function renderAgents() {
       const container = document.getElementById('agent-list');
       container.innerHTML = agents.map(agent => `
-        <div class="agent-item">
-          <div class="agent-avatar" style="background: ${agent.color};">
+        <div class="agent-item" style="padding: 14px; background: var(--glass-bg-light); border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; border: 1px solid transparent;" onmouseover="this.style.borderColor='var(--glass-border)'" onmouseout="this.style.borderColor='transparent'">
+          <div class="agent-avatar" style="background: ${agent.color}; width: 44px; height: 44px; border-radius: 12px;">
             ${agent.emoji}
             <span class="agent-status-dot ${agent.status}"></span>
           </div>
-          <div class="agent-info">
-            <div class="agent-name">${agent.name}</div>
-            <div class="agent-role">${agent.role}</div>
+          <div class="agent-info" style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div class="agent-name" style="font-weight: 600; font-size: 14px;">${agent.name}</div>
+              <div style="font-size: 11px; padding: 3px 10px; border-radius: 20px; background: ${agent.cost === 'FREE' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(139, 92, 246, 0.2)'}; color: ${agent.cost === 'FREE' ? '#10b981' : '#8b5cf6'}; font-weight: 500;">${agent.cost}</div>
+            </div>
+            <div class="agent-role" style="font-size: 12px; color: rgba(255,255,255,0.6);">${agent.role}</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; font-family: monospace;">${agent.model}</div>
           </div>
         </div>
       `).join('');
@@ -1542,9 +1724,9 @@ Queue: 0`,
    ├─ Completed: ${tasks.filter(t => t.completed).length}
    └─ Pending: ${tasks.filter(t => t.status === 'todo').length}
 
-🔌 Services
-   ├─ OpenClaw: Checking...
-   ├─ MLX Server: Checking...
+🔌 AI Models
+   ├─ MLX (Local): ✅ Active (FREE)
+   ├─ Minimax: ⏸️ Standby (Pay-per-use)
    ├─ Discord: Online
    └─ Memory: Healthy
 
