@@ -150,6 +150,12 @@
       padding: 6px 12px;
       font-size: 12px;
     }
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      justify-content: center;
+    }
     
     /* Sidebar */
     .sidebar {
@@ -259,6 +265,124 @@
       margin-top: 4px;
     }
     
+    /* Command Bar at Top */
+    .command-bar-container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .command-prefix {
+      color: var(--accent-green);
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .command-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 14px;
+      outline: none;
+      font-family: inherit;
+    }
+    .command-input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .command-hint {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .command-hint kbd {
+      background: var(--glass-bg-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+    }
+    
+    /* Command Palette Dropdown */
+    .command-palette {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      margin-top: 8px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+      z-index: 100;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .command-palette.active {
+      display: block;
+    }
+    .command-category {
+      padding: 12px 16px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .command-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+    .command-item:hover, .command-item.selected {
+      background: var(--glass-bg-light);
+    }
+    .command-item.selected {
+      background: rgba(139, 92, 246, 0.2);
+    }
+    .command-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--glass-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .command-info {
+      flex: 1;
+    }
+    .command-name {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .command-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .command-key {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      font-family: monospace;
+      background: var(--glass-bg-light);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    
     /* Mission Statement */
     .mission-banner {
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
@@ -351,6 +475,7 @@
       cursor: pointer;
       transition: all 0.2s;
       font-size: 14px;
+      text-decoration: none;
     }
     .quick-action-btn:hover {
       background: var(--glass-bg-light);
@@ -412,10 +537,6 @@
     .stat-change.positive {
       background: rgba(16, 185, 129, 0.2);
       color: var(--accent-green);
-    }
-    .stat-change.negative {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--accent-red);
     }
     .stat-value {
       font-size: 32px;
@@ -762,32 +883,155 @@
       white-space: nowrap;
     }
     
-    /* Command Input */
-    .command-bar {
+    /* Help Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 12px 16px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 700px;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-top: 24px;
     }
-    .command-prefix {
-      color: var(--accent-green);
-      font-family: monospace;
-      font-weight: 600;
-    }
-    .command-input {
-      flex: 1;
-      background: transparent;
-      border: none;
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
       color: white;
-      font-size: 14px;
-      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
     }
-    .command-input::placeholder {
-      color: rgba(255,255,255,0.4);
+    .modal-close:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+    }
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .help-section {
+      margin-bottom: 24px;
+    }
+    .help-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .help-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .help-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px;
+      background: var(--glass-bg-light);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .help-item:hover {
+      background: rgba(139, 92, 246, 0.15);
+      transform: translateX(4px);
+    }
+    .help-cmd {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      min-width: 120px;
+      padding: 6px 12px;
+      background: rgba(0, 245, 255, 0.1);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .help-desc {
+      flex: 1;
+      font-size: 14px;
+    }
+    .help-example {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+    
+    /* Output Panel */
+    .output-panel {
+      background: #0a0a0e;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: rgba(255,255,255,0.9);
+      display: none;
+    }
+    .output-panel.active {
+      display: block;
+    }
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .output-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-green);
+      text-transform: uppercase;
+    }
+    .output-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      font-size: 16px;
     }
     
     /* Responsive */
@@ -804,6 +1048,7 @@
       .main-wrapper { margin-left: var(--sidebar-collapsed); }
       .stats-grid { grid-template-columns: 1fr; }
       .mission-banner { display: none; }
+      .command-hint { display: none; }
     }
   </style>
 </head>
@@ -826,6 +1071,9 @@
         <span class="status-dot status-checking" id="status-dot"></span>
         <span id="status-text">Checking...</span>
       </div>
+      <button class="btn btn-icon" onclick="showHelp()" title="Command Help">
+        <i class="fas fa-question-circle"></i>
+      </button>
       <button class="btn" onclick="refreshAll()">
         <i class="fas fa-sync-alt"></i>
       </button>
@@ -874,6 +1122,134 @@
   <!-- Main Content -->
   <div class="main-wrapper" id="main-wrapper">
     
+    <!-- Command Bar -->
+    <div class="command-bar-container">
+      <span class="command-prefix">$</span>
+      <input type="text" 
+             class="command-input" 
+             id="command-input" 
+             placeholder="Type a command (try: 'help', 'goals', 'plan', 'start')..."
+             autocomplete="off"
+             spellcheck="false">
+      <div class="command-hint">
+        <span>Press <kbd>Tab</kbd> for autocomplete</span>
+        <span>•</span>
+        <span><kbd>Enter</kbd> to execute</span>
+        <span>•</span>
+        <span><kbd>Esc</kbd> to close</span>
+      </div>
+      <button class="btn btn-sm" onclick="executeCommand()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+      
+      <!-- Command Palette -->
+      <div class="command-palette" id="command-palette">
+        <div class="command-category">Quick Commands</div>
+        <div class="command-item" onclick="runCommand('help')" data-cmd="help">
+          <div class="command-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+            <i class="fas fa-question"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Show Help</div>
+            <div class="command-desc">View all available commands</div>
+          </div>
+          <div class="command-key">help</div>
+        </div>
+        <div class="command-item" onclick="runCommand('goals')" data-cmd="goals">
+          <div class="command-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">View Goals</div>
+            <div class="command-desc">See all 5 goals and progress</div>
+          </div>
+          <div class="command-key">goals</div>
+        </div>
+        <div class="command-item" onclick="runCommand('plan')" data-cmd="plan">
+          <div class="command-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Generate Plan</div>
+            <div class="command-desc">Create today's work plan</div>
+          </div>
+          <div class="command-key">plan</div>
+        </div>
+        <div class="command-item" onclick="runCommand('run')" data-cmd="run">
+          <div class="command-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+            <i class="fas fa-play"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Run One Cycle</div>
+            <div class="command-desc">Execute one autonomous cycle</div>
+          </div>
+          <div class="command-key">run</div>
+        </div>
+        <div class="command-item" onclick="runCommand('start')" data-cmd="start">
+          <div class="command-icon" style="background: linear-gradient(135deg, #ef4444, #f87171);">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Start Autonomous Mode</div>
+            <div class="command-desc">Begin continuous execution</div>
+          </div>
+          <div class="command-key">start</div>
+        </div>
+        <div class="command-category">Navigation</div>
+        <div class="command-item" onclick="location.href='content-pipeline.html'">
+          <div class="command-icon" style="background: var(--glass-bg-light);">
+            <i class="fas fa-stream"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Content Pipeline</div>
+            <div class="command-desc">Open content creation workflow</div>
+          </div>
+          <div class="command-key">pipeline</div>
+        </div>
+        <div class="command-item" onclick="location.href='calendar.html'">
+          <div class="command-icon" style="background: var(--glass-bg-light);">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Calendar</div>
+            <div class="command-desc">View schedule and cron jobs</div>
+          </div>
+          <div class="command-key">calendar</div>
+        </div>
+        <div class="command-item" onclick="location.href='team.html'">
+          <div class="command-icon" style="background: var(--glass-bg-light);">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Team Structure</div>
+            <div class="command-desc">View all agents and roles</div>
+          </div>
+          <div class="command-key">team</div>
+        </div>
+        <div class="command-item" onclick="location.href='office.html'">
+          <div class="command-icon" style="background: var(--glass-bg-light);">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="command-info">
+            <div class="command-name">Digital Office</div>
+            <div class="command-desc">See live agent workstations</div>
+          </div>
+          <div class="command-key">office</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Command Output Panel -->
+    <div class="output-panel" id="output-panel">
+      <div class="output-header">
+        <span class="output-title">Command Output</span>
+        <button class="output-close" onclick="closeOutput()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="output-content">Type a command above and press Enter...</div>
+    </div>
+    
     <!-- Header -->
     <div class="header">
       <div>
@@ -912,7 +1288,7 @@
       </div>
     </div>
     
-    <!-- Quick Actions -->
+    <!-- Quick Actions Bar -->
     <div class="quick-actions">
       <button class="quick-action-btn" onclick="location.href='content-pipeline.html'">
         <i class="fas fa-stream"></i>
@@ -930,12 +1306,13 @@
         <i class="fas fa-building"></i>
         <span>Digital Office</span>
       </button>
-      <button class="quick-action-btn" onclick="showReports()">
-        <i class="fas fa-chart-line"></i>
-        <span>Reports</span>
+      <button class="quick-action-btn" onclick="showHelp()">
+        <i class="fas fa-question-circle"></i>
+        <span>Command Help</span>
       </button>
     </div>
     
+    <!-- Rest of dashboard content... -->
     <!-- Stats Row -->
     <div class="stats-grid">
       <div class="stat-card" style="--accent-color: var(--accent-cyan);">
@@ -1033,50 +1410,7 @@
         </div>
         <div class="panel-body">
           <div class="agent-list" id="agent-list">
-            <div class="agent-item">
-              <div class="agent-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
-                🎯
-                <span class="agent-status-dot online"></span>
-              </div>
-              <div class="agent-info">
-                <div class="agent-name">Kimi (Lead AI)</div>
-                <div class="agent-role">Orchestrating</div>
-              </div>
-              <div class="agent-activity">Active now</div>
-            </div>
-            <div class="agent-item">
-              <div class="agent-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-                🤖
-                <span class="agent-status-dot online"></span>
-              </div>
-              <div class="agent-info">
-                <div class="agent-name">Nano</div>
-                <div class="agent-role">Coordinator</div>
-              </div>
-              <div class="agent-activity">Managing tasks</div>
-            </div>
-            <div class="agent-item">
-              <div class="agent-avatar" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
-                🎨
-                <span class="agent-status-dot busy"></span>
-              </div>
-              <div class="agent-info">
-                <div class="agent-name">Frontend Dev</div>
-                <div class="agent-role">UI/UX</div>
-              </div>
-              <div class="agent-activity">Coding...</div>
-            </div>
-            <div class="agent-item">
-              <div class="agent-avatar" style="background: linear-gradient(135deg, #10b981, #34d399);">
-                🗄️
-                <span class="agent-status-dot online"></span>
-              </div>
-              <div class="agent-info">
-                <div class="agent-name">Database Eng</div>
-                <div class="agent-role">Optimization</div>
-              </div>
-              <div class="agent-activity">Indexing</div>
-            </div>
+            <!-- Agents populated by JS -->
           </div>
         </div>
       </div>
@@ -1094,378 +1428,358 @@
         </div>
         <div class="panel-body">
           <div class="activity-list" id="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🎯</div>
-              <div class="activity-content">
-                <div class="activity-text">System <strong> Mission Control</strong> initialized</div>
-                <div class="activity-time">Just now</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">✓</div>
-              <div class="activity-content">
-                <div class="activity-text"><strong>Dashboard</strong> loaded successfully</div>
-                <div class="activity-time">Just now</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">🤖</div>
-              <div class="activity-content">
-                <div class="activity-text"><strong>14 agents</strong> online and ready</div>
-                <div class="activity-time">Just now</div>
-              </div>
-            </div>
+            <!-- Activity populated by JS -->
           </div>
         </div>
       </div>
       
-      <!-- System Health Panel -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <div class="panel-icon" style="background: linear-gradient(135deg, #ef4444, #f87171);">
-              <i class="fas fa-heartbeat"></i>
-            </div>
-            System Health
-          </div>
-          <span class="btn btn-sm" id="health-score">98%</span>
-        </div>
-        <div class="panel-body">
-          <div class="health-grid">
-            <div class="health-item">
-              <div class="health-icon" style="background: var(--glass-bg-light); color: var(--accent-green);">
-                <i class="fas fa-server"></i>
-              </div>
-              <div class="health-info">
-                <div class="health-name">OpenClaw</div>
-                <div class="health-status" id="health-openclaw">
-                  <span class="health-dot" style="background: var(--accent-green);"></span>
-                  <span>Connected</span>
-                </div>
-              </div>
-            </div>
-            <div class="health-item">
-              <div class="health-icon" style="background: var(--glass-bg-light); color: var(--accent-green);">
-                <i class="fas fa-microchip"></i>
-              </div>
-              <div class="health-info">
-                <div class="health-name">MLX Server</div>
-                <div class="health-status" id="health-mlx">
-                  <span class="health-dot" style="background: var(--accent-green);"></span>
-                  <span>Online</span>
-                </div>
-              </div>
-            </div>
-            <div class="health-item">
-              <div class="health-icon" style="background: var(--glass-bg-light); color: var(--accent-green);">
-                <i class="fab fa-discord"></i>
-              </div>
-              <div class="health-info">
-                <div class="health-name">Discord</div>
-                <div class="health-status">
-                  <span class="health-dot" style="background: var(--accent-green);"></span>
-                  <span>Active</span>
-                </div>
-              </div>
-            </div>
-            <div class="health-item">
-              <div class="health-icon" style="background: var(--glass-bg-light); color: var(--accent-cyan);">
-                <i class="fas fa-database"></i>
-              </div>
-              <div class="health-info">
-                <div class="health-name">Memory</div>
-                <div class="health-status">
-                  <span class="health-dot" style="background: var(--accent-cyan);"></span>
-                  <span>Healthy</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Performance Panel -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <div class="panel-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
-              <i class="fas fa-chart-bar"></i>
-            </div>
-            Task Completion Rate
-          </div>
-          <span class="btn btn-sm">Last 7 Days</span>
-        </div>
-        <div class="panel-body">
-          <div class="chart-container">
-            <div class="chart-bar" style="height: 60%;">
-              <span class="chart-label">Mon</span>
-            </div>
-            <div class="chart-bar" style="height: 75%;">
-              <span class="chart-label">Tue</span>
-            </div>
-            <div class="chart-bar" style="height: 45%;">
-              <span class="chart-label">Wed</span>
-            </div>
-            <div class="chart-bar" style="height: 80%;">
-              <span class="chart-label">Thu</span>
-            </div>
-            <div class="chart-bar" style="height: 65%;">
-              <span class="chart-label">Fri</span>
-            </div>
-            <div class="chart-bar" style="height: 90%;">
-              <span class="chart-label">Sat</span>
-            </div>
-            <div class="chart-bar" style="height: 70%;">
-              <span class="chart-label">Sun</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Upcoming Events Panel -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <div class="panel-icon" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
-              <i class="fas fa-calendar-alt"></i>
-            </div>
-            Upcoming Events
-          </div>
-          <button class="btn btn-sm" onclick="location.href='calendar.html'">Calendar</button>
-        </div>
-        <div class="panel-body">
-          <div class="event-list">
-            <div class="event-item">
-              <div class="event-time">
-                <div class="event-time-day">16</div>
-                <div class="event-time-month">Mar</div>
-              </div>
-              <div class="event-content">
-                <div class="event-title">AI & Tech News</div>
-                <div class="event-desc">Daily automated post to #ai-news</div>
-              </div>
-            </div>
-            <div class="event-item" style="border-left-color: var(--accent-green);">
-              <div class="event-time">
-                <div class="event-time-day">16</div>
-                <div class="event-time-month">Mar</div>
-              </div>
-              <div class="event-content">
-                <div class="event-title">Daily Motivation</div>
-                <div class="event-desc">Morning motivation post</div>
-              </div>
-            </div>
-            <div class="event-item" style="border-left-color: var(--accent-yellow);">
-              <div class="event-time">
-                <div class="event-time-day">16</div>
-                <div class="event-time-month">Mar</div>
-              </div>
-              <div class="event-content">
-                <div class="event-title">World News Update</div>
-                <div class="event-desc">Evening news summary</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    
-    <!-- Command Bar -->
-    <div class="command-bar">
-      <span class="command-prefix">$</span>
-      <input type="text" class="command-input" placeholder="Type a command or ask anything... (e.g., 'create task', 'spawn agent', 'show reports')" id="command-input">
-      <button class="btn btn-sm" onclick="executeCommand()">
-        <i class="fas fa-paper-plane"></i>
-      </button>
     </div>
     
   </div>
+  
+  <!-- Help Modal -->
+  <div class="modal-overlay" id="help-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-terminal" style="color: var(--accent-cyan);"></i>
+          Command Reference
+        </div>
+        <button class="modal-close" onclick="closeHelp()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="help-section">
+          <div class="help-section-title">Core Commands</div>
+          <div class="help-grid">
+            <div class="help-item" onclick="runCommand('help'); closeHelp();">
+              <div class="help-cmd">help</div>
+              <div class="help-desc">
+                Show this help guide
+                <div class="help-example">Display all available commands</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="runCommand('goals'); closeHelp();">
+              <div class="help-cmd">goals</div>
+              <div class="help-desc">
+                View your 5 goals
+                <div class="help-example">Shows all goals from build plan with progress</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="runCommand('plan'); closeHelp();">
+              <div class="help-cmd">plan</div>
+              <div class="help-desc">
+                Generate today's work plan
+                <div class="help-example">Creates tasks for today with agent assignments</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="runCommand('run'); closeHelp();">
+              <div class="help-cmd">run</div>
+              <div class="help-desc">
+                Run one autonomous cycle
+                <div class="help-example">Execute one cycle of task generation and assignment</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="runCommand('start'); closeHelp();">
+              <div class="help-cmd">start</div>
+              <div class="help-desc">
+                Start continuous autonomous mode
+                <div class="help-example">Runs daily at 9 AM automatically</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="runCommand('status'); closeHelp();">
+              <div class="help-cmd">status</div>
+              <div class="help-desc">
+                Check system status
+                <div class="help-example">Shows orchestrator state and progress</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-section">
+          <div class="help-section-title">Quick Actions</div>
+          <div class="help-grid">
+            <div class="help-item" onclick="quickTask(); closeHelp();">
+              <div class="help-cmd">add task</div>
+              <div class="help-desc">
+                Create a new task
+                <div class="help-example">Opens prompt to add task to board</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="spawnAgent(); closeHelp();">
+              <div class="help-cmd">spawn agent</div>
+              <div class="help-desc">
+                Spawn a new agent
+                <div class="help-example">Launch a specialized agent</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="refreshAll(); closeHelp();">
+              <div class="help-cmd">refresh</div>
+              <div class="help-desc">
+                Refresh dashboard data
+                <div class="help-example">Update all stats and panels</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-section">
+          <div class="help-section-title">Navigation</div>
+          <div class="help-grid">
+            <div class="help-item" onclick="location.href='content-pipeline.html'; closeHelp();">
+              <div class="help-cmd">pipeline</div>
+              <div class="help-desc">
+                Open Content Pipeline
+                <div class="help-example">6-stage content creation workflow</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="location.href='calendar.html'; closeHelp();">
+              <div class="help-cmd">calendar</div>
+              <div class="help-desc">
+                Open Calendar
+                <div class="help-example">View schedule, cron jobs, mission statement</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="location.href='team.html'; closeHelp();">
+              <div class="help-cmd">team</div>
+              <div class="help-desc">
+                Open Team Structure
+                <div class="help-example">View all 28 agents and hierarchy</div>
+              </div>
+            </div>
+            <div class="help-item" onclick="location.href='office.html'; closeHelp();">
+              <div class="help-cmd">office</div>
+              <div class="help-desc">
+                Open Digital Office
+                <div class="help-example">Live workstations with agents working</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-section">
+          <div class="help-section-title">Usage Tips</div>
+          <div style="background: var(--glass-bg-light); padding: 16px; border-radius: 10px; font-size: 13px; line-height: 1.6;">
+            <p style="margin-bottom: 8px;"><strong>💡 Tip:</strong> Type in the command bar at the top and press <kbd>Enter</kbd> to execute</p>
+            <p style="margin-bottom: 8px;"><strong>💡 Tip:</strong> Press <kbd>Tab</kbd> to autocomplete commands</p>
+            <p style="margin-bottom: 8px;"><strong>💡 Tip:</strong> Use <kbd>↑</kbd> <kbd>↓</kbd> arrow keys to navigate command palette</p>
+            <p><strong>💡 Tip:</strong> Commands work both in dashboard and terminal with <code>mc</code> CLI</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
   <script>
-    // State
+    // Available commands
+    const COMMANDS = {
+      'help': { fn: showHelp, desc: 'Show help guide' },
+      'goals': { fn: () => runTerminalCommand('goals'), desc: 'View your 5 goals' },
+      'plan': { fn: () => runTerminalCommand('plan'), desc: 'Generate work plan' },
+      'run': { fn: () => runTerminalCommand('run'), desc: 'Run one cycle' },
+      'start': { fn: () => runTerminalCommand('start'), desc: 'Start autonomous mode' },
+      'status': { fn: () => runTerminalCommand('status'), desc: 'Check system status' },
+      'add task': { fn: quickTask, desc: 'Create new task' },
+      'spawn agent': { fn: spawnAgent, desc: 'Spawn agent' },
+      'refresh': { fn: refreshAll, desc: 'Refresh dashboard' },
+      'pipeline': { fn: () => location.href='content-pipeline.html', desc: 'Open pipeline' },
+      'calendar': { fn: () => location.href='calendar.html', desc: 'Open calendar' },
+      'team': { fn: () => location.href='team.html', desc: 'Open team' },
+      'office': { fn: () => location.href='office.html', desc: 'Open office' },
+      'clear': { fn: clearOutput, desc: 'Clear output' }
+    };
+
+    // Command input handling
+    const commandInput = document.getElementById('command-input');
+    const commandPalette = document.getElementById('command-palette');
+    let selectedCommandIndex = -1;
+
+    commandInput.addEventListener('focus', () => {
+      commandPalette.classList.add('active');
+    });
+
+    commandInput.addEventListener('blur', (e) => {
+      // Delay to allow clicking on palette items
+      setTimeout(() => {
+        if (!commandPalette.matches(':hover')) {
+          commandPalette.classList.remove('active');
+        }
+      }, 200);
+    });
+
+    commandInput.addEventListener('input', (e) => {
+      const value = e.target.value.toLowerCase();
+      filterCommands(value);
+    });
+
+    commandInput.addEventListener('keydown', (e) => {
+      const items = commandPalette.querySelectorAll('.command-item');
+      
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        commandPalette.classList.add('active');
+        if (items.length > 0) {
+          selectCommand(0);
+        }
+      } else if (e.key === 'Escape') {
+        commandPalette.classList.remove('active');
+        commandInput.blur();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const selected = commandPalette.querySelector('.command-item.selected');
+        if (selected) {
+          selected.click();
+        } else {
+          executeCommand();
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        commandPalette.classList.add('active');
+        selectCommand(Math.min(selectedCommandIndex + 1, items.length - 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectCommand(Math.max(selectedCommandIndex - 1, 0));
+      }
+    });
+
+    function filterCommands(query) {
+      const items = commandPalette.querySelectorAll('.command-item');
+      let visibleCount = 0;
+      
+      items.forEach((item, index) => {
+        const cmd = item.getAttribute('data-cmd') || '';
+        const text = item.textContent.toLowerCase();
+        
+        if (cmd.includes(query) || text.includes(query)) {
+          item.style.display = 'flex';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Show/hide categories based on visible items
+      document.querySelectorAll('.command-category').forEach(cat => {
+        const nextItems = [];
+        let sibling = cat.nextElementSibling;
+        while (sibling && !sibling.classList.contains('command-category')) {
+          if (sibling.classList.contains('command-item')) {
+            nextItems.push(sibling);
+          }
+          sibling = sibling.nextElementSibling;
+        }
+        
+        const hasVisible = nextItems.some(item => item.style.display !== 'none');
+        cat.style.display = hasVisible ? 'block' : 'none';
+      });
+      
+      selectedCommandIndex = -1;
+    }
+
+    function selectCommand(index) {
+      const items = commandPalette.querySelectorAll('.command-item');
+      items.forEach((item, i) => {
+        item.classList.toggle('selected', i === index);
+      });
+      selectedCommandIndex = index;
+      
+      if (items[index]) {
+        const cmd = items[index].getAttribute('data-cmd');
+        if (cmd) {
+          commandInput.value = cmd;
+        }
+      }
+    }
+
+    function executeCommand() {
+      const cmd = commandInput.value.trim().toLowerCase();
+      if (!cmd) return;
+      
+      runCommand(cmd);
+      commandInput.value = '';
+      commandPalette.classList.remove('active');
+    }
+
+    function runCommand(cmd) {
+      // Check if it's a navigation command
+      if (COMMANDS[cmd]) {
+        COMMANDS[cmd].fn();
+        return;
+      }
+      
+      // Check for partial matches
+      for (const [key, value] of Object.entries(COMMANDS)) {
+        if (key.includes(cmd) || cmd.includes(key)) {
+          value.fn();
+          return;
+        }
+      }
+      
+      // Unknown command
+      showOutput(`Unknown command: "${cmd}"\n\nType "help" to see available commands.`);
+    }
+
+    function runTerminalCommand(cmd) {
+      showOutput(`Executing: mc ${cmd}\n\n[This would run the command in terminal]\n\nTo execute for real, open terminal and run:\n  mc ${cmd}`);
+      
+      // Simulate async command
+      setTimeout(() => {
+        addActivity(`Executed command: ${cmd}`);
+      }, 500);
+    }
+
+    function showOutput(text) {
+      const panel = document.getElementById('output-panel');
+      const content = document.getElementById('output-content');
+      content.textContent = text;
+      panel.classList.add('active');
+    }
+
+    function closeOutput() {
+      document.getElementById('output-panel').classList.remove('active');
+    }
+
+    function showHelp() {
+      document.getElementById('help-modal').classList.add('active');
+    }
+
+    function closeHelp() {
+      document.getElementById('help-modal').classList.remove('active');
+    }
+
+    // Close modal on overlay click
+    document.getElementById('help-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'help-modal') {
+        closeHelp();
+      }
+    });
+
+    // State and other functions
     let tasks = JSON.parse(localStorage.getItem('mc_tasks') || '[]');
     let sidebarCollapsed = false;
     let realTimeData = null;
-    
-    // Real-time API endpoint (local server)
-    const API_ENDPOINT = 'http://127.0.0.1:3001/api/dashboard';
-    let apiAvailable = false;
-    
-    // Initialize
+
     document.addEventListener('DOMContentLoaded', () => {
       updateStats();
       renderTasks();
+      renderAgents();
+      renderActivity();
       checkConnection();
-      setupCommandInput();
       
-      // Check connection every 30 seconds
       setInterval(checkConnection, 30000);
-      
-      // Start real-time updates
       startRealTimeUpdates();
     });
-    
-    // Real-time updates from agent orchestrator
-    async function startRealTimeUpdates() {
-      // Initial fetch
-      await fetchRealTimeData();
-      
-      // Update every 5 seconds
-      setInterval(fetchRealTimeData, 5000);
-    }
-    
-    async function fetchRealTimeData() {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
-        
-        const response = await fetch(API_ENDPOINT, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        
-        if (response.ok) {
-          realTimeData = await response.json();
-          apiAvailable = true;
-          updateDashboardWithRealTimeData();
-        }
-      } catch (error) {
-        // API not running - use simulation mode
-        if (apiAvailable) {
-          console.log('Real-time API disconnected, using simulation mode');
-          apiAvailable = false;
-        }
-        simulateRealTimeData();
-      }
-    }
-    
-    function updateDashboardWithRealTimeData() {
-      if (!realTimeData) return;
-      
-      // Update stats
-      document.getElementById('stat-total').textContent = realTimeData.stats.totalTasks;
-      document.getElementById('stat-progress').textContent = realTimeData.stats.inProgress;
-      document.getElementById('stat-completed').textContent = realTimeData.stats.completed;
-      
-      // Update progress bars
-      const completionRate = realTimeData.stats.totalTasks > 0 
-        ? (realTimeData.stats.completed / realTimeData.stats.totalTasks * 100) 
-        : 0;
-      document.getElementById('progress-total').style.width = `${completionRate}%`;
-      
-      // Update agent list
-      if (realTimeData.agents) {
-        renderAgentList(realTimeData.agents);
-      }
-      
-      // Update activity feed
-      if (realTimeData.recentActivity) {
-        renderActivityFeed(realTimeData.recentActivity);
-      }
-      
-      // Update system health
-      if (realTimeData.systemHealth) {
-        updateSystemHealth(realTimeData.systemHealth);
-      }
-    }
-    
-    function renderAgentList(agents) {
-      const container = document.getElementById('agent-list');
-      if (!container || !agents) return;
-      
-      container.innerHTML = agents.map(agent => `
-        <div class="agent-item">
-          <div class="agent-avatar" style="background: ${getAgentColor(agent.name)};">
-            ${agent.emoji}
-            <span class="agent-status-dot ${agent.status}"></span>
-          </div>
-          <div class="agent-info">
-            <div class="agent-name">${agent.name}</div>
-            <div class="agent-role">${agent.activity || 'Active'}</div>
-          </div>
-          <div class="agent-activity">${agent.status === 'online' ? '●' : '◐'}</div>
-        </div>
-      `).join('');
-    }
-    
-    function renderActivityFeed(activities) {
-      const container = document.getElementById('activity-list');
-      if (!container || !activities) return;
-      
-      container.innerHTML = activities.map(act => `
-        <div class="activity-item">
-          <div class="activity-icon" style="background: ${getActivityColor(act.icon)};">${act.icon}</div>
-          <div class="activity-content">
-            <div class="activity-text">${act.text}</div>
-            <div class="activity-time">${act.time}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-    
-    function updateSystemHealth(health) {
-      const openclawEl = document.getElementById('health-openclaw');
-      const mlxEl = document.getElementById('health-mlx');
-      
-      if (openclawEl) {
-        const color = health.openclaw === 'online' ? 'var(--accent-green)' : 
-                     health.openclaw === 'checking' ? 'var(--accent-yellow)' : 'var(--accent-red)';
-        openclawEl.innerHTML = `<span class="health-dot" style="background: ${color};"></span><span>${health.openclaw}</span>`;
-      }
-      
-      if (mlxEl) {
-        const color = health.mlx === 'online' ? 'var(--accent-green)' : 
-                     health.mlx === 'checking' ? 'var(--accent-yellow)' : 'var(--accent-red)';
-        mlxEl.innerHTML = `<span class="health-dot" style="background: ${color};"></span><span>${health.mlx}</span>`;
-      }
-    }
-    
-    function getAgentColor(name) {
-      const colors = {
-        'Kimi (Lead AI)': 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-        'Nano': 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-        'Frontend Dev': 'linear-gradient(135deg, #ec4899, #f472b6)',
-        'Backend Dev': 'linear-gradient(135deg, #f59e0b, #fbbf24)',
-        'Database Eng': 'linear-gradient(135deg, #10b981, #34d399)',
-        'AI Engineer': 'linear-gradient(135deg, #06b6d4, #22d3ee)',
-        'Integration Spec': 'linear-gradient(135deg, #3b82f6, #60a5fa)'
-      };
-      return colors[name] || 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
-    }
-    
-    function getActivityColor(icon) {
-      if (icon === '✓') return 'linear-gradient(135deg, #10b981, #34d399)';
-      if (icon === '🎯') return 'linear-gradient(135deg, #8b5cf6, #ec4899)';
-      if (icon === '🤖') return 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-      if (icon === '🎨') return 'linear-gradient(135deg, #ec4899, #f472b6)';
-      return 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
-    }
-    
-    function simulateRealTimeData() {
-      // Simulate agent status changes
-      const activities = [
-        'Analyzing data',
-        'Writing code',
-        'Testing model',
-        'Researching',
-        'Debugging',
-        'Optimizing'
-      ];
-      
-      // Occasionally add new activity
-      if (Math.random() > 0.8) {
-        const activity = activities[Math.floor(Math.random() * activities.length)];
-        addActivity(`${activity}...`);
-      }
-    }
-    
-    // Sidebar Toggle
+
     function toggleSidebar() {
       sidebarCollapsed = !sidebarCollapsed;
       document.getElementById('sidebar').classList.toggle('collapsed', sidebarCollapsed);
       document.getElementById('main-wrapper').classList.toggle('expanded', sidebarCollapsed);
     }
-    
-    // Stats
+
     function updateStats() {
       const total = tasks.length;
       const inProgress = tasks.filter(t => t.status === 'in-progress').length;
@@ -1475,12 +1789,10 @@
       document.getElementById('stat-progress').textContent = inProgress;
       document.getElementById('stat-completed').textContent = completed;
       
-      // Update progress bars
       const completionRate = total > 0 ? (completed / total * 100) : 0;
       document.getElementById('progress-total').style.width = `${completionRate}%`;
     }
-    
-    // Tasks
+
     function renderTasks() {
       const container = document.getElementById('task-list');
       
@@ -1498,7 +1810,7 @@
       const priorityTasks = tasks.slice(0, 5);
       container.innerHTML = priorityTasks.map(task => `
         <div class="task-item" onclick="toggleTask('${task.id}')">
-          <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="event.stopPropagation(); toggleTask('${task.id}')">
+          <div class="task-checkbox ${task.completed ? 'checked' : ''}">
             ${task.completed ? '<i class="fas fa-check" style="color: white; font-size: 10px;"></i>' : ''}
           </div>
           <div class="task-content">
@@ -1509,7 +1821,50 @@
         </div>
       `).join('');
     }
-    
+
+    function renderAgents() {
+      const agents = [
+        { name: 'Kimi (Lead AI)', status: 'online', activity: 'Orchestrating', emoji: '🎯', color: 'linear-gradient(135deg, #8b5cf6, #ec4899)' },
+        { name: 'Nano', status: 'online', activity: 'Coordinating', emoji: '🤖', color: 'linear-gradient(135deg, #6366f1, #8b5cf6)' },
+        { name: 'Frontend Dev', status: 'busy', activity: 'Coding UI', emoji: '🎨', color: 'linear-gradient(135deg, #ec4899, #f472b6)' },
+        { name: 'Database Eng', status: 'online', activity: 'Optimizing', emoji: '🗄️', color: 'linear-gradient(135deg, #10b981, #34d399)' }
+      ];
+      
+      const container = document.getElementById('agent-list');
+      container.innerHTML = agents.map(agent => `
+        <div class="agent-item">
+          <div class="agent-avatar" style="background: ${agent.color};">
+            ${agent.emoji}
+            <span class="agent-status-dot ${agent.status}"></span>
+          </div>
+          <div class="agent-info">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-role">${agent.activity}</div>
+          </div>
+          <div class="agent-activity">${agent.status === 'online' ? '●' : '◐'}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderActivity() {
+      const activities = [
+        { icon: '🎯', text: 'System <strong>Mission Control</strong> initialized', time: 'Just now' },
+        { icon: '✓', text: '<strong>Dashboard</strong> loaded successfully', time: 'Just now' },
+        { icon: '🤖', text: '<strong>14 agents</strong> online and ready', time: 'Just now' }
+      ];
+      
+      const container = document.getElementById('activity-list');
+      container.innerHTML = activities.map(act => `
+        <div class="activity-item">
+          <div class="activity-icon" style="background: ${getActivityColor(act.icon)};">${act.icon}</div>
+          <div class="activity-content">
+            <div class="activity-text">${act.text}</div>
+            <div class="activity-time">${act.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function quickTask() {
       const title = prompt('Task title:');
       if (!title) return;
@@ -1532,8 +1887,9 @@
       renderTasks();
       updateStats();
       addActivity(`Created task "${title}"`);
+      showOutput(`✓ Task created: "${title}"\nAssigned to: ${assignee}\nPriority: ${priority}`);
     }
-    
+
     function toggleTask(id) {
       const task = tasks.find(t => t.id === id);
       if (task) {
@@ -1547,8 +1903,13 @@
         }
       }
     }
-    
-    // Activity Feed
+
+    function spawnAgent() {
+      const type = prompt('Agent type (frontend/backend/database/etc):') || 'general';
+      addActivity(`Spawned ${type} agent`);
+      showOutput(`🚀 Spawning ${type} agent...\n\nAgent would be initialized and added to the team.`);
+    }
+
     function addActivity(text) {
       const list = document.getElementById('activity-list');
       const item = document.createElement('div');
@@ -1562,17 +1923,15 @@
       `;
       list.insertBefore(item, list.firstChild);
       
-      // Keep only last 10 items
       while (list.children.length > 10) {
         list.removeChild(list.lastChild);
       }
     }
-    
+
     function clearActivity() {
       document.getElementById('activity-list').innerHTML = '';
     }
-    
-    // Connection Status
+
     async function checkConnection() {
       const dot = document.getElementById('status-dot');
       const text = document.getElementById('status-text');
@@ -1583,8 +1942,7 @@
       try {
         const response = await fetch('http://127.0.0.1:18789/v1/status', { 
           method: 'GET',
-          mode: 'cors',
-          timeout: 5000
+          mode: 'cors'
         });
         
         if (response.ok) {
@@ -1598,73 +1956,55 @@
         text.textContent = 'Offline';
       }
     }
-    
-    // Command Input
-    function setupCommandInput() {
-      const input = document.getElementById('command-input');
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          executeCommand();
+
+    async function startRealTimeUpdates() {
+      await fetchRealTimeData();
+      setInterval(fetchRealTimeData, 5000);
+    }
+
+    async function fetchRealTimeData() {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        
+        const response = await fetch('http://127.0.0.1:3001/api/dashboard', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          realTimeData = await response.json();
         }
-      });
-    }
-    
-    function executeCommand() {
-      const input = document.getElementById('command-input');
-      const command = input.value.trim().toLowerCase();
-      
-      if (!command) return;
-      
-      if (command.includes('task') || command.includes('create')) {
-        quickTask();
-      } else if (command.includes('agent') || command.includes('spawn')) {
-        spawnAgent();
-      } else if (command.includes('calendar') || command.includes('schedule')) {
-        location.href = 'calendar.html';
-      } else if (command.includes('team') || command.includes('office')) {
-        location.href = 'office.html';
-      } else if (command.includes('pipeline') || command.includes('content')) {
-        location.href = 'content-pipeline.html';
-      } else {
-        alert(`Command received: "${input.value}"\n\nI would process this command and take appropriate action.`);
+      } catch (error) {
+        // API not running
       }
-      
-      input.value = '';
     }
-    
-    // Helpers
-    function spawnAgent() {
-      const type = prompt('Agent type (frontend/backend/database/etc):') || 'general';
-      addActivity(`Spawned ${type} agent`);
-      alert(`🚀 Spawning ${type} agent...`);
-    }
-    
-    function showMemory() {
-      alert('🗄️ Memory System\n\nDocuments and files storage coming soon.');
-    }
-    
-    function showSettings() {
-      alert('⚙️ Settings\n\n• Theme: Dark Mode\n• Notifications: Enabled\n• Auto-refresh: 30s\n• Data Storage: localStorage');
-    }
-    
-    function showReports() {
-      alert('📊 Reports\n\nDetailed analytics and reports coming soon.');
-    }
-    
+
     function refreshAll() {
       updateStats();
       renderTasks();
+      renderAgents();
       checkConnection();
       addActivity('Dashboard refreshed');
+      showOutput('✓ Dashboard refreshed\nAll data updated successfully.');
     }
-    
+
+    function showMemory() {
+      showOutput('🗄️ Memory System\n\nDocuments and files storage.\n\nUse "mc goals" or "mc plan" to see agent-created content.');
+    }
+
+    function showSettings() {
+      showOutput('⚙️ Settings\n\n• Theme: Dark Mode\n• Notifications: Enabled\n• Auto-refresh: 30s\n• Data Storage: localStorage');
+    }
+
     function getPriorityColor(priority) {
-      const colors = {
-        high: '#ef4444',
-        medium: '#f59e0b',
-        low: '#10b981'
-      };
+      const colors = { high: '#ef4444', medium: '#f59e0b', low: '#10b981' };
       return colors[priority] || '#8b5cf6';
+    }
+
+    function getActivityColor(icon) {
+      if (icon === '✓') return 'linear-gradient(135deg, #10b981, #34d399)';
+      if (icon === '🎯') return 'linear-gradient(135deg, #8b5cf6, #ec4899)';
+      if (icon === '🤖') return 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+      return 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
     }
   </script>
 </body>
