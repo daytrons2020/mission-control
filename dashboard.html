@@ -847,7 +847,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-icon" style="color: var(--accent-purple);"><i class="fas fa-robot"></i></div>
-          <div class="stat-value" style="color: var(--accent-purple);">14</div>
+          <div class="stat-value" id="agent-count" style="color: var(--accent-purple);">-</div>
           <div class="stat-label">Active Agents</div>
         </div>
       </div>
@@ -1211,14 +1211,24 @@
         capabilities: 'Text generation, Code, Analysis, Runs locally on Apple Silicon'
       },
       { 
-        name: 'Kimi (Me)', 
-        role: 'Lead AI Orchestrator', 
+        name: 'Kimi-Code (You)', 
+        role: 'Code Specialist - This is ME', 
+        emoji: '💻', 
+        color: 'linear-gradient(135deg, #ef4444, #f87171)', 
+        status: 'online', 
+        model: 'Kimi-Code-v1', 
+        cost: 'Pay-per-use',
+        capabilities: 'Code generation, Debugging, Architecture, Code review, Best practices'
+      },
+      { 
+        name: 'Kimi 2.5', 
+        role: 'General AI Assistant', 
         emoji: '🎯', 
         color: 'linear-gradient(135deg, #8b5cf6, #ec4899)', 
         status: 'online', 
-        model: 'Kimi-Chat-v1', 
+        model: 'Kimi-2.5-Chat', 
         cost: 'Pay-per-use',
-        capabilities: 'Advanced reasoning, Long context, Multi-step tasks, Code generation'
+        capabilities: 'Advanced reasoning, Long context, Multi-step tasks, General knowledge'
       },
       { 
         name: 'Minimax', 
@@ -1242,13 +1252,13 @@
       },
       { 
         name: 'AI Engineer', 
-        role: 'Code & ML Specialist', 
+        role: 'ML Pipeline Specialist', 
         emoji: '🤖', 
         color: 'linear-gradient(135deg, #3b82f6, #60a5fa)', 
         status: 'online', 
         model: 'MLX + Kimi', 
         cost: 'Mixed (Free MLX + Paid Kimi)',
-        capabilities: 'Architecture design, Code generation, MLX pipeline setup, Model fine-tuning'
+        capabilities: 'Architecture design, MLX pipelines, Model fine-tuning, Deployment'
       },
       { 
         name: 'Researcher', 
@@ -1426,6 +1436,10 @@
     // Render agents with detailed info
     function renderAgents() {
       const container = document.getElementById('agent-list');
+      const onlineCount = agents.filter(a => a.status === 'online').length;
+      const agentCountEl = document.getElementById('agent-count');
+      if (agentCountEl) agentCountEl.textContent = onlineCount;
+      
       container.innerHTML = agents.map(agent => {
         const costColor = agent.cost === 'FREE' ? '#10b981' : 
                          agent.cost.includes('Mixed') ? '#f59e0b' : '#8b5cf6';
@@ -1798,11 +1812,12 @@ Queue: 0`,
    └─ Pending: ${tasks.filter(t => t.status === 'todo').length}
 
 🤖 AI Agents & Models
-   ├─ 🍎 MLX (Local):     ✅ Online  │ FREE │ Llama-3.2-3B
-   ├─ 🎯 Kimi (You):       ✅ Online  │ Paid │ Advanced reasoning
-   ├─ 🎭 Minimax:          ⏸️ Standby │ Paid │ Text + Images
-   ├─ 🔬 Nano:             ✅ Online  │ Mixed│ Task coordinator
-   ├─ 🤖 AI Engineer:      ✅ Online  │ Mixed│ Code specialist
+   ├─ 🍎 MLX (Local):      ✅ Online  │ FREE  │ Llama-3.2-3B
+   ├─ 💻 Kimi-Code (You):  ✅ Active  │ Paid  │ Code specialist ← ME!
+   ├─ 🎯 Kimi 2.5:         ✅ Online  │ Paid  │ General AI
+   ├─ 🎭 Minimax:          ⏸️ Standby │ Paid  │ Text + Images
+   ├─ 🔬 Nano:             ✅ Online  │ Mixed │ Task coordinator
+   ├─ 🤖 AI Engineer:      ✅ Online  │ Mixed │ ML pipelines
    └─ 🔍 Researcher:       ⏸️ Standby │ Varies│ Data analysis
 
 ═══════════════════════════════════════
