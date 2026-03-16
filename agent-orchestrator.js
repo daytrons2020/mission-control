@@ -259,26 +259,26 @@ class TaskGenerator {
     this.goalsParser = new GoalsParser();
   }
 
-  async generateDailyTasks() {
+  async generateDailyTasks(maxTasksPerGoal = 1) {
     const goals = this.goalsParser.parseGoalsFile();
     const dailyTasks = [];
 
-    for (const goal of goals) {
+    for (const goal of goals.slice(0, 3)) { // Only top 3 goals
       if (goal.status !== 'active') continue;
 
       // Find incomplete tasks
       const incompleteTasks = goal.tasks.filter(t => t.status !== 'done');
       
-      // Generate subtasks for high-priority incomplete tasks
-      for (const task of incompleteTasks.slice(0, 2)) {
+      // Generate subtasks for high-priority incomplete tasks (limited)
+      for (const task of incompleteTasks.slice(0, maxTasksPerGoal)) {
         const subtasks = await this.generateSubtasks(task, goal);
-        dailyTasks.push(...subtasks);
+        dailyTasks.push(...subtasks.slice(0, 2)); // Max 2 subtasks per task
       }
 
       // If no specific tasks, generate from goal description
       if (incompleteTasks.length === 0) {
         const exploratoryTasks = await this.generateExploratoryTasks(goal);
-        dailyTasks.push(...exploratoryTasks);
+        dailyTasks.push(...exploratoryTasks.slice(0, 2));
       }
     }
 
@@ -929,7 +929,8 @@ async function main() {
       break;
 
     case 'plan':
-      const tasks = await new TaskGenerator().generateDailyTasks();
+      console.log('Generating work plan...\n');
+      const tasks = await new TaskGenerator().generateDailyTasks(1); // Limit to 1 per goal for speed
       const plan = new AgentAssigner().createWorkPlan(tasks);
       console.log('\n=== Today\'s Work Plan ===\n');
       console.log(`Total Tasks: ${plan.totalTasks}`);
