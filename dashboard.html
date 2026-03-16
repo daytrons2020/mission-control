@@ -379,6 +379,13 @@
     .agent-name { font-size: 14px; font-weight: 500; }
     .agent-role { font-size: 12px; color: rgba(255,255,255,0.5); }
     
+    /* Workload Chart */
+    .workload-bar-container { display: flex; align-items: center; gap: 12px; }
+    .workload-bar-label { width: 140px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+    .workload-bar-track { flex: 1; height: 24px; background: var(--glass-bg-light); border-radius: 12px; overflow: hidden; position: relative; }
+    .workload-bar-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 11px; font-weight: 600; }
+    .workload-bar-count { width: 40px; text-align: right; font-size: 13px; color: rgba(255,255,255,0.6); }
+    
     /* Activity List */
     .activity-list { display: flex; flex-direction: column; gap: 12px; }
     .activity-item { display: flex; gap: 12px; padding: 12px; background: var(--glass-bg-light); border-radius: 10px; }
@@ -979,6 +986,21 @@
           </div>
         </div>
       </div>
+      
+      <!-- Agent Workload Distribution -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);"><i class="fas fa-chart-pie"></i></div>
+            Agent Workload Distribution
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="agent-workload-chart" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-- MEMORY TAB -->
@@ -1335,6 +1357,9 @@
       document.getElementById('stat-progress').textContent = inProgress;
       document.getElementById('stat-completed').textContent = completed;
       document.getElementById('sidebar-task-count').textContent = total;
+      
+      // Update workload chart
+      renderWorkloadChart();
     }
     
     // Render tasks
@@ -1431,6 +1456,77 @@
     // Filter tasks
     function filterTasks() {
       renderTasks();
+    }
+    
+    // Render Agent Workload Chart
+    function renderWorkloadChart() {
+      const container = document.getElementById('agent-workload-chart');
+      if (!container) return;
+      
+      // Count tasks per assignee
+      const workload = {};
+      agents.forEach(a => workload[a.name] = 0);
+      
+      tasks.forEach(task => {
+        const assignee = task.assignee || 'Unassigned';
+        // Try to match to an agent
+        const matchedAgent = agents.find(a => 
+          assignee.toLowerCase().includes(a.name.toLowerCase()) ||
+          a.name.toLowerCase().includes(assignee.toLowerCase())
+        );
+        if (matchedAgent) {
+          workload[matchedAgent.name]++;
+        } else if (workload[assignee] !== undefined) {
+          workload[assignee]++;
+        } else {
+          workload['Unassigned'] = (workload['Unassigned'] || 0) + 1;
+        }
+      });
+      
+      const maxTasks = Math.max(...Object.values(workload), 1);
+      const colors = ['#8b5cf6', '#ec4899', '#3b82f6', '#10b981', '#f59e0b', '#06b6d4', '#ef4444'];
+      
+      let html = '';
+      agents.forEach((agent, index) => {
+        const count = workload[agent.name] || 0;
+        const percent = (count / maxTasks) * 100;
+        const color = colors[index % colors.length];
+        
+        html += `
+          <div class="workload-bar-container">
+            <div class="workload-bar-label">
+              <span>${agent.emoji}</span>
+              <span>${agent.name.replace(' (You)', '')}</span>
+            </div>
+            <div class="workload-bar-track">
+              <div class="workload-bar-fill" style="width: ${percent}%; background: ${color};">
+                ${percent > 15 ? count : ''}
+              </div>
+            </div>
+            <div class="workload-bar-count">${count}</div>
+          </div>
+        `;
+      });
+      
+      // Add unassigned if any
+      if (workload['Unassigned']) {
+        html += `
+          <div class="workload-bar-container">
+            <div class="workload-bar-label">
+              <span>❓</span>
+              <span>Unassigned</span>
+            </div>
+            <div class="workload-bar-track">
+              <div class="workload-bar-fill" style="width: ${(workload['Unassigned'] / maxTasks) * 100}%; background: #6b7280;">
+                ${workload['Unassigned']}
+              </div>
+            </div>
+            <div class="workload-bar-count">${workload['Unassigned']}</div>
+          </div>
+        `;
+      }
+      
+      container.innerHTML = html;
     }
     
     // Render agents with detailed info
@@ -2014,13 +2110,38 @@ Last Updated: ${new Date().toLocaleTimeString()}`
       openDocumentModal(id);
     }
     
+    // Smart task assignment helper
+    function suggestAgent(taskTitle, taskDesc = '') {
+      const text = (taskTitle + ' ' + taskDesc).toLowerCase();
+      
+      const suggestions = [
+        { keywords: ['design', 'ui', 'css', 'html', 'frontend', 'web', 'page', 'layout'], agent: 'MLX (Local)' },
+        { keywords: ['api', 'backend', 'server', 'python', 'nodejs', 'database', 'sql'], agent: 'AI Engineer' },
+        { keywords: ['database', 'schema', 'sql', 'postgresql'], agent: 'MLX (Local)' },
+        { keywords: ['ml', 'ai', 'model', 'training', 'algorithm'], agent: 'AI Engineer' },
+        { keywords: ['discord', 'webhook', 'integration', 'api', 'bot'], agent: 'Nano' },
+        { keywords: ['content', 'write', 'document', 'blog', 'text'], agent: 'Kimi 2.5' },
+        { keywords: ['research', 'analyze', 'study', 'market'], agent: 'Researcher' },
+        { keywords: ['trade', 'trading', 'pattern', 'stock', 'crypto'], agent: 'Minimax' },
+        { keywords: ['code', 'debug', 'fix', 'refactor', 'architecture'], agent: 'Kimi-Code (You)' }
+      ];
+      
+      for (const sug of suggestions) {
+        if (sug.keywords.some(k => text.includes(k))) {
+          return sug.agent;
+        }
+      }
+      return 'Nano'; // Default coordinator
+    }
+    
     // Override addTask with toast notification
     const originalAddTask = addTask;
     addTask = function() {
       const title = prompt('Task title:');
       if (!title) return;
       
-      const assignee = prompt('Assign to (or leave blank):') || 'Unassigned';
+      const suggestedAgent = suggestAgent(title);
+      const assignee = prompt(`Assign to (suggested: ${suggestedAgent}):`) || suggestedAgent;
       const priority = prompt('Priority (low/medium/high):') || 'medium';
       
       const task = {
@@ -2029,7 +2150,8 @@ Last Updated: ${new Date().toLocaleTimeString()}`
         assignee,
         priority,
         status: 'todo',
-        completed: false
+        completed: false,
+        createdAt: new Date().toISOString()
       };
       
       tasks.push(task);
@@ -2039,7 +2161,7 @@ Last Updated: ${new Date().toLocaleTimeString()}`
       renderTasks();
       
       // Show toast
-      showToast('Task Added', `"${title}" has been added to your tasks`, 'success');
+      showToast('Task Added', `"${title}" assigned to ${assignee}`, 'success');
       
       // Add activity
       const activityList = document.getElementById('activity-list');
@@ -2052,7 +2174,7 @@ Last Updated: ${new Date().toLocaleTimeString()}`
           <div class="activity-time">Just now</div>
         </div>
       `;
-      activityList.insertBefore(newActivity, activityList.firstChild);
+      activityList.insertBefore(newActivity, activityList.firstSibling);
     };
     
     // Override createDocument with toast
