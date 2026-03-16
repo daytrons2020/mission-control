@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mission Control - Dashboard</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
@@ -210,11 +211,10 @@
       background: #0a0a0e;
       border: 1px solid var(--glass-border);
       border-radius: 12px;
-      padding: 20px;
+      padding: 16px;
       margin-bottom: 24px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      min-height: 200px;
       max-height: 400px;
       overflow-y: auto;
       white-space: pre-wrap;
@@ -225,7 +225,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--glass-border);
     }
@@ -257,33 +257,6 @@
     .cmd-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
     .cmd-desc { font-size: 12px; color: rgba(255,255,255,0.5); }
     
-    /* Mission Statement */
-    .mission-banner {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
-      border: 2px solid rgba(139, 92, 246, 0.3);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .mission-banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink), var(--accent-cyan));
-    }
-    .mission-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-    .mission-title { display: flex; align-items: center; gap: 12px; }
-    .mission-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); display: flex; align-items: center; justify-content: center; font-size: 24px; }
-    .mission-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-    .mission-text p { font-size: 13px; color: rgba(255,255,255,0.6); }
-    .mission-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 20px; }
-    .mission-close:hover { color: white; }
-    .mission-content { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.85); }
-    .mission-quote { font-style: italic; border-left: 3px solid var(--accent-purple); padding-left: 16px; margin-top: 12px; color: rgba(255,255,255,0.7); }
-    
     /* Stats Grid */
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
     .stat-card {
@@ -310,44 +283,26 @@
     
     /* Task List */
     .task-list-compact { display: flex; flex-direction: column; gap: 10px; }
-    .task-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      background: var(--glass-bg-light);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .task-item:hover { background: rgba(139, 92, 246, 0.1); transform: translateX(4px); }
-    .task-checkbox { width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--glass-border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+    .task-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--glass-bg-light); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+    .task-item:hover { background: rgba(255,255,255,0.1); }
+    .task-checkbox { width: 20px; height: 20px; border: 2px solid var(--glass-border); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
     .task-checkbox.checked { background: var(--accent-green); border-color: var(--accent-green); }
     .task-content { flex: 1; }
-    .task-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .task-title.completed { text-decoration: line-through; opacity: 0.6; }
-    .task-meta { font-size: 11px; color: rgba(255,255,255,0.5); }
+    .task-title { font-size: 14px; font-weight: 500; }
+    .task-title.completed { text-decoration: line-through; opacity: 0.5; }
+    .task-meta { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
     
     /* Agent List */
-    .agent-list { display: flex; flex-direction: column; gap: 10px; }
-    .agent-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      background: var(--glass-bg-light);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .agent-item:hover { background: rgba(139, 92, 246, 0.1); }
+    .agent-list { display: flex; flex-direction: column; gap: 12px; }
+    .agent-item { display: flex; align-items: center; gap: 12px; }
     .agent-avatar { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; position: relative; }
-    .agent-status-dot { position: absolute; bottom: -2px; right: -2px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #0a0a0e; }
+    .agent-status-dot { position: absolute; bottom: 2px; right: 2px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #0a0a0e; }
     .agent-status-dot.online { background: var(--accent-green); }
     .agent-status-dot.busy { background: var(--accent-yellow); }
+    .agent-status-dot.standby { background: var(--accent-cyan); }
     .agent-info { flex: 1; }
-    .agent-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-    .agent-role { font-size: 11px; color: rgba(255,255,255,0.5); }
+    .agent-name { font-size: 14px; font-weight: 500; }
+    .agent-role { font-size: 12px; color: rgba(255,255,255,0.5); }
     
     /* Activity List */
     .activity-list { display: flex; flex-direction: column; gap: 12px; }
@@ -356,14 +311,6 @@
     .activity-content { flex: 1; }
     .activity-text { font-size: 13px; line-height: 1.4; margin-bottom: 4px; }
     .activity-time { font-size: 11px; color: rgba(255,255,255,0.4); }
-    
-    /* Memory Panel */
-    .memory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-    .memory-card { background: var(--glass-bg-light); border: 1px solid var(--glass-border); border-radius: 12px; padding: 16px; transition: all 0.2s; }
-    .memory-card:hover { border-color: var(--accent-purple); transform: translateY(-2px); }
-    .memory-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px; }
-    .memory-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-    .memory-meta { font-size: 12px; color: rgba(255,255,255,0.5); }
     
     /* Search Bar */
     .search-container {
@@ -469,7 +416,6 @@
       .sidebar .sidebar-title, .sidebar .nav-item span { display: none; }
       .main-wrapper { margin-left: var(--sidebar-collapsed); }
       .stats-grid { grid-template-columns: 1fr; }
-      .mission-banner { display: none; }
     }
   </style>
 </head>
@@ -601,53 +547,25 @@
         </button>
       </div>
       
-      <!-- Mission Statement -->
-      <div class="mission-banner" id="mission-banner">
-        <div class="mission-header">
-          <div class="mission-title">
-            <div class="mission-icon">🎯</div>
-            <div class="mission-text">
-              <h2>Our Mission</h2>
-              <p>Orchestrating AI Excellence</p>
-            </div>
-          </div>
-          <button class="mission-close" onclick="document.getElementById('mission-banner').style.display='none'">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="mission-content">
-          <p>To create a seamless, intelligent ecosystem where AI agents collaborate harmoniously under human guidance to accomplish extraordinary goals.</p>
-          <div class="mission-quote">"We don't just complete tasks—we create value. Every action matters."</div>
-        </div>
-      </div>
-      
       <!-- Stats Row -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon" style="color: var(--accent-cyan);"><i class="fas fa-tasks"></i></div>
-          </div>
-          <div class="stat-value" id="stat-total" style="color: var(--accent-cyan);">--</div>
+          <div class="stat-icon" style="color: var(--accent-cyan);"><i class="fas fa-tasks"></i></div>
+          <div class="stat-value" id="stat-total" style="color: var(--accent-cyan);">0</div>
           <div class="stat-label">Total Tasks</div>
         </div>
         <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon" style="color: var(--accent-yellow);"><i class="fas fa-spinner"></i></div>
-          </div>
-          <div class="stat-value" id="stat-progress" style="color: var(--accent-yellow);">--</div>
+          <div class="stat-icon" style="color: var(--accent-yellow);"><i class="fas fa-spinner"></i></div>
+          <div class="stat-value" id="stat-progress" style="color: var(--accent-yellow);">0</div>
           <div class="stat-label">In Progress</div>
         </div>
         <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon" style="color: var(--accent-green);"><i class="fas fa-check-circle"></i></div>
-          </div>
-          <div class="stat-value" id="stat-completed" style="color: var(--accent-green);">--</div>
+          <div class="stat-icon" style="color: var(--accent-green);"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-value" id="stat-completed" style="color: var(--accent-green);">0</div>
           <div class="stat-label">Completed</div>
         </div>
         <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon" style="color: var(--accent-purple);"><i class="fas fa-robot"></i></div>
-          </div>
+          <div class="stat-icon" style="color: var(--accent-purple);"><i class="fas fa-robot"></i></div>
           <div class="stat-value" style="color: var(--accent-purple);">14</div>
           <div class="stat-label">Active Agents</div>
         </div>
@@ -851,14 +769,108 @@
     // Initialize data
     let tasks = JSON.parse(localStorage.getItem('mc_tasks') || '[]');
     let sidebarCollapsed = false;
+    let allDocuments = [];
     
-    // Sample agents data
+    // Sample memory documents
+    const sampleDocuments = [
+      {
+        id: 1,
+        title: 'Respiratory Education Research',
+        type: 'research',
+        icon: '🔬',
+        created: '2026-03-08',
+        size: '24.5 KB',
+        author: 'Researcher',
+        tags: ['RT', 'education', 'curriculum'],
+        preview: 'Comprehensive research on respiratory therapy curriculum standards including AARC guidelines, NBRC exam requirements, and best practices for clinical training...'
+      },
+      {
+        id: 2,
+        title: 'Trading System Architecture',
+        type: 'plan',
+        icon: '📊',
+        created: '2026-03-07',
+        size: '18.2 KB',
+        author: 'AI Engineer',
+        tags: ['trading', 'architecture', 'ML'],
+        preview: 'System design for autonomous trading platform with 90%+ win rate. Includes pattern recognition modules, risk management, and backtesting framework...'
+      },
+      {
+        id: 3,
+        title: 'Content Pipeline API',
+        type: 'code',
+        icon: '💻',
+        created: '2026-03-06',
+        size: '45.8 KB',
+        author: 'Backend Dev',
+        tags: ['API', 'nodejs', 'pipeline'],
+        preview: 'RESTful API endpoints for content pipeline management. Includes CRUD operations for ideas, outlines, scripts, and publishing workflows...'
+      },
+      {
+        id: 4,
+        title: 'Mission Control Goals 2026',
+        type: 'document',
+        icon: '🎯',
+        created: '2026-03-05',
+        size: '12.4 KB',
+        author: 'Nano',
+        tags: ['goals', 'planning', 'strategy'],
+        preview: 'Strategic overview of 5 main goals: Respiratory Education Empire, Autonomous Trading System, 24/7 Reselling Business, Polymarket Bot, and Life Programs...'
+      },
+      {
+        id: 5,
+        title: 'Polymarket Analysis',
+        type: 'research',
+        icon: '📈',
+        created: '2026-03-04',
+        size: '31.6 KB',
+        author: 'Trading Analyst',
+        tags: ['crypto', 'polymarket', 'prediction'],
+        preview: 'Market analysis of Polymarket prediction markets. Includes sentiment analysis, news correlation, and predictive modeling for political and crypto markets...'
+      },
+      {
+        id: 6,
+        title: 'Database Schema v2',
+        type: 'code',
+        icon: '🗄️',
+        created: '2026-03-03',
+        size: '22.1 KB',
+        author: 'Database Eng',
+        tags: ['database', 'schema', 'postgresql'],
+        preview: 'Updated database schema for memory system, task management, and agent coordination. Includes indexing strategies and optimization notes...'
+      },
+      {
+        id: 7,
+        title: 'Reselling Business Plan',
+        type: 'plan',
+        icon: '📦',
+        created: '2026-03-02',
+        size: '28.9 KB',
+        author: 'Researcher',
+        tags: ['amazon', 'fba', 'ecommerce'],
+        preview: 'Business plan for automated Amazon FBA/eBay reselling operation. Includes product sourcing strategy, pricing algorithms, and inventory management...'
+      },
+      {
+        id: 8,
+        title: 'Agent Orchestrator Spec',
+        type: 'document',
+        icon: '🤖',
+        created: '2026-03-01',
+        size: '35.2 KB',
+        author: 'AI Engineer',
+        tags: ['agents', 'automation', 'spec'],
+        preview: 'Technical specification for autonomous agent orchestration system. Includes task distribution, goal parsing, and MLX integration architecture...'
+      }
+    ];
+    
+    // Agent data
     const agents = [
-      { name: 'Kimi (Lead AI)', role: 'Orchestrating', status: 'online', emoji: '🎯', color: 'linear-gradient(135deg, #8b5cf6, #ec4899)' },
-      { name: 'Nano', role: 'Coordinating', status: 'online', emoji: '🤖', color: 'linear-gradient(135deg, #6366f1, #8b5cf6)' },
-      { name: 'Frontend Dev', role: 'Coding UI', status: 'busy', emoji: '🎨', color: 'linear-gradient(135deg, #ec4899, #f472b6)' },
-      { name: 'Backend Dev', role: 'Building APIs', status: 'online', emoji: '⚙️', color: 'linear-gradient(135deg, #f59e0b, #fbbf24)' },
-      { name: 'Database Eng', role: 'Optimizing', status: 'online', emoji: '🗄️', color: 'linear-gradient(135deg, #10b981, #34d399)' }
+      { name: 'Nano', role: 'Coordinator', emoji: '🔬', color: 'linear-gradient(135deg, #8b5cf6, #ec4899)', status: 'online' },
+      { name: 'Frontend Dev', role: 'UI/UX', emoji: '🎨', color: 'linear-gradient(135deg, #ec4899, #f472b6)', status: 'online' },
+      { name: 'AI Engineer', role: 'ML/AI', emoji: '🤖', color: 'linear-gradient(135deg, #3b82f6, #60a5fa)', status: 'online' },
+      { name: 'Backend Dev', role: 'APIs', emoji: '⚙️', color: 'linear-gradient(135deg, #10b981, #34d399)', status: 'online' },
+      { name: 'Database Eng', role: 'Data', emoji: '🗄️', color: 'linear-gradient(135deg, #f59e0b, #fbbf24)', status: 'online' },
+      { name: 'Integration Spec', role: 'APIs', emoji: '🔌', color: 'linear-gradient(135deg, #06b6d4, #22d3ee)', status: 'online' }
     ];
     
     // Initialize on load
@@ -871,21 +883,14 @@
       loadMemoryDocuments();
       checkConnection();
       
-      // Check connection every 30s
       setInterval(checkConnection, 30000);
     });
     
     // Tab switching
     function showTab(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = 'none';
-      });
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
+      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
       
-      // Show selected tab
       document.getElementById('tab-' + tabName).style.display = 'block';
       event.currentTarget.classList.add('active');
     }
@@ -981,103 +986,6 @@
       `).join('');
     }
     
-    // ==========================================
-    // MEMORY FUNCTIONS
-    // ==========================================
-    let allDocuments = [];
-    
-    // Sample memory documents
-    const sampleDocuments = [
-      {
-        id: 1,
-        title: 'Respiratory Education Research',
-        type: 'research',
-        icon: '🔬',
-        created: '2026-03-08',
-        size: '24.5 KB',
-        author: 'Researcher',
-        tags: ['RT', 'education', 'curriculum'],
-        preview: 'Comprehensive research on respiratory therapy curriculum standards including AARC guidelines, NBRC exam requirements, and best practices for clinical training...'
-      },
-      {
-        id: 2,
-        title: 'Trading System Architecture',
-        type: 'plan',
-        icon: '📊',
-        created: '2026-03-07',
-        size: '18.2 KB',
-        author: 'AI Engineer',
-        tags: ['trading', 'architecture', 'ML'],
-        preview: 'System design for autonomous trading platform with 90%+ win rate. Includes pattern recognition modules, risk management, and backtesting framework...'
-      },
-      {
-        id: 3,
-        title: 'Content Pipeline API',
-        type: 'code',
-        icon: '💻',
-        created: '2026-03-06',
-        size: '45.8 KB',
-        author: 'Backend Dev',
-        tags: ['API', 'nodejs', 'pipeline'],
-        preview: 'RESTful API endpoints for content pipeline management. Includes CRUD operations for ideas, outlines, scripts, and publishing workflows...'
-      },
-      {
-        id: 4,
-        title: 'Mission Control Goals 2026',
-        type: 'document',
-        icon: '🎯',
-        created: '2026-03-05',
-        size: '12.4 KB',
-        author: 'Nano',
-        tags: ['goals', 'planning', 'strategy'],
-        preview: 'Strategic overview of 5 main goals: Respiratory Education Empire, Autonomous Trading System, 24/7 Reselling Business, Polymarket Bot, and Life Programs...'
-      },
-      {
-        id: 5,
-        title: 'Polymarket Analysis',
-        type: 'research',
-        icon: '📈',
-        created: '2026-03-04',
-        size: '31.6 KB',
-        author: 'Trading Analyst',
-        tags: ['crypto', 'polymarket', 'prediction'],
-        preview: 'Market analysis of Polymarket prediction markets. Includes sentiment analysis, news correlation, and predictive modeling for political and crypto markets...'
-      },
-      {
-        id: 6,
-        title: 'Database Schema v2',
-        type: 'code',
-        icon: '🗄️',
-        created: '2026-03-03',
-        size: '22.1 KB',
-        author: 'Database Eng',
-        tags: ['database', 'schema', 'postgresql'],
-        preview: 'Updated database schema for memory system, task management, and agent coordination. Includes indexing strategies and optimization notes...'
-      },
-      {
-        id: 7,
-        title: 'Reselling Business Plan',
-        type: 'plan',
-        icon: '📦',
-        created: '2026-03-02',
-        size: '28.9 KB',
-        author: 'Researcher',
-        tags: ['amazon', 'fba', 'ecommerce'],
-        preview: 'Business plan for automated Amazon FBA/eBay reselling operation. Includes product sourcing strategy, pricing algorithms, and inventory management...'
-      },
-      {
-        id: 8,
-        title: 'Agent Orchestrator Spec',
-        type: 'document',
-        icon: '🤖',
-        created: '2026-03-01',
-        size: '35.2 KB',
-        author: 'AI Engineer',
-        tags: ['agents', 'automation', 'spec'],
-        preview: 'Technical specification for autonomous agent orchestration system. Includes task distribution, goal parsing, and MLX integration architecture...'
-      }
-    ];
-    
     // Load memory documents
     function loadMemoryDocuments() {
       let stored = localStorage.getItem('mc_documents');
@@ -1100,6 +1008,7 @@
       
       const totalKB = allDocuments.reduce((sum, d) => sum + parseFloat(d.size), 0);
       document.getElementById('mem-size').textContent = (totalKB / 1024).toFixed(1) + 'MB';
+      document.getElementById('sidebar-memory-count').textContent = allDocuments.length;
     }
     
     // Render documents
@@ -1269,12 +1178,6 @@ ${doc.preview}
       
       updateMemoryStats();
       renderDocuments(allDocuments);
-      
-      // Switch to memory tab
-      document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-      document.getElementById('tab-memory').style.display = 'block';
-      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-      document.querySelector('.nav-item[onclick="showTab(\'memory\')"]').classList.add('active');
     }
     
     // Get icon for type
@@ -1410,7 +1313,17 @@ Last Updated: ${new Date().toLocaleTimeString()}`
       resultsBox.classList.add('active');
       
       // Add to activity
-      addActivity(`Viewed ${cmd} information`);
+      const activityList = document.getElementById('activity-list');
+      const newActivity = document.createElement('div');
+      newActivity.className = 'activity-item';
+      newActivity.innerHTML = `
+        <div class="activity-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🖥️</div>
+        <div class="activity-content">
+          <div class="activity-text">Command <strong>${cmd}</strong> executed</div>
+          <div class="activity-time">Just now</div>
+        </div>
+      `;
+      activityList.insertBefore(newActivity, activityList.firstChild);
     }
     
     // Add task
@@ -1418,8 +1331,8 @@ Last Updated: ${new Date().toLocaleTimeString()}`
       const title = prompt('Task title:');
       if (!title) return;
       
-      const assignee = prompt('Assign to:') || 'Unassigned';
-      const priority = prompt('Priority (high/medium/low):') || 'medium';
+      const assignee = prompt('Assign to (or leave blank):') || 'Unassigned';
+      const priority = prompt('Priority (low/medium/high):') || 'medium';
       
       const task = {
         id: Date.now().toString(),
@@ -1427,158 +1340,39 @@ Last Updated: ${new Date().toLocaleTimeString()}`
         assignee,
         priority,
         status: 'todo',
-        completed: false,
-        created: new Date().toISOString()
+        completed: false
       };
       
       tasks.push(task);
       localStorage.setItem('mc_tasks', JSON.stringify(tasks));
+      
       updateStats();
       renderTasks();
-      addActivity(`Created task: "${title}"`);
-    }
-    
-    // Toggle task
-    function toggleTask(id) {
-      const task = tasks.find(t => t.id === id);
-      if (task) {
-        task.completed = !task.completed;
-        task.status = task.completed ? 'done' : 'todo';
-        localStorage.setItem('mc_tasks', JSON.stringify(tasks));
-        updateStats();
-        renderTasks();
-        if (task.completed) {
-          addActivity(`Completed task: "${task.title}"`);
-        }
-      }
-    }
-    
-    // Add activity
-    function addActivity(text) {
-      const list = document.getElementById('activity-list');
-      const item = document.createElement('div');
-      item.className = 'activity-item';
-      item.innerHTML = `
-        <div class="activity-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">●</div>
+      
+      // Add activity
+      const activityList = document.getElementById('activity-list');
+      const newActivity = document.createElement('div');
+      newActivity.className = 'activity-item';
+      newActivity.innerHTML = `
+        <div class="activity-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">+</div>
         <div class="activity-content">
-          <div class="activity-text">${text}</div>
+          <div class="activity-text">Task <strong>${title}</strong> added</div>
           <div class="activity-time">Just now</div>
         </div>
       `;
-      list.insertBefore(item, list.firstChild);
-      
-      while (list.children.length > 10) {
-        list.removeChild(list.lastChild);
+      activityList.insertBefore(newActivity, activityList.firstChild);
+    }
+    
+    // Toggle task completion
+    function toggleTask(taskId) {
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        task.completed = !task.completed;
+        localStorage.setItem('mc_tasks', JSON.stringify(tasks));
+        updateStats();
+        renderTasks();
       }
     }
-    
-    // Upload document
-    function uploadDocument() {
-      const name = prompt('Document name:');
-      if (!name) return;
-      
-      const type = prompt('Type (document/code/image/data):') || 'document';
-      
-      // Add to memory
-      let memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
-      memory.push({
-        id: Date.now(),
-        name,
-        type,
-        created: new Date().toISOString(),
-        size: '2.4 KB'
-      });
-      localStorage.setItem('mc_memory', JSON.stringify(memory));
-      
-      updateMemoryStats();
-      addActivity(`Uploaded document: "${name}"`);
-      alert(`📄 Document "${name}" uploaded to memory.`);
-    }
-    
-    // Scan deliverables folder
-    function scanDeliverables() {
-      // Simulate scanning
-      const mockFiles = [
-        { name: 'goal-1-research.md', type: 'document', created: new Date().toISOString(), size: '4.2 KB' },
-        { name: 'architecture-plan.md', type: 'document', created: new Date().toISOString(), size: '8.1 KB' },
-        { name: 'api-endpoints.js', type: 'code', created: new Date().toISOString(), size: '12.5 KB' }
-      ];
-      
-      localStorage.setItem('mc_memory', JSON.stringify(mockFiles));
-      updateMemoryStats();
-      renderRecentFiles();
-      
-      addActivity('Scanned deliverables folder');
-      alert('📂 Scan complete! Found ' + mockFiles.length + ' files.');
-    }
-    
-    // Update memory stats
-    function updateMemoryStats() {
-      const memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
-      
-      document.getElementById('mem-total').textContent = memory.length;
-      document.getElementById('mem-docs').textContent = memory.filter(f => f.type === 'document').length;
-      document.getElementById('mem-code').textContent = memory.filter(f => f.type === 'code').length;
-      
-      const totalSize = memory.reduce((sum, f) => sum + parseFloat(f.size || '0'), 0);
-      document.getElementById('mem-size').textContent = totalSize.toFixed(1) + ' KB';
-      
-      // Update badges
-      document.getElementById('badge-docs').textContent = memory.filter(f => f.type === 'document').length;
-      document.getElementById('badge-code').textContent = memory.filter(f => f.type === 'code').length;
-      document.getElementById('badge-images').textContent = memory.filter(f => f.type === 'image').length;
-      document.getElementById('badge-data').textContent = memory.filter(f => f.type === 'data').length;
-    }
-    
-    // Render recent files
-    function renderRecentFiles() {
-      const memory = JSON.parse(localStorage.getItem('mc_memory') || '[]');
-      const container = document.getElementById('recent-files-list');
-      
-      if (memory.length === 0) {
-        container.innerHTML = `
-          <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
-            <div style="font-size: 48px; margin-bottom: 16px;">📂</div>
-            <div>No files yet</div>
-            <div style="font-size: 13px; margin-top: 8px;">Run <code>mc plan</code> to generate deliverables</div>
-          </div>
-        `;
-        return;
-      }
-      
-      container.innerHTML = memory.slice(0, 5).map(file => `
-        <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--glass-bg-light); border-radius: 10px;">
-          <div style="font-size: 24px;">${getFileIcon(file.type)}</div>
-          <div style="flex: 1;">
-            <div style="font-weight: 500; font-size: 14px;">${file.name}</div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.5);">${file.type} • ${file.size} • ${new Date(file.created).toLocaleDateString()}</div>
-          </div>
-          <button class="btn btn-sm" onclick="downloadFile('${file.name}')">Download</button>
-        </div>
-      `).join('');
-    }
-    
-    // Get file icon
-    function getFileIcon(type) {
-      const icons = { document: '📄', code: '💻', image: '🖼️', data: '📊' };
-      return icons[type] || '📁';
-    }
-    
-    // Filter memory
-    function filterMemory(type) {
-      alert(`🔍 Filtering by: ${type}\n\nThis would show only ${type} files.`);
-    }
-    
-    // Download file
-    function downloadFile(name) {
-      alert(`📥 Downloading: ${name}\n\nIn a real implementation, this would download the file.`);
-    }
-    
-    // Initialize memory on load
-    document.addEventListener('DOMContentLoaded', function() {
-      updateMemoryStats();
-      renderRecentFiles();
-    });
     
     // Check connection
     async function checkConnection() {
@@ -1609,5 +1403,3 @@ Last Updated: ${new Date().toLocaleTimeString()}`
   </script>
 </body>
 </html>
-<!-- Deployed: Sun Mar 15 23:14:49 PDT 2026 -->
-<!-- Build: Sun Mar 15 23:21:48 PDT 2026 -->
