@@ -493,29 +493,117 @@ Format as JSON array:
   }
 }
 
-// Agent Assigner
+// Agent Assigner - Smart task distribution
 class AgentAssigner {
+  constructor() {
+    this.agentWorkload = {}; // Track tasks per agent for load balancing
+    this.resetWorkload();
+  }
+  
+  resetWorkload() {
+    Object.keys(AGENT_TYPES).forEach(id => {
+      this.agentWorkload[id] = 0;
+    });
+  }
+
   assignAgent(task) {
+    // Check if explicitly assigned
     if (task.assignedTo && AGENT_TYPES[task.assignedTo.toLowerCase()]) {
-      return AGENT_TYPES[task.assignedTo.toLowerCase()];
+      const agentId = task.assignedTo.toLowerCase();
+      this.agentWorkload[agentId]++;
+      return { ...AGENT_TYPES[agentId], id: agentId };
     }
 
-    // Find best agent based on task description
-    const taskLower = (task.name + ' ' + task.description).toLowerCase();
+    const taskText = (task.name + ' ' + task.description).toLowerCase();
+    const goalTitle = (task.goalTitle || '').toLowerCase();
     
-    for (const [agentId, agent] of Object.entries(AGENT_TYPES)) {
-      for (const capability of agent.capabilities) {
-        if (taskLower.includes(capability.toLowerCase())) {
-          return { ...agent, id: agentId };
+    // SMART ASSIGNMENT LOGIC
+    
+    // 1. Goal-based assignment (highest priority)
+    const goalAgentMap = {
+      'respiratory': 'content-writer',      // Medical content
+      'education': 'content-writer',        // Educational content
+      'trading': 'trading-analyst',         // Trading system
+      'trade': 'trading-analyst',           // Trading-related
+      'polymarket': 'trading-analyst',      // Prediction markets
+      'reselling': 'content-writer',        // Business content
+      'amazon': 'integration',              // Amazon APIs
+      'ebay': 'integration',                // eBay APIs
+      'life-improving': 'ai-engineer'       // AI programs
+    };
+    
+    for (const [keyword, agentId] of Object.entries(goalAgentMap)) {
+      if (goalTitle.includes(keyword) || taskText.includes(keyword)) {
+        this.agentWorkload[agentId]++;
+        return { ...AGENT_TYPES[agentId], id: agentId };
+      }
+    }
+    
+    // 2. Task type-based assignment
+    const taskTypeMap = [
+      { 
+        keywords: ['design', 'ui', 'ux', 'interface', 'component', 'frontend', 'css', 'html', 'web', 'screen', 'page', 'layout', 'visual', 'style'],
+        agent: 'frontend'
+      },
+      { 
+        keywords: ['api', 'backend', 'server', 'endpoint', 'database', 'schema', 'sql', 'python', 'nodejs', 'deploy', 'infrastructure', 'cloud'],
+        agent: 'backend'
+      },
+      { 
+        keywords: ['database', 'schema', 'table', 'query', 'sql', 'postgresql', 'lancedb', 'data model', 'migration'],
+        agent: 'database'
+      },
+      { 
+        keywords: ['ml', 'ai', 'model', 'training', 'prompt', 'fine-tune', 'algorithm', 'neural', 'prediction', 'classification'],
+        agent: 'ai-engineer'
+      },
+      { 
+        keywords: ['discord', 'webhook', 'integration', 'api connect', 'third-party', 'automation', 'bot', 'notification'],
+        agent: 'integration'
+      },
+      { 
+        keywords: ['content', 'write', 'document', 'blog', 'article', 'copy', 'text', 'description', 'readme', 'guide'],
+        agent: 'content-writer'
+      },
+      { 
+        keywords: ['research', 'analyze', 'study', 'investigate', 'market', 'competitor', 'survey', 'report'],
+        agent: 'researcher'
+      },
+      { 
+        keywords: ['trade', 'trading', 'pattern', 'market', 'stock', 'crypto', 'price', 'indicator', 'strategy', 'backtest'],
+        agent: 'trading-analyst'
+      }
+    ];
+    
+    for (const mapping of taskTypeMap) {
+      for (const keyword of mapping.keywords) {
+        if (taskText.includes(keyword)) {
+          this.agentWorkload[mapping.agent]++;
+          return { ...AGENT_TYPES[mapping.agent], id: mapping.agent };
         }
       }
     }
+    
+    // 3. Load balancing - pick least busy appropriate agent
+    const eligibleAgents = Object.entries(AGENT_TYPES)
+      .filter(([id, agent]) => id !== 'nano' && agent.priority <= 2)
+      .sort((a, b) => this.agentWorkload[a[0]] - this.agentWorkload[b[0]]);
+    
+    if (eligibleAgents.length > 0) {
+      const [agentId] = eligibleAgents[0];
+      this.agentWorkload[agentId]++;
+      return { ...AGENT_TYPES[agentId], id: agentId };
+    }
 
-    // Default to Nano for coordination
+    // 4. Default to Nano only for coordination tasks
+    this.agentWorkload['nano']++;
     return { ...AGENT_TYPES['nano'], id: 'nano' };
   }
 
   createWorkPlan(tasks) {
+    // Reset workload tracking for fair distribution
+    this.resetWorkload();
+    
     const workPlan = {
       date: new Date().toISOString(),
       totalTasks: tasks.length,
