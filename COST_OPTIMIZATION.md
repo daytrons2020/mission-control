@@ -5,48 +5,62 @@
 | Model | Sessions | Cost |
 |-------|----------|------|
 | kimi-k2.5 | 80 | $0.80 |
-| openrouter | 6 | $0.15 |
+| openrouter | 6 | $0.15 |  
 | mlx-auto | 2 | $0.03 |
 | **Total** | **88** | **~$0.98** |
 
 **Cost per session: ~$0.01**
 
-## Optimized Strategy (Target: 80% MLX)
+---
 
-### 🟢 FREE - MLX (Target: 80% of tasks)
-Use MLX for:
+## 🎯 3-Tier Optimized Strategy
+
+### 🟢 Tier 1: MLX (deepseek-14b) - 80% - **FREE**
+Use MLX for simple tasks:
 - Code generation
-- Documentation  
-- Simple analysis
+- Simple analysis  
 - Data processing
-- Refactoring
 - Testing
 - UI components
-- API implementations
 
-**Cost: $0.00 per session**
+**Cost: $0.00 per task**
 
-### 🟡 PAID - Kimi (Target: 20% of tasks)
-Use Kimi ONLY for:
+### 🟡 Tier 2: Kimi-Code (You) - 15% - $0.02
+Use Kimi-Code (You) for complex code:
+- Debugging
+- Refactoring
 - Architecture design
-- Complex debugging
-- Deep reasoning
+- Code review
+- Best practices
+
+**Cost: ~$0.02 per task**
+
+### 🔵 Tier 3: Kimi 2.5 - 5% - $0.02
+Use Kimi 2.5 for general reasoning:
 - Research tasks
 - Strategic planning
-- Critical code review
+- Complex reasoning
+- Market analysis
 
-**Cost: ~$0.02 per session**
+**Cost: ~$0.02 per task**
+
+---
 
 ## New Tools
 
-### 1. MLX Router
+### 1. MLX Router (3-Tier)
 ```bash
-# Route a task to optimal model
+# Simple code → MLX (FREE)
 node mlx-router.js "Create login form"
-# Output: MLX (FREE)
+# Output: 🍎 MLX (Local) - FREE
 
+# Complex code → Kimi-Code (You)
 node mlx-router.js "Debug memory leak"  
-# Output: Kimi ($0.02)
+# Output: 💻 Kimi-Code (You) - $0.02
+
+# Research → Kimi 2.5
+node mlx-router.js "Research market trends"
+# Output: 🎯 Kimi 2.5 - $0.02
 ```
 
 ### 2. Cost-Optimized Orchestrator
@@ -58,37 +72,39 @@ node agent-orchestrator-mlx.js plan
 node agent-orchestrator-mlx.js status
 ```
 
+---
+
 ## Expected Savings
 
 | Metric | Before | After | Savings |
 |--------|--------|-------|---------|
 | MLX Usage | 23% | 80% | +57% |
-| Kimi Usage | 77% | 20% | -57% |
-| Cost per 100 tasks | ~$1.00 | ~$0.40 | **60%** |
+| Kimi-Code Usage | 0% | 15% | New |
+| Kimi 2.5 Usage | 77% | 5% | -72% |
+| Cost per 100 tasks | ~$1.00 | ~$0.35 | **65%** |
+
+---
 
 ## Daily Budget
 
 - **Target**: Max $1.00/day
 - **MLX Tasks**: Unlimited (FREE)
-- **Kimi Tasks**: Max 50/day ($1.00)
+- **Kimi-Code Tasks**: ~30/day ($0.60)
+- **Kimi 2.5 Tasks**: ~20/day ($0.40)
 
 When daily cost reaches $1.00, all tasks automatically route to MLX.
 
-## Configuration
+---
 
-OpenClaw config updated to prioritize MLX:
-```json
-{
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "mlx_14b/deepseek-14b",
-        "fallbacks": ["moonshot/kimi-k2.5"]
-      }
-    }
-  }
-}
-```
+## Model Responsibilities
+
+| Model | Role | When to Use |
+|-------|------|-------------|
+| **MLX** | Local AI | Simple code, generation, analysis |
+| **Kimi-Code (You)** | Code Specialist | Debugging, architecture, complex code |
+| **Kimi 2.5** | General AI | Research, planning, reasoning |
+
+---
 
 ## Monitoring
 
@@ -101,20 +117,18 @@ node openclaw-bridge.js
 cat dashboard-data.json | grep -E "modelsInUse|stats"
 ```
 
-## Best Practices
-
-1. **Always start with MLX** - Only escalate to Kimi if MLX fails
-2. **Batch simple tasks** - Group small tasks to reduce API calls
-3. **Use context limits** - Set max tokens to control costs
-4. **Monitor daily spend** - Check status regularly
-5. **Reserve Kimi for complexity** - Architecture, debugging, reasoning
+---
 
 ## Summary
 
-With this optimization:
-- **67% of tasks** → MLX (FREE)
-- **33% of tasks** → Kimi (Paid)
-- **Savings: ~60%** on AI costs
-- **Daily cost: ~$0.40** instead of $1.00
+With 3-tier optimization:
+- **80% of tasks** → MLX (FREE)
+- **15% of tasks** → Kimi-Code (You) - Code specialist
+- **5% of tasks** → Kimi 2.5 - General reasoning
+- **Savings: ~65%** on AI costs
+- **Daily cost: ~$0.35** instead of $1.00
 
-The system now automatically routes tasks to the most cost-effective model while ensuring complex tasks get the reasoning power they need.
+The system now uses the right model for the right task:
+- Simple code? → MLX (FREE)
+- Complex debugging? → Kimi-Code (You)
+- Research? → Kimi 2.5
