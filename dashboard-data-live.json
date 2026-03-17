@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-17T05:10:56.133Z",
+  "timestamp": "2026-03-17T05:26:44.370Z",
   "agents": [
     {
       "id": "main",
@@ -101,7 +101,7 @@
         "name": "task 1773722479803 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 70,
+        "progress": 69,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -111,7 +111,7 @@
         "name": "task 1773722479803 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 70,
+        "progress": 40,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -121,7 +121,7 @@
         "name": "task 1773722479803 0 sub 0 design architecture",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 62,
+        "progress": 75,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -131,7 +131,7 @@
         "name": "task 1773718886486 0 sub 0 design architecture",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 41,
+        "progress": 55,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -141,7 +141,7 @@
         "name": "task 1773718886486 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 74,
+        "progress": 73,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -151,7 +151,7 @@
         "name": "task 1773718886486 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 53,
+        "progress": 76,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -161,7 +161,7 @@
         "name": "task 1773718199932 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 47,
+        "progress": 65,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -171,7 +171,7 @@
         "name": "task 1773718199932 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 62,
+        "progress": 78,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -181,7 +181,7 @@
         "name": "task 1773718199932 0 sub 0 design architecture",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 46,
+        "progress": 41,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -191,7 +191,7 @@
         "name": "task 1773676800552 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 64,
+        "progress": 51,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -375,11 +375,44 @@
     "mlx": "online",
     "discord": "online",
     "memory": "healthy",
-    "lastCheck": "2026-03-17T05:10:56.497Z"
+    "lastCheck": "2026-03-17T05:26:44.748Z"
   },
   "costs": {
-    "today": 0,
-    "total": 0
+    "today": 0.23,
+    "week": 1.47,
+    "month": 4.82,
+    "budget": {
+      "daily": 1,
+      "weekly": 7,
+      "monthly": 30
+    },
+    "byModel": {
+      "mlx": {
+        "cost": 0,
+        "tasks": 128,
+        "label": "FREE"
+      },
+      "kimi-code": {
+        "cost": 0.26,
+        "tasks": 13,
+        "label": "$0.26"
+      },
+      "kimi": {
+        "cost": 0.16,
+        "tasks": 8,
+        "label": "$0.16"
+      },
+      "minimax": {
+        "cost": 0.03,
+        "tasks": 2,
+        "label": "$0.03"
+      },
+      "nano": {
+        "cost": 0.04,
+        "tasks": 8,
+        "label": "$0.04"
+      }
+    }
   },
   "calendar": [
     {
@@ -455,19 +488,19 @@
   ],
   "recentActivity": [
     {
-      "time": "23 min ago",
+      "time": "39 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
       "icon": "📝",
       "goal": "goal-2"
     },
     {
-      "time": "25 min ago",
+      "time": "41 min ago",
       "text": "Created task-1773722479803-0-sub-1-implement-core-features",
       "icon": "📝",
       "goal": "goal-1"
     },
     {
-      "time": "25 min ago",
+      "time": "41 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
       "icon": "📝",
       "goal": "goal-1"
@@ -521,6 +554,6 @@
     "completed": 0,
     "activeAgents": 3,
     "totalDeliverables": 21,
-    "lastUpdate": "2026-03-17T05:10:56.497Z"
+    "lastUpdate": "2026-03-17T05:26:44.748Z"
   }
 }

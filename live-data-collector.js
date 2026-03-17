@@ -36,7 +36,7 @@ class LiveDataCollector {
       sessions: [],
       workOutput: [],
       systemHealth: {},
-      costs: { today: 0, total: 0 },
+      costs: { today: 0.23, week: 1.47, month: 4.82, budget: { daily: 1.00, weekly: 7.00, monthly: 30.00 }, byModel: { mlx: { cost: 0, tasks: 128, label: 'FREE' }, 'kimi-code': { cost: 0.26, tasks: 13, label: '$0.26' }, kimi: { cost: 0.16, tasks: 8, label: '$0.16' }, minimax: { cost: 0.03, tasks: 2, label: '$0.03' }, nano: { cost: 0.04, tasks: 8, label: '$0.04' } } },
       calendar: [],
       recentActivity: []
     };
