@@ -307,9 +307,9 @@
     "lastUpdate": "2025-01-20T22:30:00Z"
   },
   "memory": {
-    "totalDocuments": 156,
-    "totalChunks": 3420,
-    "lastUpdated": "2025-01-20T18:00:00Z",
+    "totalDocuments": 6,
+    "totalChunks": 317,
+    "lastUpdated": "2026-03-16T21:11:08.671237",
     "sources": [
       {
         "id": "doc_001",
@@ -352,7 +352,40 @@
         "time": "1 day ago",
         "relevant": false
       }
-    ]
+    ],
+    "agentCreatedDocuments": [
+      {
+        "id": "agent_doc_001",
+        "title": "Trading Strategy Analysis",
+        "agentId": "trading-analyst",
+        "agentName": "Trading Analyst",
+        "agentEmoji": "\ud83d\udcc8",
+        "createdAt": "2026-03-16T19:11:08.671220",
+        "chunks": 24,
+        "summary": "Analysis of polymarket trading patterns"
+      },
+      {
+        "id": "agent_doc_002",
+        "title": "API Integration Guide",
+        "agentId": "integration",
+        "agentName": "Integration Specialist",
+        "agentEmoji": "\ud83d\udd0c",
+        "createdAt": "2026-03-16T16:11:08.671229",
+        "chunks": 18,
+        "summary": "Documentation for Discord webhook setup"
+      },
+      {
+        "id": "agent_doc_003",
+        "title": "Database Schema v2",
+        "agentId": "db-eng",
+        "agentName": "Database Engineer",
+        "agentEmoji": "\ud83d\uddc4\ufe0f",
+        "createdAt": "2026-03-15T21:11:08.671231",
+        "chunks": 32,
+        "summary": "Updated schema for user management"
+      }
+    ],
+    "totalQueries": 3
   },
   "communication": {
     "features": [

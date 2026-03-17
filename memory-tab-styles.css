@@ -1,0 +1,280 @@
+/* Enhanced Memory Tab Styles */
+
+.memory-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.memory-stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.memory-stat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.memory-stat-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--bg-tertiary);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.memory-stat-info {
+  flex: 1;
+}
+
+.memory-stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.memory-stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.memory-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+.memory-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.memory-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mem-tab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mem-tab:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.mem-tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+/* Agent Docs List */
+.agent-docs-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.agent-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--accent);
+  transition: all 0.2s;
+}
+
+.agent-doc-item:hover {
+  background: var(--border);
+  transform: translateX(4px);
+}
+
+.agent-doc-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.agent-doc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.agent-doc-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agent-doc-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 12px;
+}
+
+.agent-doc-time {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Queries List */
+.queries-list {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.query-item {
+  padding: 14px;
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.query-item:hover {
+  background: var(--border);
+}
+
+.query-text {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.query-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.query-results {
+  background: var(--bg-secondary);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+.query-results.relevant {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--success);
+}
+
+/* Memory Status */
+.memory-status {
+  padding: 8px;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.status-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.status-value {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.status-value.success {
+  color: var(--success);
+}
+
+/* Badge */
+.badge {
+  background: var(--accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .memory-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .memory-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .memory-stats-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .memory-stat-card {
+    padding: 16px;
+  }
+  
+  .memory-stat-value {
+    font-size: 24px;
+  }
+}

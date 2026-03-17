@@ -1,0 +1,105 @@
+    <!-- Memory Tab (Enhanced) -->
+    <div class="content" id="memory">
+      <!-- Memory Stats Row -->
+      <div class="memory-stats-row" id="memory-stats-row">
+        <div class="memory-stat-card">
+          <div class="memory-stat-icon">📚</div>
+          <div class="memory-stat-info">
+            <div class="memory-stat-value" id="mem-total-docs">0</div>
+            <div class="memory-stat-label">Total Documents</div>
+          </div>
+        </div>
+        <div class="memory-stat-card">
+          <div class="memory-stat-icon">🧩</div>
+          <div class="memory-stat-info">
+            <div class="memory-stat-value" id="mem-total-chunks">0</div>
+            <div class="memory-stat-label">Total Chunks</div>
+          </div>
+        </div>
+        <div class="memory-stat-card">
+          <div class="memory-stat-icon">🔍</div>
+          <div class="memory-stat-info">
+            <div class="memory-stat-value" id="mem-total-queries">0</div>
+            <div class="memory-stat-label">Queries Made</div>
+          </div>
+        </div>
+        <div class="memory-stat-card">
+          <div class="memory-stat-icon">🤖</div>
+          <div class="memory-stat-info">
+            <div class="memory-stat-value" id="mem-agent-docs">0</div>
+            <div class="memory-stat-label">Agent Created</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="memory-layout">
+        <!-- Left Column: Documents -->
+        <div class="memory-column">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📚 Knowledge Base</div>
+              <button class="btn btn-primary" onclick="showAddDocumentModal()">➕ Add</button>
+            </div>
+            
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" placeholder="Search documents..." id="memory-search" oninput="searchMemory(this.value)">
+            </div>
+            
+            <div class="memory-tabs">
+              <button class="mem-tab active" onclick="switchMemTab('all')">All</button>
+              <button class="mem-tab" onclick="switchMemTab('recent')">Recent</button>
+              <button class="mem-tab" onclick="switchMemTab('agents')">By Agents</button>
+            </div>
+            
+            <div class="documents-list" id="documents-list"></div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Agent Activity & Queries -->
+        <div class="memory-column">
+          <!-- Agent Created Documents -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🤖 Agent-Created Documents</div>
+              <span class="badge" id="agent-docs-count">0</span>
+            </div>
+            <div class="agent-docs-list" id="agent-docs-list">
+              <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <p>Documents created by agents will appear here</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Queries -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🔍 Recent Queries</div>
+            </div>
+            <div class="queries-list" id="queries-list"></div>
+          </div>
+          
+          <!-- Memory Status -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">💾 System Status</div>
+            </div>
+            <div class="memory-status">
+              <div class="status-item">
+                <span class="status-label">Last Updated:</span>
+                <span class="status-value" id="mem-last-updated">--</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Storage:</span>
+                <span class="status-value">Local (FREE)</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Sync Status:</span>
+                <span class="status-value success">✅ Real-time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -250,6 +250,20 @@ async def notify_job_complete(request):
     except Exception as e:
         return web.json_response({"error": str(e)}, status=500)
 
+@routes.post('/notify/job-failed')
+async def notify_job_failed(request):
+    """Receive job failure notification"""
+    try:
+        data = await request.json()
+        await bridge_instance.send_job_failed(
+            data.get('job_name', 'Unknown'),
+            data.get('agent', 'Unknown'),
+            data.get('error', 'Unknown error')
+        )
+        return web.json_response({"status": "ok"})
+    except Exception as e:
+        return web.json_response({"error": str(e)}, status=500)
+
 @routes.post('/command')
 async def handle_command(request):
     """Handle command from Discord"""
@@ -295,12 +309,13 @@ async def main():
     print("\nEndpoints:")
     print("  POST /notify/job-start    - Job started")
     print("  POST /notify/job-complete - Job completed")
+    print("  POST /notify/job-failed   - Job failed/error")
     print("  POST /command             - Process Discord command")
     print("\nPress Ctrl+C to stop")
     
     # Keep running
     while True:
-        await asyncio.sleep(60)
+        await asyncio.sleep(3600)  # 1 hour between periodic status updates
         # Send periodic status update
         await bridge_instance.send_status_update()
 
