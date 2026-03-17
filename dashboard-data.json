@@ -1,223 +1,337 @@
 {
-  "timestamp": "2026-03-17T03:34:32.183Z",
-  "stats": {
-    "totalTasks": 247,
-    "inProgress": 2,
-    "completed": 245,
-    "activeAgents": 14
+  "goals": [
+    {
+      "id": 1,
+      "name": "Respiratory Therapy Directory",
+      "progress": 75,
+      "status": "active",
+      "tasks": {
+        "completed": 15,
+        "total": 20
+      },
+      "agent": "Frontend Developer",
+      "agentIcon": "💻",
+      "due": "Jan 25"
+    },
+    {
+      "id": 2,
+      "name": "Polymarket Trading Bot",
+      "progress": 30,
+      "status": "active",
+      "tasks": {
+        "completed": 6,
+        "total": 20
+      },
+      "agent": "Trading Analyst",
+      "agentIcon": "📈",
+      "due": "Feb 15"
+    },
+    {
+      "id": 3,
+      "name": "Amazon Reselling System",
+      "progress": 45,
+      "status": "active",
+      "tasks": {
+        "completed": 9,
+        "total": 20
+      },
+      "agent": "Integration Specialist",
+      "agentIcon": "🔗",
+      "due": "Feb 28"
+    },
+    {
+      "id": 4,
+      "name": "Life Improving Tools",
+      "progress": 10,
+      "status": "pending",
+      "tasks": {
+        "completed": 2,
+        "total": 20
+      },
+      "agent": "AI Engineer",
+      "agentIcon": "🤖",
+      "due": "Mar 30"
+    },
+    {
+      "id": 5,
+      "name": "Personal Website Portfolio",
+      "progress": 60,
+      "status": "active",
+      "tasks": {
+        "completed": 12,
+        "total": 20
+      },
+      "agent": "Content Writer",
+      "agentIcon": "✍️",
+      "due": "Jan 30"
+    }
+  ],
+  "tasks": {
+    "active": [
+      {
+        "id": "T-001",
+        "name": "Design homepage layout",
+        "assignee": "Frontend Developer",
+        "priority": "high",
+        "due": "Today",
+        "goalId": 1
+      },
+      {
+        "id": "T-002",
+        "name": "Set up API endpoints",
+        "assignee": "Backend Developer",
+        "priority": "high",
+        "due": "Tomorrow",
+        "goalId": 1
+      },
+      {
+        "id": "T-003",
+        "name": "Research trading patterns",
+        "assignee": "Trading Analyst",
+        "priority": "medium",
+        "due": "In 2 days",
+        "goalId": 2
+      },
+      {
+        "id": "T-004",
+        "name": "Configure webhook integration",
+        "assignee": "Integration Specialist",
+        "priority": "medium",
+        "due": "Jan 22",
+        "goalId": 3
+      }
+    ],
+    "completed": [
+      {
+        "id": "T-000",
+        "name": "Initial project setup",
+        "assignee": "AI Engineer",
+        "completedAt": "Jan 15"
+      },
+      {
+        "id": "T-005",
+        "name": "Database schema design",
+        "assignee": "Backend Developer",
+        "completedAt": "Jan 14"
+      }
+    ]
   },
   "agents": [
     {
-      "name": "Kimi (Lead AI)",
+      "id": "mlx",
+      "name": "MLX (Local)",
+      "emoji": "🍎",
+      "model": "deepseek-14b",
+      "cost": "FREE",
+      "costClass": "free",
+      "role": "Primary - Try First",
+      "tasksCompleted": 92,
+      "successRate": "94%",
       "status": "online",
-      "activity": "Testing model",
-      "emoji": "🎯"
+      "description": "Apple Silicon MLX - FREE tier. Handles simple tasks, escalates complex ones."
     },
     {
+      "id": "kimi-code",
+      "name": "Kimi-Code (You)",
+      "emoji": "💻",
+      "model": "kimi-code-v1",
+      "cost": "$0.02",
+      "costClass": "medium",
+      "role": "Escalation - Code Specialist",
+      "tasksCompleted": 18,
+      "successRate": "98%",
+      "status": "online",
+      "description": "Code specialist. Handles debugging, refactoring, architecture."
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi 2.5",
+      "emoji": "🎯",
+      "model": "kimi-k2.5",
+      "cost": "$0.02",
+      "costClass": "medium",
+      "role": "Escalation - Reasoning",
+      "tasksCompleted": 12,
+      "successRate": "97%",
+      "status": "online",
+      "description": "Reasoning specialist. Handles research, analysis, strategy."
+    },
+    {
+      "id": "minimax",
+      "name": "Minimax",
+      "emoji": "🎭",
+      "model": "MiniMax-M2.5",
+      "cost": "$0.015",
+      "costClass": "low",
+      "role": "Direct - Images/Chinese",
+      "tasksCompleted": 2,
+      "successRate": "96%",
+      "status": "online",
+      "description": "Image generation & Chinese language. MLX can't do these."
+    },
+    {
+      "id": "nano",
       "name": "Nano",
-      "status": "busy",
-      "activity": "Debugging",
-      "emoji": "🤖"
-    },
-    {
-      "name": "Frontend Dev",
+      "emoji": "⚡",
+      "model": "gpt-4o-mini",
+      "cost": "$0.005",
+      "costClass": "low",
+      "role": "Fallback Agent",
+      "tasksCompleted": 8,
+      "successRate": "92%",
       "status": "online",
-      "activity": "Optimizing",
-      "emoji": "🎨"
+      "description": "Lightweight agent for quick simple tasks."
     },
     {
-      "name": "Database Eng",
-      "status": "online",
-      "activity": "Testing model",
-      "emoji": "🗄️"
-    },
-    {
+      "id": "ai-engineer",
       "name": "AI Engineer",
-      "status": "busy",
-      "activity": "Testing model",
-      "emoji": "🧠"
+      "emoji": "🤖",
+      "model": "claude-3.5-sonnet",
+      "cost": "$0.03",
+      "costClass": "high",
+      "role": "Specialized Agent",
+      "tasksCompleted": 5,
+      "successRate": "99%",
+      "status": "online",
+      "description": "Complex AI/ML engineering tasks."
     },
     {
-      "name": "Integration Spec",
-      "status": "busy",
-      "activity": "Debugging",
-      "emoji": "🔌"
+      "id": "researcher",
+      "name": "Researcher",
+      "emoji": "🔬",
+      "model": "perplexity-sonar",
+      "cost": "$0.025",
+      "costClass": "high",
+      "role": "On-Demand Agent",
+      "tasksCompleted": 3,
+      "successRate": "98%",
+      "status": "standby",
+      "description": "Deep research with web search capabilities."
     }
   ],
-  "systemHealth": {
-    "openclaw": "offline",
-    "mlx": "online",
-    "discord": "online",
-    "memory": "healthy"
+  "routing": {
+    "strategy": "Hybrid Cascade",
+    "description": "MLX First → Escalate if Needed",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Pre-filter",
+        "description": "Skip MLX for impossible tasks (images, Chinese)",
+        "model": "Direct Routing",
+        "cost": "Varies"
+      },
+      {
+        "step": 2,
+        "title": "MLX Attempt",
+        "description": "Try MLX first - it's FREE",
+        "model": "🍎 MLX (Local)",
+        "cost": "$0"
+      },
+      {
+        "step": 3,
+        "title": "Escalation Check",
+        "description": "Analyze MLX confidence/response quality",
+        "model": "Auto-Analysis",
+        "cost": "$0"
+      },
+      {
+        "step": 4,
+        "title": "Escalate if Needed",
+        "description": "Kimi-Code (debug) or Kimi 2.5 (reasoning)",
+        "model": "💻 / 🎯",
+        "cost": "$0.02"
+      }
+    ],
+    "stats": {
+      "mlxAttempts": 142,
+      "mlxSuccess": 128,
+      "escalations": 14,
+      "directRouting": 5,
+      "escalationRate": "9.9%",
+      "mlxSuccessRate": "90.1%"
+    }
   },
-  "recentActivity": [
-    {
-      "time": "8:34:27 PM",
-      "text": "✓ Database Eng completed: Optimizing database queries",
-      "icon": "✓",
-      "timestamp": 1773718467177
+  "costs": {
+    "today": 0.23,
+    "week": 1.47,
+    "month": 4.82,
+    "budget": {
+      "daily": 1.00,
+      "weekly": 7.00,
+      "monthly": 30.00
     },
-    {
-      "time": "8:34:17 PM",
-      "text": "✓ Researcher completed: Researching RT curriculum standards",
-      "icon": "✓",
-      "timestamp": 1773718457174
+    "projectedSavings": "~$15/month",
+    "byModel": {
+      "mlx": { "cost": 0, "tasks": 128, "label": "FREE" },
+      "kimi-code": { "cost": 0.26, "tasks": 13, "label": "$0.26" },
+      "kimi": { "cost": 0.16, "tasks": 8, "label": "$0.16" },
+      "minimax": { "cost": 0.03, "tasks": 2, "label": "$0.03" },
+      "nano": { "cost": 0.04, "tasks": 8, "label": "$0.04" }
     },
-    {
-      "time": "8:34:12 PM",
-      "text": "🔍 Researcher started: Researching Amazon FBA API",
-      "icon": "🔍",
-      "timestamp": 1773718452172
-    },
-    {
-      "time": "8:34:07 PM",
-      "text": "✓ AI Engineer completed: Designing prediction models",
-      "icon": "✓",
-      "timestamp": 1773718447165
-    },
-    {
-      "time": "8:34:02 PM",
-      "text": "✓ AI Engineer completed: Designing prediction models",
-      "icon": "✓",
-      "timestamp": 1773718442158
-    },
-    {
-      "time": "8:34:02 PM",
-      "text": "🤖 AI Engineer started: Designing prediction models",
-      "icon": "🤖",
-      "timestamp": 1773718442158
-    },
-    {
-      "time": "8:33:57 PM",
-      "text": "🗄️ Database Eng started: Optimizing database queries",
-      "icon": "🗄️",
-      "timestamp": 1773718437157
-    },
-    {
-      "time": "8:33:52 PM",
-      "text": "🤖 AI Engineer started: Designing prediction models",
-      "icon": "🤖",
-      "timestamp": 1773718432155
-    },
-    {
-      "time": "8:33:27 PM",
-      "text": "✓ AI Engineer completed: Designing prediction models",
-      "icon": "✓",
-      "timestamp": 1773718407095
-    },
-    {
-      "time": "8:33:12 PM",
-      "text": "✓ AI Engineer completed: Designing prediction models",
-      "icon": "✓",
-      "timestamp": 1773718392062
-    },
-    {
-      "time": "8:33:12 PM",
-      "text": "🤖 AI Engineer started: Designing prediction models",
-      "icon": "🤖",
-      "timestamp": 1773718392062
-    },
-    {
-      "time": "8:33:02 PM",
-      "text": "✓ AI Engineer completed: Testing ML models",
-      "icon": "✓",
-      "timestamp": 1773718382028
-    },
-    {
-      "time": "8:33:02 PM",
-      "text": "🤖 AI Engineer started: Designing prediction models",
-      "icon": "🤖",
-      "timestamp": 1773718382027
-    },
-    {
-      "time": "8:32:56 PM",
-      "text": "🗄️ Database Eng started: Optimizing database queries",
-      "icon": "🗄️",
-      "timestamp": 1773718376981
-    },
-    {
-      "time": "8:32:51 PM",
-      "text": "✓ Trading Analyst completed: Analyzing trading patterns",
-      "icon": "✓",
-      "timestamp": 1773718371951
-    },
-    {
-      "time": "8:32:51 PM",
-      "text": "🔍 Researcher started: Researching RT curriculum standards",
-      "icon": "🔍",
-      "timestamp": 1773718371951
-    },
-    {
-      "time": "8:32:46 PM",
-      "text": "📈 Trading Analyst started: Analyzing trading patterns",
-      "icon": "📈",
-      "timestamp": 1773718366950
-    },
-    {
-      "time": "8:32:41 PM",
-      "text": "✓ Researcher completed: Researching RT curriculum standards",
-      "icon": "✓",
-      "timestamp": 1773718361948
-    },
-    {
-      "time": "8:32:41 PM",
-      "text": "🤖 AI Engineer started: Testing ML models",
-      "icon": "🤖",
-      "timestamp": 1773718361948
-    },
-    {
-      "time": "8:32:36 PM",
-      "text": "✓ Researcher completed: Researching RT curriculum standards",
-      "icon": "✓",
-      "timestamp": 1773718356944
+    "oldVsNew": {
+      "oldApproach": "Keyword-based upfront prediction",
+      "newApproach": "MLX-first with smart escalation",
+      "estimatedSavings": "35-40%"
     }
-  ],
-  "goals": 5,
-  "runningTasks": [
-    {
-      "id": 1773718376955,
-      "name": "Optimizing database queries",
-      "agent": "Database Eng",
-      "agentEmoji": "🗄️",
-      "goal": "Life Programs",
-      "startTime": "2026-03-17T03:32:56.955Z",
-      "progress": 100
+  },
+  "sessions": {
+    "total": 159,
+    "active": 3,
+    "byAgent": {
+      "mlx": 128,
+      "kimi-code": 13,
+      "kimi": 8,
+      "minimax": 2,
+      "nano": 8
     },
-    {
-      "id": 1773718452172,
-      "name": "Researching Amazon FBA API",
-      "agent": "Researcher",
-      "agentEmoji": "🔍",
-      "goal": "Reselling Business",
-      "startTime": "2026-03-17T03:34:12.172Z",
-      "progress": 70
-    }
-  ],
-  "cronJobs": [
-    {
-      "name": "Daily Motivation",
-      "time": "8:00 AM",
-      "status": "scheduled",
-      "icon": "💪"
-    },
-    {
-      "name": "AI & Tech News",
-      "time": "9:00 AM",
-      "status": "scheduled",
-      "icon": "🤖"
-    },
-    {
-      "name": "World News Update",
-      "time": "5:00 PM",
-      "status": "scheduled",
-      "icon": "🌍"
-    },
-    {
-      "name": "Health Check",
-      "time": "Every 30m",
-      "status": "running",
-      "icon": "🔍"
-    }
-  ],
-  "hoursWorked": 32
+    "lastUpdate": "2025-01-20T22:30:00Z"
+  },
+  "memory": {
+    "totalDocuments": 156,
+    "totalChunks": 3420,
+    "lastUpdated": "2025-01-20T18:00:00Z",
+    "sources": [
+      {
+        "id": "doc_001",
+        "title": "Project Requirements v2",
+        "chunks": 45,
+        "added": "Jan 15",
+        "source": "Notion"
+      },
+      {
+        "id": "doc_002",
+        "title": "API Documentation",
+        "chunks": 120,
+        "added": "Jan 14",
+        "source": "Confluence"
+      },
+      {
+        "id": "doc_003",
+        "title": "Trading Strategy Notes",
+        "chunks": 78,
+        "added": "Jan 13",
+        "source": "Google Docs"
+      }
+    ],
+    "recentQueries": [
+      {
+        "query": "How to implement OAuth2?",
+        "results": 5,
+        "time": "2 hours ago",
+        "relevant": true
+      },
+      {
+        "query": "Trading bot architecture patterns",
+        "results": 8,
+        "time": "5 hours ago",
+        "relevant": true
+      },
+      {
+        "query": "Database optimization tips",
+        "results": 3,
+        "time": "1 day ago",
+        "relevant": false
+      }
+    ]
+  }
 }
