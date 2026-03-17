@@ -257,24 +257,14 @@ Just send any message and I'll respond using Kimi Code CLI.
             try:
                 logger.info(f"🤔 Asking Kimi (attempt {attempt})...")
                 
-                # Create a conversation file
-                conv_file = f"/tmp/kimi_conv_{int(time.time())}.txt"
-                with open(conv_file, 'w') as f:
-                    f.write(prompt)
-                
-                # Run Kimi with the conversation file
+                # Run Kimi in non-interactive mode with --print and --yolo
+                # --print: non-interactive, --yolo: auto-approve actions
                 result = subprocess.run(
-                    ["kimi", "-c", prompt],
+                    ["kimi", "--print", "--yolo", "-c", prompt],
                     capture_output=True,
                     text=True,
                     timeout=REQUEST_TIMEOUT
                 )
-                
-                # Clean up
-                try:
-                    os.remove(conv_file)
-                except:
-                    pass
                 
                 if result.returncode == 0:
                     response = result.stdout.strip()
@@ -340,8 +330,8 @@ Just send any message and I'll respond using Kimi Code CLI.
                 
                 payload = {
                     "chat_id": chat_id,
-                    "text": chunk,
-                    "parse_mode": "Markdown"
+                    "text": chunk
+                    # Note: Not using parse_mode to avoid Markdown parsing errors
                 }
                 
                 try:
@@ -351,7 +341,8 @@ Just send any message and I'll respond using Kimi Code CLI.
                         timeout=30
                     ) as resp:
                         if resp.status != 200:
-                            logger.warning(f"Failed to send message: {resp.status}")
+                            error_text = await resp.text()
+                            logger.warning(f"Failed to send message: {resp.status} - {error_text[:200]}")
                         await asyncio.sleep(0.5)  # Rate limiting
                 except Exception as e:
                     logger.error(f"Error sending message: {e}")

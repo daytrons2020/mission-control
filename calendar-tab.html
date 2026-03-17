@@ -1,0 +1,77 @@
+    <!-- Calendar Tab -->
+    <div class="content" id="calendar">
+      <div class="calendar-container">
+        <!-- Calendar Header -->
+        <div class="calendar-header">
+          <div class="calendar-nav">
+            <button class="cal-nav-btn" onclick="changeMonth(-1)">◀</button>
+            <h2 id="current-month">March 2025</h2>
+            <button class="cal-nav-btn" onclick="changeMonth(1)">▶</button>
+          </div>
+          <div class="calendar-actions">
+            <button class="cal-btn primary" onclick="showAddEventModal()">➕ Add Event</button>
+            <button class="cal-btn" onclick="goToToday()">Today</button>
+          </div>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="calendar-grid-container">
+          <div class="calendar-weekdays">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
+          <div class="calendar-days" id="calendar-days"></div>
+        </div>
+
+        <!-- Upcoming Events Sidebar -->
+        <div class="calendar-sidebar">
+          <div class="sidebar-section">
+            <h3>📅 Upcoming</h3>
+            <div class="upcoming-events" id="upcoming-events"></div>
+          </div>
+          
+          <div class="sidebar-section">
+            <h3>📋 Due This Week</h3>
+            <div class="due-tasks" id="due-tasks"></div>
+          </div>
+          
+          <div class="sidebar-section">
+            <h3>🎯 Milestones</h3>
+            <div class="milestones" id="milestones">
+              <div class="milestone-item">
+                <div class="milestone-date">Mar 25</div>
+                <div class="milestone-title">Respiratory Directory v1</div>
+                <div class="milestone-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                  </div>
+                  <span>75%</span>
+                </div>
+              </div>
+              <div class="milestone-item">
+                <div class="milestone-date">Feb 15</div>
+                <div class="milestone-title">Trading Bot Beta</div>
+                <div class="milestone-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%"></div>
+                  </div>
+                  <span>30%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Detail Modal -->
+      <div class="event-modal-overlay" id="event-modal" onclick="closeEventModal()">
+        <div class="event-modal" onclick="event.stopPropagation()">
+          <div class="event-modal-header">
+            <h3 id="event-modal-title">Event Details</h3>
+            <button class="close-btn" onclick="closeEventModal()">&times;</button>
+          </div>
+          <div class="event-modal-body" id="event-modal-body">
+            <!-- Event details populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
