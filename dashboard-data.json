@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-03-17T05:04:12.906Z",
+  "timestamp": "2026-03-17T05:27:19.394Z",
   "agents": [
     {
       "id": "main",
       "name": "Kimi (Lead AI)",
-      "emoji": "\ud83c\udfaf",
+      "emoji": "🎯",
       "status": "busy",
       "role": "Lead AI",
       "sessions": 118,
-      "lastActive": 1773721200037,
+      "lastActive": 1773723991733,
       "currentTask": "Processing...",
       "tasksCompleted": 0
     },
     {
       "id": "coder",
       "name": "Kimi-Code",
-      "emoji": "\ud83d\udcbb",
+      "emoji": "💻",
       "status": "standby",
       "role": "Code Specialist",
       "sessions": 2,
@@ -26,7 +26,7 @@
     {
       "id": "ai-engineer",
       "name": "AI Engineer",
-      "emoji": "\ud83e\udd16",
+      "emoji": "🤖",
       "status": "standby",
       "role": "ML Pipeline",
       "sessions": 0,
@@ -36,7 +36,7 @@
     {
       "id": "frontend-developer",
       "name": "Frontend Dev",
-      "emoji": "\ud83c\udfa8",
+      "emoji": "🎨",
       "status": "standby",
       "role": "UI/UX",
       "sessions": 0,
@@ -46,7 +46,7 @@
     {
       "id": "backend-developer",
       "name": "Backend Dev",
-      "emoji": "\u2699\ufe0f",
+      "emoji": "⚙️",
       "status": "standby",
       "role": "APIs",
       "sessions": 0,
@@ -56,7 +56,7 @@
     {
       "id": "database-engineer",
       "name": "Database Eng",
-      "emoji": "\ud83d\uddc4\ufe0f",
+      "emoji": "🗄️",
       "status": "busy",
       "role": "Data",
       "sessions": 0,
@@ -66,7 +66,7 @@
     {
       "id": "integration-specialist",
       "name": "Integration Spec",
-      "emoji": "\ud83d\udd0c",
+      "emoji": "🔌",
       "status": "standby",
       "role": "APIs",
       "sessions": 0,
@@ -76,7 +76,7 @@
     {
       "id": "researcher",
       "name": "Researcher",
-      "emoji": "\ud83d\udd0d",
+      "emoji": "🔍",
       "status": "standby",
       "role": "Research",
       "sessions": 0,
@@ -86,7 +86,7 @@
     {
       "id": "mlx-deepseek",
       "name": "MLX (Local)",
-      "emoji": "\ud83c\udf4e",
+      "emoji": "🍎",
       "status": "busy",
       "role": "Primary - Try First",
       "sessions": 0,
@@ -101,7 +101,7 @@
         "name": "task 1773722479803 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 62,
+        "progress": 50,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -111,7 +111,7 @@
         "name": "task 1773722479803 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 53,
+        "progress": 66,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -121,7 +121,7 @@
         "name": "task 1773722479803 0 sub 0 design architecture",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 77,
+        "progress": 47,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -141,7 +141,7 @@
         "name": "task 1773718886486 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 63,
+        "progress": 58,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -151,7 +151,7 @@
         "name": "task 1773718886486 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 76,
+        "progress": 56,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -161,7 +161,7 @@
         "name": "task 1773718199932 0 sub 1 implement core features",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 79,
+        "progress": 58,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -171,7 +171,7 @@
         "name": "task 1773718199932 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 42,
+        "progress": 55,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -181,7 +181,7 @@
         "name": "task 1773718199932 0 sub 0 design architecture",
         "assignee": "Frontend Developer",
         "status": "in_progress",
-        "progress": 69,
+        "progress": 46,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-1"
@@ -191,7 +191,7 @@
         "name": "task 1773676800552 0 sub 0 design architecture",
         "assignee": "Trading Analyst",
         "status": "in_progress",
-        "progress": 44,
+        "progress": 77,
         "due": "Today",
         "priority": "medium",
         "goal": "goal-2"
@@ -375,16 +375,16 @@
     "mlx": "online",
     "discord": "online",
     "memory": "healthy",
-    "lastCheck": "2026-03-17T05:04:13.278Z"
+    "lastCheck": "2026-03-17T05:27:19.762Z"
   },
   "costs": {
     "today": 0.23,
     "week": 1.47,
     "month": 4.82,
     "budget": {
-      "daily": 1.0,
-      "weekly": 7.0,
-      "monthly": 30.0
+      "daily": 1,
+      "weekly": 7,
+      "monthly": 30
     },
     "byModel": {
       "mlx": {
@@ -488,63 +488,63 @@
   ],
   "recentActivity": [
     {
-      "time": "16 min ago",
+      "time": "39 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-2"
     },
     {
-      "time": "18 min ago",
+      "time": "41 min ago",
       "text": "Created task-1773722479803-0-sub-1-implement-core-features",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
-      "time": "18 min ago",
+      "time": "41 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-1-implement-core-features",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-2"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-1-implement-core-features",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-2"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-1"
     },
     {
       "time": "13 hours ago",
       "text": "Created task-1773676800552-0-sub-0-design-architecture",
-      "icon": "\ud83d\udcdd",
+      "icon": "📝",
       "goal": "goal-2"
     }
   ],
@@ -554,6 +554,6 @@
     "completed": 0,
     "activeAgents": 3,
     "totalDeliverables": 21,
-    "lastUpdate": "2026-03-17T05:04:13.278Z"
+    "lastUpdate": "2026-03-17T05:27:19.762Z"
   }
 }
