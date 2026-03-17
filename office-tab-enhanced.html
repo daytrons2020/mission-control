@@ -1,0 +1,133 @@
+    <!-- Communication / Office Tab (Enhanced) -->
+    <div class="content" id="communication">
+      <div class="communication-container">
+        <!-- Agent Sidebar -->
+        <div class="agent-sidebar">
+          <div class="sidebar-header">
+            <h3>🤖 Agents</h3>
+            <span class="online-count" id="online-count">0 online</span>
+          </div>
+          <div class="agent-list" id="comm-agent-list"></div>
+          <div class="broadcast-section">
+            <button class="broadcast-btn" onclick="showBroadcastModal()">
+              <span>📢</span>
+              <span>Message All</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Chat Area -->
+        <div class="chat-area">
+          <div class="chat-header" id="chat-header">
+            <div class="chat-header-info">
+              <span class="agent-avatar" id="chat-avatar">💬</span>
+              <div>
+                <div class="chat-agent-name" id="chat-agent-name">Select an Agent</div>
+                <div class="chat-agent-status" id="chat-agent-status">Click an agent to start chatting</div>
+              </div>
+            </div>
+            <div class="chat-actions">
+              <button class="icon-btn" onclick="showTaskModal()" title="Add Task">➕</button>
+              <button class="icon-btn" onclick="showAgentDetails()" title="Agent Info">ℹ️</button>
+            </div>
+          </div>
+          
+          <div class="quick-actions" id="quick-actions">
+            <button class="quick-btn" onclick="sendQuickMessage('status')">📊 Status</button>
+            <button class="quick-btn" onclick="sendQuickMessage('how long left?')">⏱️ Timeline</button>
+            <button class="quick-btn" onclick="sendQuickMessage('help')">❓ Help</button>
+          </div>
+          
+          <div class="messages-container" id="messages-container">
+            <div class="welcome-message">
+              <div class="welcome-icon">💬</div>
+              <h4>Communication Hub</h4>
+              <p>Chat with your AI agents in real-time. Ask about task progress, add new tasks, or get suggestions.</p>
+              <div class="welcome-tips">
+                <div class="tip">💡 Try: "add task: fix login bug"</div>
+                <div class="tip">💡 Try: "how long left on current task?"</div>
+                <div class="tip">💡 Try: "what's the status?"</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-input-area">
+            <div class="input-wrapper">
+              <input type="text" id="chat-input" placeholder="Type a message... (Try: 'add task: optimize database')" onkeypress="handleChatKeypress(event)" />
+              <button class="send-btn" onclick="sendMessage()">
+                <span>Send</span>
+                <span>➤</span>
+              </button>
+            </div>
+            <div class="input-hints">
+              <span>Press Enter to send</span>
+              <span>•</span>
+              <span>Use @all to broadcast</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Panel: Tasks, Activity, Announcements -->
+        <div class="task-panel">
+          <!-- Announcements -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📢 Announcements</h3>
+            </div>
+            <div class="announcements-list" id="announcements-list">
+              <div class="announcement-item">
+                <div class="announcement-icon">🎯</div>
+                <div class="announcement-content">
+                  <div class="announcement-title">Daily Goals Updated</div>
+                  <div class="announcement-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="announcement-item">
+                <div class="announcement-icon">💰</div>
+                <div class="announcement-content">
+                  <div class="announcement-title">Cost savings: 36% this week</div>
+                  <div class="announcement-time">5 hours ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Active Tasks -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📋 Active Tasks</h3>
+              <span class="task-count" id="comm-task-count">0</span>
+            </div>
+            <div class="task-filter">
+              <button class="filter-btn active" data-filter="all" onclick="filterTasks('all')">All</button>
+              <button class="filter-btn" data-filter="in_progress" onclick="filterTasks('in_progress')">Active</button>
+              <button class="filter-btn" data-filter="pending" onclick="filterTasks('pending')">Pending</button>
+            </div>
+            <div class="task-list-comm" id="comm-task-list"></div>
+          </div>
+          
+          <!-- Agent Activity Feed -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>🔥 Recent Activity</h3>
+            </div>
+            <div class="activity-feed" id="activity-feed"></div>
+          </div>
+          
+          <!-- Document Creation Feed -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📝 New Documents</h3>
+            </div>
+            <div class="doc-feed" id="doc-feed"></div>
+          </div>
+          
+          <div class="panel-footer">
+            <button class="add-task-btn" onclick="showTaskModal()">
+              <span>➕</span>
+              <span>Add New Task</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>

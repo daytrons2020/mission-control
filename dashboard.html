@@ -2234,7 +2234,9 @@
     </div>
 
     <!-- Communication Tab -->
+    <!-- Communication / Office Tab (Enhanced) -->
     <div class="content" id="communication">
+      
       <div class="communication-container">
         <!-- Agent Sidebar -->
         <div class="agent-sidebar">
@@ -2302,18 +2304,61 @@
           </div>
         </div>
         
-        <!-- Task Panel -->
+        <!-- Right Panel: Tasks, Activity, Announcements -->
         <div class="task-panel">
-          <div class="panel-header">
-            <h3>📋 Active Tasks</h3>
-            <span class="task-count" id="comm-task-count">0</span>
+          <!-- Announcements -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📢 Announcements</h3>
+            </div>
+            <div class="announcements-list" id="announcements-list">
+              <div class="announcement-item">
+                <div class="announcement-icon">🎯</div>
+                <div class="announcement-content">
+                  <div class="announcement-title">Daily Goals Updated</div>
+                  <div class="announcement-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="announcement-item">
+                <div class="announcement-icon">💰</div>
+                <div class="announcement-content">
+                  <div class="announcement-title">Cost savings: 36% this week</div>
+                  <div class="announcement-time">5 hours ago</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="task-filter">
-            <button class="filter-btn active" data-filter="all" onclick="filterTasks('all')">All</button>
-            <button class="filter-btn" data-filter="in_progress" onclick="filterTasks('in_progress')">Active</button>
-            <button class="filter-btn" data-filter="pending" onclick="filterTasks('pending')">Pending</button>
+          
+          <!-- Active Tasks -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📋 Active Tasks</h3>
+              <span class="task-count" id="comm-task-count">0</span>
+            </div>
+            <div class="task-filter">
+              <button class="filter-btn active" data-filter="all" onclick="filterTasks('all')">All</button>
+              <button class="filter-btn" data-filter="in_progress" onclick="filterTasks('in_progress')">Active</button>
+              <button class="filter-btn" data-filter="pending" onclick="filterTasks('pending')">Pending</button>
+            </div>
+            <div class="task-list-comm" id="comm-task-list"></div>
           </div>
-          <div class="task-list-comm" id="comm-task-list"></div>
+          
+          <!-- Agent Activity Feed -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>🔥 Recent Activity</h3>
+            </div>
+            <div class="activity-feed" id="activity-feed"></div>
+          </div>
+          
+          <!-- Document Creation Feed -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <h3>📝 New Documents</h3>
+            </div>
+            <div class="doc-feed" id="doc-feed"></div>
+          </div>
+          
           <div class="panel-footer">
             <button class="add-task-btn" onclick="showTaskModal()">
               <span>➕</span>
@@ -2322,9 +2367,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Toast -->
+    </div><!-- Toast -->
   <div class="toast" id="toast">
     <span class="toast-icon"></span>
     <span class="toast-message"></span>
@@ -3187,3 +3230,86 @@
         showToast(`Document "${title}" added (demo)`, 'success');
       }
     }
+
+    // Enhanced Office/Communication Tab Functions
+    
+    function renderOfficeExtras() {
+      renderAnnouncements();
+      renderActivityFeed();
+      renderDocFeed();
+    }
+    
+    function renderAnnouncements() {
+      const container = document.getElementById('announcements-list');
+      if (!container) return;
+      
+      // Static announcements for now - could be dynamic
+      const announcements = [
+        { icon: '🎯', title: 'Daily Goals Updated', time: '2 hours ago' },
+        { icon: '💰', title: 'Cost savings: 36% this week', time: '5 hours ago' },
+        { icon: '🚀', title: 'New agent onboarded: MLX DeepSeek', time: '1 day ago' },
+        { icon: '📊', title: 'Weekly report generated', time: '2 days ago' }
+      ];
+      
+      container.innerHTML = announcements.map(a => `
+        <div class="announcement-item">
+          <div class="announcement-icon">${a.icon}</div>
+          <div class="announcement-content">
+            <div class="announcement-title">${a.title}</div>
+            <div class="announcement-time">${a.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function renderActivityFeed() {
+      const container = document.getElementById('activity-feed');
+      if (!container || !dashboardData?.recentActivity) return;
+      
+      const activities = dashboardData.recentActivity.slice(0, 8);
+      
+      if (activities.length === 0) {
+        container.innerHTML = '<div class="empty-state" style="padding: 20px;"><p style="font-size: 12px;">No recent activity</p></div>';
+        return;
+      }
+      
+      container.innerHTML = activities.map(a => `
+        <div class="activity-item">
+          <div class="activity-avatar">${a.icon || '🤖'}</div>
+          <div class="activity-text">${a.text}</div>
+          <div class="activity-time">${a.time}</div>
+        </div>
+      `).join('');
+    }
+    
+    function renderDocFeed() {
+      const container = document.getElementById('doc-feed');
+      if (!container || !dashboardData?.memory?.agentCreatedDocuments) return;
+      
+      const docs = dashboardData.memory.agentCreatedDocuments.slice(0, 5);
+      
+      if (docs.length === 0) {
+        container.innerHTML = '<div class="empty-state" style="padding: 20px;"><p style="font-size: 12px;">No documents yet</p></div>';
+        return;
+      }
+      
+      container.innerHTML = docs.map(doc => {
+        const time = new Date(doc.createdAt).toLocaleDateString();
+        return `
+          <div class="doc-feed-item" onclick="showAgentDocDetails('${doc.id}')">
+            <div class="doc-feed-icon">${doc.agentEmoji || '📝'}</div>
+            <div class="doc-feed-info">
+              <div class="doc-feed-title">${doc.title}</div>
+              <div class="doc-feed-meta">${doc.agentName} • ${time}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Extend initCommunication to include new sections
+    const originalInitCommunication = initCommunication;
+    initCommunication = function() {
+      originalInitCommunication();
+      renderOfficeExtras();
+    };

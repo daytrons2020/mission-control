@@ -12,6 +12,7 @@ import sys
 import time
 from datetime import datetime
 import aiohttp
+import psutil
 
 # Configuration
 MLX_PORT = 18888
@@ -91,30 +92,51 @@ class MLXWatchdog:
             return False
     
     def restart_mlx(self) -> bool:
-        """Restart MLX server"""
+        """Restart MLX server with memory check and exponential backoff"""
         now = time.time()
         
-        # Check cooldown
-        if now - self.last_restart < RESTART_COOLDOWN:
-            log("⏳ Restart cooldown active, skipping...")
+        # Exponential backoff: delay increases with consecutive failures (30s, 60s, 120s, max 5min)
+        backoff_delay = min(30 * (2 ** self.consecutive_failures), 300)
+        if now - self.last_restart < backoff_delay:
+            log(f"⏳ Backoff active ({backoff_delay}s), skipping restart...")
             return False
         
-        log("🔄 Restarting MLX server...")
+        # Memory check: need at least 5GB free for 14B model
+        mem = psutil.virtual_memory()
+        free_gb = mem.available / (1024 ** 3)
+        if free_gb < 5:
+            log(f"⚠️ Low memory: {free_gb:.1f}GB free. Need 5GB+. Delaying restart...")
+            return False
+        
+        log(f"🔄 Restarting MLX server (attempt #{self.consecutive_failures + 1})...")
         self.last_restart = now
         
         try:
-            # Kill existing MLX
+            # Kill existing MLX gracefully first
             subprocess.run(
-                ["pkill", "-f", "mlx_lm.server"],
+                ["pkill", "-15", "-f", "mlx_lm.server"],  # SIGTERM first
                 capture_output=True,
-                timeout=10
+                timeout=5
+            )
+            time.sleep(2)
+            
+            # Force kill if still running
+            subprocess.run(
+                ["pkill", "-9", "-f", "mlx_lm.server"],
+                capture_output=True,
+                timeout=5
             )
             time.sleep(3)
             
-            # Start new MLX
+            # Start new MLX using venv Python
+            venv_python = "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/bin/python3"
+            if not os.path.exists(venv_python):
+                log(f"❌ Venv Python not found: {venv_python}")
+                return False
+            
             subprocess.Popen(
                 [
-                    "/opt/homebrew/bin/python3", "-m", "mlx_lm.server",
+                    venv_python, "-m", "mlx_lm.server",
                     "--model", MLX_MODEL,
                     "--port", str(MLX_PORT)
                 ],
