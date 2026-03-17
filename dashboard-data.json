@@ -1,18 +1,223 @@
 {
-  "timestamp": "2026-03-16T04:43:21.145Z",
+  "timestamp": "2026-03-17T03:34:32.183Z",
   "stats": {
-    "totalTasks": 3,
-    "inProgress": 0,
-    "completed": 3,
+    "totalTasks": 247,
+    "inProgress": 2,
+    "completed": 245,
     "activeAgents": 14
+  },
+  "agents": [
+    {
+      "name": "Kimi (Lead AI)",
+      "status": "online",
+      "activity": "Testing model",
+      "emoji": "🎯"
+    },
+    {
+      "name": "Nano",
+      "status": "busy",
+      "activity": "Debugging",
+      "emoji": "🤖"
+    },
+    {
+      "name": "Frontend Dev",
+      "status": "online",
+      "activity": "Optimizing",
+      "emoji": "🎨"
+    },
+    {
+      "name": "Database Eng",
+      "status": "online",
+      "activity": "Testing model",
+      "emoji": "🗄️"
+    },
+    {
+      "name": "AI Engineer",
+      "status": "busy",
+      "activity": "Testing model",
+      "emoji": "🧠"
+    },
+    {
+      "name": "Integration Spec",
+      "status": "busy",
+      "activity": "Debugging",
+      "emoji": "🔌"
+    }
+  ],
+  "systemHealth": {
+    "openclaw": "offline",
+    "mlx": "online",
+    "discord": "online",
+    "memory": "healthy"
   },
   "recentActivity": [
     {
-      "time": "9:43:21 PM",
-      "text": "Completed 3/20 tasks (20h)",
-      "icon": "✓"
+      "time": "8:34:27 PM",
+      "text": "✓ Database Eng completed: Optimizing database queries",
+      "icon": "✓",
+      "timestamp": 1773718467177
+    },
+    {
+      "time": "8:34:17 PM",
+      "text": "✓ Researcher completed: Researching RT curriculum standards",
+      "icon": "✓",
+      "timestamp": 1773718457174
+    },
+    {
+      "time": "8:34:12 PM",
+      "text": "🔍 Researcher started: Researching Amazon FBA API",
+      "icon": "🔍",
+      "timestamp": 1773718452172
+    },
+    {
+      "time": "8:34:07 PM",
+      "text": "✓ AI Engineer completed: Designing prediction models",
+      "icon": "✓",
+      "timestamp": 1773718447165
+    },
+    {
+      "time": "8:34:02 PM",
+      "text": "✓ AI Engineer completed: Designing prediction models",
+      "icon": "✓",
+      "timestamp": 1773718442158
+    },
+    {
+      "time": "8:34:02 PM",
+      "text": "🤖 AI Engineer started: Designing prediction models",
+      "icon": "🤖",
+      "timestamp": 1773718442158
+    },
+    {
+      "time": "8:33:57 PM",
+      "text": "🗄️ Database Eng started: Optimizing database queries",
+      "icon": "🗄️",
+      "timestamp": 1773718437157
+    },
+    {
+      "time": "8:33:52 PM",
+      "text": "🤖 AI Engineer started: Designing prediction models",
+      "icon": "🤖",
+      "timestamp": 1773718432155
+    },
+    {
+      "time": "8:33:27 PM",
+      "text": "✓ AI Engineer completed: Designing prediction models",
+      "icon": "✓",
+      "timestamp": 1773718407095
+    },
+    {
+      "time": "8:33:12 PM",
+      "text": "✓ AI Engineer completed: Designing prediction models",
+      "icon": "✓",
+      "timestamp": 1773718392062
+    },
+    {
+      "time": "8:33:12 PM",
+      "text": "🤖 AI Engineer started: Designing prediction models",
+      "icon": "🤖",
+      "timestamp": 1773718392062
+    },
+    {
+      "time": "8:33:02 PM",
+      "text": "✓ AI Engineer completed: Testing ML models",
+      "icon": "✓",
+      "timestamp": 1773718382028
+    },
+    {
+      "time": "8:33:02 PM",
+      "text": "🤖 AI Engineer started: Designing prediction models",
+      "icon": "🤖",
+      "timestamp": 1773718382027
+    },
+    {
+      "time": "8:32:56 PM",
+      "text": "🗄️ Database Eng started: Optimizing database queries",
+      "icon": "🗄️",
+      "timestamp": 1773718376981
+    },
+    {
+      "time": "8:32:51 PM",
+      "text": "✓ Trading Analyst completed: Analyzing trading patterns",
+      "icon": "✓",
+      "timestamp": 1773718371951
+    },
+    {
+      "time": "8:32:51 PM",
+      "text": "🔍 Researcher started: Researching RT curriculum standards",
+      "icon": "🔍",
+      "timestamp": 1773718371951
+    },
+    {
+      "time": "8:32:46 PM",
+      "text": "📈 Trading Analyst started: Analyzing trading patterns",
+      "icon": "📈",
+      "timestamp": 1773718366950
+    },
+    {
+      "time": "8:32:41 PM",
+      "text": "✓ Researcher completed: Researching RT curriculum standards",
+      "icon": "✓",
+      "timestamp": 1773718361948
+    },
+    {
+      "time": "8:32:41 PM",
+      "text": "🤖 AI Engineer started: Testing ML models",
+      "icon": "🤖",
+      "timestamp": 1773718361948
+    },
+    {
+      "time": "8:32:36 PM",
+      "text": "✓ Researcher completed: Researching RT curriculum standards",
+      "icon": "✓",
+      "timestamp": 1773718356944
     }
   ],
   "goals": 5,
-  "hoursWorked": 20
+  "runningTasks": [
+    {
+      "id": 1773718376955,
+      "name": "Optimizing database queries",
+      "agent": "Database Eng",
+      "agentEmoji": "🗄️",
+      "goal": "Life Programs",
+      "startTime": "2026-03-17T03:32:56.955Z",
+      "progress": 100
+    },
+    {
+      "id": 1773718452172,
+      "name": "Researching Amazon FBA API",
+      "agent": "Researcher",
+      "agentEmoji": "🔍",
+      "goal": "Reselling Business",
+      "startTime": "2026-03-17T03:34:12.172Z",
+      "progress": 70
+    }
+  ],
+  "cronJobs": [
+    {
+      "name": "Daily Motivation",
+      "time": "8:00 AM",
+      "status": "scheduled",
+      "icon": "💪"
+    },
+    {
+      "name": "AI & Tech News",
+      "time": "9:00 AM",
+      "status": "scheduled",
+      "icon": "🤖"
+    },
+    {
+      "name": "World News Update",
+      "time": "5:00 PM",
+      "status": "scheduled",
+      "icon": "🌍"
+    },
+    {
+      "name": "Health Check",
+      "time": "Every 30m",
+      "status": "running",
+      "icon": "🔍"
+    }
+  ],
+  "hoursWorked": 32
 }

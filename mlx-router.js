@@ -1,242 +1,233 @@
-#!/usr/bin/env node
 /**
- * MLX Cost Router - Routes tasks to optimal model
- * Priority: MLX (FREE) > Kimi-Code (You) > Kimi 2.5 > Minimax
+ * MLX Smart Router - Hybrid Cascade Strategy
+ * 
+ * Philosophy: Try MLX first (it's FREE!), only escalate if needed
+ * 
+ * Strategy:
+ * 1. Quick pre-filter: Skip MLX for tasks it definitely can't do (images, Chinese)
+ * 2. MLX attempts everything else
+ * 3. Analyze MLX response - escalate if confidence is low
+ * 4. Track savings vs upfront paid routing
  */
 
-// Task types and their optimal models
-const ROUTING_RULES = {
-  // FREE - MLX (deepseek-14b) - 75% of tasks
-  'code_generation': { 
-    model: 'mlx', 
-    provider: 'mlx_14b/deepseek-14b',
-    reason: 'Code tasks work well with MLX (FREE)' 
-  },
-  'simple_analysis': { 
-    model: 'mlx', 
-    provider: 'mlx_14b/deepseek-14b',
-    reason: 'Basic analysis on MLX (FREE)' 
-  },
-  'data_processing': { 
-    model: 'mlx', 
-    provider: 'mlx_14b/deepseek-14b',
-    reason: 'Data tasks on MLX (FREE)' 
-  },
-  'testing': { 
-    model: 'mlx', 
-    provider: 'mlx_14b/deepseek-14b',
-    reason: 'Test generation on MLX (FREE)' 
-  },
-  
-  // PAID - Kimi-Code (You) - Code specialist (12%)
-  'complex_code': { 
-    model: 'kimi-code', 
-    provider: 'kimi-code-v1',
-    reason: 'Complex code needs Kimi-Code (You)' 
-  },
-  'debugging': { 
-    model: 'kimi-code', 
-    provider: 'kimi-code-v1',
-    reason: 'Debugging needs Kimi-Code (You)' 
-  },
-  'refactoring': { 
-    model: 'kimi-code', 
-    provider: 'kimi-code-v1',
-    reason: 'Refactoring with Kimi-Code (You)' 
-  },
-  'architecture': { 
-    model: 'kimi-code', 
-    provider: 'kimi-code-v1',
-    reason: 'Architecture needs Kimi-Code (You)' 
-  },
-  
-  // PAID - Kimi 2.5 - General reasoning (8%)
-  'research': { 
-    model: 'kimi', 
-    provider: 'moonshot/kimi-k2.5',
-    reason: 'Research tasks use Kimi 2.5' 
-  },
-  'planning': { 
-    model: 'kimi', 
-    provider: 'moonshot/kimi-k2.5',
-    reason: 'Strategic planning with Kimi 2.5' 
-  },
-  'complex_reasoning': { 
-    model: 'kimi', 
-    provider: 'moonshot/kimi-k2.5',
-    reason: 'Deep reasoning needs Kimi 2.5' 
-  },
-  
-  // PAID - Minimax - Image & Chinese (5%)
-  'image_generation': {
-    model: 'minimax',
-    provider: 'minimax/MiniMax-M2.5',
-    reason: 'Images use Minimax'
-  },
-  'chinese_text': {
-    model: 'minimax',
-    provider: 'minimax/MiniMax-M2.5',
-    reason: 'Chinese text uses Minimax'
-  },
-  'multimodal': {
-    model: 'minimax',
-    provider: 'minimax/MiniMax-M2.5',
-    reason: 'Multimodal tasks use Minimax'
-  }
-};
-
-// Keywords for routing
-const KEYWORDS = {
-  mlx: ['simple', 'basic', 'create', 'add', 'implement', 'generate', 'write', 'code', 'function', 'component'],
-  kimiCode: ['debug', 'fix', 'error', 'refactor', 'optimize', 'architecture', 'design pattern', 'complex code', 'best practice', 'review'],
-  kimi: ['research', 'analyze', 'study', 'plan', 'strategy', 'reasoning', 'complex', 'investigate'],
-  minimax: ['image', 'picture', 'photo', 'generate image', 'chinese', '中文', 'multimodal', 'visual']
-};
-
-// Cost per task (approximate)
+// Model costs per task
 const COSTS = {
-  'mlx': 0,
+  mlx: 0,
   'kimi-code': 0.02,
-  'kimi': 0.02,
-  'minimax': 0.015  // Slightly cheaper
+  kimi: 0.02,
+  minimax: 0.015
+};
+
+// Tasks MLX definitely CANNOT do (skip the attempt)
+const MLX_IMPOSSIBLE = {
+  minimax: ['image', 'picture', 'photo', 'generate image', 'chinese', '中文', 'multimodal', 'visual', 'create image', 'draw']
+};
+
+// Tasks MLX might STRUGGLE with (will try, likely escalate)
+const MLX_CHALLENGING = {
+  'kimi-code': ['debug', 'fix', 'error', 'refactor', 'optimize', 'architecture', 'complex code', 'memory leak', 'performance'],
+  kimi: ['research', 'analyze', 'study', 'plan', 'strategy', 'reasoning', 'investigate', 'market analysis', 'deep dive']
 };
 
 /**
- * Route a task to the optimal model
+ * Analyze task and determine routing strategy
  */
-function routeTask(taskName, taskDescription = '') {
+function analyzeTask(taskName, taskDescription = '') {
   const text = (taskName + ' ' + taskDescription).toLowerCase();
   
-  // 1. Check for Minimax keywords (image/Chinese) - 5%
-  for (const keyword of KEYWORDS.minimax) {
+  // Check 1: MLX-impossible tasks (skip MLX entirely)
+  for (const keyword of MLX_IMPOSSIBLE.minimax) {
     if (text.includes(keyword)) {
       return {
+        strategy: 'direct',
         model: 'minimax',
         provider: 'minimax/MiniMax-M2.5',
         name: 'Minimax',
         emoji: '🎭',
-        reason: `Contains "${keyword}" - needs Minimax`,
-        estimatedCost: COSTS.minimax
+        cost: COSTS.minimax,
+        reason: `Contains "${keyword}" - MLX can't handle this`,
+        skipMLX: true,
+        difficulty: 'impossible-for-mlx'
       };
     }
   }
   
-  // 2. Check for Kimi-Code keywords (code specialist) - 12%
-  for (const keyword of KEYWORDS.kimiCode) {
+  // Check 2: MLX-challenging tasks (will try, likely escalate)
+  for (const keyword of MLX_CHALLENGING['kimi-code']) {
     if (text.includes(keyword)) {
       return {
-        model: 'kimi-code',
-        provider: 'kimi-code-v1',
-        name: 'Kimi-Code (You)',
-        emoji: '💻',
-        reason: `Contains "${keyword}" - needs code specialist`,
-        estimatedCost: COSTS['kimi-code']
+        strategy: 'mlx-with-likely-escalation',
+        model: 'mlx',
+        provider: 'mlx_14b/deepseek-14b',
+        name: 'MLX (Local)',
+        emoji: '🍎',
+        cost: 0,
+        likelyEscalation: {
+          model: 'kimi-code',
+          name: 'Kimi-Code (You)',
+          emoji: '💻',
+          cost: COSTS['kimi-code']
+        },
+        reason: `Complex code task - MLX will try, Kimi-Code on standby`,
+        skipMLX: false,
+        difficulty: 'hard'
       };
     }
   }
   
-  // 3. Check for Kimi 2.5 keywords (reasoning) - 8%
-  for (const keyword of KEYWORDS.kimi) {
+  for (const keyword of MLX_CHALLENGING.kimi) {
     if (text.includes(keyword)) {
       return {
-        model: 'kimi',
-        provider: 'moonshot/kimi-k2.5',
-        name: 'Kimi 2.5',
-        emoji: '🎯',
-        reason: `Contains "${keyword}" - needs reasoning`,
-        estimatedCost: COSTS.kimi
+        strategy: 'mlx-with-likely-escalation',
+        model: 'mlx',
+        provider: 'mlx_14b/deepseek-14b',
+        name: 'MLX (Local)',
+        emoji: '🍎',
+        cost: 0,
+        likelyEscalation: {
+          model: 'kimi',
+          name: 'Kimi 2.5',
+          emoji: '🎯',
+          cost: COSTS.kimi
+        },
+        reason: `Reasoning task - MLX will try, Kimi on standby`,
+        skipMLX: false,
+        difficulty: 'medium'
       };
     }
   }
   
-  // 4. Default to MLX (FREE) - 75%
+  // Default: MLX should handle this easily
   return {
+    strategy: 'mlx-first',
     model: 'mlx',
     provider: 'mlx_14b/deepseek-14b',
     name: 'MLX (Local)',
     emoji: '🍎',
-    reason: 'Standard task - use free MLX',
-    estimatedCost: COSTS.mlx
+    cost: 0,
+    reason: 'MLX should handle this easily',
+    skipMLX: false,
+    difficulty: 'easy'
   };
 }
 
 /**
- * Calculate potential savings
+ * Route task using hybrid cascade strategy
  */
-function calculateSavings(tasks) {
-  let counts = { mlx: 0, 'kimi-code': 0, kimi: 0, minimax: 0 };
+function routeTask(taskName, taskDescription = '') {
+  const analysis = analyzeTask(taskName, taskDescription);
   
-  tasks.forEach(task => {
-    const route = routeTask(task.name, task.description);
-    counts[route.model]++;
-  });
-  
-  const total = tasks.length || 1;
-  
-  // Calculate costs
-  const mlxCost = counts.mlx * COSTS.mlx;  // = 0
-  const kimiCodeCost = counts['kimi-code'] * COSTS['kimi-code'];
-  const kimiCost = counts.kimi * COSTS.kimi;
-  const minimaxCost = counts.minimax * COSTS.minimax;
-  
-  const totalCost = mlxCost + kimiCodeCost + kimiCost + minimaxCost;
-  
-  // Savings vs using only Kimi
-  const savings = (counts.mlx * 0.02).toFixed(2);
-  
+  // Build the route result
   return {
-    mlxTasks: counts.mlx,
-    kimiCodeTasks: counts['kimi-code'],
-    kimiTasks: counts.kimi,
-    minimaxTasks: counts.minimax,
-    mlxPercent: Math.round((counts.mlx / total) * 100),
-    kimiCodePercent: Math.round((counts['kimi-code'] / total) * 100),
-    kimiPercent: Math.round((counts.kimi / total) * 100),
-    minimaxPercent: Math.round((counts.minimax / total) * 100),
-    totalCost: `$${totalCost.toFixed(2)}`,
-    estimatedSavings: `$${savings}`
+    ...analysis,
+    estimatedCost: analysis.cost,
+    routing: analysis.skipMLX ? 'direct' : 'cascade',
+    steps: analysis.skipMLX 
+      ? [`1. Direct → ${analysis.name}`]
+      : [
+          `1. Try MLX first (FREE)`,
+          analysis.likelyEscalation 
+            ? `2. If MLX struggles → ${analysis.likelyEscalation.name} ($${analysis.likelyEscalation.cost})`
+            : `2. MLX handles it ✓`
+        ]
   };
 }
 
-module.exports = { routeTask, calculateSavings, ROUTING_RULES, COSTS };
-
-// CLI usage
-if (require.main === module) {
-  const args = process.argv.slice(2);
+/**
+ * Calculate potential savings vs old keyword-based routing
+ */
+function calculateSavings(tasks) {
+  // Old keyword-based routing (upfront prediction)
+  const oldCosts = tasks.map(t => {
+    const oldRoute = oldKeywordRoute(t.name, t.description);
+    return oldRoute.cost;
+  });
+  const oldTotal = oldCosts.reduce((a, b) => a + b, 0);
   
-  if (args.length === 0) {
-    console.log('🎯 MLX Cost Router - 4-Tier Optimization');
-    console.log('');
-    console.log('Usage: node mlx-router.js "task name" "task description"');
-    console.log('');
-    console.log('Routing Strategy:');
-    console.log('  🍎 MLX (75%)        - FREE  - Simple code, generation');
-    console.log('  💻 Kimi-Code (12%)   - $0.02 - Complex code, debugging');
-    console.log('  🎯 Kimi 2.5 (8%)     - $0.02 - Research, reasoning');
-    console.log('  🎭 Minimax (5%)      - $0.015 - Images, Chinese text');
-    console.log('');
-    console.log('Examples:');
-    console.log('  node mlx-router.js "Create login form"');
-    console.log('  node mlx-router.js "Debug memory leak"');
-    console.log('  node mlx-router.js "Generate hero image"');
-    console.log('  node mlx-router.js "Translate to Chinese"');
-    process.exit(0);
-  }
+  // New cascade routing (MLX first)
+  const newRoutes = tasks.map(t => routeTask(t.name, t.description));
+  const newTotal = newRoutes.reduce((sum, r) => {
+    // For cascade, we optimistically estimate 50% escalation rate for hard tasks
+    if (r.strategy === 'mlx-with-likely-escalation') {
+      return sum + (r.likelyEscalation.cost * 0.5); // 50% need escalation
+    }
+    return sum + r.cost;
+  }, 0);
   
-  const taskName = args[0];
-  const taskDesc = args[1] || '';
-  
-  const route = routeTask(taskName, taskDesc);
-  
-  const costLabel = route.estimatedCost === 0 ? 'FREE 🟢' : `$${route.estimatedCost} 🟡`;
-  
-  console.log('');
-  console.log('🎯 Task Routing');
-  console.log('-'.repeat(50));
-  console.log(`Task: ${taskName}`);
-  console.log(`Model: ${route.emoji} ${route.name}`);
-  console.log(`Provider: ${route.provider}`);
-  console.log(`Reason: ${route.reason}`);
-  console.log(`Est. Cost: ${costLabel}`);
-  console.log('');
+  return {
+    oldTotal: oldTotal.toFixed(2),
+    newTotal: newTotal.toFixed(2),
+    savings: (oldTotal - newTotal).toFixed(2),
+    percent: ((1 - newTotal/oldTotal) * 100).toFixed(0)
+  };
 }
+
+/**
+ * Legacy keyword-based routing (for comparison)
+ */
+function oldKeywordRoute(taskName, taskDescription) {
+  const text = (taskName + ' ' + taskDescription).toLowerCase();
+  
+  const keywords = {
+    minimax: ['image', 'picture', 'photo', 'chinese', '中文', 'multimodal', 'visual'],
+    'kimi-code': ['debug', 'fix', 'error', 'refactor', 'optimize', 'architecture', 'design pattern', 'complex code'],
+    kimi: ['research', 'analyze', 'study', 'plan', 'strategy', 'reasoning', 'complex']
+  };
+  
+  for (const kw of keywords.minimax) if (text.includes(kw)) return { model: 'minimax', cost: 0.015 };
+  for (const kw of keywords['kimi-code']) if (text.includes(kw)) return { model: 'kimi-code', cost: 0.02 };
+  for (const kw of keywords.kimi) if (text.includes(kw)) return { model: 'kimi', cost: 0.02 };
+  
+  return { model: 'mlx', cost: 0 };
+}
+
+/**
+ * Demo function
+ */
+function demo() {
+  const testTasks = [
+    { name: 'Create login button', description: 'Simple HTML/CSS component' },
+    { name: 'Debug memory leak', description: 'Production debugging needed' },
+    { name: 'Generate hero image', description: 'Website banner' },
+    { name: 'Research competitors', description: 'Market analysis' },
+    { name: 'Add navigation', description: 'Simple menu component' },
+    { name: 'Optimize database', description: 'Query performance' },
+    { name: 'Translate to Chinese', description: 'Internationalization' },
+    { name: 'Fix CSS bug', description: 'Layout issue on mobile' }
+  ];
+  
+  console.log('╔════════════════════════════════════════════════════════════╗');
+  console.log('║     MLX Smart Router - Hybrid Cascade Strategy             ║');
+  console.log('╚════════════════════════════════════════════════════════════╝\n');
+  
+  console.log('Philosophy: Try MLX first (FREE!), escalate only if needed\n');
+  
+  testTasks.forEach((task, i) => {
+    const result = routeTask(task.name, task.description);
+    console.log(`${i+1}. ${task.name}`);
+    console.log(`   Strategy: ${result.strategy}`);
+    console.log(`   Route: ${result.emoji} ${result.name}`);
+    console.log(`   ${result.reason}`);
+    if (result.likelyEscalation) {
+      console.log(`   Fallback: ${result.likelyEscalation.emoji} ${result.likelyEscalation.name} ($${result.likelyEscalation.cost})`);
+    }
+    console.log(`   Cost: $${result.estimatedCost}\n`);
+  });
+  
+  const savings = calculateSavings(testTasks);
+  console.log('╔════════════════════════════════════════════════════════════╗');
+  console.log('║              OLD vs NEW ROUTING COMPARISON                 ║');
+  console.log('╠════════════════════════════════════════════════════════════╣');
+  console.log(`║  Keyword-based (old): $${savings.oldTotal}                            ║`);
+  console.log(`║  MLX Cascade (new):   $${savings.newTotal}                            ║`);
+  console.log(`╠════════════════════════════════════════════════════════════╣`);
+  console.log(`║  💰 SAVINGS: $${savings.savings} (${savings.percent}%)                           ║`);
+  console.log('╚════════════════════════════════════════════════════════════╝');
+}
+
+// Run demo if called directly
+if (require.main === module) {
+  demo();
+}
+
+module.exports = { routeTask, analyzeTask, calculateSavings };
