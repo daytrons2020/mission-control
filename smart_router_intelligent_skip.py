@@ -19,6 +19,7 @@ import aiohttp
 MLX_PORT = 18888
 KIMI_URL = "https://api.moonshot.cn/v1/chat/completions"
 MINIMAX_URL = "https://api.minimaxi.chat/v1/text/chatcompletion_v2"
+KIMI_CODE_URL = "http://127.0.0.1:11436/v1/chat/completions"
 ROUTER_PORT = 11435
 
 KIMI_API_KEY = os.environ.get('KIMI_API_KEY') or os.environ.get('MOONSHOT_API_KEY', '')
@@ -303,6 +304,23 @@ class IntelligentSkipRouter:
             print(f"  Kimi error: {e}", file=sys.stderr)
         return None
     
+    async def query_kimi_code(self, messages: List[Dict]) -> Optional[Dict]:
+        """Query Kimi Code (full agent with file editing)"""
+        try:
+            async with self.session.post(
+                KIMI_CODE_URL,
+                json={"messages": messages, "model": "kimi-code"},
+                timeout=aiohttp.ClientTimeout(total=300)  # 5 min for complex tasks
+            ) as resp:
+                if resp.status == 200:
+                    return await resp.json()
+                else:
+                    error_text = await resp.text()
+                    print(f"  Kimi Code error: {resp.status} - {error_text[:200]}", file=sys.stderr)
+        except Exception as e:
+            print(f"  Kimi Code error: {e}", file=sys.stderr)
+        return None
+    
     async def route_request(self, request_data: Dict) -> Dict:
         """Main routing with intelligent skip logic"""
         messages = request_data.get("messages", [])
@@ -368,7 +386,7 @@ class IntelligentSkipRouter:
             
             print(f"[Router] ⚠ MiniMax failed", file=sys.stderr)
         
-        # === STAGE 3: Kimi (final) ===
+        # === STAGE 3: Kimi K2.5 ===
         print(f"[Router] Stage 3: Kimi K2.5...", file=sys.stderr)
         kimi_result = await self.query_kimi(messages)
         
@@ -384,11 +402,28 @@ class IntelligentSkipRouter:
             }
             return kimi_result
         
+        print(f"[Router] ✗ Kimi failed", file=sys.stderr)
+        
+        # === STAGE 4: Kimi Code (final fallback for coding tasks) ===
+        print(f"[Router] Stage 4: Kimi Code (file editing agent)...", file=sys.stderr)
+        kimi_code_result = await self.query_kimi_code(messages)
+        
+        if kimi_code_result:
+            print(f"[Router] ✓ Kimi Code success", file=sys.stderr)
+            kimi_code_result['_routing'] = {
+                'used': 'kimi-code',
+                'previous': 'kimi',
+                'cost': 'agent',
+                'category': category.value,
+                'note': 'Full agent with file editing'
+            }
+            return kimi_code_result
+        
         # All failed
-        print(f"[Router] ✗ All models failed", file=sys.stderr)
+        print(f"[Router] ✗ All models and agents failed", file=sys.stderr)
         return {
-            "error": "All models failed",
-            "attempted": ['mlx_14b'] + (['minimax'] if not skip_minimax else []) + ['kimi'],
+            "error": "All models and agents failed",
+            "attempted": ['mlx_14b'] + (['minimax'] if not skip_minimax else []) + ['kimi', 'kimi-code'],
             "category": category.value
         }
 

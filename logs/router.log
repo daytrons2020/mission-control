@@ -1,16 +1,28 @@
-🧠 Intelligent Skip Router on port 11435
-   Strategy: Smart Escalation (Skip MiniMax when appropriate)
 
-Task Categories:
-  • Simple/Creative  → MLX → MiniMax → Kimi (if needed)
-  • Complex/Research → MLX → Kimi (skips MiniMax)
+[Router] Request: Hello...
+[Router] Coding: False, Complex: False
+[Router] Using 14b
+  MLX 14b error: Server disconnected
+[Router] All failed
 
-Skip triggers:
-  • MLX says 'I cannot' / 'beyond my capabilities'
-  • Architecture/design tasks
-  • Research/analysis tasks
-  • ML/blockchain/security tasks
+[Router] Request: Hi there...
+[Router] Coding: False, Complex: False
+[Router] Using 14b
 
-Add to OpenClaw:
-  "baseUrl": "http://127.0.0.1:11435/v1"
+[Router] Request: Design a microservices architecture for an e-comme...
+[Router] Coding: True, Complex: True
+[Router] Coding task -> Kimi Code
+  Kimi Code error: 
+[Router] Complex task -> Switching to 24B
+  [Switch] Switching from 14b to 24b...
+  [Switch] ✓ Now using 24b
+  MLX 24b error: Server disconnected
+[Router] 24B failed, falling back to 14B
+  [Switch] Cooling down, keeping 24b
+[Router] Using 24b
+  MLX 14b error: Cannot connect to host 127.0.0.1:18888 ssl:default [Connect call failed ('127.0.0.1', 18888)]
+[Router] All failed
 
+[Router] Request: Hi...
+[Router] Coding: False, Complex: False
+[Router] Using 14b

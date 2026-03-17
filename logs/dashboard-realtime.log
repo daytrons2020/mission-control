@@ -3,13 +3,13 @@ Data file: /Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-da
 Updates every 5 seconds
 Dashboard API running on http://localhost:3001
 Endpoint: GET /api/dashboard
-/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:150
+/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:151
     const agent = AGENT_TYPES[task.agent.toLowerCase().replace(' ', '-')];
                   ^
 
 ReferenceError: AGENT_TYPES is not defined
-    at simulateAutonomousWork (/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:150:19)
-    at Timeout._onTimeout (/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:202:5)
+    at simulateAutonomousWork (/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:151:19)
+    at Timeout._onTimeout (/Users/daytrons/.openclaw/workspace/mission-control-repo/dashboard-realtime.js:203:5)
     at listOnTimeout (node:internal/timers:605:17)
     at process.processTimers (node:internal/timers:541:7)
 

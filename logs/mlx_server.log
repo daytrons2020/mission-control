@@ -1,0 +1,441 @@
+2026-03-16 20:40:18,314 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Calling `python -m mlx_lm.server...` directly is deprecated. Use `mlx_lm.server...` or `python -m mlx_lm server ...` instead.
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 175809.15it/s]
+/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py:1858: UserWarning: mlx_lm.server is not recommended for production as it only implements basic security checks.
+  warnings.warn(
+2026-03-16 20:40:22,469 - INFO - Starting httpd at 127.0.0.1 on port 18888...
+127.0.0.1 - - [16/Mar/2026 20:40:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:27] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:33] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:40:34,167 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:40:34] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:40:37] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:47] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:40:52] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:40:53,476 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:40:53] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:40:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:02] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:41:03,069 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 114688.00it/s]
+2026-03-16 20:41:07,046 - INFO - KV Caches: 0 seq, 0.00 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:41:07] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:07] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:41:07,908 - INFO - Prompt processing progress: 4/7
+127.0.0.1 - - [16/Mar/2026 20:41:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:17] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:26] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:41:26,503 - INFO - KV Caches: 1 seq, 0.00 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:41:26] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:27] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:41:28,240 - INFO - Prompt processing progress: 117/120
+127.0.0.1 - - [16/Mar/2026 20:41:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:37] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:47] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:52] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:41:56] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:41:56,590 - INFO - KV Caches: 2 seq, 0.03 GB, latest user cache 118 tokens
+127.0.0.1 - - [16/Mar/2026 20:41:56] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-03-16 20:41:57,398 - INFO - Prompt processing progress: 84/87
+127.0.0.1 - - [16/Mar/2026 20:41:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:07] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:17] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:26] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:27] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:37] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:42:38,068 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:42:38] "POST /v1/chat/completions HTTP/1.1" 404 -
+2026-03-16 20:42:38,173 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 75475.91it/s]
+127.0.0.1 - - [16/Mar/2026 20:42:45] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:47] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:42:49,656 - INFO - KV Caches: 3 seq, 0.25 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:42:49] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:52] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:42:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:02] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:43:07,619 - INFO - Prompt processing progress: 86/89
+2026-03-16 20:43:07,892 - INFO - KV Caches: 4 seq, 0.27 GB, latest user cache 118 tokens
+127.0.0.1 - - [16/Mar/2026 20:43:07] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:07] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:43:07,950 - INFO - KV Caches: 4 seq, 0.27 GB, latest user cache 118 tokens
+127.0.0.1 - - [16/Mar/2026 20:43:07] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-03-16 20:43:08,001 - INFO - KV Caches: 4 seq, 0.27 GB, latest user cache 118 tokens
+127.0.0.1 - - [16/Mar/2026 20:43:08] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:09] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:10] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:43:10,462 - INFO - Prompt processing progress: 104/105
+2026-03-16 20:43:10,465 - INFO - Prompt processing progress: 104/107
+2026-03-16 20:43:10,462 - INFO - Prompt processing progress: 104/105
+127.0.0.1 - - [16/Mar/2026 20:43:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:17] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:27] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:37] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:47] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:52] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:43:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:07] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:17] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:27] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:37] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:47] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:52] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:44:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:07] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:17] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:27] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:32] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:37] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:48] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:45:48,953 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:45:48] "POST /v1/chat/completions HTTP/1.1" 404 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57680)
+Traceback (most recent call last):
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/utils/_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'https://huggingface.co/api/models/deepseek-14b/revision/main'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1490, in handle_completion
+    ctx, response = self.response_generator.generate(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        args,
+        ^^^^^
+        progress_callback=keepalive_callback,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1116, in generate
+    raise ctx
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 899, in _generate
+    model, tokenizer = self.model_provider.load(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^
+        args.model.model, args.model.adapter, args.model.draft
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 568, in load
+    model, tokenizer = load(
+                       ~~~~^
+        model_path,
+        ^^^^^^^^^^^
+        adapter_path=adapter_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        tokenizer_config=tokenizer_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/utils.py", line 477, in load
+    model_path = _download(path_or_hf_repo, revision=revision)
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/utils.py", line 237, in _download
+    snapshot_download(
+    ~~~~~~~~~~~~~~~~~^
+        path_or_hf_repo,
+        ^^^^^^^^^^^^^^^^
+        revision=revision,
+        ^^^^^^^^^^^^^^^^^^
+        allow_patterns=allow_patterns,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/_snapshot_download.py", line 321, in snapshot_download
+    raise api_call_error
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/_snapshot_download.py", line 240, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/hf_api.py", line 3146, in repo_info
+    return method(
+        repo_id,
+    ...<4 lines>...
+        files_metadata=files_metadata,
+    )
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/hf_api.py", line 2940, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/huggingface_hub/utils/_http.py", line 847, in hf_raise_for_status
+    raise repo_err from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-69b8ce6c-56d0f1584e4e8cd2653abe7a;2b214346-66dc-4f48-82d9-9e09f9a290ed)
+
+Repository Not Found for url: https://huggingface.co/api/models/deepseek-14b/revision/main.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+Invalid username or password.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1851, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ~~~~~~~~~~~~~^
+        response_generator,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1139, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1239, in do_POST
+    self.handle_completion(request, stop_words)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1497, in handle_completion
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 598, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 602, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+2026-03-16 20:45:49,041 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:45:49] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:45:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:45:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:08] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:12] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:46:17,001 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 17549.39it/s]
+127.0.0.1 - - [16/Mar/2026 20:46:24] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:28] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:46:28,315 - INFO - KV Caches: 7 seq, 1.19 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:46:28] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:29] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:35] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:46:41,588 - INFO - Prompt processing progress: 1/4
+127.0.0.1 - - [16/Mar/2026 20:46:41] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:41] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:47] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:52] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:46:57] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:02] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:08] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:22] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:47:58] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:03] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:08] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:23] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:33] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:48:34,436 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:48:34] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:48:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:48:58] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:03] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:08] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:23] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:49:58] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:03] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:08] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:23] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:50:49] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:50:50,043 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 39356.74it/s]
+127.0.0.1 - - [16/Mar/2026 20:50:58] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:51:00,500 - INFO - KV Caches: 8 seq, 1.19 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:51:00] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:00] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:03] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:09] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:12] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:14] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:20] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:51:24,111 - INFO - Prompt processing progress: 1/4
+127.0.0.1 - - [16/Mar/2026 20:51:25] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:55] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:51:55,247 - INFO - KV Caches: 9 seq, 1.19 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:51:55] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:51:58] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:03] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:05] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:52:05,753 - INFO - KV Caches: 10 seq, 1.20 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:52:05] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-03-16 20:52:07,754 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:52:07] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:52:09] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:52:09,845 - INFO - HTTP Request: GET https://huggingface.co/api/models/deepseek-14b/revision/main "HTTP/1.1 401 Unauthorized"
+127.0.0.1 - - [16/Mar/2026 20:52:09] "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 - - [16/Mar/2026 20:52:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:23] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:40] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:43] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:48] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:53] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:58] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:52:59] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:52:59,505 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit/revision/main "HTTP/1.1 200 OK"
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 33363.78it/s]
+127.0.0.1 - - [16/Mar/2026 20:53:06] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:08] "GET /v1/models HTTP/1.1" 200 -
+2026-03-16 20:53:08,894 - INFO - KV Caches: 9 seq, 1.19 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:53:08] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-03-16 20:53:08,956 - INFO - KV Caches: 9 seq, 1.19 GB, latest user cache 0 tokens
+127.0.0.1 - - [16/Mar/2026 20:53:08] "POST /v1/chat/completions HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:09] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:10] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:13] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:18] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:23] "GET /v1/models HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58065)
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1851, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ~~~~~~~~~~~~~^
+        response_generator,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1139, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1239, in do_POST
+    self.handle_completion(request, stop_words)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/daytrons/.openclaw/workspace/mission-control-repo/venv/lib/python3.14/site-packages/mlx_lm/server.py", line 1686, in handle_completion
+    self.wfile.write(response_json)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Mar/2026 20:53:28] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:33] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:38] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:42] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Mar/2026 20:53:44] "GET /v1/models HTTP/1.1" 200 -

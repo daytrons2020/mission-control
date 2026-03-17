@@ -31,7 +31,9 @@ const CONFIG = {
   openclawEndpoint: 'http://127.0.0.1:18789',
   dailyWorkHours: 8,
   maxParallelTasks: 3,
-  autoExecute: true
+  autoExecute: true,
+  discordWebhook: process.env.DISCORD_WEBHOOK_URL || '',
+  discordBridge: 'http://127.0.0.1:11437'
 };
 
 // Agent Types and their capabilities
@@ -100,6 +102,88 @@ const AGENT_TYPES = {
     priority: 3
   }
 };
+
+// Discord Notification Functions
+class DiscordNotifier {
+  constructor() {
+    this.webhookUrl = CONFIG.discordWebhook;
+    this.bridgeUrl = CONFIG.discordBridge;
+  }
+
+  async sendNotification(message, embed = null) {
+    if (!this.webhookUrl) {
+      console.log('[Discord] No webhook configured, skipping notification');
+      return;
+    }
+
+    const payload = { content: message };
+    if (embed) payload.embeds = [embed];
+
+    try {
+      await fetch(this.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (error) {
+      console.log('[Discord] Failed to send:', error.message);
+    }
+  }
+
+  async notifyJobStart(task, agent) {
+    const embed = {
+      title: '🚀 Job Started',
+      color: 3447003,
+      fields: [
+        { name: 'Task', value: task.name, inline: true },
+        { name: 'Agent', value: `${agent.emoji} ${agent.name}`, inline: true },
+        { name: 'Goal', value: task.goalTitle || 'N/A', inline: false },
+        { name: 'ETA', value: `${task.estimatedHours}h`, inline: true }
+      ],
+      timestamp: new Date().toISOString()
+    };
+    await this.sendNotification('', embed);
+    logInfo(`Discord notification sent: Job started - ${task.name}`);
+  }
+
+  async notifyJobComplete(task, agent, result) {
+    const embed = {
+      title: '✅ Job Completed',
+      color: 3066993,
+      fields: [
+        { name: 'Task', value: task.name, inline: true },
+        { name: 'Agent', value: `${agent.emoji} ${agent.name}`, inline: true },
+        { name: 'Result', value: (result.content || 'Success').substring(0, 1000), inline: false }
+      ],
+      timestamp: new Date().toISOString()
+    };
+    await this.sendNotification('', embed);
+    logInfo(`Discord notification sent: Job completed - ${task.name}`);
+  }
+
+  async notifyJobFailed(task, agent, error) {
+    const embed = {
+      title: '❌ Job Failed',
+      color: 15158332,
+      fields: [
+        { name: 'Task', value: task.name, inline: true },
+        { name: 'Agent', value: `${agent.emoji} ${agent.name}`, inline: true },
+        { name: 'Error', value: error.message.substring(0, 1000), inline: false }
+      ],
+      timestamp: new Date().toISOString()
+    };
+    await this.sendNotification('', embed);
+    logError(`Discord notification sent: Job failed - ${task.name}`, error);
+  }
+
+  async notifyDailySummary(completedTasks, failedTasks, totalTasks) {
+    const message = `📊 **Daily Summary**\n\n✅ Completed: ${completedTasks}\n❌ Failed: ${failedTasks}\n📋 Total: ${totalTasks}`;
+    await this.sendNotification(message);
+  }
+}
+
+// Global Discord notifier instance
+const discordNotifier = new DiscordNotifier();
 
 // Goals Parser
 class GoalsParser {
@@ -648,6 +732,9 @@ class TaskExecutor {
 
     this.runningTasks.set(task.id, taskRecord);
 
+    // Send Discord notification that job started
+    await discordNotifier.notifyJobStart(task, agent);
+
     try {
       // Generate prompt for the agent
       const prompt = this.createAgentPrompt(task, agent);
@@ -662,11 +749,18 @@ class TaskExecutor {
       // Save deliverable
       await this.saveDeliverable(task, result);
       
+      // Send Discord notification that job completed
+      await discordNotifier.notifyJobComplete(task, agent, result);
+      
       logInfo(`Completed task: ${task.name}`);
       return result;
     } catch (error) {
       taskRecord.status = 'failed';
       taskRecord.error = error.message;
+      
+      // Send Discord notification that job failed
+      await discordNotifier.notifyJobFailed(task, agent, error);
+      
       logError(`Failed task: ${task.name}`, error);
       throw error;
     }
@@ -696,6 +790,7 @@ Respond with:
 
     console.log(`[Execute] ${agent.name} working on task via MLX...`);
     
+    // Try MLX with auto-recovery
     try {
       const response = await Promise.race([
         fetch(CONFIG.mlxEndpoint, {
@@ -711,11 +806,17 @@ Respond with:
             temperature: 0.7
           })
         }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 120000))
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 300000))
       ]);
 
       if (!response.ok) {
-        console.log(`[MLX] Server returned ${response.status}, using simulation`);
+        console.log(`[MLX] Server returned ${response.status}, attempting recovery...`);
+        // Try to restart MLX and retry once
+        const recovered = await this.attemptMLXRecovery();
+        if (recovered) {
+          console.log('[MLX] Recovery successful, retrying...');
+          return await this.executeViaMLX(prompt, agent); // Retry once
+        }
         return this.getSimulatedResult(agent);
       }
       
@@ -726,9 +827,91 @@ Respond with:
         source: 'mlx'
       };
     } catch (error) {
-      logError('MLX execution failed (using simulation)', error.message);
+      logError('MLX execution failed, attempting recovery...', error.message);
+      
+      // Attempt auto-recovery
+      const recovered = await this.attemptMLXRecovery();
+      if (recovered) {
+        console.log('[MLX] Recovery successful, retrying...');
+        try {
+          return await this.executeViaMLX(prompt, agent); // Retry once
+        } catch (retryError) {
+          logError('MLX retry failed (using simulation)', retryError.message);
+        }
+      }
+      
+      // Notify Discord about simulation mode
+      await this.notifySimulationMode(agent, error.message);
       return this.getSimulatedResult(agent);
     }
+  }
+
+  async attemptMLXRecovery() {
+    """Attempt to restart MLX server if it's not responding"""
+    try {
+      console.log('[Recovery] Attempting MLX restart...');
+      
+      // Kill existing MLX
+      execSync('pkill -f mlx_lm.server 2>/dev/null || true', { timeout: 10000 });
+      await this.delay(3000);
+      
+      // Start new MLX
+      spawn('python3', [
+        '-m', 'mlx_lm.server',
+        '--model', 'mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit',
+        '--port', '18888'
+      ], {
+        detached: true,
+        stdio: 'ignore'
+      }).unref();
+      
+      // Wait for MLX to be ready
+      console.log('[Recovery] Waiting for MLX to start (30s)...');
+      await this.delay(30000);
+      
+      // Verify it's working
+      const testResponse = await fetch('http://127.0.0.1:18888/v1/models', {
+        method: 'GET',
+        timeout: 5000
+      });
+      
+      if (testResponse.ok) {
+        console.log('[Recovery] ✅ MLX recovered successfully');
+        
+        // Notify Discord
+        if (CONFIG.discordWebhook) {
+          await discordNotifier.sendNotification(
+            "🔄 **MLX Auto-Recovery**\nMLX server was restarted and is now responding."
+          );
+        }
+        return true;
+      }
+    } catch (error) {
+      console.log('[Recovery] ❌ Failed to recover MLX:', error.message);
+    }
+    return false;
+  }
+
+  async notifySimulationMode(agent, error) {
+    """Notify Discord that we're falling back to simulation mode"""
+    try {
+      if (CONFIG.discordWebhook) {
+        await discordNotifier.sendNotification(
+          `⚠️ **Falling Back to Simulation Mode**\n\n` +
+          `Agent: ${agent.emoji} ${agent.name}\n` +
+          `Error: ${error.substring(0, 200)}\n\n` +
+          `Auto-recovery was attempted but failed. ` +
+          `Task completed using simulation. ` +
+          `MLX watchdog will attempt to fix this automatically.`
+        );
+      }
+    } catch (e) {
+      // Ignore notification errors
+    }
+  }
+
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getSimulatedResult(agent) {
