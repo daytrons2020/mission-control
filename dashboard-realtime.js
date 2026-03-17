@@ -10,6 +10,22 @@ const fetch = require('node-fetch');
 
 const DATA_FILE = path.join(__dirname, 'dashboard-data.json');
 
+// Agent definitions (must match agent-orchestrator.js)
+const AGENT_TYPES = {
+  'nano': { name: 'Nano', role: 'Coordinator', emoji: '🔬' },
+  'frontend': { name: 'Frontend Developer', role: 'UI/UX', emoji: '🎨' },
+  'backend': { name: 'Backend Developer', role: 'APIs', emoji: '⚙️' },
+  'database': { name: 'Database Engineer', role: 'Data', emoji: '🗄️' },
+  'ai-engineer': { name: 'AI Engineer', role: 'ML/AI', emoji: '🤖' },
+  'integration': { name: 'Integration Specialist', role: 'APIs', emoji: '🔌' },
+  'content-writer': { name: 'Content Writer', role: 'Documentation', emoji: '✍️' },
+  'researcher': { name: 'Researcher', role: 'Research', emoji: '🔍' },
+  'trading-analyst': { name: 'Trading Analyst', role: 'Markets', emoji: '📈' },
+  'frontend-dev': { name: 'Frontend Dev', role: 'UI/UX', emoji: '🎨' },
+  'backend-dev': { name: 'Backend Dev', role: 'APIs', emoji: '⚙️' },
+  'database-eng': { name: 'Database Eng', role: 'Data', emoji: '🗄️' }
+};
+
 // Real-time data structure
 let dashboardData = {
   timestamp: new Date().toISOString(),
@@ -93,7 +109,7 @@ function simulateAgentActivity() {
   });
 }
 
-// Check system health
+// Check system health and sync with OpenClaw
 async function checkSystemHealth() {
   // Check OpenClaw
   try {
@@ -102,6 +118,11 @@ async function checkSystemHealth() {
       timeout: 5000
     });
     dashboardData.systemHealth.openclaw = response.ok ? 'online' : 'error';
+    
+    // If OpenClaw is online, try to get session data
+    if (response.ok) {
+      await syncWithOpenClaw();
+    }
   } catch {
     dashboardData.systemHealth.openclaw = 'offline';
   }
@@ -115,6 +136,33 @@ async function checkSystemHealth() {
     dashboardData.systemHealth.mlx = response.ok ? 'online' : 'error';
   } catch {
     dashboardData.systemHealth.mlx = 'offline';
+  }
+}
+
+// Sync dashboard with real OpenClaw data
+async function syncWithOpenClaw() {
+  try {
+    // Get session data from OpenClaw
+    const response = await fetch('http://127.0.0.1:18789/v1/sessions', {
+      method: 'GET',
+      timeout: 5000
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Update active agent count based on OpenClaw sessions
+      if (data.sessions && Array.isArray(data.sessions)) {
+        const activeSessions = data.sessions.filter(s => s.status === 'active' || !s.status);
+        dashboardData.stats.activeAgents = activeSessions.length;
+        
+        // Log sync for debugging
+        console.log(`[Sync] OpenClaw sessions: ${activeSessions.length} active`);
+      }
+    }
+  } catch (error) {
+    // Silent fail - use simulated data
+    console.log('[Sync] Could not fetch OpenClaw sessions:', error.message);
   }
 }
 
@@ -168,10 +216,12 @@ function simulateAutonomousWork() {
         dashboardData.runningTasks.shift();
       }
 
-      // Update goal progress
-      if (Math.random() > 0.7) {
+      // Update goal progress (if goals object has progress property)
+      if (Math.random() > 0.7 && dashboardData.goals && dashboardData.goals.progress) {
         const currentProgress = dashboardData.goals.progress[task.goal];
-        dashboardData.goals.progress[task.goal] = Math.min(currentProgress + 1, 100);
+        if (typeof currentProgress === 'number') {
+          dashboardData.goals.progress[task.goal] = Math.min(currentProgress + 1, 100);
+        }
       }
     }
   }
