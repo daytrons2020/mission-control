@@ -3080,7 +3080,7 @@
     }
 
     function renderCosts() {
-      if (!dashboardData?.costs) return;
+      if (!dashboardData?.costs?.budget) return;
       
       const overview = document.getElementById('cost-overview');
       if (overview) {

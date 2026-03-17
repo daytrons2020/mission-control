@@ -4,7 +4,7 @@
     {
       "id": "main",
       "name": "Kimi (Lead AI)",
-      "emoji": "🎯",
+      "emoji": "\ud83c\udfaf",
       "status": "busy",
       "role": "Lead AI",
       "sessions": 118,
@@ -15,7 +15,7 @@
     {
       "id": "coder",
       "name": "Kimi-Code",
-      "emoji": "💻",
+      "emoji": "\ud83d\udcbb",
       "status": "standby",
       "role": "Code Specialist",
       "sessions": 2,
@@ -26,7 +26,7 @@
     {
       "id": "ai-engineer",
       "name": "AI Engineer",
-      "emoji": "🤖",
+      "emoji": "\ud83e\udd16",
       "status": "standby",
       "role": "ML Pipeline",
       "sessions": 0,
@@ -36,7 +36,7 @@
     {
       "id": "frontend-developer",
       "name": "Frontend Dev",
-      "emoji": "🎨",
+      "emoji": "\ud83c\udfa8",
       "status": "standby",
       "role": "UI/UX",
       "sessions": 0,
@@ -46,7 +46,7 @@
     {
       "id": "backend-developer",
       "name": "Backend Dev",
-      "emoji": "⚙️",
+      "emoji": "\u2699\ufe0f",
       "status": "standby",
       "role": "APIs",
       "sessions": 0,
@@ -56,7 +56,7 @@
     {
       "id": "database-engineer",
       "name": "Database Eng",
-      "emoji": "🗄️",
+      "emoji": "\ud83d\uddc4\ufe0f",
       "status": "busy",
       "role": "Data",
       "sessions": 0,
@@ -66,7 +66,7 @@
     {
       "id": "integration-specialist",
       "name": "Integration Spec",
-      "emoji": "🔌",
+      "emoji": "\ud83d\udd0c",
       "status": "standby",
       "role": "APIs",
       "sessions": 0,
@@ -76,7 +76,7 @@
     {
       "id": "researcher",
       "name": "Researcher",
-      "emoji": "🔍",
+      "emoji": "\ud83d\udd0d",
       "status": "standby",
       "role": "Research",
       "sessions": 0,
@@ -86,7 +86,7 @@
     {
       "id": "mlx-deepseek",
       "name": "MLX (Local)",
-      "emoji": "🍎",
+      "emoji": "\ud83c\udf4e",
       "status": "busy",
       "role": "Primary - Try First",
       "sessions": 0,
@@ -378,8 +378,41 @@
     "lastCheck": "2026-03-17T05:04:13.278Z"
   },
   "costs": {
-    "today": 0,
-    "total": 0
+    "today": 0.23,
+    "week": 1.47,
+    "month": 4.82,
+    "budget": {
+      "daily": 1.0,
+      "weekly": 7.0,
+      "monthly": 30.0
+    },
+    "byModel": {
+      "mlx": {
+        "cost": 0,
+        "tasks": 128,
+        "label": "FREE"
+      },
+      "kimi-code": {
+        "cost": 0.26,
+        "tasks": 13,
+        "label": "$0.26"
+      },
+      "kimi": {
+        "cost": 0.16,
+        "tasks": 8,
+        "label": "$0.16"
+      },
+      "minimax": {
+        "cost": 0.03,
+        "tasks": 2,
+        "label": "$0.03"
+      },
+      "nano": {
+        "cost": 0.04,
+        "tasks": 8,
+        "label": "$0.04"
+      }
+    }
   },
   "calendar": [
     {
@@ -457,61 +490,61 @@
     {
       "time": "16 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-2"
     },
     {
       "time": "18 min ago",
       "text": "Created task-1773722479803-0-sub-1-implement-core-features",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "18 min ago",
       "text": "Created task-1773722479803-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-1-implement-core-features",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718886486-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-2"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-1-implement-core-features",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-2"
     },
     {
       "time": "1 hours ago",
       "text": "Created task-1773718199932-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-1"
     },
     {
       "time": "13 hours ago",
       "text": "Created task-1773676800552-0-sub-0-design-architecture",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "goal": "goal-2"
     }
   ],
