@@ -1,0 +1,15 @@
+venv/
+.git/
+node_modules/
+.backups/
+scripts_archive/
+archive/
+logs/*.log
+*.log
+.DS_Store
+.env
+__pycache__/
+*.pyc
+.Python
+*.so
+*.dylib

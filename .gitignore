@@ -2,3 +2,8 @@
 
 # Backups
 .backups/
+
+# Virtual Environment
+venv/
+.env/
+.venv/
