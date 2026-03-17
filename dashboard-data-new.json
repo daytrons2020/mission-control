@@ -1,0 +1,390 @@
+{
+  "goals": [
+    {
+      "id": 1,
+      "name": "Respiratory Therapy Directory",
+      "progress": 75,
+      "status": "active",
+      "tasks": {
+        "completed": 15,
+        "total": 20
+      },
+      "agent": "Frontend Developer",
+      "agentIcon": "\ud83d\udcbb",
+      "due": "Jan 25"
+    },
+    {
+      "id": 2,
+      "name": "Polymarket Trading Bot",
+      "progress": 30,
+      "status": "active",
+      "tasks": {
+        "completed": 6,
+        "total": 20
+      },
+      "agent": "Trading Analyst",
+      "agentIcon": "\ud83d\udcc8",
+      "due": "Feb 15"
+    },
+    {
+      "id": 3,
+      "name": "Amazon Reselling System",
+      "progress": 45,
+      "status": "active",
+      "tasks": {
+        "completed": 9,
+        "total": 20
+      },
+      "agent": "Integration Specialist",
+      "agentIcon": "\ud83d\udd17",
+      "due": "Feb 28"
+    },
+    {
+      "id": 4,
+      "name": "Life Improving Tools",
+      "progress": 10,
+      "status": "pending",
+      "tasks": {
+        "completed": 2,
+        "total": 20
+      },
+      "agent": "AI Engineer",
+      "agentIcon": "\ud83e\udd16",
+      "due": "Mar 30"
+    },
+    {
+      "id": 5,
+      "name": "Personal Website Portfolio",
+      "progress": 60,
+      "status": "active",
+      "tasks": {
+        "completed": 12,
+        "total": 20
+      },
+      "agent": "Content Writer",
+      "agentIcon": "\u270d\ufe0f",
+      "due": "Jan 30"
+    }
+  ],
+  "tasks": {
+    "active": [
+      {
+        "id": "T-001",
+        "name": "Design homepage layout",
+        "assignee": "Frontend Developer",
+        "priority": "high",
+        "due": "Today",
+        "goalId": 1
+      },
+      {
+        "id": "T-002",
+        "name": "Set up API endpoints",
+        "assignee": "Backend Developer",
+        "priority": "high",
+        "due": "Tomorrow",
+        "goalId": 1
+      },
+      {
+        "id": "T-003",
+        "name": "Research trading patterns",
+        "assignee": "Trading Analyst",
+        "priority": "medium",
+        "due": "In 2 days",
+        "goalId": 2
+      },
+      {
+        "id": "T-004",
+        "name": "Configure webhook integration",
+        "assignee": "Integration Specialist",
+        "priority": "medium",
+        "due": "Jan 22",
+        "goalId": 3
+      }
+    ],
+    "completed": [
+      {
+        "id": "T-000",
+        "name": "Initial project setup",
+        "assignee": "AI Engineer",
+        "completedAt": "Jan 15"
+      },
+      {
+        "id": "T-005",
+        "name": "Database schema design",
+        "assignee": "Backend Developer",
+        "completedAt": "Jan 14"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "id": "mlx",
+      "name": "MLX (Local)",
+      "emoji": "\ud83c\udf4e",
+      "model": "deepseek-14b",
+      "cost": "FREE",
+      "costClass": "free",
+      "role": "Primary - Try First",
+      "tasksCompleted": 92,
+      "successRate": "94%",
+      "status": "online",
+      "description": "Apple Silicon MLX - FREE tier. Handles simple tasks, escalates complex ones."
+    },
+    {
+      "id": "kimi-code",
+      "name": "Kimi-Code (You)",
+      "emoji": "\ud83d\udcbb",
+      "model": "kimi-code-v1",
+      "cost": "$0.02",
+      "costClass": "medium",
+      "role": "Escalation - Code Specialist",
+      "tasksCompleted": 18,
+      "successRate": "98%",
+      "status": "online",
+      "description": "Code specialist. Handles debugging, refactoring, architecture."
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi 2.5",
+      "emoji": "\ud83c\udfaf",
+      "model": "kimi-k2.5",
+      "cost": "$0.02",
+      "costClass": "medium",
+      "role": "Escalation - Reasoning",
+      "tasksCompleted": 12,
+      "successRate": "97%",
+      "status": "online",
+      "description": "Reasoning specialist. Handles research, analysis, strategy."
+    },
+    {
+      "id": "minimax",
+      "name": "Minimax",
+      "emoji": "\ud83c\udfad",
+      "model": "MiniMax-M2.5",
+      "cost": "$0.015",
+      "costClass": "low",
+      "role": "Direct - Images/Chinese",
+      "tasksCompleted": 2,
+      "successRate": "96%",
+      "status": "online",
+      "description": "Image generation & Chinese language. MLX can't do these."
+    },
+    {
+      "id": "nano",
+      "name": "Nano",
+      "emoji": "\u26a1",
+      "model": "gpt-4o-mini",
+      "cost": "$0.005",
+      "costClass": "low",
+      "role": "Fallback Agent",
+      "tasksCompleted": 8,
+      "successRate": "92%",
+      "status": "online",
+      "description": "Lightweight agent for quick simple tasks."
+    },
+    {
+      "id": "ai-engineer",
+      "name": "AI Engineer",
+      "emoji": "\ud83e\udd16",
+      "model": "claude-3.5-sonnet",
+      "cost": "$0.03",
+      "costClass": "high",
+      "role": "Specialized Agent",
+      "tasksCompleted": 5,
+      "successRate": "99%",
+      "status": "online",
+      "description": "Complex AI/ML engineering tasks."
+    },
+    {
+      "id": "researcher",
+      "name": "Researcher",
+      "emoji": "\ud83d\udd2c",
+      "model": "perplexity-sonar",
+      "cost": "$0.025",
+      "costClass": "high",
+      "role": "On-Demand Agent",
+      "tasksCompleted": 3,
+      "successRate": "98%",
+      "status": "standby",
+      "description": "Deep research with web search capabilities."
+    }
+  ],
+  "routing": {
+    "strategy": "Hybrid Cascade",
+    "description": "MLX First \u2192 Escalate if Needed",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Pre-filter",
+        "description": "Skip MLX for impossible tasks (images, Chinese)",
+        "model": "Direct Routing",
+        "cost": "Varies"
+      },
+      {
+        "step": 2,
+        "title": "MLX Attempt",
+        "description": "Try MLX first - it's FREE",
+        "model": "\ud83c\udf4e MLX (Local)",
+        "cost": "$0"
+      },
+      {
+        "step": 3,
+        "title": "Escalation Check",
+        "description": "Analyze MLX confidence/response quality",
+        "model": "Auto-Analysis",
+        "cost": "$0"
+      },
+      {
+        "step": 4,
+        "title": "Escalate if Needed",
+        "description": "Kimi-Code (debug) or Kimi 2.5 (reasoning)",
+        "model": "\ud83d\udcbb / \ud83c\udfaf",
+        "cost": "$0.02"
+      }
+    ],
+    "stats": {
+      "mlxAttempts": 142,
+      "mlxSuccess": 128,
+      "escalations": 14,
+      "directRouting": 5,
+      "escalationRate": "9.9%",
+      "mlxSuccessRate": "90.1%"
+    }
+  },
+  "costs": {
+    "today": 0.23,
+    "week": 1.47,
+    "month": 4.82,
+    "budget": {
+      "daily": 1.0,
+      "weekly": 7.0,
+      "monthly": 30.0
+    },
+    "projectedSavings": "~$15/month",
+    "byModel": {
+      "mlx": {
+        "cost": 0,
+        "tasks": 128,
+        "label": "FREE"
+      },
+      "kimi-code": {
+        "cost": 0.26,
+        "tasks": 13,
+        "label": "$0.26"
+      },
+      "kimi": {
+        "cost": 0.16,
+        "tasks": 8,
+        "label": "$0.16"
+      },
+      "minimax": {
+        "cost": 0.03,
+        "tasks": 2,
+        "label": "$0.03"
+      },
+      "nano": {
+        "cost": 0.04,
+        "tasks": 8,
+        "label": "$0.04"
+      }
+    },
+    "oldVsNew": {
+      "oldApproach": "Keyword-based upfront prediction",
+      "newApproach": "MLX-first with smart escalation",
+      "estimatedSavings": "35-40%"
+    }
+  },
+  "sessions": {
+    "total": 159,
+    "active": 3,
+    "byAgent": {
+      "mlx": 128,
+      "kimi-code": 13,
+      "kimi": 8,
+      "minimax": 2,
+      "nano": 8
+    },
+    "lastUpdate": "2025-01-20T22:30:00Z"
+  },
+  "memory": {
+    "totalDocuments": 156,
+    "totalChunks": 3420,
+    "lastUpdated": "2025-01-20T18:00:00Z",
+    "sources": [
+      {
+        "id": "doc_001",
+        "title": "Project Requirements v2",
+        "chunks": 45,
+        "added": "Jan 15",
+        "source": "Notion"
+      },
+      {
+        "id": "doc_002",
+        "title": "API Documentation",
+        "chunks": 120,
+        "added": "Jan 14",
+        "source": "Confluence"
+      },
+      {
+        "id": "doc_003",
+        "title": "Trading Strategy Notes",
+        "chunks": 78,
+        "added": "Jan 13",
+        "source": "Google Docs"
+      }
+    ],
+    "recentQueries": [
+      {
+        "query": "How to implement OAuth2?",
+        "results": 5,
+        "time": "2 hours ago",
+        "relevant": true
+      },
+      {
+        "query": "Trading bot architecture patterns",
+        "results": 8,
+        "time": "5 hours ago",
+        "relevant": true
+      },
+      {
+        "query": "Database optimization tips",
+        "results": 3,
+        "time": "1 day ago",
+        "relevant": false
+      }
+    ]
+  },
+  "communication": {
+    "features": [
+      "Real-time chat with agents",
+      "Task management via chat",
+      "Status queries",
+      "Timeline estimates",
+      "Broadcast messaging",
+      "Quick action buttons"
+    ],
+    "commands": [
+      {
+        "command": "status",
+        "description": "Check agent's current work"
+      },
+      {
+        "command": "how long left?",
+        "description": "Get ETA for current task"
+      },
+      {
+        "command": "add task: [name]",
+        "description": "Create new task"
+      },
+      {
+        "command": "remove task: [name]",
+        "description": "Delete a task"
+      },
+      {
+        "command": "@all [message]",
+        "description": "Broadcast to all agents"
+      }
+    ]
+  },
+  "activeTasks": []
+}
