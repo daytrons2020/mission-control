@@ -847,7 +847,7 @@ Respond with:
   }
 
   async attemptMLXRecovery() {
-    """Attempt to restart MLX server if it's not responding"""
+    // Attempt to restart MLX server if it's not responding
     try {
       console.log('[Recovery] Attempting MLX restart...');
       
@@ -893,7 +893,7 @@ Respond with:
   }
 
   async notifySimulationMode(agent, error) {
-    """Notify Discord that we're falling back to simulation mode"""
+    // Notify Discord that we're falling back to simulation mode
     try {
       if (CONFIG.discordWebhook) {
         await discordNotifier.sendNotification(

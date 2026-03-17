@@ -2092,178 +2092,29 @@
     </div>
 
     <!-- Tasks Tab -->
-    <!-- Tasks Tab - Office Style Command Center -->
     <div class="content" id="tasks">
-      <!-- Task Command Center Header -->
-      <div class="task-command-header">
-        <div class="command-stats">
-          <div class="command-stat">
-            <div class="command-stat-value" id="cmd-total-tasks">0</div>
-            <div class="command-stat-label">Total Tasks</div>
-          </div>
-          <div class="command-stat active">
-            <div class="command-stat-value" id="cmd-active-tasks">0</div>
-            <div class="command-stat-label">In Progress</div>
-          </div>
-          <div class="command-stat completed">
-            <div class="command-stat-value" id="cmd-completed-tasks">0</div>
-            <div class="command-stat-label">Completed</div>
-          </div>
-          <div class="command-stat">
-            <div class="command-stat-value" id="cmd-agents-busy">0</div>
-            <div class="command-stat-label">Agents Busy</div>
+      <div class="card">
+        <div class="section-header">
+          <div class="section-title">
+            ⚡ Active Tasks
+            <span class="section-count" id="active-count">4</span>
           </div>
         </div>
-        
-        <div class="command-actions">
-          <button class="cmd-btn primary" onclick="showCreateTaskModal()">
-            <span>➕</span>
-            <span>New Task</span>
-          </button>
-          <button class="cmd-btn" onclick="refreshTasks()">
-            <span>🔄</span>
-            <span>Refresh</span>
-          </button>
-          <div class="command-filter">
-            <select id="task-filter-select" onchange="filterTaskView(this.value)">
-              <option value="all">All Tasks</option>
-              <option value="mine">My Assignments</option>
-              <option value="urgent">🔥 Urgent</option>
-              <option value="today">Due Today</option>
-            </select>
-          </div>
-        </div>
+        <div class="task-list" id="active-tasks"></div>
       </div>
-
-      <!-- Office Floor Plan Style Task Board -->
-      <div class="office-floor">
-        <!-- Left: Active Workstations -->
-        <div class="workstation-area">
-          <div class="area-header">
-            <span class="area-icon">💼</span>
-            <h3>Active Workstations</h3>
-            <span class="area-count" id="workstation-count">0</span>
-          </div>
-          
-          <div class="workstations-grid" id="workstations-grid">
-            <!-- Workstations populated by JS -->
+      
+      <div class="card">
+        <div class="section-header">
+          <div class="section-title">
+            ✓ Completed
+            <span class="section-count" id="completed-count">2</span>
           </div>
         </div>
-
-        <!-- Center: Task Board (Kanban Style) -->
-        <div class="task-board-area">
-          <div class="kanban-board">
-            <div class="kanban-column backlog">
-              <div class="kanban-header">
-                <span class="kanban-dot"></span>
-                <h4>📥 Backlog</h4>
-                <span class="kanban-count" id="backlog-count">0</span>
-              </div>
-              <div class="kanban-tasks" id="backlog-tasks"></div>
-            </div>
-            
-            <div class="kanban-column in-progress">
-              <div class="kanban-header">
-                <span class="kanban-dot"></span>
-                <h4>⚡ In Progress</h4>
-                <span class="kanban-count" id="progress-count">0</span>
-              </div>
-              <div class="kanban-tasks" id="progress-tasks"></div>
-            </div>
-            
-            <div class="kanban-column review">
-              <div class="kanban-header">
-                <span class="kanban-dot"></span>
-                <h4>👁️ Review</h4>
-                <span class="kanban-count" id="review-count">0</span>
-              </div>
-              <div class="kanban-tasks" id="review-tasks"></div>
-            </div>
-            
-            <div class="kanban-column done">
-              <div class="kanban-header">
-                <span class="kanban-dot"></span>
-                <h4>✅ Done</h4>
-                <span class="kanban-count" id="done-count">0</span>
-              </div>
-              <div class="kanban-tasks" id="done-tasks"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Agent Activity Wall -->
-        <div class="activity-wall-area">
-          <div class="area-header">
-            <span class="area-icon">📺</span>
-            <h3>Live Activity</h3>
-          </div>
-          
-          <div class="activity-wall" id="activity-wall">
-            <!-- Activity items populated by JS -->
-          </div>
-          
-          <!-- Agent Presence Indicator -->
-          <div class="agent-presence-panel">
-            <h4>Who's Online</h4>
-            <div class="presence-list" id="presence-list"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Task Detail Modal (Hidden by default) -->
-      <div class="task-detail-overlay" id="task-detail-overlay" onclick="closeTaskDetail()">
-        <div class="task-detail-modal" onclick="event.stopPropagation()">
-          <div class="task-detail-header">
-            <div class="task-status-badge" id="detail-status">In Progress</div>
-            <button class="close-btn" onclick="closeTaskDetail()">&times;</button>
-          </div>
-          
-          <div class="task-detail-content">
-            <h2 id="detail-title">Task Title</h2>
-            
-            <div class="task-meta-row">
-              <div class="task-meta-item">
-                <span class="meta-label">👤 Assigned to</span>
-                <div class="agent-assignee" id="detail-assignee"></div>
-              </div>
-              <div class="task-meta-item">
-                <span class="meta-label">📅 Due Date</span>
-                <span id="detail-due">--</span>
-              </div>
-              <div class="task-meta-item">
-                <span class="meta-label">🎯 Priority</span>
-                <span id="detail-priority">--</span>
-              </div>
-            </div>
-            
-            <div class="task-progress-section">
-              <div class="progress-header">
-                <span>Progress</span>
-                <span id="detail-progress-text">0%</span>
-              </div>
-              <div class="progress-bar-large">
-                <div class="progress-fill" id="detail-progress-bar" style="width: 0%"></div>
-              </div>
-            </div>
-            
-            <div class="task-description" id="detail-description">
-              Task description goes here...
-            </div>
-            
-            <div class="task-timeline" id="detail-timeline">
-              <h4>Activity Timeline</h4>
-              <!-- Timeline items -->
-            </div>
-          </div>
-          
-          <div class="task-detail-actions">
-            <button class="btn secondary" onclick="editTask()">✏️ Edit</button>
-            <button class="btn primary" onclick="updateTaskProgress()">📊 Update Progress</button>
-            <button class="btn success" onclick="markTaskComplete()">✅ Mark Complete</button>
-          </div>
-        </div>
+        <div class="task-list" id="completed-tasks"></div>
       </div>
     </div>
+
+    <!-- Costs Tab -->
     <div class="content" id="costs">
       <div class="card">
         <div class="card-header">
@@ -2860,6 +2711,7 @@
 
     // Start
     init();
+  </script>
 
     // ==================== COMMUNICATION HUB ====================
     
@@ -3196,8 +3048,9 @@
       setTimeout(initCommunication, 100);
     });
 
-
-
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>
