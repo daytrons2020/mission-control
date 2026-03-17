@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
  * MLX Cost Router - Routes tasks to optimal model
- * Priority: MLX (FREE) > Kimi-Code (You) > Kimi 2.5
+ * Priority: MLX (FREE) > Kimi-Code (You) > Kimi 2.5 > Minimax
  */
 
 // Task types and their optimal models
 const ROUTING_RULES = {
-  // FREE - MLX (deepseek-14b) - 80% of tasks
+  // FREE - MLX (deepseek-14b) - 75% of tasks
   'code_generation': { 
     model: 'mlx', 
     provider: 'mlx_14b/deepseek-14b',
@@ -28,7 +28,7 @@ const ROUTING_RULES = {
     reason: 'Test generation on MLX (FREE)' 
   },
   
-  // PAID - Kimi-Code (You) - Code specialist (15% of tasks)
+  // PAID - Kimi-Code (You) - Code specialist (12%)
   'complex_code': { 
     model: 'kimi-code', 
     provider: 'kimi-code-v1',
@@ -50,7 +50,7 @@ const ROUTING_RULES = {
     reason: 'Architecture needs Kimi-Code (You)' 
   },
   
-  // PAID - Kimi 2.5 - General reasoning (5% of tasks)
+  // PAID - Kimi 2.5 - General reasoning (8%)
   'research': { 
     model: 'kimi', 
     provider: 'moonshot/kimi-k2.5',
@@ -65,14 +65,40 @@ const ROUTING_RULES = {
     model: 'kimi', 
     provider: 'moonshot/kimi-k2.5',
     reason: 'Deep reasoning needs Kimi 2.5' 
+  },
+  
+  // PAID - Minimax - Image & Chinese (5%)
+  'image_generation': {
+    model: 'minimax',
+    provider: 'minimax/MiniMax-M2.5',
+    reason: 'Images use Minimax'
+  },
+  'chinese_text': {
+    model: 'minimax',
+    provider: 'minimax/MiniMax-M2.5',
+    reason: 'Chinese text uses Minimax'
+  },
+  'multimodal': {
+    model: 'minimax',
+    provider: 'minimax/MiniMax-M2.5',
+    reason: 'Multimodal tasks use Minimax'
   }
 };
 
 // Keywords for routing
 const KEYWORDS = {
-  mlx: ['simple', 'basic', 'create', 'add', 'implement', 'generate', 'write'],
-  kimiCode: ['debug', 'fix', 'error', 'refactor', 'optimize', 'architecture', 'design pattern', 'complex code', 'best practice'],
-  kimi: ['research', 'analyze', 'study', 'plan', 'strategy', 'reasoning', 'complex']
+  mlx: ['simple', 'basic', 'create', 'add', 'implement', 'generate', 'write', 'code', 'function', 'component'],
+  kimiCode: ['debug', 'fix', 'error', 'refactor', 'optimize', 'architecture', 'design pattern', 'complex code', 'best practice', 'review'],
+  kimi: ['research', 'analyze', 'study', 'plan', 'strategy', 'reasoning', 'complex', 'investigate'],
+  minimax: ['image', 'picture', 'photo', 'generate image', 'chinese', '中文', 'multimodal', 'visual']
+};
+
+// Cost per task (approximate)
+const COSTS = {
+  'mlx': 0,
+  'kimi-code': 0.02,
+  'kimi': 0.02,
+  'minimax': 0.015  // Slightly cheaper
 };
 
 /**
@@ -81,7 +107,21 @@ const KEYWORDS = {
 function routeTask(taskName, taskDescription = '') {
   const text = (taskName + ' ' + taskDescription).toLowerCase();
   
-  // 1. Check for Kimi-Code keywords (code specialist) - 15%
+  // 1. Check for Minimax keywords (image/Chinese) - 5%
+  for (const keyword of KEYWORDS.minimax) {
+    if (text.includes(keyword)) {
+      return {
+        model: 'minimax',
+        provider: 'minimax/MiniMax-M2.5',
+        name: 'Minimax',
+        emoji: '🎭',
+        reason: `Contains "${keyword}" - needs Minimax`,
+        estimatedCost: COSTS.minimax
+      };
+    }
+  }
+  
+  // 2. Check for Kimi-Code keywords (code specialist) - 12%
   for (const keyword of KEYWORDS.kimiCode) {
     if (text.includes(keyword)) {
       return {
@@ -90,12 +130,12 @@ function routeTask(taskName, taskDescription = '') {
         name: 'Kimi-Code (You)',
         emoji: '💻',
         reason: `Contains "${keyword}" - needs code specialist`,
-        estimatedCost: 0.02
+        estimatedCost: COSTS['kimi-code']
       };
     }
   }
   
-  // 2. Check for Kimi 2.5 keywords (general reasoning) - 5%
+  // 3. Check for Kimi 2.5 keywords (reasoning) - 8%
   for (const keyword of KEYWORDS.kimi) {
     if (text.includes(keyword)) {
       return {
@@ -104,19 +144,19 @@ function routeTask(taskName, taskDescription = '') {
         name: 'Kimi 2.5',
         emoji: '🎯',
         reason: `Contains "${keyword}" - needs reasoning`,
-        estimatedCost: 0.02
+        estimatedCost: COSTS.kimi
       };
     }
   }
   
-  // 3. Default to MLX (FREE) - 80%
+  // 4. Default to MLX (FREE) - 75%
   return {
     model: 'mlx',
     provider: 'mlx_14b/deepseek-14b',
     name: 'MLX (Local)',
     emoji: '🍎',
     reason: 'Standard task - use free MLX',
-    estimatedCost: 0
+    estimatedCost: COSTS.mlx
   };
 }
 
@@ -124,63 +164,62 @@ function routeTask(taskName, taskDescription = '') {
  * Calculate potential savings
  */
 function calculateSavings(tasks) {
-  let mlxCount = 0;
-  let kimiCodeCount = 0;
-  let kimiCount = 0;
+  let counts = { mlx: 0, 'kimi-code': 0, kimi: 0, minimax: 0 };
   
   tasks.forEach(task => {
     const route = routeTask(task.name, task.description);
-    if (route.model === 'mlx') mlxCount++;
-    else if (route.model === 'kimi-code') kimiCodeCount++;
-    else kimiCount++;
+    counts[route.model]++;
   });
   
   const total = tasks.length || 1;
-  const mlxPercent = Math.round((mlxCount / total) * 100);
-  const kimiCodePercent = Math.round((kimiCodeCount / total) * 100);
-  const kimiPercent = Math.round((kimiCount / total) * 100);
   
-  // Cost calculation
-  const mlxCost = 0; // FREE
-  const kimiCodeCost = kimiCodeCount * 0.02;
-  const kimiCost = kimiCount * 0.02;
-  const totalCost = kimiCodeCost + kimiCost;
+  // Calculate costs
+  const mlxCost = counts.mlx * COSTS.mlx;  // = 0
+  const kimiCodeCost = counts['kimi-code'] * COSTS['kimi-code'];
+  const kimiCost = counts.kimi * COSTS.kimi;
+  const minimaxCost = counts.minimax * COSTS.minimax;
+  
+  const totalCost = mlxCost + kimiCodeCost + kimiCost + minimaxCost;
   
   // Savings vs using only Kimi
-  const savings = (mlxCount * 0.02).toFixed(2);
+  const savings = (counts.mlx * 0.02).toFixed(2);
   
   return {
-    mlxTasks: mlxCount,
-    kimiCodeTasks: kimiCodeCount,
-    kimiTasks: kimiCount,
-    mlxPercent,
-    kimiCodePercent,
-    kimiPercent,
+    mlxTasks: counts.mlx,
+    kimiCodeTasks: counts['kimi-code'],
+    kimiTasks: counts.kimi,
+    minimaxTasks: counts.minimax,
+    mlxPercent: Math.round((counts.mlx / total) * 100),
+    kimiCodePercent: Math.round((counts['kimi-code'] / total) * 100),
+    kimiPercent: Math.round((counts.kimi / total) * 100),
+    minimaxPercent: Math.round((counts.minimax / total) * 100),
     totalCost: `$${totalCost.toFixed(2)}`,
     estimatedSavings: `$${savings}`
   };
 }
 
-module.exports = { routeTask, calculateSavings, ROUTING_RULES };
+module.exports = { routeTask, calculateSavings, ROUTING_RULES, COSTS };
 
 // CLI usage
 if (require.main === module) {
   const args = process.argv.slice(2);
   
   if (args.length === 0) {
-    console.log('🎯 MLX Cost Router - 3-Tier Optimization');
+    console.log('🎯 MLX Cost Router - 4-Tier Optimization');
     console.log('');
     console.log('Usage: node mlx-router.js "task name" "task description"');
     console.log('');
     console.log('Routing Strategy:');
-    console.log('  🍎 MLX (80%) - FREE - Simple code, generation, analysis');
-    console.log('  💻 Kimi-Code (15%) - $0.02 - Complex code, debugging, architecture');
-    console.log('  🎯 Kimi 2.5 (5%) - $0.02 - Research, planning, reasoning');
+    console.log('  🍎 MLX (75%)        - FREE  - Simple code, generation');
+    console.log('  💻 Kimi-Code (12%)   - $0.02 - Complex code, debugging');
+    console.log('  🎯 Kimi 2.5 (8%)     - $0.02 - Research, reasoning');
+    console.log('  🎭 Minimax (5%)      - $0.015 - Images, Chinese text');
     console.log('');
     console.log('Examples:');
     console.log('  node mlx-router.js "Create login form"');
     console.log('  node mlx-router.js "Debug memory leak"');
-    console.log('  node mlx-router.js "Research market trends"');
+    console.log('  node mlx-router.js "Generate hero image"');
+    console.log('  node mlx-router.js "Translate to Chinese"');
     process.exit(0);
   }
   
@@ -189,6 +228,8 @@ if (require.main === module) {
   
   const route = routeTask(taskName, taskDesc);
   
+  const costLabel = route.estimatedCost === 0 ? 'FREE 🟢' : `$${route.estimatedCost} 🟡`;
+  
   console.log('');
   console.log('🎯 Task Routing');
   console.log('-'.repeat(50));
@@ -196,6 +237,6 @@ if (require.main === module) {
   console.log(`Model: ${route.emoji} ${route.name}`);
   console.log(`Provider: ${route.provider}`);
   console.log(`Reason: ${route.reason}`);
-  console.log(`Est. Cost: ${route.estimatedCost === 0 ? 'FREE 🟢' : '$' + route.estimatedCost + ' 🟡'}`);
+  console.log(`Est. Cost: ${costLabel}`);
   console.log('');
 }
