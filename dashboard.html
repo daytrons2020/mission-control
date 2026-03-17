@@ -3080,7 +3080,7 @@
     }
 
     function renderCosts() {
-      if (!dashboardData?.costs?.budget) return;
+      const costs = dashboardData?.costs || { today: 0, week: 0, month: 0, budget: { daily: 1, weekly: 7, monthly: 30 } };
       
       const overview = document.getElementById('cost-overview');
       if (overview) {
