@@ -257,10 +257,11 @@ Just send any message and I'll respond using Kimi Code CLI.
             try:
                 logger.info(f"🤔 Asking Kimi (attempt {attempt})...")
                 
-                # Run Kimi in non-interactive mode with --print and --yolo
-                # --print: non-interactive, --yolo: auto-approve actions
+                # Run Kimi in non-interactive mode with --quiet and --yolo
+                # --quiet: only final message (no internal steps)
+                # --yolo: auto-approve actions
                 result = subprocess.run(
-                    ["kimi", "--print", "--yolo", "-c", prompt],
+                    ["kimi", "--quiet", "--yolo", "-c", prompt],
                     capture_output=True,
                     text=True,
                     timeout=REQUEST_TIMEOUT
