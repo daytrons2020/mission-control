@@ -26,3 +26,10 @@
 [Router] Request: Hi...
 [Router] Coding: False, Complex: False
 [Router] Using 14b
+🧠 Smart Router with Model Switching on port 11435
+  Strategy:
+    • Simple tasks -> MLX 14B (fast)
+    • Complex tasks -> MLX 24B (powerful)
+    • Coding tasks -> Kimi Code (file editing)
+  Auto-switches based on task complexity
+

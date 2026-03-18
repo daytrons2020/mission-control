@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-18T03:06:54.497Z",
+  "timestamp": "2026-03-18T03:06:45.071Z",
   "agents": [
     {
       "id": "main",
@@ -8,7 +8,7 @@
       "role": "Lead AI",
       "status": "busy",
       "sessions": 151,
-      "lastActive": 1773803213887,
+      "lastActive": 1773803168792,
       "currentTask": "Active session",
       "tasksCompleted": 75
     },
@@ -512,18 +512,6 @@
   "sessions": [
     {
       "agentId": "main",
-      "sessionKey": "agent:main:cron:8dd8e83d-12f9-4fe2-a6f2-b5457b4b96e2",
-      "updatedAt": 1773803213887,
-      "hasSkills": true
-    },
-    {
-      "agentId": "main",
-      "sessionKey": "agent:main:cron:8dd8e83d-12f9-4fe2-a6f2-b5457b4b96e2:run:a04b17fb-b589-487d-89a3-688e34337347",
-      "updatedAt": 1773803213887,
-      "hasSkills": true
-    },
-    {
-      "agentId": "main",
       "sessionKey": "agent:main:cron:2e4e9e21-b85a-4a60-877d-b95192514461",
       "updatedAt": 1773803168792,
       "hasSkills": true
@@ -578,6 +566,12 @@
     },
     {
       "agentId": "main",
+      "sessionKey": "agent:main:cron:8dd8e83d-12f9-4fe2-a6f2-b5457b4b96e2",
+      "updatedAt": 1773796045467,
+      "hasSkills": true
+    },
+    {
+      "agentId": "main",
       "sessionKey": "agent:main:cron:8dd8e83d-12f9-4fe2-a6f2-b5457b4b96e2:run:633d2699-3b9d-400a-a9b4-88e691b44006",
       "updatedAt": 1773796045467,
       "hasSkills": true
@@ -627,6 +621,12 @@
     {
       "agentId": "main",
       "sessionKey": "agent:main:cron:a6cd0185-b53d-4619-a2c5-8bccad442479",
+      "updatedAt": 1773792154763,
+      "hasSkills": true
+    },
+    {
+      "agentId": "main",
+      "sessionKey": "agent:main:cron:a6cd0185-b53d-4619-a2c5-8bccad442479:run:0682cd9e-935f-47ac-9360-29979a6a9938",
       "updatedAt": 1773792154763,
       "hasSkills": true
     }
@@ -879,7 +879,7 @@
     "activeAgents": 1,
     "totalDeliverables": 24,
     "totalWords": 5303,
-    "lastUpdate": "2026-03-18T03:06:54.497Z"
+    "lastUpdate": "2026-03-18T03:06:45.071Z"
   },
   "costs": {
     "today": 0.23,
@@ -921,7 +921,7 @@
   "memory": {
     "totalDocuments": 24,
     "totalChunks": 53,
-    "lastUpdated": "2026-03-18T03:06:54.497Z",
+    "lastUpdated": "2026-03-18T03:06:45.071Z",
     "agentCreatedDocuments": [
       {
         "id": "task-1773763200217-0-sub-1-implement-core-features",
